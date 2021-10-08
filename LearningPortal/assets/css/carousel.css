@@ -4,6 +4,10 @@
 */
 .carousel-item {
     padding: 10px;
+    border:0px;
+}
+.carousel-control-prev {
+    margin-right: 10rem;
 }
 .carousel-control-next-icon {
     margin-left: 10rem;
@@ -11,23 +15,37 @@
 .carousel-control-prev-icon {
     margin-right: 10rem;
 }
+.carousel-item .card{
+    border: 1px solid;
+}
+    .carousel-item .card .card-body h5{
+        font-size:12px;
+    }
 
     .carousel-control-next-icon, .carousel-control-prev-icon {
-    background: none;
-    font-size: 50px;
-    line-height: 1;
-    width: auto;
-    height: auto;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 10px;
-    transition: 0.3s;
-    color: rgb(18 56 245);
-}
+        background: none;
+        font-size: 50px;
+        line-height: 1;
+        width: auto;
+        height: auto;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px;
+        transition: 0.3s;
+        color: rgb(18 56 245);
+    }
 
      .carousel-control-next-icon:hover,  .carousel-control-prev-icon:hover {
-        background: rgba(255, 255, 255, 0.3);
-        color: rgba(255, 255, 255, 0.8);
+        
+        color: black;
     }
+
+
+
+
+
+
+
+
 @media (min-width: 768px) and (max-width: 991px) {
     /* Show 4th slide on md if col-md-4*/
     .carousel-inner .active.col-md-4.carousel-item + .carousel-item + .carousel-item + .carousel-item {

@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "ViewAllCourse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model IEnumerable<LearningPortal.Models.Courses>
+
+<div class="mdk-drawer-layout__content page mt-5">
+
+    <div class="container mt-2 ">
+        @{ if (ViewBag.BreadCrumbCat == null)
+            {
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">@ViewBag.BreadCrumbCat</a> </li>
+                    <li class="breadcrumb-item "><a href="#"> @ViewBag.BreadCrumbSubCat</a></li>
+                    <li class="breadcrumb-item active">ViewAll</li>
+                </ol>
+
+
+<div class="media align-items-center mb-headings">
+                    <div class="media-body">
+                        <h1 class="h2">Courses</h1>
+                    </div>
+                </div>
+            }
+            else
+            {
+    <div class="media align-items-center mb-headings">
+        <div class="media-body">
+            <h1 class="h2">No Courses Available</h1>
+        </div>
+    </div>
+            }
+            }
+
+    </div>
+<div class="clearfix"></div>
+
+<div class="card-columns row">
+    @{ foreach (var item in Model)
+        {
+            <div class="card col-3">
+                <div class="card-header text-center">
+                    <h4 class="card-title mb-0"><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h4>
+                    <div class="rating">
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star_border</i>
+                        <i class="material-icons">star_border</i>
+                        <i class="material-icons">star_border</i>
+                    </div>
+                </div>
+                <a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">
+                    <img src="~/assets/images/@item.Image"
+                         alt=""
+                         style="width:100%;">
+                </a>
+                <div class="card-body">
+
+                    <small class="text-muted">Year: @item.Year</small><br>
+                    <p class="limited-text"> @item.Description  </p><br>
+                    @{
+                        if (item.Levels == "Easy")
+                        {
+                            <span class="badge badge-primary ">@item.Levels</span>
+                        }
+                        else if (item.Levels == "Medium")
+                        {
+                            <span class="badge badge-warning ">@item.Levels</span>
+                        }
+                        else if (item.Levels == "Hard")
+                        {
+                            <span class="badge badge-danger ">@item.Levels</span>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
+
+    </div>

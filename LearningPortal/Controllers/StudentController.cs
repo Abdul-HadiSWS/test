@@ -8,19 +8,17 @@ using LearningPortal.Models;
 
 namespace LearningPortal.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         public ApplicationDbContext Db = new ApplicationDbContext();
         // GET: Student
-        [Authorize]
+    
         public ActionResult StudentDashboard()
         {
             return View();
         }
-        public ActionResult StudentCourse(int? id)
-        {
-            return View();
-        }
+      
 
         public PartialViewResult Menu()
         {
@@ -48,6 +46,37 @@ namespace LearningPortal.Controllers
             Session["subtosubmenu"] = cour;
         }
 
+        public PartialViewResult ResumeCourse()
+        {
+            var course = Db.Courses.Where(e=>e.IsFeatured==true).ToList();
+         
+            return PartialView(course);
+        }
+
+        public PartialViewResult FeaturedCourse()
+        {
+            var course = Db.Courses.Where(e => e.IsFeatured == false).ToList();
+           // var course = Db.Courses.SqlQuery("select * from Courses where IsFeatured = 'False'").ToList();
+
+            return PartialView(course);
+        }
+
+        public ActionResult StudentCourse(int? id)
+        {
+            var courses = Db.Courses.Find(id)
+;
+
+            string Section = "Section " + courses.Sections.Count();
+            int videocount = 0;
+            foreach (var item in courses.Sections)
+            {
+                videocount = videocount + item.SectionMedia.Count();
+            }
+            string Video = " - Videos " + videocount;
+
+            ViewBag.data = Section + Video;
+            return View(courses);
+        }
 
     }
 }

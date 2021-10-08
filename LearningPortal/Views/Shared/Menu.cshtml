@@ -1,0 +1,53 @@
+﻿<div id='cssmenu' class="dropdown-item" style="
+    margin-left: 0px;
+    padding-left: 0px;
+">
+    <ul>
+        <li>
+            <a href='#' class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+            <ul>
+
+                @{
+                    foreach (LearningPortal.Models.Categories item in Cache["Menu"] as List<LearningPortal.Models.Categories>)
+                    {
+                        <li>
+                            <a>@item.CategoryName <i class="fa fa-caret-right"></i> </a>
+                            @{
+                                ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Submenu(Convert.ToInt32(item.CategoryId));
+                            }
+                            <ul>
+                                @{
+                                    foreach (LearningPortal.Models.SubCategories subitem in Cache["submenu"] as List<LearningPortal.Models.SubCategories>)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("ViewAllCourse", "Home", new{id=subitem.SubCategoryId})">@subitem.SubCategoryName <i class="fa fa-caret-right"></i></a>
+                                            @{
+                                                ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Subtosubmenu(Convert.ToInt32(subitem.SubCategoryId));
+                                            }
+                                            <ul>
+                                                @{
+                                                    foreach (LearningPortal.Models.Courses subtosubitem in Cache["subtosubmenu"] as List<LearningPortal.Models.Courses>)
+                                                    {
+
+                                                        <li>
+                                                            <a href="@Url.Action("StudentCourse", "Home", new {id=subtosubitem.CourseId})">@subtosubitem.CourseName</a>
+
+                                                        </li>
+
+                                                    } }
+                                                    <li>
+                                                        <a href="@Url.Action("ViewAllCourse", "Home", new{id=subitem.SubCategoryId})">ViewAll</a>
+                                                    </li>
+                                            </ul>
+                                        </li>
+                                    } }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+
+        </li>
+    </ul>
+
+</div>

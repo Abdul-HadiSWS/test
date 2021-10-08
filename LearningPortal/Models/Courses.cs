@@ -38,6 +38,7 @@ namespace LearningPortal.Models
         [ForeignKey("CourseLearning")]       
         public virtual ICollection<CourseLearning> CourseLearnings { get; set; }
         public virtual SubCategories SubCategories { get; set; }
-       
+
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

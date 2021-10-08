@@ -182,6 +182,14 @@
     <Compile Include="Migrations\202110020940027_InitialCreate1.Designer.cs">
       <DependentUpon>202110020940027_InitialCreate1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110051055542_initialCreate2.cs" />
+    <Compile Include="Migrations\202110051055542_initialCreate2.Designer.cs">
+      <DependentUpon>202110051055542_initialCreate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110071018072_Initialcreate3.cs" />
+    <Compile Include="Migrations\202110071018072_Initialcreate3.Designer.cs">
+      <DependentUpon>202110071018072_Initialcreate3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Categories.cs" />
@@ -201,6 +209,8 @@
     <Content Include="assets\css\app1.css" />
     <Content Include="assets\css\bootstrap-touchspin.css" />
     <Content Include="assets\css\carousel.css" />
+    <Content Include="assets\css\Course.css" />
+    <Content Include="assets\css\dropdown.css" />
     <Content Include="assets\css\dropzone.css" />
     <Content Include="assets\css\fancytree.css" />
     <Content Include="assets\css\flatpickr-airbnb.css" />
@@ -297,9 +307,12 @@
     <Content Include="assets\js\chartjs.js" />
     <Content Include="assets\js\check-selected-row.js" />
     <Content Include="assets\js\countdown.js" />
+    <Content Include="assets\js\Course.js" />
     <Content Include="assets\js\dragula.js" />
+    <Content Include="assets\js\drop.js" />
     <Content Include="assets\js\dropdown-dismissable.js" />
     <Content Include="assets\js\dropdown.js" />
+    <Content Include="assets\js\duration.js" />
     <Content Include="assets\js\fancytree.js" />
     <Content Include="assets\js\flatpickr.js" />
     <Content Include="assets\js\fullcalendar.js" />
@@ -401,6 +414,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Slider.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -435,10 +449,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_StudentLayout.cshtml" />
-    <Content Include="Views\Student\StudentDashboard.cshtml" />
-    <Content Include="Views\Student\StudentCourse.cshtml" />
-    <Content Include="Views\Student\Menu.cshtml" />
+    <Content Include="Views\Home\StudentDashboard.cshtml" />
+    <Content Include="Views\Home\StudentCourse.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\ResumeCourse.cshtml" />
+    <Content Include="Views\Shared\FeaturedCourse.cshtml" />
+    <Content Include="Views\Home\VideoPreview.cshtml" />
+    <Content Include="Views\Home\StudentCourseVideo.cshtml" />
+    <Content Include="Views\Home\ViewAllCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -462,6 +480,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110020940027_InitialCreate1.resx">
       <DependentUpon>202110020940027_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110051055542_initialCreate2.resx">
+      <DependentUpon>202110051055542_initialCreate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110071018072_Initialcreate3.resx">
+      <DependentUpon>202110071018072_Initialcreate3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

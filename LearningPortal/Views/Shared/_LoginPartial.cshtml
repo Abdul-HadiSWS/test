@@ -7,7 +7,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-                <a href="@Url.Action("StudentDashboard", "Student")"
+                <a href="@Url.Action("StudentDashboard", "Home")"
                    class="nav-link">Hello @User.Identity.GetUserName() </a>
                     
             </li>
@@ -49,8 +49,8 @@
 }
 else
 {
-    @*<ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
             <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
             <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        </ul>*@
+        </ul>
 }

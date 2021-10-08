@@ -24,7 +24,7 @@ namespace LearningPortal.Models
 
         [Required(ErrorMessage = "Enter WatchedTime")]
         [Display(Name = "WatchedTime")]
-        public double WatchedTime { get; set; }
+        public int WatchedTime { get; set; }
 
         [Required(ErrorMessage = "Enter UpdatedTime")]
         [Display(Name = "UpdatedTime")]
