@@ -13,19 +13,10 @@
                    class="nav-link">
 
 
-                    Hello&nbsp;
+                    Hello&nbsp @User.Identity.GetUserName()
 
 
-                    @{
-                        var userId = User.Identity.GetUserId();
-                        using (var context = new ApplicationDbContext())
-                        {
-                            var user = context.Users.FirstOrDefault(u => u.Id == userId);
-                            <p>  @user.Email</p>
-                        }
-
-
-                    }
+                 
 
 
                 </a>

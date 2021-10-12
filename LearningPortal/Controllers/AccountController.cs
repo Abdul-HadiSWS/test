@@ -76,7 +76,21 @@ namespace LearningPortal.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var user = .Users.Where(u => u.Email.Equals(model.Email)).Single(); // where db is ApplicationDbContext instance
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, true, shouldLockout: false);
+
+            string username = "";
+            var context = new ApplicationDbContext();
+            var user = context.Users.Where(x => x.Email == model.Email).ToList();
+
+            foreach (var item in user)
+            {
+                username = item.UserName.ToString();
+            }
+             
+
+
+            
+
+            var result = await SignInManager.PasswordSignInAsync(username, model.Password, true, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
