@@ -10,7 +10,7 @@
 <div class="mdk-drawer-layout__content page mt-5">
 
     <div class="container mt-2 ">
-        @{ if (ViewBag.BreadCrumbCat == null)
+        @{ if (ViewBag.BreadCrumbCat != "")
             {
                 <ol class="breadcrumb">
 
@@ -45,13 +45,7 @@
             <div class="card col-3">
                 <div class="card-header text-center">
                     <h4 class="card-title mb-0"><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h4>
-                    <div class="rating">
-                        <i class="material-icons">star</i>
-                        <i class="material-icons">star</i>
-                        <i class="material-icons">star_border</i>
-                        <i class="material-icons">star_border</i>
-                        <i class="material-icons">star_border</i>
-                    </div>
+                    
                 </div>
                 <a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">
                     <img src="~/assets/images/@item.Image"

@@ -1,179 +1,190 @@
 ﻿@model IEnumerable<LearningPortal.Models.Courses>
 <style>
-     .carousel-item {
-      
+    .carousel-item {
         margin: 0px;
     }
-    
 </style>
 @{
 
-if (ViewBag.counts > 4)
+    if (ViewBag.counts > 4)
     {
-    <div id="carouselId" class="carousel s slide" data-type="carousel">
-        <!--
-    <ol class="carousel-indicators">
-        <li data-target="#carouselId" data-slide="prev"></li>
-        <li data-target="#carouselId" data-slide="next"></li>
-
-    </ol>
-    -->
-        <div class="carousel-inner row w-100 mx-auto" role="listbox">
-            @{
-                bool first = true;
-
-
-                foreach (var item in Model)
-                {
-                    if (first)
-                    {
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-                            <div class="card card-sm">
-                                <div class="position-relative">
-                                    <div class="card-img-top">
-                                        <img src="~/assets/images/@item.Image"
-                                             class="card-img-top"
-                                             alt="">
-                                    </div>
-
-                                </div>
-                                <div class="card-body d-flex">
-                                    <div class="flex">
-
-
-                                        <h5 class="card-title m-0" style="text-align:center"><a href="">@item.CourseName</a></h5>
-                                        <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
-                                        <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        first = false;
-                    }
-                    else
-                    {
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card card-sm">
-                                <div class="position-relative">
-                                    <div class="card-img-top">
-                                        <img src="~/assets/images/@item.Image"
-                                             class="card-img-top"
-                                             alt="">
-                                    </div>
-
-                                </div>
-                                <div class="card-body d-flex">
-                                    <div class="flex">
-
-
-                                        <h5 class="card-title m-0" style="text-align:center"><a href="">@item.CourseName</a></h5>
-                                        <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
-                                        <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-                }
-
-            }
+    <div class="media mb-headings align-items-center ">
+        <div class="media-body mt-2">
+            <h1 class="h2">Resume Courses</h1>
         </div>
-        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true">   <i class="fa fa-caret-left"> </i></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true">   <i class="fa fa-caret-right"> </i></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div> 
-    }
-else
-    {
-<div id="carouselId" class="carousel s slide" data-type="carousel">
-    <!--
-    <ol class="carousel-indicators">
-        <li data-target="#carouselId" data-slide="prev"></li>
-        <li data-target="#carouselId" data-slide="next"></li>
 
-    </ol>
-    -->
-    <div class="carousel-inner row w-100 mx-auto" role="listbox">
-        @{
-            bool first = true;
-
-
-            foreach (var item in Model)
-            {
-                if (first)
-                {
-                    <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-                        <div class="card card-sm">
-                            <div class="position-relative">
-                                <div class="card-img-top">
-                                    <img src="~/assets/images/@item.Image"
-                                         class="card-img-top"
-                                         alt="">
-                                </div>
-
-                            </div>
-                            <div class="card-body d-flex">
-                                <div class="flex">
-
-
-                                    <h5 class="card-title m-0" style="text-align:center"><a href="">@item.CourseName</a></h5>
-                                    <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
-                                    <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    first = false;
-                }
-                else
-                {
-                    <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="card card-sm">
-                            <div class="position-relative">
-                                <div class="card-img-top">
-                                    <img src="~/assets/images/@item.Image"
-                                         class="card-img-top"
-                                         alt="">
-                                </div>
-
-                            </div>
-                            <div class="card-body d-flex">
-                                <div class="flex">
-
-
-                                    <h5 class="card-title m-0" style="text-align:center"><a href="">@item.CourseName</a></h5>
-                                    <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
-                                    <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            }
-
-        }
     </div>
-   
-</div>
-}
+        <div id="carouselId" class="carousel s slide" data-type="carousel">
+            <!--
+            <ol class="carousel-indicators">
+                <li data-target="#carouselId" data-slide="prev"></li>
+                <li data-target="#carouselId" data-slide="next"></li>
 
+            </ol>
+            -->
+            <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                @{
+                    bool first = true;
+
+
+                    foreach (var item in Model)
+                    {
+                        if (first)
+                        {
+                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                                <div class="card card-sm">
+                                    <div class="position-relative">
+                                        <div class="card-img-top">
+                                            <img src="~/assets/images/@item.Image"
+                                                 class="card-img-top"
+                                                 href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body d-flex">
+                                        <div class="flex">
+
+
+                                            <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">@item.CourseName</a></h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            first = false;
+                        }
+                        else
+                        {
+                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card card-sm">
+                                    <div class="position-relative">
+                                        <div class="card-img-top">
+                                            <img src="~/assets/images/@item.Image"
+                                                 class="card-img-top"
+                                                 href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body d-flex">
+                                        <div class="flex">
+
+
+                                            <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">@item.CourseName</a></h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                }
+            </div>
+            <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true">   <i class="fa fa-caret-left"> </i></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true">   <i class="fa fa-caret-right"> </i></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+                    }
+                    else if (ViewBag.Count <= 4)
+                    {
+<div class="media mb-headings align-items-center ">
+    <div class="media-body mt-2">
+        <h1 class="h2">Resume Courses</h1>
+    </div>
+
+</div>
+        <div id="carouselId" class="carousel s slide" data-type="carousel">
+            <!--
+            <ol class="carousel-indicators">
+                <li data-target="#carouselId" data-slide="prev"></li>
+                <li data-target="#carouselId" data-slide="next"></li>
+
+            </ol>
+            -->
+            <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                @{
+                    bool first = true;
+
+
+                    foreach (var item in Model)
+                    {
+                        if (first)
+                        {
+                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                                <div class="card card-sm">
+                                    <div class="position-relative">
+                                        <div class="card-img-top">
+                                            <img src="~/assets/images/@item.Image"
+                                                 class="card-img-top"
+                                                 href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body d-flex">
+                                        <div class="flex">
+
+
+                                            <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">@item.CourseName</a></h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            first = false;
+                        }
+                        else
+                        {
+                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card card-sm">
+                                    <div class="position-relative">
+                                        <div class="card-img-top" href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
+                                            <img src="~/assets/images/@item.Image"
+                                                 class="card-img-top">
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body d-flex">
+                                        <div class="flex">
+
+
+                                            <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">@item.CourseName</a></h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
+                                            <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                }
+            </div>
+
+        </div>
+                    }
+                    else { 
+                    
+                    }
 }

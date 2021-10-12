@@ -10,9 +10,16 @@ function onYouTubeIframeAPIReady() {
     });*/
 
     player = new YT.Player('player', {
-        events: { 'onStateChange': initialize }
+        events: { 'onReady': initialize }
     });
+
+  
+   
+    
 }
+
+
+
 
 function initialize() {
 
@@ -79,7 +86,10 @@ function datasend(id, currentime) {
 function updateTimerDisplay() {
     // Update current time text display.
     $('#currenttime').text(formatTime(player.getCurrentTime()));
+    $('#totalDuration').text(formatTime1(player.getDuration()));
 
+
+    
 }
 
 
@@ -103,4 +113,23 @@ function formatTime(time) {
 
     return time;
 }
+
+
+function formatTime1(time) {
+   
+    
+        var hour = Math.floor(time / 3600),
+            minutes = time - hour * 3600;
+        minutes = Math.floor(minutes / 60),
+            seconds = Math.floor(time - minutes * 60 - hour * 3600);
+
+
+
+        // var    minutes =Math.floor(minutes/60),
+        //  seconds = time - minutes * 60;
+
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        return hour + ":" + minutes + ":" + seconds;
+    }
 

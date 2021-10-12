@@ -15,7 +15,7 @@
             <li class="breadcrumb-item"><a href="#">@Html.DisplayFor(model => model.Section.Courses.CourseName)</a></li>
             <li class="breadcrumb-item active">@Html.DisplayFor(model => model.VideoTitle)</li>
         </ol>
-        <h1 class="h2">The MVC architectural pattern</h1>
+        <h1 class="h2">@Html.DisplayFor(model => model.Section.SectionName)</h1>
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -47,79 +47,17 @@
                                         <i class="material-icons text-muted-light">schedule</i>
                                     </div>
                                     <div class="media-body">
-                                        2 <small class="text-muted">hrs</small> &nbsp; 26 <small class="text-muted">min</small>
+                                         <div id="totalDuration">hrs</div>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Ratings</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="rating">
-                                <i class="material-icons">star</i>
-                                <i class="material-icons">star</i>
-                                <i class="material-icons">star</i>
-                                <i class="material-icons">star</i>
-                                <i class="material-icons">star_border</i>
-                            </div>
-                            <small class="text-muted">20 ratings</small>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <p>
-                            <a href="student-cart.html"
-                               class="btn btn-success btn-block flex-column">
-                                Get All Courses
-                                <strong>&dollar;9 / month</strong>
-                            </a>
-                        </p>
-                        <div class="page-separator">
-                            <div class="page-separator__text">or</div>
-                        </div>
-                        <a href="student-cart.html"
-                           class="btn btn-white btn-block flex-column">
-                            Purchase Course
-                            <strong>&dollar;25 USD</strong>
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="media align-items-center">
-                            <div class="media-left">
-                                <img src="assets/images/people/110/guy-6.jpg"
-                                     alt="About Adrian"
-                                     width="50"
-                                     class="rounded-circle">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="card-title"><a href="student-profile.html">Adrian Demian</a></h4>
-                                <p class="card-subtitle">Instructor</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p>Having over 12 years exp. Adrian is one of the lead UI designers in the industry Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aut.</p>
-                        <a href=""
-                           class="btn btn-light"><i class="fab fa-facebook"></i></a>
-                        <a href=""
-                           class="btn btn-light"><i class="fab fa-twitter"></i></a>
-                        <a href=""
-                           class="btn btn-light"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-
-
-                <h2>Duration</h2>
-
-                <p>
+                 <p>
 
 
                     @Html.Hidden("currenttime")
@@ -137,8 +75,8 @@
 
 
    
-<script src="~/assets/vendor/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="~/assets/js/duration.js"></script>
 

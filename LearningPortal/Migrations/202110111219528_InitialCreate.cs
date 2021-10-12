@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initialcreate : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -12,10 +12,10 @@ namespace LearningPortal.Migrations
                 c => new
                     {
                         CategoryId = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 55),
+                        CategoryName = c.String(nullable: false, maxLength: 55),
                     })
                 .PrimaryKey(t => t.CategoryId)
-                .Index(t => t.Title, unique: true, name: "INDEX_Title");
+                .Index(t => t.CategoryName, unique: true, name: "INDEX_Title");
             
             CreateTable(
                 "dbo.SubCategories",
@@ -23,19 +23,19 @@ namespace LearningPortal.Migrations
                     {
                         SubCategoryId = c.Int(nullable: false, identity: true),
                         CategoryId = c.Int(nullable: false),
-                        Title = c.String(nullable: false, maxLength: 75),
+                        SubCategoryName = c.String(nullable: false, maxLength: 75),
                     })
                 .PrimaryKey(t => t.SubCategoryId)
                 .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
                 .Index(t => t.CategoryId)
-                .Index(t => t.Title, unique: true, name: "INDEX_Title");
+                .Index(t => t.SubCategoryName, unique: true, name: "INDEX_Title");
             
             CreateTable(
                 "dbo.Courses",
                 c => new
                     {
                         CourseId = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 55),
+                        CourseName = c.String(nullable: false, maxLength: 55),
                         Description = c.String(nullable: false),
                         Levels = c.String(nullable: false),
                         Year = c.Int(nullable: false),
@@ -45,7 +45,7 @@ namespace LearningPortal.Migrations
                     })
                 .PrimaryKey(t => t.CourseId)
                 .ForeignKey("dbo.SubCategories", t => t.SubCategoryId, cascadeDelete: true)
-                .Index(t => t.Title, unique: true, name: "INDEX_Title")
+                .Index(t => t.CourseName, unique: true, name: "INDEX_Title")
                 .Index(t => t.SubCategoryId);
             
             CreateTable(
@@ -61,33 +61,23 @@ namespace LearningPortal.Migrations
                 .Index(t => t.CourseId);
             
             CreateTable(
-                "dbo.AspNetRoles",
+                "dbo.Sections",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
+                        SectionId = c.Int(nullable: false, identity: true),
+                        SectionName = c.String(nullable: false),
+                        CourseId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .PrimaryKey(t => t.SectionId)
+                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
+                .Index(t => t.CourseId);
             
             CreateTable(
                 "dbo.SectionMedias",
                 c => new
                     {
                         SectionMediaId = c.Int(nullable: false, identity: true),
+                        VideoTitle = c.String(),
                         VideoUrl = c.String(),
                         SectionId = c.Int(nullable: false),
                     })
@@ -96,25 +86,13 @@ namespace LearningPortal.Migrations
                 .Index(t => t.SectionId);
             
             CreateTable(
-                "dbo.Sections",
-                c => new
-                    {
-                        SectionId = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false),
-                        CourseId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.SectionId)
-                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
-                .Index(t => t.CourseId);
-            
-            CreateTable(
                 "dbo.UserMediaHistories",
                 c => new
                     {
                         UserVideoHistoryId = c.Int(nullable: false, identity: true),
                         UserId = c.String(nullable: false, maxLength: 128),
                         SectionMediaId = c.Int(nullable: false),
-                        WatchedTime = c.Double(nullable: false),
+                        WatchedTime = c.Int(nullable: false),
                         UpdatedTime = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.UserVideoHistoryId)
@@ -168,10 +146,35 @@ namespace LearningPortal.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Courses", "SubCategoryId", "dbo.SubCategories");
             DropForeignKey("dbo.UserMediaHistories", "SectionMediaId", "dbo.SectionMedias");
             DropForeignKey("dbo.UserMediaHistories", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -179,34 +182,32 @@ namespace LearningPortal.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.SectionMedias", "SectionId", "dbo.Sections");
             DropForeignKey("dbo.Sections", "CourseId", "dbo.Courses");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Courses", "SubCategoryId", "dbo.SubCategories");
             DropForeignKey("dbo.CourseLearnings", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.SubCategories", "CategoryId", "dbo.Categories");
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.UserMediaHistories", new[] { "SectionMediaId" });
             DropIndex("dbo.UserMediaHistories", new[] { "UserId" });
-            DropIndex("dbo.Sections", new[] { "CourseId" });
             DropIndex("dbo.SectionMedias", new[] { "SectionId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Sections", new[] { "CourseId" });
             DropIndex("dbo.CourseLearnings", new[] { "CourseId" });
             DropIndex("dbo.Courses", new[] { "SubCategoryId" });
             DropIndex("dbo.Courses", "INDEX_Title");
             DropIndex("dbo.SubCategories", "INDEX_Title");
             DropIndex("dbo.SubCategories", new[] { "CategoryId" });
             DropIndex("dbo.Categories", "INDEX_Title");
+            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.UserMediaHistories");
-            DropTable("dbo.Sections");
             DropTable("dbo.SectionMedias");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Sections");
             DropTable("dbo.CourseLearnings");
             DropTable("dbo.Courses");
             DropTable("dbo.SubCategories");

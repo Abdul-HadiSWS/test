@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -23,14 +24,15 @@ namespace LearningPortal.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+         
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-
-        public virtual DbSet<Categories> Categories { get; set; }
+      
+            public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<CourseLearning> CourseLearnings { get; set; }
         public virtual DbSet<Courses> Courses { get; set; }
         public virtual DbSet<SectionMedia> SectionMedia { get; set; }
@@ -38,6 +40,8 @@ namespace LearningPortal.Models
         public virtual DbSet<SubCategories> SubCategories { get; set; }
 
         public virtual DbSet<UserMediaHistory> UserMediaHistories { get; set; }
+
+        
 
     }
 }

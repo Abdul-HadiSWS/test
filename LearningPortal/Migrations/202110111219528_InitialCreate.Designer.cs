@@ -7,13 +7,13 @@ namespace LearningPortal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initialcreate3 : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initialcreate3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202110071018072_Initialcreate3"; }
+            get { return "202110111219528_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

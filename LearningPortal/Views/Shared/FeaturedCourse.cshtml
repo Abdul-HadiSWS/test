@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<LearningPortal.Models.Courses>
+<div class="media mb-headings align-items-center ">
+    <div class="media-body">
+        <h1 class="h2">Featured Courses</h1>
+    </div>
 
+</div>
 <div id="carouselId1" class="carousel r slide" data-type="carousel">
 
     <ol class="carousel-indicators">
@@ -23,7 +28,7 @@
                                 <div class="card-img-top">
                                     <img src="~/assets/images/@item.Image"
                                          class="card-img-top"
-                                         alt="">
+                                         href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">
                                 </div>
 
                             </div>
@@ -31,7 +36,7 @@
                                 <div class="flex">
 
 
-                                    <h5 class="card-title m-0" style="text-align:center"><a href="">@item.CourseName</a></h5>
+                                    <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h5>
                                     <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
                                     <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
 
@@ -51,7 +56,7 @@
                                 <div class="card-img-top">
                                     <img src="~/assets/images/@item.Image"
                                          class="card-img-top"
-                                         alt="">
+                                         href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">
                                 </div>
 
                             </div>
@@ -59,7 +64,7 @@
                                 <div class="flex">
 
 
-                                    <h5 class="card-title m-0" style="text-align:center" ><a href="">@item.CourseName</a></h5>
+                                    <h5 class="card-title m-0" style="text-align:center" ><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h5>
                                     <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
                                     <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
 

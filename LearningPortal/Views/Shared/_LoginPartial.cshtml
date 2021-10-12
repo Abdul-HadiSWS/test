@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
+@using LearningPortal.Models
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -8,7 +10,25 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
                 <a href="@Url.Action("StudentDashboard", "Home")"
-                   class="nav-link">Hello @User.Identity.GetUserName() </a>
+                   class="nav-link">
+
+
+                    Hello&nbsp;
+
+
+                    @{
+                        var userId = User.Identity.GetUserId();
+                        using (var context = new ApplicationDbContext())
+                        {
+                            var user = context.Users.FirstOrDefault(u => u.Id == userId);
+                            <p>  @user.Email</p>
+                        }
+
+
+                    }
+
+
+                </a>
                     
             </li>
             <li class="nav-item dropdown ml-1 ml-md-3">

@@ -174,29 +174,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110020920194_Initial create.cs" />
-    <Compile Include="Migrations\202110020920194_Initial create.Designer.cs">
-      <DependentUpon>202110020920194_Initial create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202110020940027_InitialCreate1.cs" />
-    <Compile Include="Migrations\202110020940027_InitialCreate1.Designer.cs">
-      <DependentUpon>202110020940027_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202110051055542_initialCreate2.cs" />
-    <Compile Include="Migrations\202110051055542_initialCreate2.Designer.cs">
-      <DependentUpon>202110051055542_initialCreate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202110071018072_Initialcreate3.cs" />
-    <Compile Include="Migrations\202110071018072_Initialcreate3.Designer.cs">
-      <DependentUpon>202110071018072_Initialcreate3.cs</DependentUpon>
+    <Compile Include="Migrations\202110111219528_InitialCreate.cs" />
+    <Compile Include="Migrations\202110111219528_InitialCreate.Designer.cs">
+      <DependentUpon>202110111219528_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppDbInit.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\CourseLearning.cs" />
     <Compile Include="Models\Courses.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LearningPortalDBContentSender.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModelBuilderExtensions.cs" />
     <Compile Include="Models\Section.cs" />
     <Compile Include="Models\SectionMedia.cs" />
     <Compile Include="Models\SubCategories.cs" />
@@ -475,17 +466,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110020920194_Initial create.resx">
-      <DependentUpon>202110020920194_Initial create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110020940027_InitialCreate1.resx">
-      <DependentUpon>202110020940027_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110051055542_initialCreate2.resx">
-      <DependentUpon>202110051055542_initialCreate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110071018072_Initialcreate3.resx">
-      <DependentUpon>202110071018072_Initialcreate3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110111219528_InitialCreate.resx">
+      <DependentUpon>202110111219528_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
