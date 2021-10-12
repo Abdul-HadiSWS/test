@@ -218,5 +218,5 @@ C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.pdb
-C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
+C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialSeed.resources
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
