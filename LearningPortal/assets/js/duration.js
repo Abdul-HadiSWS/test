@@ -86,7 +86,7 @@ function datasend(id, currentime) {
 function updateTimerDisplay() {
     // Update current time text display.
     $('#currenttime').text(formatTime(player.getCurrentTime()));
-    $('#totalDuration').text(formatTime1(player.getDuration()));
+    $('#totalDuration').text(formatTime_hourformat(player.getDuration()));
 
 
     
@@ -115,7 +115,7 @@ function formatTime(time) {
 }
 
 
-function formatTime1(time) {
+function formatTime_hourformat(time) {
    
     
         var hour = Math.floor(time / 3600),

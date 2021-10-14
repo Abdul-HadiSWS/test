@@ -21,6 +21,20 @@ namespace LearningPortal.Controllers
             return View();
         }
 
+
+        public ActionResult search(string SearchString)
+        {
+
+            var searchResult = Db.Courses.Where(x => x.CourseName.Contains(SearchString)).ToList();
+
+            
+                ViewBag.count = searchResult.Count();
+            
+           
+            return View(searchResult);
+        }
+
+        /*DropDown*/
         public PartialViewResult Menu()
         {
             var ls = Db.Categories.ToList(); 
@@ -40,34 +54,77 @@ namespace LearningPortal.Controllers
             var cour = Db.Courses.Where(i => i.SubCategoryId == Subcat_id).ToList();
             System.Web.HttpRuntime.Cache["subtosubmenu"] = cour;
         }
+
+        /* End DropDown*/
+
+
+
+
+        /*View All SubCategory*/
+        public PartialViewResult ViewAllSubCategory(int? id)
+        {
+            string Cat = "";
+            var subcat = Db.SubCategories.Where(i => i.CategoryId == id).ToList();
+
+
+            foreach (var item in subcat)
+            {
+                Cat = item.Categories.CategoryName;
+            }
+
+            ViewBag.BreadCrumbCat = Cat;
+
+
+
+
+            return PartialView(subcat);
+        }
+
+        /* ENd View All SubCategory*/
+
+
+
+        /*View All Course*/
         public PartialViewResult ViewAllCourse(int? id)
         {
-            string SubCat = "", Cat = ""; int courseId = 0, catid = 0 ;
-            var course = Db.Courses.Where(i => i.SubCategoryId == id).ToList();
-            
+           
 
+            int courseId = 0;
+            var course = Db.Courses.Where(i => i.SubCategoryId == id).ToList();
             
             foreach (var item in course)
             {
-                SubCat = item.SubCategories.SubCategoryName;
-                Cat = item.SubCategories.Categories.CategoryName;
-                catid= item.SubCategories.Categories.CategoryId;
                 courseId = item.CourseId;
             }
-            ViewBag.BreadCrumbCatID = catid;
-            ViewBag.BreadCrumbCat = Cat;
-            ViewBag.BreadCrumbSubCat = SubCat;
+
+            var subcat = Db.SubCategories.Find(id);
+
+
+            ViewBag.BreadCrumbCatID = subcat.Categories.CategoryId;
+            ViewBag.BreadCrumbCat = subcat.Categories.CategoryName;
+            ViewBag.BreadCrumbSubCat =subcat.SubCategoryName;
+
             ViewBag.id = courseId;
             return PartialView(course);
         }
 
+        /* ENd View All Course*/
+
+
+       
+
+        /*ResumeCourse */
         public PartialViewResult ResumeCourse(string UserId)
         {
             var course = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + UserId + "'").ToList();
             ViewBag.Counts = course.Count();
             return PartialView(course);
         }
-      
+
+        /*End ResumeCourse */
+
+
+        /*FeaturedCourse */
         public PartialViewResult FeaturedCourse(string UserId)
         {
             //List<LearningPortal.Models.Courses> course = new List<LearningPortal.Models.Courses>();
@@ -75,22 +132,102 @@ namespace LearningPortal.Controllers
                 return PartialView(course1);
         }
 
+        /*End FeaturedCourse*/
+
+
+        /* StudentCourse */
+
         public ActionResult StudentCourse(int? id)
         {
-            var courses = Db.Courses.Find(id)
-;
+            var courses = Db.Courses.Find(id);
 
-            string Section = "Section " + courses.Sections.Count();
-            int videocount = 0;
+            string Section = courses.Sections.Count()+ " Sections-";
+            int videocount = 0,totalvideo=0;
             foreach (var item in courses.Sections)
             {
                 videocount = videocount + item.SectionMedia.Count();
-            }
-            string Video = " - Videos " + videocount;
+                foreach (var item1 in item.SectionMedia)
+                {
+                    totalvideo = totalvideo + item1.VideoDuration;
+                }
 
+
+            }
+            string Video =   videocount+" Videos";
+            
             ViewBag.data = Section + Video;
+            ViewBag.totalduration = totalvideo;
+
+
             return View(courses);
         }
+        /* End StudentCourse */
+
+        /* Foramting Time*/
+
+        public ActionResult FormatTime(int time)
+        {
+            
+            string ttime="";
+            if (time == 0)
+            {
+              ttime = "0";
+            }
+            else
+            {
+                if (time / 3600 > 0)
+                {
+                    double time1 = time / 3600;
+                    double hour = Math.Floor(time1);
+                    double minutes = time - hour * 3600;
+                    minutes = Math.Floor(minutes / 60);
+                    double seconds = Math.Floor(time - minutes * 60 - hour * 3600);
+                    if (seconds < 10)
+                    {
+                        ttime = hour + ":" + minutes + ":0" + seconds;
+                    }
+                    else
+                    {
+                        ttime = hour + ":" + minutes + ":" + seconds;
+                    }
+                  
+                }
+                else
+                {
+                    double time1 = time / 60;
+                    double minutes = Math.Floor(time1);
+                    double temp = minutes * 60;
+                    double seconds = time - temp;
+                    if (seconds<10)
+                    {
+                        ttime = minutes + ":0" + seconds;
+                    }
+                    else
+                    {
+                        ttime = minutes + ":" + seconds;
+                    }
+                    
+                }
+            }
+           
+           
+
+
+
+            // var    minutes =Math.floor(minutes/60),
+            //  seconds = time - minutes * 60;
+
+           
+
+            
+            return Content(ttime); 
+        }
+
+
+
+
+
+        /*   StudentCourseVideo  */
         public ActionResult StudentCourseVideo(int? id)
         {
             string userid = User.Identity.GetUserId();
@@ -103,8 +240,7 @@ namespace LearningPortal.Controllers
                 obj.WatchedTime = startime;
                 obj.UserId = userid;
 
-                obj.SectionMediaId = Convert.ToInt32(id)
-;
+                obj.SectionMediaId = Convert.ToInt32(id);
                 Db.UserMediaHistories.Add(obj);
                 Db.SaveChanges();
 
@@ -115,7 +251,6 @@ namespace LearningPortal.Controllers
             }
             ViewBag.StartTime = startime;
             var sectionMedia = Db.SectionMedia.Find(id);
-;
             return View(sectionMedia);
         }
         [HttpPost]
@@ -135,28 +270,13 @@ namespace LearningPortal.Controllers
             return "Changeiing";
         }
 
-        public PartialViewResult ViewAllSubCategory(int? id)
-        {
-            string  Cat = ""; 
-            var subcat = Db.SubCategories.Where(i => i.CategoryId == id).ToList();
+
+        /*  End StudentCourseVideo */
 
 
-            foreach (var item in subcat)
-            {
-                Cat=item.Categories.CategoryName;
-            }
-
-            ViewBag.BreadCrumbCat = Cat;
-          
-            
 
 
-            return PartialView(subcat);
-        }
-        public ActionResult search(string query)
-        {
-            
-            return View();
-        }
+
+       
     }
 }

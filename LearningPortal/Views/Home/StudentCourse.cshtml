@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <h4 class="fonts">Course Outline</h4>
-                <p>@ViewBag.data - Duration 07h 20m</p>
+                <p>@ViewBag.data -  @{Html.RenderAction("FormatTime", "Home", new { time = ViewBag.totalduration });} Duration </p>
 
 
 
@@ -98,7 +98,7 @@
                                     <div class="media-left">
                                         <a class="sidebar-menu-button sidebar-js-collapse"
                                            data-toggle="collapse"
-                                           href="#components_menu">
+                                           href="#@item.SectionName">
 
                                             <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
 
@@ -108,17 +108,17 @@
                                         @Html.DisplayFor(modelitem => item.SectionName)
                                     </div>
                                     <div class="media-right">
-                                        <small class="text-muted-light">@item.SectionMedia.Count() Videos - Duration</small>
+                                        <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
                                     </div>
                                 </div>
                                 <ul class="sidebar-submenu sm-indent collapse"
-                                    id="components_menu">
+                                    id="@item.SectionName">
                                     @foreach (var item1 in item.SectionMedia)
                                     {
                                         <li class="sidebar-menu-item">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourseVideo","Home",new {Id=item1.SectionMediaId})">
+                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourseVideo", "Home", new { Id = item1.SectionMediaId })">
                                                         <i class="material-icons text-muted ml-2">play_circle_filled</i>
                                                     </a>
                                                 </div>
@@ -127,14 +127,18 @@
                                                   
                                                 </div>
                                                 <div class="media-right">
-                                                   
-                                                    <small id="Vduration" class="text-muted-light">2:03</small>
-                                                </div>
-                                            </div>
 
+
+
+                                                    <small class="text-muted-light">
+                                                        @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
+                                                        </small>
+
+                                                </div>                                     
+                                               </div>
                                         </li>
 
-                                    }
+                                                        }
                                 </ul>
 
                             </li>

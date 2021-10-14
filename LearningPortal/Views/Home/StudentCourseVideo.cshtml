@@ -10,9 +10,11 @@
 
     <div class="container-fluid page__container">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">@Html.DisplayFor(model => model.Section.Courses.SubCategories.Categories.CategoryName)</a></li>
-            <li class="breadcrumb-item"><a href="#">@Html.DisplayFor(model => model.Section.Courses.SubCategories.SubCategoryName)</a></li>
-            <li class="breadcrumb-item"><a href="#">@Html.DisplayFor(model => model.Section.Courses.CourseName)</a></li>
+
+            
+            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new{id=@Html.DisplayFor(model=>model.Section.Courses.SubCategories.CategoryId)})">@Html.DisplayFor(model => model.Section.Courses.SubCategories.Categories.CategoryName)</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllCourse", "Home", new{id=@Html.DisplayFor(model=>model.Section.Courses.SubCategories.SubCategoryId)})">@Html.DisplayFor(model => model.Section.Courses.SubCategories.SubCategoryName)</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("StudentCourse", "Home", new{id=@Html.DisplayFor(model=>model.Section.Courses.CourseId)})">@Html.DisplayFor(model => model.Section.Courses.CourseName)</a></li>
             <li class="breadcrumb-item active">@Html.DisplayFor(model => model.VideoTitle)</li>
         </ol>
         <h1 class="h2">@Html.DisplayFor(model => model.Section.SectionName)</h1>

@@ -111,21 +111,24 @@
                         </a>
 
                         <!-- Search -->
-                        <div class="flex"></div>
-                        @*@using (Html.BeginForm("Search", "Home", FormMethod.Post))
-                        {*@
-                        <form class="search-form d-none d-md-flex">
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Search">
-                            <button class="btn"
-                                    type="button"
-                                    >
-                                <i class="material-icons font-size-24pt"><a href="#" >search</a></i>
-                            </button>
-                        </form>
-                        <!-- // END Search -->
                         
+                        @*@using (Html.BeginForm("Search", "Home", FormMethod.Post))
+        {*@
+                        
+                        <!-- // END Search -->
+
+                        <div class="flex"></div>
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "search-form d-none d-md-flex" }))
+                        {
+                            <input id="SearchString" name="SearchString" type="text" value="" placeholder="Search" class="form-control" />
+                           
+                            <button class="btn"
+                                    type="submit">
+                                <i class="material-icons font-size-24pt">search</i>
+                            </button>
+
+                        }
+
                         <div class="flex"></div>
 
                         <!-- Menu -->

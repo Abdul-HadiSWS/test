@@ -10,7 +10,7 @@
 <div class="mdk-drawer-layout__content page mt-5">
 
     <div class="container mt-2 ">
-        @{ if (ViewBag.BreadCrumbSubCat != "")
+        @{ if (ViewBag.id != 0)
             {
                 <ol class="breadcrumb">
 
@@ -29,7 +29,13 @@
             else
             {
 
-               
+
+                <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id = @ViewBag.BreadCrumbCatID})">@ViewBag.BreadCrumbCat</a> </li>
+                    <li class="breadcrumb-item "><a href="#"> @ViewBag.BreadCrumbSubCat</a></li>
+                    
+                </ol>
 
                 <div class="media align-items-center mb-headings">
                     <div class="media-body">
