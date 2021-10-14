@@ -4,43 +4,109 @@
 */
 .carousel-item {
     padding: 10px;
-    border:0px;
+    border: 0px;
+}
+
+.carousel-control-prev {
+    margin-right: 0rem;
 }
 
 .carousel-control-next-icon {
-    margin-left: 2rem;
+    margin-left: 5rem;
 }
+
 .carousel-control-prev-icon {
-    margin-right: 2rem;
+    margin-right: 5rem;
 }
-.carousel-item .card{
+
+.carousel-item .card {
     border: 1px solid;
 }
-    .carousel-item .card .card-body h5{
-        font-size:12px;
+
+    .carousel-item .card .card-body h5 {
+        font-size: 12px;
+        font-weight: bold;
     }
 
-    .carousel-control-next-icon, .carousel-control-prev-icon {
-        background: none;
-        font-size: 50px;
-        line-height: 1;
-        width: auto;
-        height: auto;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 10px;
-        transition: 0.3s;
-        color: rgb(18 56 245);
-    }
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    background: none;
+    font-size: 50px;
+    line-height: 1;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    transition: 0.3s;
+    color: rgb(18 56 245);
+}
 
-     .carousel-control-next-icon:hover,  .carousel-control-prev-icon:hover {
-        
+    .carousel-control-next-icon:hover, .carousel-control-prev-icon:hover {
         color: black;
     }
 
 
 
+@media (max-width: 576px) {
+
+    .carousel-item {
+        margin-right: 0;
+        width: 50%;
+    }
+    /* show 2 items */
+    .carousel-inner .active + .carousel-item {
+        display: block;
+    }
+
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item {
+        transition: none;
+    }
+
+    .carousel-inner .carousel-item-next {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+    }
+    /* left or forward direction */
+    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carousel-item-next.carousel-item-left + .carousel-item,
+    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* farthest right hidden item must be also positioned for animations */
+    .carousel-inner .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    /* right or prev direction */
+    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carousel-item-prev.carousel-item-right + .carousel-item,
+    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+
+    .carousel-control-next-icon {
+        margin-left: 3rem;
+    }
+
+    .carousel-control-prev-icon {
+        margin-right: 3rem;
+    }
 
 
+    .carousel-item .card .card-body h5 {
+        font-size: 8px;
+        font-weight: bold;
+    }
+}
 
 
 

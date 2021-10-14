@@ -31,7 +31,7 @@
                     {
                         if (first)
                         {
-                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                            <div class="carousel-item  col-sm-6 col-md-4 col-lg-3 active">
                                 <div class="card card-sm">
                                     <div class="position-relative">
                                         <div class="card-img-top">
@@ -59,7 +59,7 @@
                         }
                         else
                         {
-                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="carousel-item  col-sm-6 col-md-4 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="position-relative">
                                         <div class="card-img-top">
@@ -99,7 +99,7 @@
             </a>
         </div>
                     }
-                    else if (ViewBag.counts <= 4)
+                    else if (ViewBag.counts > 0  &&  ViewBag.counts<=4)
                     {
 <div class="media mb-headings align-items-center ">
     <div class="media-body mt-2">
@@ -124,7 +124,7 @@
                     {
                         if (first)
                         {
-                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                            <div class="carousel-item  col-sm-6 col-md-4 col-lg-3 active">
                                 <div class="card card-sm">
                                     <div class="position-relative">
                                         <div class="card-img-top">
@@ -152,7 +152,7 @@
                         }
                         else
                         {
-                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="carousel-item  col-sm-6 col-md-4 col-lg-3">
                                 <div class="card card-sm">
                                     <div class="position-relative">
                                         <div class="card-img-top" href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
