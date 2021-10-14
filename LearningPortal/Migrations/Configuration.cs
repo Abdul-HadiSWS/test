@@ -102,25 +102,46 @@ namespace LearningPortal.Migrations
 
 
             context.SectionMedia.AddOrUpdate(
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/mzciCkrZLyI", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video1" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/TThZIt4r3eg", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video2" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/cb-p_gkhIC0", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video3" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video1" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video2" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video3" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video4" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video1" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video2" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video3" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Data Structure").SectionId, VideoTitle = "Video4" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Project").SectionId, VideoTitle = "Video1" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Introduction").SectionId, VideoTitle = "Video1" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video1" },
-              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video2" }
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/mzciCkrZLyI", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video1" ,VideoDuration= 637 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/TThZIt4r3eg", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video2" , VideoDuration = 317 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/cb-p_gkhIC0", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video3" ,VideoDuration=380},
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video1", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video2", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video3", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video4", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video1", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video2", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video3", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Data Structure").SectionId, VideoTitle = "Video4", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Project").SectionId, VideoTitle = "Video1", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "Introduction").SectionId, VideoTitle = "Video1", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video1", VideoDuration = 437 },
+              new SectionMedia() { VideoUrl = "https://www.youtube.com/embed/nPYuVfdJPaQ", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video2", VideoDuration = 437 }
 
             );
 
+            context.SaveChanges();
 
+            context.CourseLearnings.AddOrUpdate(
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Java").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Java").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Java").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Java").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Java").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." }, 
+                
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To .NET").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To .NET").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To .NET").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To .NET").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To .NET").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Php").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Php").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Php").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Php").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." },
+                new CourseLearning() { CourseId = context.Courses.Single(i => i.CourseName == "Introduction To Php").CourseId, Description = "In this video, I will demo how to Build Multi Level Menu Dynamically with Entity Framework in ASP.NET MVC." }
+
+                );
 
         }
     }

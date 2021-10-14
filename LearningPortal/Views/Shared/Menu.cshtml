@@ -11,7 +11,7 @@
                     foreach (LearningPortal.Models.Categories item in Cache["Menu"] as List<LearningPortal.Models.Categories>)
                     {
                         <li>
-                            <a>@item.CategoryName <i class="fa fa-caret-right"></i> </a>
+                            <a href="@Url.Action("ViewAllSubCategory", "Home", new{id=item.CategoryId})"> @item.CategoryName <i class="fa fa-caret-right"></i> </a>
                             @{
                                 ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Submenu(Convert.ToInt32(item.CategoryId));
                             }

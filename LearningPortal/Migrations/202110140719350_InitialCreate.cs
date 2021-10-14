@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialSeed : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -80,6 +80,7 @@ namespace LearningPortal.Migrations
                         VideoTitle = c.String(),
                         VideoUrl = c.String(),
                         SectionId = c.Int(nullable: false),
+                        VideoDuration = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.SectionMediaId)
                 .ForeignKey("dbo.Sections", t => t.SectionId, cascadeDelete: true)

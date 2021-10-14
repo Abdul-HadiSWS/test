@@ -42,15 +42,19 @@ namespace LearningPortal.Controllers
         }
         public PartialViewResult ViewAllCourse(int? id)
         {
-            string SubCat = "", Cat = ""; int courseId = 0;
+            string SubCat = "", Cat = ""; int courseId = 0, catid = 0 ;
             var course = Db.Courses.Where(i => i.SubCategoryId == id).ToList();
+            
+
             
             foreach (var item in course)
             {
                 SubCat = item.SubCategories.SubCategoryName;
                 Cat = item.SubCategories.Categories.CategoryName;
+                catid= item.SubCategories.Categories.CategoryId;
                 courseId = item.CourseId;
             }
+            ViewBag.BreadCrumbCatID = catid;
             ViewBag.BreadCrumbCat = Cat;
             ViewBag.BreadCrumbSubCat = SubCat;
             ViewBag.id = courseId;
@@ -131,5 +135,28 @@ namespace LearningPortal.Controllers
             return "Changeiing";
         }
 
+        public PartialViewResult ViewAllSubCategory(int? id)
+        {
+            string  Cat = ""; 
+            var subcat = Db.SubCategories.Where(i => i.CategoryId == id).ToList();
+
+
+            foreach (var item in subcat)
+            {
+                Cat=item.Categories.CategoryName;
+            }
+
+            ViewBag.BreadCrumbCat = Cat;
+          
+            
+
+
+            return PartialView(subcat);
+        }
+        public ActionResult search(string query)
+        {
+            
+            return View();
+        }
     }
 }

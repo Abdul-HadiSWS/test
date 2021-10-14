@@ -17,7 +17,7 @@ namespace LearningPortal.Models
         [Display(Name = " Section Id")]
         [ForeignKey("Section")]
         public int SectionId { get; set; }
-       
+       public int VideoDuration { get; set; }
         public virtual Section Section { get; set; }
         
         public virtual ICollection<UserMediaHistory> UserMediaHistories { get; set; }

@@ -3,46 +3,51 @@
     <div class="media-body">
         <h1 class="h2">Featured Courses</h1>
     </div>
-
 </div>
 <div id="carouselId1" class="carousel r slide" data-type="carousel">
-
     <ol class="carousel-indicators">
         <li data-target="#carouselId1" data-slide="prev"></li>
         <li data-target="#carouselId1" data-slide="next"></li>
 
     </ol>
-
-    <div class="carousel-inner row w-100 mx-auto" role="listbox">
+    <div class="carousel-inner row w-100"  style="width: 0px;" role="listbox">
         @{
             bool aa = true;
-
-
             foreach (var item in Model)
             {
                 if (aa)
                 {
-                    <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                    <div class="carousel-item col-6 col-sm-6 col-md-4 col-lg-3  active">
                         <div class="card card-sm">
                             <div class="position-relative">
                                 <div class="card-img-top">
                                     <img src="~/assets/images/@item.Image"
                                          class="card-img-top"
-                                         href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">
+                                         href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
                                 </div>
 
                             </div>
                             <div class="card-body d-flex">
                                 <div class="flex">
-
-
-                                    <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h5>
-                                    <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
+                                    <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">@item.CourseName</a></h5>
+                                    <h5 class="card-title m-0"> <small class="text-muted">
+                                            Level:   @{
+                                                if (item.Levels == "Easy")
+                                                {
+                                                    <span class="badge badge-primary ">@item.Levels</span>
+                                                }
+                                                else if (item.Levels == "Medium")
+                                                {
+                                                    <span class="badge badge-warning ">@item.Levels</span>
+                                                }
+                                                else if (item.Levels == "Hard")
+                                                {
+                                                    <span class="badge badge-danger ">@item.Levels</span>
+                                                    }
+                                                }
+                                        </small> </h5>
                                     <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -50,7 +55,7 @@
                 }
                 else
                 {
-                    <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="carousel-item col-6 col-sm-6 col-md-4 col-lg-3">
                         <div class="card card-sm">
                             <div class="position-relative">
                                 <div class="card-img-top">
@@ -58,17 +63,29 @@
                                          class="card-img-top"
                                          href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">
                                 </div>
-
                             </div>
                             <div class="card-body d-flex">
                                 <div class="flex">
-
-
-                                    <h5 class="card-title m-0" style="text-align:center" ><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h5>
-                                    <h5 class="card-title m-0"> <small class="text-muted">Level:  @item.Levels </small> </h5>
+                                    <h5 class="card-title m-0" style="text-align:center"><a href="@Url.Action("StudentCourse", "Home", new {id=item.CourseId})">@item.CourseName</a></h5>
+                                    <h5 class="card-title m-0">
+                                        <small class="text-muted">
+                                            Level:                                           Level:   @{
+                                                if (item.Levels == "Easy")
+                                                {
+                                                    <span class="badge badge-primary ">@item.Levels</span>
+                                                }
+                                                else if (item.Levels == "Medium")
+                                                {
+                                                    <span class="badge badge-warning ">@item.Levels</span>
+                                                }
+                                                else if (item.Levels == "Hard")
+                                                {
+                                                    <span class="badge badge-danger ">@item.Levels</span>
+                                                }
+                                            }
+                                        </small>
+                                    </h5> 
                                     <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
-
-
                                 </div>
 
                             </div>
@@ -89,92 +106,3 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-
-
-
-
-
-
-
-
-
-@*<div id="carouselId" class="carousel slide" data-type="carousel">
-
-
-
-        <div class="carousel-inner" role="listbox">
-            <div>
-                @{
-                    var first = true;
-                }
-                @foreach (var item in Model)
-                {
-                    <div class="carousel-item col-lg-3 @(first ? Html.Raw("active") : Html.Raw(""))">
-
-
-
-
-                        <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId })">
-                            <img src="~/assets/images/@item.Image"
-                                 class="thumbnail"
-                                 alt="Card image cap"
-                                 style="width:100%; height:150%">
-                        </a>
-
-                        <div>
-                            <div class="card-header text-center">
-                                <h4 class="card-title mb-0" style=" font-size: 16px;"><a href="student-take-course.html">@item.CourseName</a></h4>
-                                <div class="rating">
-                                    <i class="material-icons">star</i>
-                                    <i class="material-icons">star</i>
-                                    <i class="material-icons">star</i>
-                                    <i class="material-icons">star</i>
-                                    <i class="material-icons">star_border</i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <small class="text-muted">@item.CourseName</small><br>
-                                <p class="limited-text"> @item.Description  </p>
-                                <br>
-                                @{
-                                    if (item.Levels == "Easy")
-                                    {
-                                        <span class="badge badge-primary ">@item.Levels</span>
-                                    }
-                                    else if (item.Levels == "Medium")
-                                    {
-                                        <span class="badge badge-warning ">@item.Levels</span>
-                                    }
-                                    else if (item.Levels == "Hard")
-                                    {
-                                        <span class="badge badge-danger ">@item.Levels</span>
-                                    }
-                                }
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    first = false;
-                }
-            </div>
-
-
-
-
-        </div>
-
-
-        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
-
-            <span class="carousel-control-prev-icon icofont-simple-left " aria-hidden="true"><i class="fas fa-caret-left"></i></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next ml-5" href="#carouselId" role="button" data-slide="next">
-
-            <span class="carousel-control-next-icon icofont-simple-right" aria-hidden="true"><i class="fas fa-caret-right"></i></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>*@

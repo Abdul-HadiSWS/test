@@ -6,14 +6,12 @@
     padding: 10px;
     border:0px;
 }
-.carousel-control-prev {
-    margin-right: 10rem;
-}
+
 .carousel-control-next-icon {
-    margin-left: 10rem;
+    margin-left: 2rem;
 }
 .carousel-control-prev-icon {
-    margin-right: 10rem;
+    margin-right: 2rem;
 }
 .carousel-item .card{
     border: 1px solid;
