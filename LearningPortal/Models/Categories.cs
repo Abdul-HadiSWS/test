@@ -21,7 +21,7 @@ namespace LearningPortal.Models
 
         [Required(ErrorMessage = "Enter Category Name.")]
         [Display(Name = "Catecory Name")]
-        [StringLength(55, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        [StringLength(55, ErrorMessage = "The {0} must be at least {2} characters long.")]
         [Index("INDEX_Title", IsUnique = true)]
         public string CategoryName { get; set; }
 

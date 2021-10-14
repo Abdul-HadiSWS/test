@@ -20,7 +20,7 @@ namespace LearningPortal.Models
 
         [Required(ErrorMessage = "Enter Title")]
         [Display(Name = "SubCatecory Title")]
-        [StringLength(75, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        [StringLength(75, ErrorMessage = "The {0} must be at least {2} characters long.")]
         [Index("INDEX_Title", IsUnique = true)]
         public string SubCategoryName { get; set; }
 
