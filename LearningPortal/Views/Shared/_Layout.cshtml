@@ -94,10 +94,7 @@
                 <nav id="default-navbar"
                      class="navbar navbar-expand navbar-dark bg-dark m-0">
                     <div class="container-fluid">
-                        <!-- Toggle sidebar -->
-                        @*<ul class="nav-item">
-            <li>@Html.Action("PIndex", "Home")</li>
-        </ul>*@
+
 
                         <!-- Brand -->
                         <a href="@Url.Action("StudentDashboard", "Home")"
@@ -111,17 +108,14 @@
                         </a>
 
                         <!-- Search -->
-                        
-                        @*@using (Html.BeginForm("Search", "Home", FormMethod.Post))
-        {*@
-                        
-                        <!-- // END Search -->
 
-                        <div class="flex"></div>
+
+
+
                         @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "search-form d-none d-md-flex" }))
                         {
                             <input id="SearchString" name="SearchString" type="text" value="" placeholder="Search" class="form-control" />
-                           
+
                             <button class="btn"
                                     type="submit">
                                 <i class="material-icons font-size-24pt">search</i>
@@ -130,14 +124,9 @@
                         }
 
                         <div class="flex"></div>
-
-                        <!-- Menu -->
-                        <!-- // END Notifications dropdown -->
-                        <!-- User dropdown -->
+                        <!-- // END Search -->
+                        
                         @Html.Partial("_LoginPartial")
-
-
-                        <!-- // END Menu -->
                     </div>
                 </nav>
                 <!-- // END Navbar -->
@@ -166,29 +155,17 @@
         <!-- // END Header -->
         <!-- Header Layout Content -->
         <div class="mdk-header-layout__content mt-5">
-
             <div data-push
                  data-responsive-width="992px"
                  class="mdk-drawer-layout js-mdk-drawer-layout">
-                <div class="mdk-drawer-layout__content page ">
-
-
+                 <div class="mdk-drawer-layout__content page ">
                     <div class="container  body-content mt-5">
                         @RenderBody()
                         <hr />
-
-                    </div>
-
-                </div>
-
-
-
+                   </div>
+                 </div>
             </div>
-
-
-
         </div>
-
     </div>
 
     <!-- jQuery -->
@@ -218,5 +195,4 @@
     <script src="~/assets/js/Course.js"></script>
     <script src="~/assets/js/Video.js"></script>
 </body>
-
 </html>
