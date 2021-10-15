@@ -92,56 +92,60 @@
                     <ul class="sidebar-menu">
                         @foreach (var item in Model.Sections)
                         {
-                            <li class="sidebar-menu-item1">
+                        <li class="sidebar-menu-item1">
+                            @{
+                                string str = item.SectionName;
+                                str = str.Replace(" ", "");
+                            }
+                            <div class="media">
+                                <div class="media-left">
+                                    <a class="sidebar-menu-button sidebar-js-collapse"
+                                       data-toggle="collapse"
+                                       href="#@str">
 
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a class="sidebar-menu-button sidebar-js-collapse"
-                                           data-toggle="collapse"
-                                           href="#@item.SectionName">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
 
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
-
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        @Html.DisplayFor(modelitem => item.SectionName)
-                                    </div>
-                                    <div class="media-right">
-                                        <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
-                                    </div>
+                                    </a>
                                 </div>
-                                <ul class="sidebar-submenu sm-indent collapse"
-                                    id="@item.SectionName">
-                                    @foreach (var item1 in item.SectionMedia)
-                                    {
-                                        <li class="sidebar-menu-item">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourseVideo", "Home", new { Id = item1.SectionMediaId })">
-                                                        <i class="material-icons text-muted ml-2">play_circle_filled</i>
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
-                                                  
-                                                </div>
-                                                <div class="media-right">
+                                <div class="media-body">
+
+                                    @Html.DisplayFor(modelitem => item.SectionName)
+                                </div>
+                                <div class="media-right">
+                                    <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
+                                </div>
+                            </div>
+                            <ul class="sidebar-submenu sm-indent collapse"
+                                id="@str">
+                                @foreach (var item1 in item.SectionMedia)
+                                {
+                                    <li class="sidebar-menu-item">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a class="sidebar-menu-button" href="@Url.Action("StudentCourseVideo", "Home", new { Id = item1.SectionMediaId })">
+                                                    <i class="material-icons text-muted ml-2">play_circle_filled</i>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
+
+                                            </div>
+                                            <div class="media-right">
 
 
 
-                                                    <small class="text-muted-light">
-                                                        @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
-                                                        </small>
+                                                <small class="text-muted-light">
+                                                    @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
+                                                </small>
 
-                                                </div>                                     
-                                               </div>
-                                        </li>
+                                            </div>
+                                        </div>
+                                    </li>
 
-                                                        }
-                                </ul>
+                                }
+                            </ul>
 
-                            </li>
+                        </li>
                         }
                     </ul>
                 </div>

@@ -18,9 +18,6 @@ function onYouTubeIframeAPIReady() {
     
 }
 
-
-
-
 function initialize() {
 
 
@@ -95,18 +92,7 @@ function updateTimerDisplay() {
 
 
 
-
-
-
-
-
-
-
-
-
-
 // Helper Functions
-
 function formatTime(time) {
     time = Math.round(time);
 

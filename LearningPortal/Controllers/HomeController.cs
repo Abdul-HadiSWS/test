@@ -18,7 +18,48 @@ namespace LearningPortal.Controllers
         
         public ActionResult StudentDashboard()
         {
-            return View();
+
+
+
+            //var count = Db.ResumeCourses.ToList();
+
+            //if (count.Count() > 0)
+            //{
+
+
+            //    var featurecourse = Db.Courses.SqlQuery("Select * from Courses where Courses.CourseId NOT IN (select Distinct(Courses.CourseId) from  Courses join Sections on Courses.CourseId = Sections.CourseId join SectionMedias on Sections.SectionId = SectionMedias.SectionId join UserMediaHistories on SectionMedias.SectionMediaId = UserMediaHistories.SectionMediaId join AspNetUsers on UserMediaHistories.UserId = AspNetUsers.Id where AspNetUsers.Id = '" + UserId + "')and IsFeatured = 1").ToList();
+            //    var resumecourse = Db.Courses.SqlQuery("select DISTINCT Courses.* from Courses join ResumeCourses on Courses.CourseId = ResumeCourses.CourseID join  AspNetUsers on ResumeCourses.UserId = AspNetUsers.Id where AspNetUsers.Id ='" + User.Identity.GetUserId() + "'").ToList();
+
+            //    ViewBag.count = resumecourse.Count();
+            //    ViewBag.fc = featurecourse.Count();
+
+            //    ViewBag.rc = resumecourse.ToList();
+            //    return View(featurecourse);
+
+            //}
+            //else
+            //{
+            //    var featurecourse = Db.Courses.ToList();
+            //    var resumecourse = Db.Courses.SqlQuery("select DISTINCT Courses.* from Courses join ResumeCourses on Courses.CourseId = ResumeCourses.CourseID join  AspNetUsers on ResumeCourses.UserId = AspNetUsers.Id where AspNetUsers.Id ='" + User.Identity.GetUserId() + "'").ToList();
+            //    ViewBag.fc = featurecourse.Count();
+            //    ViewBag.count = resumecourse.Count();
+            //    ViewBag.rc = resumecourse.ToList();
+            //    return View(featurecourse);
+            //}
+
+
+
+            var featurecourse = Db.Courses.SqlQuery("Select * from Courses where Courses.CourseId NOT IN (select Distinct(Courses.CourseId) from  Courses join Sections on Courses.CourseId = Sections.CourseId join SectionMedias on Sections.SectionId = SectionMedias.SectionId join UserMediaHistories on SectionMedias.SectionMediaId = UserMediaHistories.SectionMediaId join AspNetUsers on UserMediaHistories.UserId = AspNetUsers.Id where AspNetUsers.Id = '" + User.Identity.GetUserId() + "')and IsFeatured = 1").ToList();
+            
+            var resumecourse = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + User.Identity.GetUserId() + "'").ToList();
+
+            ViewBag.count = resumecourse.Count();
+            ViewBag.fc = featurecourse.Count();
+
+            ViewBag.rc = resumecourse.ToList();
+            return View(featurecourse);
+
+
         }
 
 
@@ -57,8 +98,13 @@ namespace LearningPortal.Controllers
 
         /* End DropDown*/
 
-
-
+        /*View All Catagory*/
+        public PartialViewResult ViewAllCategory()
+        {
+            var cat = Db.Categories.ToList();
+            return PartialView(cat);
+        }
+        /*End of All Catagory*/
 
         /*View All SubCategory*/
         public PartialViewResult ViewAllSubCategory(int? id)
@@ -69,6 +115,7 @@ namespace LearningPortal.Controllers
 
             foreach (var item in subcat)
             {
+              
                 Cat = item.Categories.CategoryName;
             }
 
@@ -81,8 +128,6 @@ namespace LearningPortal.Controllers
         }
 
         /* ENd View All SubCategory*/
-
-
 
         /*View All Course*/
         public PartialViewResult ViewAllCourse(int? id)

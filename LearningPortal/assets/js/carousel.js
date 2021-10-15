@@ -1,6 +1,3 @@
-
-
-
 function scroll_to(clicked_link, nav_height) {
     var element_class = clicked_link.attr('href').replace('#', '.');
     var scroll_to = 0;
@@ -26,7 +23,7 @@ $(document).ready(function () {
         */
         var $e = $(e.relatedTarget);
         var idx = $e.index();
-        var itemsPerSlide = 5;
+        var itemsPerSlide = 4;
         var totalItems = $('.s .carousel-item').length;
 
         if (idx >= totalItems - (itemsPerSlide - 1)) {
@@ -54,7 +51,7 @@ $(document).ready(function () {
         */
         var $e = $(e.relatedTarget);
         var idx = $e.index();
-        var itemsPerSlide = 5;
+        var itemsPerSlide = 4;
         var totalItems = $('.r .carousel-item').length;
 
         if (idx >= totalItems - (itemsPerSlide - 1)) {
@@ -88,9 +85,9 @@ $(document).ready(function () {
 
 
 //$(document).ready(function() {
-    
 
-  
+
+
 //    $('#carouselId').on('slide.bs.carousel', function (e) {
 
 //        /*
@@ -101,7 +98,7 @@ $(document).ready(function () {
 //        var idx = $e.index();
 //        var itemsPerSlide = 5;
 //        var totalItems = $('.carousel-item').length;
-        
+
 //        if (idx >= totalItems-(itemsPerSlide-1)) {
 //            var it = itemsPerSlide - (totalItems - idx);
 //            for (var i=0; i<it; i++) {
@@ -115,7 +112,5 @@ $(document).ready(function () {
 //            }
 //        }
 //    });
-    
-//});
 
- 
+//});

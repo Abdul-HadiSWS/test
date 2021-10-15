@@ -14,6 +14,7 @@
             {
                 <ol class="breadcrumb">
 
+
                     <li class="breadcrumb-item"><a href="#">@ViewBag.BreadCrumbCat</a> </li>
                   
                     <li class="breadcrumb-item active">ViewAll</li>
@@ -42,16 +43,22 @@
     <div class="card-columns row">
         @{ foreach (var item in Model)
             {
-                <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active">
-                    <div class="card card-sm">
-                        
-                        <div class="card-body d-flex">
-                            <div class="flex">
+                <div class="carousel-item  col-sm-6 col-md-4 col-lg-3  active">
+                    <a href="@Url.Action("ViewAllCourse", "Home", new { id = item.SubCategoryId })" >
+                        <div class="card card-sm">
 
+                            <div class="position-relative">
+                                <div class="card-img-top">
+                                    <img src="~/assets/images/@item.Image"
+                                         class="card-img-top">
+                                </div>
 
-                                <h5 class="card-title m-0" style="text-align:center; font-weight:bold"><a href="@Url.Action("ViewAllCourse", "Home", new { id = item.SubCategoryId })">@item.SubCategoryName</a></h5>
-                                
-                                
+                            </div>
+                            <div class="card-body d-flex">
+                                <div class="flex">
+
+                                <h5 class="card-title m-0" style="text-align:center; font-weight:bold">@item.SubCategoryName</h5>
+
 
                             </div>
 

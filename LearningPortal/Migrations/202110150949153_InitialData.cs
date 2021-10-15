@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class InitialData : DbMigration
     {
         public override void Up()
         {
@@ -13,6 +13,7 @@ namespace LearningPortal.Migrations
                     {
                         CategoryId = c.Int(nullable: false, identity: true),
                         CategoryName = c.String(nullable: false, maxLength: 55),
+                        Image = c.String(),
                     })
                 .PrimaryKey(t => t.CategoryId)
                 .Index(t => t.CategoryName, unique: true, name: "INDEX_Title");
@@ -24,6 +25,7 @@ namespace LearningPortal.Migrations
                         SubCategoryId = c.Int(nullable: false, identity: true),
                         CategoryId = c.Int(nullable: false),
                         SubCategoryName = c.String(nullable: false, maxLength: 75),
+                        Image = c.String(),
                     })
                 .PrimaryKey(t => t.SubCategoryId)
                 .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)

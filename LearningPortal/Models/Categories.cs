@@ -25,7 +25,7 @@ namespace LearningPortal.Models
         [Index("INDEX_Title", IsUnique = true)]
         public string CategoryName { get; set; }
 
-       
+        public string Image { get; set; }
         public virtual ICollection<SubCategories> SubCategories { get; set; }
     }
 }

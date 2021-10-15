@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\LearningPortal",
-    "\\LearningPortal\\Models"
+    "\\LearningPortal\\Models",
+    "\\LearningPortal\\Views"
   ],
   "SelectedNode": "\\LearningPortal\\Models\\Courses.cs",
   "PreviewInSolutionExplorer": false

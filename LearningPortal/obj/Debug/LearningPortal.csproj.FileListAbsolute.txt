@@ -430,9 +430,9 @@ C:\Users\FBC\Desktop\New folder (2)\LearningPortal\bin\Microsoft.Owin.Security.T
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.csproj.AssemblyReference.cache
-C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
+C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialData.resources
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.csproj.CoreCompileInputs.cache
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.pdb
+C:\Users\FBC\Desktop\New folder (2)\LearningPortal\obj\Debug\LearningPortal.csproj.AssemblyReference.cache
