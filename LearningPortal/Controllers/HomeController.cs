@@ -279,6 +279,31 @@ namespace LearningPortal.Controllers
             var count = Db.UserMediaHistories.Where(a => a.SectionMediaId == id && a.UserId == userid).FirstOrDefault();
             var startime = 0;
 
+           
+
+
+
+            var SectionMedias1 = Db.SectionMedia.Find(id)
+;
+            int courseID = SectionMedias1.Section.CourseId;
+
+            var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == courseID).Select(x => x.SectionMediaId).ToList();
+            int index = 0;
+            int countloop = 0;
+
+
+            foreach (var item in playlist1)
+            {
+                if (item == id)
+                {
+
+                    index = countloop;
+
+                    break;
+                }
+                countloop++;
+            }
+
             if (count == null)
             {
                 UserMediaHistory obj = new UserMediaHistory();
@@ -295,7 +320,10 @@ namespace LearningPortal.Controllers
                 startime = count.WatchedTime;
             }
             ViewBag.StartTime = startime;
-            var sectionMedia = Db.SectionMedia.Find(id);
+            ViewBag.index = index;
+            ViewBag.playlist = playlist1;
+            var sectionMedia = Db.SectionMedia.Find(playlist1[index]);
+          
             return View(sectionMedia);
         }
         [HttpPost]

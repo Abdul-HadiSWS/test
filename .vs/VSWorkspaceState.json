@@ -3,8 +3,9 @@
     "",
     "\\LearningPortal",
     "\\LearningPortal\\Models",
-    "\\LearningPortal\\Views"
+    "\\LearningPortal\\Views",
+    "\\LearningPortal\\Views\\Shared"
   ],
-  "SelectedNode": "\\LearningPortal\\Models\\Courses.cs",
+  "SelectedNode": "\\LearningPortal\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }

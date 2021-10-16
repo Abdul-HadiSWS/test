@@ -10,15 +10,25 @@ function onYouTubeIframeAPIReady() {
     });*/
 
     player = new YT.Player('player', {
+
+
         events: { 'onReady': initialize }
     });
 
-  
-   
-    
+
+
+
 }
 
+
+
+
 function initialize() {
+
+
+    var a = document.getElementById('currenttime1').value;
+
+    player.seekTo(parseInt(a));
 
 
 
@@ -27,27 +37,28 @@ function initialize() {
     // Clear any old interval.
     clearInterval(time_update_interval);
     //var val = document.getElementById('Id').value;
-  
+
     // Start interval to update elapsed time display and
     // the elapsed part of the progress bar every second.
     time_update_interval = setInterval(function () {
         updateTimerDisplay();
-       // document.getElementById(val).submit();
+        // document.getElementById(val).submit();
         //console.log(document.getElementById("Id").value);
-       // console.log(document.getElementById("currenttime").innerText);
-       
+        // console.log(document.getElementById("currenttime").innerText);
+
         datasend(document.getElementById("SectionMediaId").value, document.getElementById("currenttime").innerText);
-       
+
     }, 1000);
 
-   
+
 
 }
 
 function datasend(id, currentime) {
-  
+
 
     $(document).ready(function () {
+
         val1 = id;
         val2 = currentime;
 
@@ -55,7 +66,7 @@ function datasend(id, currentime) {
             type: "POST",
             url: '/Home/UpdateUserMedia',
             data: { number1: val1, number2: val2 },
-         
+
             success: function (msg) {
                 console.log(msg);
             },
@@ -86,13 +97,24 @@ function updateTimerDisplay() {
     $('#totalDuration').text(formatTime_hourformat(player.getDuration()));
 
 
-    
+
 }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
 // Helper Functions
+
 function formatTime(time) {
     time = Math.round(time);
 
@@ -102,20 +124,19 @@ function formatTime(time) {
 
 
 function formatTime_hourformat(time) {
-   
-    
-        var hour = Math.floor(time / 3600),
-            minutes = time - hour * 3600;
-        minutes = Math.floor(minutes / 60),
-            seconds = Math.floor(time - minutes * 60 - hour * 3600);
 
 
 
-        // var    minutes =Math.floor(minutes/60),
-        //  seconds = time - minutes * 60;
+    var hour = Math.floor(time / 3600),
+        minutes = time - hour * 3600;
+    minutes = Math.floor(minutes / 60),
+        seconds = Math.floor(time - minutes* 60 - hour *3600);
 
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+    // var    minutes =Math.floor(minutes/60),
+    //  seconds = time - minutes * 60;
 
-        return hour + ":" + minutes + ":" + seconds;
-    }
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    return hour + ":" + minutes + ":" + seconds;
+}
 
