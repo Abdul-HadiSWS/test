@@ -30,8 +30,12 @@ function initialize() {
 
     player.seekTo(parseInt(a));
 
+    $(document).ready(function () {
 
+        var a1 = $(".html5-video-player").contents();
+        console.log(a1);
 
+    });
     updateTimerDisplay();
 
     // Clear any old interval.
@@ -58,6 +62,7 @@ function datasend(id, currentime) {
 
 
     $(document).ready(function () {
+
 
         val1 = id;
         val2 = currentime;
@@ -94,10 +99,9 @@ function datasend(id, currentime) {
 function updateTimerDisplay() {
     // Update current time text display.
     $('#currenttime').text(formatTime(player.getCurrentTime()));
-    $('#totalDuration').text(formatTime_hourformat(player.getDuration()));
+    
 
-
-
+    //$('#totalDuration').text(formatTime_hourformat(player.getDuration()));
 }
 
 

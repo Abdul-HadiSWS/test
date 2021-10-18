@@ -41,8 +41,7 @@
         <ol class="breadcrumb">
 
 
-            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id = @Html.DisplayFor(model => model.Section.Courses.SubCategories.CategoryId) })">@Html.DisplayFor(model => model.Section.Courses.SubCategories.Categories.CategoryName)</a></li>
-            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllCourse", "Home", new { id = @Html.DisplayFor(model => model.Section.Courses.SubCategories.SubCategoryId) })">@Html.DisplayFor(model => model.Section.Courses.SubCategories.SubCategoryName)</a></li>
+
             <li class="breadcrumb-item"><a href="@Url.Action("StudentCourse", "Home", new { id = @Html.DisplayFor(model => model.Section.Courses.CourseId) })">@Html.DisplayFor(model => model.Section.Courses.CourseName)</a></li>
             <li class="breadcrumb-item active"><a href="#">@Html.DisplayFor(model => model.Section.SectionName)</a></li>
             <li class="breadcrumb-item active">@Html.DisplayFor(model => model.VideoTitle)</li>
@@ -146,7 +145,22 @@
                                         <i class="material-icons text-muted-light">assessment</i>
                                     </div>
                                     <div class="media-body">
-                                        @Html.DisplayFor(model => model.Section.Courses.Levels)
+                                        Level:
+
+                                        @{
+                                            if (Html.DisplayFor(model => model.Section.Courses.Levels).ToString() == "Easy")
+                                            {
+                                            <span class="badge badge-primary ">@Html.DisplayFor(model => model.Section.Courses.Levels)</span>
+                                            }
+                                            else if (Html.DisplayFor(model => model.Section.Courses.Levels).ToString() == "Medium")
+                                            {
+                                             <span class="badge badge-warning ">@Html.DisplayFor(model => model.Section.Courses.Levels)</span>
+                                            }
+                                            else if (Html.DisplayFor(model => model.Section.Courses.Levels).ToString() == "Hard")
+                                            {
+                                             <span class="badge badge-danger ">@Html.DisplayFor(model => model.Section.Courses.Levels)</span>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </li>
@@ -156,7 +170,7 @@
                                         <i class="material-icons text-muted-light">schedule</i>
                                     </div>
                                     <div class="media-body">
-                                        <div id="totalDuration">hrs</div>
+                                        <div id="totalDuration">Duration: @{Html.RenderAction("FormatTime", "Home", new { time = Convert.ToInt32(Html.DisplayFor(model => model.VideoDuration).ToString())});} </div>
                                     </div>
                                 </div>
                             </li>
@@ -181,7 +195,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
-
+    
 
     <script src="~/assets/js/duration.js"></script>
     <!--  playlist=VIDEOID_1,VIDEOID_2

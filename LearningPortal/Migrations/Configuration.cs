@@ -19,51 +19,51 @@ namespace LearningPortal.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
             context.Categories.AddOrUpdate(
-                         new Categories() { CategoryName = "Audio/Video" },
-                         new Categories() { CategoryName = "Communication" },
-                         new Categories() { CategoryName = "Design" },
-                         new Categories() { CategoryName = "Development" },
-                         new Categories() { CategoryName = "Marketing" },
-                         new Categories() { CategoryName = "Miscellaneous" },
-                         new Categories() { CategoryName = "Project Management" },
-                         new Categories() { CategoryName = "Soft Skills" },
-                         new Categories() { CategoryName = "Writing" },
-                         new Categories() { CategoryName = "IT & Networks" }
+                         new Categories() { CategoryName = "Audio/Video", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Communication", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Design", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Development", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Marketing", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Miscellaneous", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Project Management", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Soft Skills", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "Writing", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                         new Categories() { CategoryName = "IT & Networks", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" }
 
 
                              );
             context.SaveChanges();
             context.SubCategories.AddOrUpdate(
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Audio/Video").CategoryId, SubCategoryName = "Video Graphy" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Audio/Video").CategoryId, SubCategoryName = "Audio Editor" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Audio/Video").CategoryId, SubCategoryName = "Video Graphy", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Audio/Video").CategoryId, SubCategoryName = "Audio Editor", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Communication").CategoryId, SubCategoryName = "Content Writing" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Communication").CategoryId, SubCategoryName = "Technical Writing" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Communication").CategoryId, SubCategoryName = "Eassy Writing" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Communication").CategoryId, SubCategoryName = "Content Writing", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Communication").CategoryId, SubCategoryName = "Technical Writing", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Communication").CategoryId, SubCategoryName = "Eassy Writing", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Design").CategoryId, SubCategoryName = "Web Designing" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Design").CategoryId, SubCategoryName = "Bootstrap" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Design").CategoryId, SubCategoryName = "Web Designing", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Design").CategoryId, SubCategoryName = "Bootstrap", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Development").CategoryId, SubCategoryName = "Java" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Development").CategoryId, SubCategoryName = ".Net" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Development").CategoryId, SubCategoryName = "Php" },
+                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Development").CategoryId, SubCategoryName = "Java", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Development").CategoryId, SubCategoryName = ".Net", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Development").CategoryId, SubCategoryName = "Php", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Marketing").CategoryId, SubCategoryName = "HCI" },
+                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Marketing").CategoryId, SubCategoryName = "HCI", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Bowling Actions" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Rope skipping" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Bowling Actions", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Rope skipping", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Agile" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Scurm" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Time Management" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Temper Management" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Agile", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Scurm", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Time Management", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Temper Management", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Soft Skills").CategoryId, SubCategoryName = "Vision & Communication" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Soft Skills").CategoryId, SubCategoryName = "Vision & Communication", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
 
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "IT & Networks").CategoryId, SubCategoryName = "Networking" },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "IT & Networks").CategoryId, SubCategoryName = "Cisico" }
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "IT & Networks").CategoryId, SubCategoryName = "Networking", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "IT & Networks").CategoryId, SubCategoryName = "Cisico", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" }
 
 
                 );

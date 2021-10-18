@@ -213,6 +213,7 @@ namespace LearningPortal.Controllers
         public ActionResult FormatTime(int time)
         {
             
+
             string ttime="";
             if (time == 0)
             {

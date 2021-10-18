@@ -112,23 +112,23 @@
 
 
 
-                        @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "search-form d-none d-md-flex" }))
-                        {
-                            <input id="SearchString" name="SearchString" type="text" value="" placeholder="Search" class="form-control" />
+                            @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "search-form d-none d-md-flex" }))
+                            {
+                                <input id="SearchString" name="SearchString" type="text" value="" placeholder="Search" class="form-control" />
 
-                            <button class="btn"
-                                    type="submit">
-                                <i class="material-icons font-size-24pt">search</i>
-                            </button>
+                                <button class="btn"
+                                        type="submit">
+                                    <i class="material-icons font-size-24pt">search</i>
+                                </button>
 
-                        }
+                            }
+                           
+                            <div class="flex"></div>
+                            <!-- // END Search -->
 
-                        <div class="flex"></div>
-                        <!-- // END Search -->
-                        
-                        @Html.Partial("_LoginPartial")
-                    </div>
-                </nav>
+                            @Html.Partial("_LoginPartial")
+                        </div>
+</nav>
                 <!-- // END Navbar -->
 
                 <div class="navbar bg-dark navbar-dark navbar-expand-sm d-none2 d-md-flex2">
