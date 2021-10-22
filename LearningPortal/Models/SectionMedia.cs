@@ -12,6 +12,7 @@ namespace LearningPortal.Models
        [Key]
         public int SectionMediaId { get; set; }
         public string VideoTitle { get; set; }
+        public string Videotype { get; set; }
         public string VideoUrl { get; set; }
         [Required(ErrorMessage = "Enter Section Id")]
         [Display(Name = " Section Id")]

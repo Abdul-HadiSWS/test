@@ -5,8 +5,16 @@
     ViewBag.Title = "StudentCourse";
 
 }
+<link href="https://videojs.github.io/font/css/videojs-icons.css" rel="stylesheet" />
+<link href="https://vjs.zencdn.net/5.16/video-js.min.css" rel="stylesheet" />
 
+<link rel="stylesheet" href="~/assets/css/videojs.css">
 <style>
+
+    .ytp-title-channel-logo{
+       display:none;
+    }
+
     .dropdown-menu {
         width: 100%;
         border: 0;
@@ -29,17 +37,17 @@
 
     <div class="container mt-2">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new{id=@Html.DisplayFor(model=>model.SubCategories.CategoryId)})">@Html.DisplayFor(model => model.SubCategories.Categories.CategoryName)</a></li>
-            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllCourse", "Home", new{id=@Html.DisplayFor(model=>model.SubCategoryId)})">@Html.DisplayFor(model => model.SubCategories.SubCategoryName)</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id = @Html.DisplayFor(model => model.SubCategories.CategoryId) })">@Html.DisplayFor(model => model.SubCategories.Categories.CategoryName)</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("ViewAllCourse", "Home", new { id = @Html.DisplayFor(model => model.SubCategoryId) })">@Html.DisplayFor(model => model.SubCategories.SubCategoryName)</a></li>
             <li class="breadcrumb-item active">@Html.DisplayFor(model => model.CourseName)</li>
         </ol>
     </div>
-
+   
     <div class="container card border-left-3 border-left-primary card-2by1">
         <div class="card-body">
             <div class="media flex-wrap align-items-center">
                 <div class="row">
-                    <div class="media-body col-sm-8" style="min-width: 180px">
+                    <div class="media-body col-sm-10" style="min-width: 200px">
                         <h4> <strong> @Html.DisplayFor(model => model.CourseName)</strong></h4>
                         <br>
                         <h6>
@@ -48,7 +56,7 @@
                         <h6>Level: <strong> @Html.DisplayFor(model => model.Levels)</strong></h6>
                         <h6>Year: <strong> @Html.DisplayFor(model => model.Year)</strong></h6>
                     </div>
-                    <div class="media-right mt-0 mt-xs-plus-0 col-sm-4">
+                    <div class="media-right mt-0 mt-xs-plus-0 col-sm-auto col-md-auto">
                         <img class="rounded float-right" src="~/assets/images/@Model.Image" alt="Italian Trulli">
                     </div>
                 </div>
@@ -79,6 +87,120 @@
 
                     </div>
                 </div>
+
+                @*Videowork starts here:*@
+
+
+            <div class="card">
+
+                @{
+                    var len = ViewBag.playlist.Count;
+                    if (len == 0)
+                    {
+                        <style>
+                            #vemvo-player {
+                                display: none;
+                            }
+                        </style>
+
+                        <video id="vemvo-player" class="video-js vjs-default-skin vjs-fluid" controls width="640px" height="360px" data-setup='{ "techOrder": ["html5","Youtube"] }'>
+                           
+                        </video>
+                    }
+                    else
+                    {
+                        string src = "", type = ViewBag.videotype;
+                        int start = ViewBag.StartTime;
+
+                        var playlist = ViewBag.playlist;
+                        //var len = ViewBag.playlist.Count;
+                        int index = ViewBag.index;
+                        int mediaid = playlist[index];
+
+
+
+                        int nextmediaid = 0;
+                        int prevmediaid = 0;
+                        if ((index + 1) > len)
+                        {
+
+                            <style>
+                                .vjs-icon-next-item {
+                                    pointer-events: none !important;
+                                    color: gray !important;
+                                }
+                            </style>
+                        }
+                        else
+                        {
+                            if (index == (len - 1))
+                            {
+                                <style>
+                                    .vjs-icon-next-item {
+                                        pointer-events: none !important;
+                                        color: gray !important;
+                                    }
+                                </style>
+                            }
+                            else
+                            {
+                                nextmediaid = playlist[index + 1]; ;
+                            }
+                        }
+
+                        if ((index - 1) == -1)
+                        {
+
+                            <style>
+                                .vjs-icon-previous-item {
+                                    pointer-events: none !important;
+                                    color: gray !important;
+                                }
+                            </style>
+                        }
+                        else
+                        {
+                            prevmediaid = playlist[index - 1];
+                        }
+
+
+                        if (ViewBag.videotype == "video/youtube")
+
+                        {
+                            src = ViewBag.videourl + "?start=" + ViewBag.StartTime + "&&modestbranding=1&&enablejsapi=1";
+
+                        }
+                        else
+                        {
+                            src = ViewBag.videourl;
+
+                        }
+
+                        <video id="vemvo-player" class="video-js vjs-default-skin vjs-fluid" controls width="640px" height="360px" data-setup='{ "techOrder": ["html5","Youtube"] }'>
+                            <source src="@src"
+                                    type="@type">
+                        </video>
+
+
+                        @Html.Hidden("CourseId")
+
+                        @Html.Hidden("type", type.ToString())
+                        @Html.Hidden("mediaid", mediaid)
+                        @Html.Hidden("start", start)
+                        @Html.Hidden("nextmediaid", nextmediaid)
+                        @Html.Hidden("prevmediaid", prevmediaid)
+                    }
+
+
+
+
+                }
+
+            </div>
+               
+
+                @*end of video*@
+
                 <h4 class="fonts">Course Outline</h4>
                 <p>@ViewBag.data -  @{Html.RenderAction("FormatTime", "Home", new { time = ViewBag.totalduration });} Duration </p>
 
@@ -92,60 +214,60 @@
                     <ul class="sidebar-menu">
                         @foreach (var item in Model.Sections)
                         {
-                        <li class="sidebar-menu-item1">
-                            @{
-                                string str = item.SectionName;
-                                str = str.Replace(" ", "");
-                            }
-                            <div class="media">
-                                <div class="media-left">
-                                    <a class="sidebar-menu-button sidebar-js-collapse"
-                                       data-toggle="collapse"
-                                       href="#@str">
-
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
-
-                                    </a>
-                                </div>
-                                <div class="media-body">
-
-                                    @Html.DisplayFor(modelitem => item.SectionName)
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
-                                </div>
-                            </div>
-                            <ul class="sidebar-submenu sm-indent collapse"
-                                id="@str">
-                                @foreach (var item1 in item.SectionMedia)
-                                {
-                                    <li class="sidebar-menu-item">
-                                        <div class="media">
-                                            <div class="media-left">
-                                                <a class="sidebar-menu-button" href="@Url.Action("StudentCourseVideo", "Home", new { Id = item1.SectionMediaId })">
-                                                    <i class="material-icons text-muted ml-2">play_circle_filled</i>
-                                                </a>
-                                            </div>
-                                            <div class="media-body">
-                                                <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
-
-                                            </div>
-                                            <div class="media-right">
-
-
-
-                                                <small class="text-muted-light">
-                                                    @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
-                                                </small>
-
-                                            </div>
-                                        </div>
-                                    </li>
-
+                            <li class="sidebar-menu-item1">
+                                @{
+                                    string str = item.SectionName;
+                                    str = str.Replace(" ", "");
                                 }
-                            </ul>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a class="sidebar-menu-button sidebar-js-collapse"
+                                           data-toggle="collapse"
+                                           href="#@str">
 
-                        </li>
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
+
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+
+                                        @Html.DisplayFor(modelitem => item.SectionName)
+                                    </div>
+                                    <div class="media-right">
+                                        <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
+                                    </div>
+                                </div>
+                                <ul class="sidebar-submenu sm-indent collapse"
+                                    id="@str">
+                                    @foreach (var item1 in item.SectionMedia)
+                                    {
+                                        <li class="sidebar-menu-item">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourse", "Home",  new { id = item.CourseId , sectionmediaid=item1.SectionMediaId })">
+                                                        <i class="material-icons text-muted ml-2">play_circle_filled</i>
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
+
+                                                </div>
+                                                <div class="media-right">
+
+
+
+                                                    <small class="text-muted-light">
+                                                        @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
+                                                    </small>
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    }
+                                </ul>
+
+                            </li>
                         }
                     </ul>
                 </div>
@@ -174,3 +296,12 @@
     </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://vjs.zencdn.net/5.16/video.js"></script>
+<script src="https://cdn.rawgit.com/videojs/videojs-youtube/master/src/Youtube.js"></script>
+<script src="https://rawgit.com/atlance01/vrapp-ionic/master/www/js/lib/videojs-playlist.js"></script>
+
+<script src="~/assets/js/videojs.js"></script>

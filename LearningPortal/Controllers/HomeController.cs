@@ -182,8 +182,10 @@ namespace LearningPortal.Controllers
 
         /* StudentCourse */
 
-        public ActionResult StudentCourse(int? id)
+        public ActionResult StudentCourse(int? id,int? sectionmediaid)
         {
+            string userid = User.Identity.GetUserId();
+           
             var courses = Db.Courses.Find(id);
 
             string Section = courses.Sections.Count()+ " Sections-";
@@ -198,13 +200,85 @@ namespace LearningPortal.Controllers
 
 
             }
-            string Video =   videocount+" Videos";
-            
+          
+            string Video = videocount + " Videos";
+
             ViewBag.data = Section + Video;
             ViewBag.totalduration = totalvideo;
 
+           
+            // Video Section 
 
-            return View(courses);
+                var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
+                int index = 0;
+                int countloop = 0;
+            ViewBag.playlist = playlist1;
+            if (playlist1.Count() == 0)
+            {
+
+                return View(courses);
+            }
+            else
+            {
+
+                if (sectionmediaid == 0)
+                {
+                    index = 0;
+
+                }
+                else
+                {
+                    foreach (var item in playlist1)
+                    {
+                        if (item == sectionmediaid)
+                        {
+
+                            index = countloop;
+
+                            break;
+                        }
+                        countloop++;
+                    }
+                }
+
+                int media = playlist1[index];
+                var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
+                var startime = 0;
+
+
+
+                if (check == null)
+                {
+                    UserMediaHistory obj = new UserMediaHistory();
+                    obj.WatchedTime = startime;
+                    obj.UserId = userid;
+
+                    obj.SectionMediaId = playlist1[index];
+                    Db.UserMediaHistories.Add(obj);
+                    Db.SaveChanges();
+
+                }
+                else
+                {
+                    startime = check.WatchedTime;
+                }
+
+                // End Video Section
+
+
+
+                ViewBag.StartTime = startime;
+                ViewBag.index = index;
+              
+
+                SectionMedia sm = Db.SectionMedia.Find(media);
+
+                ViewBag.videotype = sm.Videotype.ToString();
+                ViewBag.videourl = sm.VideoUrl.ToString();
+
+                return View(courses);
+            }
+
         }
         /* End StudentCourse */
 
@@ -347,7 +421,27 @@ namespace LearningPortal.Controllers
 
         /*  End StudentCourseVideo */
 
+        public ActionResult Progress(int? courseid)
+        {
+            string userid = User.Identity.GetUserId();
+            var courses = Db.Courses.Find(courseid);
+            int userduration = 0;
 
+            int totalvideo = 0;
+            foreach (var item in courses.Sections)
+            {
+                foreach (var item1 in item.SectionMedia)
+                {
+                    totalvideo = totalvideo + item1.VideoDuration;
+                }
+            }
+            var dbb = Db.UserMediaHistories.Where(x => x.UserId == userid && x.SectionMedia.Section.CourseId == courseid).Select(m => m.WatchedTime).Sum();
+            userduration = Convert.ToInt32(dbb);
+
+            double progresss = ( (double) (userduration) / (double) (totalvideo)) *100 ;
+          
+            return Content(Math.Floor(progresss).ToString());
+        }
 
 
 

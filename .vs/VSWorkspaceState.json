@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\LearningPortal",
-    "\\LearningPortal\\Models",
-    "\\LearningPortal\\Views",
-    "\\LearningPortal\\Views\\Shared"
+    ""
   ],
-  "SelectedNode": "\\LearningPortal\\Views\\Shared\\_Layout.cshtml",
+  "SelectedNode": "\\LearningPortal.sln",
   "PreviewInSolutionExplorer": false
 }

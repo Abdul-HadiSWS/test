@@ -174,9 +174,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110150949153_InitialData.cs" />
-    <Compile Include="Migrations\202110150949153_InitialData.Designer.cs">
-      <DependentUpon>202110150949153_InitialData.cs</DependentUpon>
+    <Compile Include="Migrations\202110220619434_InitialCreate.cs" />
+    <Compile Include="Migrations\202110220619434_InitialCreate.Designer.cs">
+      <DependentUpon>202110220619434_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -213,6 +213,7 @@
     <Content Include="assets\css\nestable.css" />
     <Content Include="assets\css\quill.css" />
     <Content Include="assets\css\sweetalert.css" />
+    <Content Include="assets\css\videojs.css" />
     <Content Include="assets\data\vector-maps\custom\jquery-jvectormap-de-merc-en.js" />
     <Content Include="assets\data\vector-maps\custom\jquery-jvectormap-es-merc-en.js" />
     <Content Include="assets\data\vector-maps\custom\jquery-jvectormap-fr-merc-en.js" />
@@ -293,6 +294,7 @@
     <Content Include="assets\js\app-icons.js" />
     <Content Include="assets\js\app-settings.js" />
     <Content Include="assets\js\app.js" />
+    <Content Include="assets\js\videojs.js" />
     <Content Include="assets\js\carousel.js" />
     <Content Include="assets\js\chartjs-rounded-bar.js" />
     <Content Include="assets\js\chartjs.js" />
@@ -469,8 +471,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110150949153_InitialData.resx">
-      <DependentUpon>202110150949153_InitialData.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110220619434_InitialCreate.resx">
+      <DependentUpon>202110220619434_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

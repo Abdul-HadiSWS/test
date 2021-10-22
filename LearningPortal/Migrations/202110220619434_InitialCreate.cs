@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialData : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -80,6 +80,7 @@ namespace LearningPortal.Migrations
                     {
                         SectionMediaId = c.Int(nullable: false, identity: true),
                         VideoTitle = c.String(),
+                        Videotype = c.String(),
                         VideoUrl = c.String(),
                         SectionId = c.Int(nullable: false),
                         VideoDuration = c.Int(nullable: false),

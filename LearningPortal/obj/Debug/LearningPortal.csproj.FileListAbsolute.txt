@@ -101,8 +101,6 @@ C:\Users\FBC\source\repos\LearningPortal\LearningPortal\bin\Microsoft.Owin.Secur
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.Initialcreate.resources
-C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CoreCompileInputs.cache
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.dll
@@ -655,3 +653,5 @@ C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\Learni
 C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\LearningPortal.pdb
+C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
+C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
