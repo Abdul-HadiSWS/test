@@ -197,8 +197,7 @@ function datasend(id, currentime ,tduration) {
        
         check = parseInt(tduration);
         val2 = parseInt(currentime);
-        console.log(currentime);
-        console.log(check);
+       
         if ((check) == (val2+1)) {
             val2 = check;
         } else {
@@ -287,7 +286,7 @@ var NextButton = videojs.extend(Button, {
   },
 
   handleClick: function() {
-    console.log("next");
+   
     
    
 
