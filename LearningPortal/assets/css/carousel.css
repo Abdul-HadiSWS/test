@@ -59,8 +59,10 @@
     color: black;
 }
 
+ [dir=ltr] .col-lg-4 , [dir=ltr] .col-md-4,  [dir=ltr] .col-sm-4,  [dir=ltr] .col-xs-md-4  {
+padding-right:0;
+}
 @media (max-width: 388px) {
-
     .col-xs-md-8 {
         flex: 0 0 66.6666666667%;
         max-width: 60.3333333333%;
@@ -94,6 +96,7 @@
 
     .carousel-item {
         margin-right: 0;
+       
         width: 50%;
     }
     /* show 2 items */
@@ -178,6 +181,8 @@
     .breadcrumb {
         font-size: x-small;
     }
+   
+   
 }
 
 
