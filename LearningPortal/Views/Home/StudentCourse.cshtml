@@ -1,5 +1,6 @@
 ﻿
 @model LearningPortal.Models.Courses
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "StudentCourse";
@@ -11,8 +12,8 @@
 <link rel="stylesheet" href="~/assets/css/videojs.css">
 <style>
 
-    .ytp-title-channel-logo{
-       display:none;
+    .ytp-title-channel-logo {
+        display: none;
     }
 
     .dropdown-menu {
@@ -31,6 +32,27 @@
         border: 8px solid transparent;
         border: 1px solid transparent;
     }
+
+    .sidebar-menu-item .sidebar-menu-button {
+        margin: 0px;
+    }
+
+    .sidebar {
+        height: auto;
+    }
+
+        .sidebar .sidebar-menu-item {
+            padding: 10px;
+        }
+
+            .sidebar .sidebar-menu-item a {
+                width: auto;
+                padding-left: 0 !important;
+            }
+
+            .sidebar .sidebar-menu-item .sidebar-menu-button i {
+                margin: 0;
+            }
 </style>
 
 <div class="mdk-drawer-layout__content page mt-5">
@@ -42,7 +64,7 @@
             <li class="breadcrumb-item active">@Html.DisplayFor(model => model.CourseName)</li>
         </ol>
     </div>
-   
+
     <div class="container card border-left-3 border-left-primary card-2by1">
         <div class="card-body">
             <div class="media flex-wrap align-items-center">
@@ -90,51 +112,39 @@
 
                 @*Videowork starts here:*@
 
+                <h4 class="fonts">@ViewBag.videotitle</h4>
+                <div class="card">
 
-            <div class="card">
-
-                @{
-                    var len = ViewBag.playlist.Count;
-                    if (len == 0)
-                    {
-                        <style>
-                            #vemvo-player {
-                                display: none;
-                            }
-                        </style>
-
-                        <video id="vemvo-player" class="video-js vjs-default-skin vjs-fluid" controls width="640px" height="360px" data-setup='{ "techOrder": ["html5","Youtube"] }'>
-                           
-                        </video>
-                    }
-                    else
-                    {
-                        string src = "", type = ViewBag.videotype;
-                        int start = ViewBag.StartTime;
-
-                        var playlist = ViewBag.playlist;
-                        //var len = ViewBag.playlist.Count;
-                        int index = ViewBag.index;
-                        int mediaid = playlist[index];
-
-
-
-                        int nextmediaid = 0;
-                        int prevmediaid = 0;
-                        if ((index + 1) > len)
+                    @{
+                        var len = ViewBag.playlist.Count;
+                        if (len == 0)
                         {
-
                             <style>
-                                .vjs-icon-next-item {
-                                    pointer-events: none !important;
-                                    color: gray !important;
+                                #vemvo-player {
+                                    display: none;
                                 }
                             </style>
+
+                            <video id="vemvo-player" class="video-js vjs-default-skin vjs-fluid" controls width="640px" height="360px" data-setup='{ "techOrder": ["html5","Youtube"] }'>
+                            </video>
                         }
                         else
                         {
-                            if (index == (len - 1))
+                            string src = "", type = ViewBag.videotype;
+                            int start = ViewBag.StartTime;
+
+                            var playlist = ViewBag.playlist;
+                            //var len = ViewBag.playlist.Count;
+                            int index = ViewBag.index;
+                            int mediaid = playlist[index];
+
+
+
+                            int nextmediaid = 0;
+                            int prevmediaid = 0;
+                            if ((index + 1) > len)
                             {
+
                                 <style>
                                     .vjs-icon-next-item {
                                         pointer-events: none !important;
@@ -144,60 +154,71 @@
                             }
                             else
                             {
-                                nextmediaid = playlist[index + 1]; ;
-                            }
-                        }
-
-                        if ((index - 1) == -1)
-                        {
-
-                            <style>
-                                .vjs-icon-previous-item {
-                                    pointer-events: none !important;
-                                    color: gray !important;
+                                if (index == (len - 1))
+                                {
+                                    <style>
+                                        .vjs-icon-next-item {
+                                            pointer-events: none !important;
+                                            color: gray !important;
+                                        }
+                                    </style>
                                 }
-                            </style>
+                                else
+                                {
+                                    nextmediaid = playlist[index + 1]; ;
+                                }
+                            }
+
+                            if ((index - 1) == -1)
+                            {
+
+                                <style>
+                                    .vjs-icon-previous-item {
+                                        pointer-events: none !important;
+                                        color: gray !important;
+                                    }
+                                </style>
+                            }
+                            else
+                            {
+                                prevmediaid = playlist[index - 1];
+                            }
+
+
+                            if (ViewBag.videotype == "video/youtube")
+
+                            {
+                                src = ViewBag.videourl + "?start=" + ViewBag.StartTime + "&&modestbranding=1&&enablejsapi=1";
+
+                            }
+                            else
+                            {
+                                src = ViewBag.videourl;
+
+                            }
+
+                            <video id="vemvo-player" class="video-js vjs-default-skin vjs-fluid" controls width="640px" height="360px" data-setup='{ "techOrder": ["html5","Youtube"] }'>
+                                <source src="@src"
+                                        type="@type">
+                            </video>
+
+
+                            @Html.Hidden("CourseId")
+
+                            @Html.Hidden("type", type.ToString())
+                            @Html.Hidden("mediaid", mediaid)
+                            @Html.Hidden("start", start)
+                            @Html.Hidden("nextmediaid", nextmediaid)
+                            @Html.Hidden("prevmediaid", prevmediaid)
                         }
-                        else
-                        {
-                            prevmediaid = playlist[index - 1];
-                        }
 
 
-                        if (ViewBag.videotype == "video/youtube")
-
-                        {
-                            src = ViewBag.videourl + "?start=" + ViewBag.StartTime + "&&modestbranding=1&&enablejsapi=1";
-
-                        }
-                        else
-                        {
-                            src = ViewBag.videourl;
-
-                        }
-
-                        <video id="vemvo-player" class="video-js vjs-default-skin vjs-fluid" controls width="640px" height="360px" data-setup='{ "techOrder": ["html5","Youtube"] }'>
-                            <source src="@src"
-                                    type="@type">
-                        </video>
 
 
-                        @Html.Hidden("CourseId")
-
-                        @Html.Hidden("type", type.ToString())
-                        @Html.Hidden("mediaid", mediaid)
-                        @Html.Hidden("start", start)
-                        @Html.Hidden("nextmediaid", nextmediaid)
-                        @Html.Hidden("prevmediaid", prevmediaid)
                     }
 
+                </div>
 
-
-
-                }
-
-            </div>
-               
 
                 @*end of video*@
 
@@ -244,8 +265,50 @@
                                         <li class="sidebar-menu-item">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourse", "Home",  new { id = item.CourseId , sectionmediaid=item1.SectionMediaId })">
-                                                        <i class="material-icons text-muted ml-2">play_circle_filled</i>
+                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sectionmediaid = item1.SectionMediaId })">
+
+                                                        @{
+                                                            var aa = item1.UserMediaHistories.Where(x => x.UserId == User.Identity.GetUserId()).ToList();
+
+                                                            if (aa.Count == 0)
+                                                            {
+                                                                <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                                            }
+                                                            else
+                                                            {
+                                                                foreach (var item2 in aa)
+                                                                {
+                                                                    var start = item2.WatchedTime;
+
+                                                                    if (item1.VideoDuration == start)
+                                                                    {
+                                                                     <i class="material-icons text-muted pr-2" style="color:green !important">check_circle</i>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (start == 0)
+                                                                        {
+                                                                            <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i class="material-icons text-muted pr-2">pause_circle_filled</i>
+                                                                        }
+                                                                    }
+
+
+                                                                }
+
+                                                            }
+
+
+
+                                                        }
+
+
+
+
+
                                                     </a>
                                                 </div>
                                                 <div class="media-body">

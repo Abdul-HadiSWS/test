@@ -210,6 +210,7 @@ namespace LearningPortal.Controllers
             // Video Section 
 
                 var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
+                var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
                 int index = 0;
                 int countloop = 0;
             ViewBag.playlist = playlist1;
@@ -275,7 +276,7 @@ namespace LearningPortal.Controllers
 
                 ViewBag.videotype = sm.Videotype.ToString();
                 ViewBag.videourl = sm.VideoUrl.ToString();
-
+                ViewBag.videotitle = vname; 
                 return View(courses);
             }
 

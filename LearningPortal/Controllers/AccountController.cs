@@ -94,7 +94,7 @@ namespace LearningPortal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("StudentDashboard","Home");
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -171,15 +171,15 @@ namespace LearningPortal.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("StudentDashboard", "Home");
+                    ViewBag.msg = "Register Successfuly";
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -405,9 +405,17 @@ namespace LearningPortal.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOff(string returnUrl)
         {
+
+
+          
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            HttpContext.Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            HttpContext.Response.AddHeader("Pragma", "no-cache");
+            HttpContext.Response.AddHeader("Expires", "0");
+
+
             return RedirectToAction("Login", "Account");
         }
 
@@ -465,7 +473,7 @@ namespace LearningPortal.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("StudentDashboard", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
