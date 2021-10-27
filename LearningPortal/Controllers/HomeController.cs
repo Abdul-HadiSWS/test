@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LearningPortal.Controllers
 {
+    
     [Authorize]
     public class HomeController : Controller
     {
@@ -19,36 +20,6 @@ namespace LearningPortal.Controllers
         public ActionResult StudentDashboard()
         {
 
-
-
-            //var count = Db.ResumeCourses.ToList();
-
-            //if (count.Count() > 0)
-            //{
-
-
-            //    var featurecourse = Db.Courses.SqlQuery("Select * from Courses where Courses.CourseId NOT IN (select Distinct(Courses.CourseId) from  Courses join Sections on Courses.CourseId = Sections.CourseId join SectionMedias on Sections.SectionId = SectionMedias.SectionId join UserMediaHistories on SectionMedias.SectionMediaId = UserMediaHistories.SectionMediaId join AspNetUsers on UserMediaHistories.UserId = AspNetUsers.Id where AspNetUsers.Id = '" + UserId + "')and IsFeatured = 1").ToList();
-            //    var resumecourse = Db.Courses.SqlQuery("select DISTINCT Courses.* from Courses join ResumeCourses on Courses.CourseId = ResumeCourses.CourseID join  AspNetUsers on ResumeCourses.UserId = AspNetUsers.Id where AspNetUsers.Id ='" + User.Identity.GetUserId() + "'").ToList();
-
-            //    ViewBag.count = resumecourse.Count();
-            //    ViewBag.fc = featurecourse.Count();
-
-            //    ViewBag.rc = resumecourse.ToList();
-            //    return View(featurecourse);
-
-            //}
-            //else
-            //{
-            //    var featurecourse = Db.Courses.ToList();
-            //    var resumecourse = Db.Courses.SqlQuery("select DISTINCT Courses.* from Courses join ResumeCourses on Courses.CourseId = ResumeCourses.CourseID join  AspNetUsers on ResumeCourses.UserId = AspNetUsers.Id where AspNetUsers.Id ='" + User.Identity.GetUserId() + "'").ToList();
-            //    ViewBag.fc = featurecourse.Count();
-            //    ViewBag.count = resumecourse.Count();
-            //    ViewBag.rc = resumecourse.ToList();
-            //    return View(featurecourse);
-            //}
-
-
-
             var featurecourse = Db.Courses.SqlQuery("Select * from Courses where Courses.CourseId NOT IN (select Distinct(Courses.CourseId) from  Courses join Sections on Courses.CourseId = Sections.CourseId join SectionMedias on Sections.SectionId = SectionMedias.SectionId join UserMediaHistories on SectionMedias.SectionMediaId = UserMediaHistories.SectionMediaId join AspNetUsers on UserMediaHistories.UserId = AspNetUsers.Id where AspNetUsers.Id = '" + User.Identity.GetUserId() + "')and IsFeatured = 1").ToList();
             
             var resumecourse = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + User.Identity.GetUserId() + "'").ToList();
@@ -58,7 +29,6 @@ namespace LearningPortal.Controllers
 
             ViewBag.rc = resumecourse.ToList();
             return View(featurecourse);
-
 
         }
 
@@ -161,6 +131,7 @@ namespace LearningPortal.Controllers
         /*ResumeCourse */
         public PartialViewResult ResumeCourse(string UserId)
         {
+
             var course = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + UserId + "'").ToList();
             ViewBag.Counts = course.Count();
             return PartialView(course);
@@ -181,103 +152,118 @@ namespace LearningPortal.Controllers
 
 
         /* StudentCourse */
-
-        public ActionResult StudentCourse(int? id,int? sectionmediaid)
+       
+        public ActionResult StudentCourse(int? id,string sid)
         {
+            // var idd = Convert.ToString(id);
+            //var DecryptId = helpper.Decrypt(idd);
+           
             string userid = User.Identity.GetUserId();
-           
+            
             var courses = Db.Courses.Find(id);
-
-            string Section = courses.Sections.Count()+ " Sections-";
-            int videocount = 0,totalvideo=0;
-            foreach (var item in courses.Sections)
-            {
-                videocount = videocount + item.SectionMedia.Count();
-                foreach (var item1 in item.SectionMedia)
-                {
-                    totalvideo = totalvideo + item1.VideoDuration;
-                }
-
-
-            }
-          
-            string Video = videocount + " Videos";
-
-            ViewBag.data = Section + Video;
-            ViewBag.totalduration = totalvideo;
-
-           
-            // Video Section 
-
-                var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
-                var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
-                int index = 0;
-                int countloop = 0;
-            ViewBag.playlist = playlist1;
-            if (playlist1.Count() == 0)
-            {
-
-                return View(courses);
-            }
+            if (courses == null) { return View(); }
             else
             {
-
-                if (sectionmediaid == 0)
+                string Section = courses.Sections.Count() + " Sections-";
+                int videocount = 0, totalvideo = 0;
+                foreach (var item in courses.Sections)
                 {
-                    index = 0;
-
-                }
-                else
-                {
-                    foreach (var item in playlist1)
+                    videocount = videocount + item.SectionMedia.Count();
+                    foreach (var item1 in item.SectionMedia)
                     {
-                        if (item == sectionmediaid)
-                        {
-
-                            index = countloop;
-
-                            break;
-                        }
-                        countloop++;
+                        totalvideo = totalvideo + item1.VideoDuration;
                     }
+
+
                 }
 
-                int media = playlist1[index];
-                var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
-                var startime = 0;
+                string Video = videocount + " Videos";
 
-
-
-                if (check == null)
+                ViewBag.data = Section + Video;
+                ViewBag.totalduration = totalvideo;
+               
+                var decs = helpper.Decrypto(sid);
+                if (decs=="")
                 {
-                    UserMediaHistory obj = new UserMediaHistory();
-                    obj.WatchedTime = startime;
-                    obj.UserId = userid;
+                    return View();
+                }
+                
+                // Video Section 
+                int sectionmediaid = Convert.ToInt32(decs);
+                var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
 
-                    obj.SectionMediaId = playlist1[index];
-                    Db.UserMediaHistories.Add(obj);
-                    Db.SaveChanges();
+                var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
+                
+                int index = 0;
+                int countloop = 0;
+                ViewBag.playlist = playlist1;
 
+               
+                if (playlist1.Count() == 0)
+                {
+
+                    return View(courses);
                 }
                 else
                 {
-                    startime = check.WatchedTime;
+
+                    if (sectionmediaid == 0)
+                    {
+                        index = 0;
+
+                    }
+                    else
+                    {
+                        foreach (var item in playlist1)
+                        {
+                            if (item == sectionmediaid)
+                            {
+
+                                index = countloop;
+
+                                break;
+                            }
+                            countloop++;
+                        }
+                    }
+
+                    int media = playlist1[index];
+                    var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
+                    var startime = 0;
+
+
+
+                    if (check == null)
+                    {
+                        UserMediaHistory obj = new UserMediaHistory();
+                        obj.WatchedTime = startime;
+                        obj.UserId = userid;
+
+                        obj.SectionMediaId = playlist1[index];
+                        Db.UserMediaHistories.Add(obj);
+                        Db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        startime = check.WatchedTime;
+                    }
+
+                    // End Video Section
+
+
+
+                    ViewBag.StartTime = startime;
+                    ViewBag.index = index;
+
+
+                    SectionMedia sm = Db.SectionMedia.Find(media);
+
+                    ViewBag.videotype = sm.Videotype.ToString();
+                    ViewBag.videourl = sm.VideoUrl.ToString();
+                    ViewBag.videotitle = vname;
+                    return View(courses);
                 }
-
-                // End Video Section
-
-
-
-                ViewBag.StartTime = startime;
-                ViewBag.index = index;
-              
-
-                SectionMedia sm = Db.SectionMedia.Find(media);
-
-                ViewBag.videotype = sm.Videotype.ToString();
-                ViewBag.videourl = sm.VideoUrl.ToString();
-                ViewBag.videotitle = vname; 
-                return View(courses);
             }
 
         }

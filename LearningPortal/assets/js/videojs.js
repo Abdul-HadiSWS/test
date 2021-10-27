@@ -174,7 +174,7 @@ var PrevButton = videojs.extend(Button, {
       var prevmediaid = $('#prevmediaid').val();
 
      
-    window.location.href = courseid.trim() + "?sectionmediaid=" + prevmediaid.trim();
+    window.location.href = courseid.trim() + "?sid=" + prevmediaid.trim();
 
       
      
@@ -294,9 +294,9 @@ var NextButton = videojs.extend(Button, {
       var courseid = $('#CourseId').val();
          
       var nextmediaid = $('#nextmediaid').val();
+      console.log(nextmediaid);
 
-
-      window.location.href = courseid.trim() + "?sectionmediaid=" + nextmediaid.trim();
+      window.location.href = courseid.trim() + "?sid=" + nextmediaid.trim();
     
     // player.playlist.next();
  

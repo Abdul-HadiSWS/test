@@ -3,7 +3,7 @@
 @model IEnumerable<LearningPortal.Models.Courses> 
 @{
     ViewBag.Title = "StudentDashboard";
-
+    var que = helpper.Encrypt("1", true);
 }
 
 
@@ -29,15 +29,15 @@
                 -->
                 <div class="carousel-inner row w-100" role="listbox">
                     @{
-                        bool first = true;
+                                    bool first = true;
 
-
-                        foreach (var item in ViewBag.rc)
-                        {
-                            if (first)
-                            {
+                                  
+                                    foreach (var item in ViewBag.rc)
+                                    {
+                                        if (first)
+                                        {
                                 <div class="carousel-item  col-sm-6 col-md-4 col-lg-3 active">
-                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sectionmediaid=1 })">
+                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId ,sid=que})">
                                         <div class="card card-sm">
                                             <div class="position-relative">
                                                 <div class="card-img-top">
@@ -57,13 +57,13 @@
                                                                 if (item.Levels == "Easy")
                                                                 {
                                                                     <span class="badge badge-primary ">@item.Levels</span>
-                                                                }
+                            }
                                                                 else if (item.Levels == "Medium")
                                                                 {
                                                                     <span class="badge badge-warning ">@item.Levels</span>
-                                                                }
+                        }
                                                                 else if (item.Levels == "Hard")
-                                                                {
+                        {
                                                                     <span class="badge badge-danger ">@item.Levels</span>
                                                                 }
                                                             }
@@ -91,9 +91,9 @@
                                 first = false;
                             }
                             else
-                            {
+                        {
                                 <div class="carousel-item  col-sm-6 col-md-4 col-lg-3">
-                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId ,sectionmediaid=1 })">
+                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId ,sid=que })">
                                         <div class="card card-sm">
                                             <div class="position-relative">
                                                 <div class="card-img-top">
@@ -110,16 +110,16 @@
                                                     <h5 class="card-title m-0">
                                                         <small class="text-muted">
                                                             Level:   @{
-                                                                if (item.Levels == "Easy")
-                                                                {
+                            if (item.Levels == "Easy")
+                            {
                                                                     <span class="badge badge-primary ">@item.Levels</span>
                                                                 }
                                                                 else if (item.Levels == "Medium")
-                                                                {
+                        {
                                                                     <span class="badge badge-warning ">@item.Levels</span>
                                                                 }
                                                                 else if (item.Levels == "Hard")
-                                                                {
+                        {
                                                                     <span class="badge badge-danger ">@item.Levels</span>
                                                                 }
                                                             }
@@ -134,7 +134,7 @@
 
                                                         </div>
                                                         <div class="col-lg-4 col-sm-4 col-md-4 col-xs-md-4">
-                                                            <small class="ml"><strong> @{Html.RenderAction("Progress", "Home", new { courseid = item.CourseId });}%</strong></small>
+                                                            <small class="ml"><strong> @{Html.RenderAction("Progress","Home", new { courseid = item.CourseId });}%</strong></small>
                                                         </div>
                                                     </div>
 
@@ -179,14 +179,14 @@
                 -->
                 <div class="carousel-inner row w-100 " role="listbox">
                     @{
-                       
 
+                       
 
                         foreach (var item in ViewBag.rc)
                         {
-                          
+
                                         <div class="carousel-item  col-6 col-md-4 col-lg-3  active">
-                                            <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sectionmediaid=1 })">
+                                            <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sid=que })">
                                                 <div class="card card-sm">
                                                     <div class="position-relative">
                                                         <div class="card-img-top">
@@ -275,14 +275,14 @@
                 <div class="carousel-inner row w-100 " role="listbox">
                     @{
                         bool first = true;
-
+                        
 
                         foreach (var item in Model)
                         {
                             if (first)
                             {
                                 <div class="carousel-item  col-sm-6 col-md-4 col-lg-3 active">
-                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sectionmediaid=1 })">
+                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sid=que })">
                                         <div class="card card-sm">
                                             <div class="position-relative">
                                                 <div class="card-img-top">
@@ -328,7 +328,7 @@
                             else
                             {
                                 <div class="carousel-item  col-sm-6 col-md-4 col-lg-3">
-                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sectionmediaid=1 })">
+                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sid=que })">
                                         <div class="card card-sm">
                                             <div class="position-relative">
                                                 <div class="card-img-top">
@@ -409,7 +409,7 @@
                         {
                             
                                 <div class="carousel-item col-6  col-md-4 col-lg-3 active">
-                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sectionmediaid=1 })">
+                                    <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sid=que })">
                                         <div class="card card-sm">
                                             <div class="position-relative">
                                                 <div class="card-img-top">

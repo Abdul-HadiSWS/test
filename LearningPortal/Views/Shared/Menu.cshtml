@@ -30,9 +30,9 @@
                                                 @{
                                                     foreach (LearningPortal.Models.Courses subtosubitem in Cache["subtosubmenu"] as List<LearningPortal.Models.Courses>)
                                                     {
-
+                                                        var que = helpper.Encrypt("1", true);
                                                         <li>
-                                                            <a href="@Url.Action("StudentCourse", "Home", new {id=subtosubitem.CourseId , sectionmediaid=1})">@subtosubitem.CourseName</a>
+                                                            <a href="@Url.Action("StudentCourse", "Home", new {id=subtosubitem.CourseId , sid=que})">@subtosubitem.CourseName</a>
 
                                                         </li>
 

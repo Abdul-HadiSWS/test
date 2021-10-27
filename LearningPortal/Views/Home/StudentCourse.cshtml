@@ -54,7 +54,12 @@
                 margin: 0;
             }
 </style>
-
+@{ if (Model == null )
+    {
+    <h1>no course</h1>
+    }
+    else
+    {
 <div class="mdk-drawer-layout__content page mt-5">
 
     <div class="container mt-2">
@@ -140,8 +145,8 @@
 
 
 
-                            int nextmediaid = 0;
-                            int prevmediaid = 0;
+                            int nextid = 0;
+                            int previd = 0;
                             if ((index + 1) > len)
                             {
 
@@ -165,7 +170,7 @@
                                 }
                                 else
                                 {
-                                    nextmediaid = playlist[index + 1]; ;
+                                    nextid = playlist[index + 1]; ;
                                 }
                             }
 
@@ -181,7 +186,7 @@
                             }
                             else
                             {
-                                prevmediaid = playlist[index - 1];
+                                previd = playlist[index - 1];
                             }
 
 
@@ -203,6 +208,8 @@
                             </video>
 
 
+                            var nextmediaid = helpper.Encrypt("" + nextid, true);
+                            var prevmediaid = helpper.Encrypt("" + previd, true);
                             @Html.Hidden("CourseId")
 
                             @Html.Hidden("type", type.ToString())
@@ -262,10 +269,11 @@
                                     id="@str">
                                     @foreach (var item1 in item.SectionMedia)
                                     {
+                                        var que = helpper.Encrypt(""+item1.SectionMediaId, true);
                                         <li class="sidebar-menu-item">
                                             <div class="media">
                                                 <div class="media-left">
-                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sectionmediaid = item1.SectionMediaId })">
+                                                    <a class="sidebar-menu-button" href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sid = que })">
 
                                                         @{
                                                             var aa = item1.UserMediaHistories.Where(x => x.UserId == User.Identity.GetUserId()).ToList();
@@ -327,11 +335,11 @@
                                             </div>
                                         </li>
 
-                                    }
+                                                            }
                                 </ul>
 
                             </li>
-                        }
+                                                            }
                     </ul>
                 </div>
             </div>
@@ -359,6 +367,8 @@
     </div>
 
 </div>
+}
+                                                            }
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

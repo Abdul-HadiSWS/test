@@ -62,10 +62,10 @@
     height: 1.5em;
     width: 2em;
     top: 12.5rem;
-    left: 22.5rem;
+    left: 25rem;
 }
 
-@media only screen and (max-width: 1326px) {
+@media(max-width: 1326px) {
     .video-js .vjs-big-play-button {
         font-size: 3em;
         line-height: 1.5em;
@@ -76,7 +76,43 @@
         border-radius: 0.3em;
     }
 }
+@media(min-width: 1600px) {
+    .video-js .vjs-big-play-button {
+        font-size: 4em;
+        line-height: 1.5em;
+        height: 1.5em;
+        width: 2em;
+        top: 40%;
+        left: 45%;
+        border-radius: 0.3em;
+    }
+}
 
+
+@media(min-width: 1800px) {
+    .video-js .vjs-big-play-button {
+        font-size: 4em;
+        line-height: 1.5em;
+        height: 1.5em;
+        width: 2em;
+        top: 40%;
+        left: 45%;
+        border-radius: 0.3em;
+    }
+}
+
+
+@media(min-width: 1900px) {
+    .video-js .vjs-big-play-button {
+        font-size: 4em;
+        line-height: 1.5em;
+        height: 1.5em;
+        width: 2em;
+        top: 40%;
+        left: 45%;
+        border-radius: 0.3em;
+    }
+}
 
 
 /* .video-js .icon-angle-right, .video-js .icon-angle-left {
