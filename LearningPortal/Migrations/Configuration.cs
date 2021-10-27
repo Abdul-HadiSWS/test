@@ -18,7 +18,7 @@ namespace LearningPortal.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            
+
             context.Categories.AddOrUpdate(
                          new Categories() { CategoryName = "Audio/Video", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
                          new Categories() { CategoryName = "Communication", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" },
@@ -102,21 +102,21 @@ namespace LearningPortal.Migrations
 
 
             context.SectionMedia.AddOrUpdate(
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video1", VideoDuration = 1074 },
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video1", VideoDuration = 52 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video2", VideoDuration = 52 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/bunny/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Intro").SectionId, VideoTitle = "Video3", VideoDuration = 33 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "https://vjs.zencdn.net/v/oceans.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video1", VideoDuration = 46 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/bunny/movie.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video2", VideoDuration = 596 },
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video3", VideoDuration = 1074 },
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video4", VideoDuration = 1074 },
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video1", VideoDuration = 1074 },
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/bunny/movie.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video3", VideoDuration = 596 },
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/bunny/movie.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Installation").SectionId, VideoTitle = "Video4", VideoDuration = 596 },
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/bunny/movie.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video1", VideoDuration = 596 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video2", VideoDuration = 52 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Fundamentals").SectionId, VideoTitle = "Video3", VideoDuration = 52 },
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "Data Structure").SectionId, VideoTitle = "Video4", VideoDuration = 1074 },
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Data Structure").SectionId, VideoTitle = "Video4", VideoDuration = 52 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Project").SectionId, VideoTitle = "Video1", VideoDuration = 52 },
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "Introduction").SectionId, VideoTitle = "Video1", VideoDuration = 1074 },
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "Introduction").SectionId, VideoTitle = "Video1", VideoDuration = 52 },
               new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video1", VideoDuration = 52 },
-              new SectionMedia() { Videotype = "video/youtube", VideoUrl = "https://www.youtube.com/embed/RTfBkdn0Ov0", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video2", VideoDuration = 1074 }
+              new SectionMedia() { Videotype = "video/mp4", VideoUrl = "http://media.w3.org/2010/05/sintel/trailer.mp4", SectionId = context.Sections.Single(i => i.SectionName == "PhpIntro").SectionId, VideoTitle = "Video2", VideoDuration = 52 }
 
             );
 
@@ -144,8 +144,8 @@ namespace LearningPortal.Migrations
                 );
 
 
-            
+
         }
-        
+
     }
 }
