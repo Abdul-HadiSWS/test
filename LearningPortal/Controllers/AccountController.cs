@@ -411,9 +411,7 @@ namespace LearningPortal.Controllers
 
           
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            HttpContext.Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            HttpContext.Response.AddHeader("Pragma", "no-cache");
-            HttpContext.Response.AddHeader("Expires", "0");
+         
 
 
             return RedirectToAction("Login", "Account");
