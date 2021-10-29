@@ -35,18 +35,15 @@
 </head>
 
 <body>
+    @if(Request.IsAuthenticated) {
 
-    @if (Request.IsAuthenticated)
-    {
+
         <script>
-
-
             window.location.href = "/Home/StudentDashboard";
-
         </script>
+      }
+            else { 
     }
-    else
-    {
 
         <div class="d-flex align-items-center"
              style="min-height: 100vh">

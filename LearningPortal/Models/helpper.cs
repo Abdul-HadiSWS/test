@@ -43,7 +43,7 @@ namespace LearningPortal
 
             else
 
-                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+                keyArray = UTF8Encoding.UTF8.GetBytes(_salt);
 
 
 

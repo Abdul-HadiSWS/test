@@ -57,6 +57,10 @@ namespace LearningPortal.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToLocal(returnUrl);
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -85,10 +89,9 @@ namespace LearningPortal.Controllers
             {
                 username = item.UserName.ToString();
             }
-             
+           Session["num"] = "cdas";
 
 
-            
 
             var result = await SignInManager.PasswordSignInAsync(username, model.Password, true, shouldLockout: false);
             switch (result)
@@ -407,12 +410,14 @@ namespace LearningPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff(string returnUrl)
         {
+            // Session["num"] = "ads";
+            Session.Clear();
+            Session.Abandon();
 
 
-          
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-         
 
+            
 
             return RedirectToAction("Login", "Account");
         }

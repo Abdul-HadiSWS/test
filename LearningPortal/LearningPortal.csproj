@@ -302,6 +302,7 @@
     <Content Include="assets\js\app-icons.js" />
     <Content Include="assets\js\app-settings.js" />
     <Content Include="assets\js\app.js" />
+    <Content Include="assets\js\data.js" />
     <Content Include="assets\js\videojs.js" />
     <Content Include="assets\js\carousel.js" />
     <Content Include="assets\js\chartjs-rounded-bar.js" />
@@ -461,9 +462,11 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\ViewAllSubCategory.cshtml" />
     <Content Include="Views\Home\ViewAllCategory.cshtml" />
+    <Content Include="Views\Home\videoplayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\videos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

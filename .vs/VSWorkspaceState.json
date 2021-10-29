@@ -1,7 +1,15 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\LearningPortal",
+    "\\LearningPortal\\assets",
+    "\\LearningPortal\\assets\\js",
+    "\\LearningPortal\\Controllers",
+    "\\LearningPortal\\Migrations",
+    "\\LearningPortal\\Views",
+    "\\LearningPortal\\Views\\Home",
+    "\\LearningPortal\\Views\\Shared"
   ],
-  "SelectedNode": "\\LearningPortal.sln",
+  "SelectedNode": "\\LearningPortal\\assets\\js\\data.js",
   "PreviewInSolutionExplorer": false
 }

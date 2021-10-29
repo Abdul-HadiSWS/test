@@ -7,6 +7,9 @@
 
 @model IEnumerable<LearningPortal.Models.Categories>
 
+
+
+
 <div class="mdk-drawer-layout__content page mt-5">
     <div class="media align-items-center mb-headings">
         <div class="media-body">
@@ -17,8 +20,11 @@
     <div class="card-columns row">
         @{ foreach (var item in Model)
             {
+                string que = helpper.Encrypt("" + item.CategoryId, true);
+                que = que.Replace('%', 'a');
+                que = que.Replace('+', 'b');
                 <div class="carousel-item  col-sm-6 col-md-4 col-lg-3  active">
-                    <a href="@Url.Action("ViewAllSubCategory", "Home", new { id = item.CategoryId })">
+                    <a href="@Url.Action("ViewAllSubCategory", "Home", new { id =  que.Replace('/', '$')})">
                         <div class="card card-sm">
 
                             <div class="position-relative">

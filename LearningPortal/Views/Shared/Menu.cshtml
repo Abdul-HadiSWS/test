@@ -12,39 +12,53 @@
                 @{
                     foreach (LearningPortal.Models.Categories item in Cache["Menu"] as List<LearningPortal.Models.Categories>)
                     {
-                        <li>
-                            <a href="@Url.Action("ViewAllSubCategory", "Home", new{id=item.CategoryId})"> @item.CategoryName <i class="fa fa-caret-right"></i> </a>
-                            @{
-                                ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Submenu(Convert.ToInt32(item.CategoryId));
-                            }
-                            <ul>
-                                @{
-                                    foreach (LearningPortal.Models.SubCategories subitem in Cache["submenu"] as List<LearningPortal.Models.SubCategories>)
-                                    {
-                                        <li>
-                                            <a href="@Url.Action("ViewAllCourse", "Home", new{id=subitem.SubCategoryId})">@subitem.SubCategoryName <i class="fa fa-caret-right"></i></a>
-                                            @{
-                                                ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Subtosubmenu(Convert.ToInt32(subitem.SubCategoryId));
-                                            }
-                                            <ul>
-                                                @{
-                                                    foreach (LearningPortal.Models.Courses subtosubitem in Cache["subtosubmenu"] as List<LearningPortal.Models.Courses>)
-                                                    {
-                                                        var que = helpper.Encrypt("1", true);
+                        string que1 = helpper.Encrypt("" + item.CategoryId, true);
+                         que1 = que1.Replace('%', 'a');
+                                <li>
+                                    
+                                    <a href="@Url.Action("ViewAllSubCategory", "Home", new{id=que1.Replace('/', '$')})"> @item.CategoryName <i class="fa fa-caret-right"></i> </a>
+                                    @{
+                                        ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Submenu(Convert.ToInt32(item.CategoryId));
+                                    }
+                                    <ul>
+                                        @{
+                                            foreach (LearningPortal.Models.SubCategories subitem in Cache["submenu"] as List<LearningPortal.Models.SubCategories>)
+                                            {
+                                                string que = helpper.Encrypt("" + subitem.SubCategoryId, true);
+                                                que = que.Replace('+', 'b');
+                                                que = que.Replace('%', 'a');
+                                                <li>
+                                                    <a href="@Url.Action("ViewAllCourse", "Home", new{id=que.Replace('/', '$')})">@subitem.SubCategoryName <i class="fa fa-caret-right"></i></a>
+                                                    @{
+                                                        ((LearningPortal.Controllers.HomeController)this.ViewContext.Controller).get_Subtosubmenu(Convert.ToInt32(subitem.SubCategoryId));
+                                                    }
+                                                    <ul>
+                                                        @{
+                                                            foreach (LearningPortal.Models.Courses subtosubitem in Cache["subtosubmenu"] as List<LearningPortal.Models.Courses>)
+                                                            {
+                                                                string que2 = helpper.Encrypt("" + subtosubitem.CourseId, true);
+                                                                que2 = que2.Replace('+', 'b');
+                                                                que2 = que2.Replace('%', 'a');
+
+                                                                <li>
+                                                                    <a href="@Url.Action("StudentCourse", "Home", new {id=que2.Replace('/', '$')})">@subtosubitem.CourseName</a>
+
+                                                                </li>
+
+                                                            } }
                                                         <li>
-                                                            <a href="@Url.Action("StudentCourse", "Home", new {id=subtosubitem.CourseId , sid=que})">@subtosubitem.CourseName</a>
+                                                            @{   string que3 = helpper.Encrypt("" + subitem.SubCategoryId, true);
 
+                                                                        que3 = que3.Replace('%', 'a');
+                                                                        que3 = que3.Replace('+', 'b');
+                                                            <a href="@Url.Action("ViewAllCourse", "Home", new{id=que3.Replace('/', '$')})">ViewAll</a>
+                                                            }
                                                         </li>
-
-                                                    } }
-                                                    <li>
-                                                        <a href="@Url.Action("ViewAllCourse", "Home", new{id=subitem.SubCategoryId})">ViewAll</a>
-                                                    </li>
-                                            </ul>
-                                        </li>
-                                    } }
-                            </ul>
-                        </li>
+                                                    </ul>
+                                                </li>
+                                            } }
+                                    </ul>
+                                </li>
                     }
                 }
             </ul>

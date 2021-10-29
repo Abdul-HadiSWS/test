@@ -7,52 +7,73 @@
 
 @model IEnumerable<LearningPortal.Models.Courses>
 
-<div class="mdk-drawer-layout__content page mt-5">
-
-        @{ if (ViewBag.id != 0)
-            {
-                <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id = @ViewBag.BreadCrumbCatID})">@ViewBag.BreadCrumbCat</a> </li>
-                    <li class="breadcrumb-item "><a href="#"> @ViewBag.BreadCrumbSubCat</a></li>
-                    <li class="breadcrumb-item active">ViewAll</li>
-                </ol>
 
 
-                <div class="media align-items-center mb-headings">
-                    <div class="media-body">
-                        <h1 class="h2">Courses</h1>
+@{ if (Model == null)
+    {
+        <br />
+        <a class="btn-primary  btn-sm" href="@Url.Action("ViewAllCourse", "Home", new { id = Session["cidall"] })">GoBack</a>
+        <br />
+        <h1 style="color: red; text-align: center; padding-top:100px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  ">Sorry we can't find the page you are looking for!</h1>
+    }
+    else
+    {
+        <div class="mdk-drawer-layout__content page mt-5">
+
+            @{ if (ViewBag.id != 0)
+                {
+                    string que3 = helpper.Encrypt("" + ViewBag.BreadCrumbCatID, true);
+
+                    que3 = que3.Replace('%', 'a');
+                    que3 = que3.Replace('+', 'b');
+
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id =que3.Replace('/', '$') })">@ViewBag.BreadCrumbCat</a> </li>
+                        <li class="breadcrumb-item "><a href="#"> @ViewBag.BreadCrumbSubCat</a></li>
+                        <li class="breadcrumb-item active">ViewAll</li>
+                    </ol>
+
+
+                    <div class="media align-items-center mb-headings">
+                        <div class="media-body">
+                            <h1 class="h2">Courses</h1>
+                        </div>
                     </div>
-                </div>
-            }
-            else
-            {
+                }
+                else
+                {
+                    string que3 = helpper.Encrypt("" + ViewBag.BreadCrumbCatID, true);
 
+                    que3 = que3.Replace('%', 'a');
+                    que3 = que3.Replace('+', 'b');
 
-                <ol class="breadcrumb">
+                    <ol class="breadcrumb">
 
-                    <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id = @ViewBag.BreadCrumbCatID})">@ViewBag.BreadCrumbCat</a> </li>
-                    <li class="breadcrumb-item "><a href="#"> @ViewBag.BreadCrumbSubCat</a></li>
-                    
-                </ol>
+                        <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id =que3.Replace('/', '$') })">@ViewBag.BreadCrumbCat</a> </li>
+                        <li class="breadcrumb-item "><a href="#"> @ViewBag.BreadCrumbSubCat</a></li>
 
-                <div class="media align-items-center mb-headings">
-                    <div class="media-body">
-                        <h1 class="h2">No Courses Available</h1>
+                    </ol>
+
+                    <div class="media align-items-center mb-headings">
+                        <div class="media-body">
+                            <h1 class="h2">No Courses Available</h1>
+                        </div>
                     </div>
-                </div>
+                }
             }
-        }
 
-    
-    <div class="clearfix"></div>
 
-    <div class="card-columns row">
-        @{ foreach (var item in Model)
-            {
-                var que = helpper.Encrypt("1", true);
-                <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active">
-                            <a href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId , sid=que })">
+            <div class="clearfix"></div>
+
+            <div class="card-columns row">
+                @{ foreach (var item in Model)
+                    {
+                        string que = helpper.Encrypt("" + item.CourseId, true);
+                        que = que.Replace('%', 'a');
+                        que = que.Replace('+', 'b');
+                        <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active">
+                            <a href="@Url.Action("StudentCourse", "Home", new { id = que.Replace('/', '$') })">
                                 <div class="card card-sm">
 
                                     <div class="position-relative">
@@ -94,10 +115,14 @@
 
                                 </div>
                             </a>
-                </div>
-                   
-            }
-        }
-    </div>
-    
-</div>
+                        </div>
+
+                                                        }
+                }
+            </div>
+
+        </div>
+
+                                                        }
+
+}

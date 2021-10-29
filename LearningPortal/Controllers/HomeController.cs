@@ -14,9 +14,9 @@ namespace LearningPortal.Controllers
     public class HomeController : Controller
     {
         public ApplicationDbContext Db = new ApplicationDbContext();
-       
+
         // GET: Student
-        
+        int num = 0;
         public ActionResult StudentDashboard()
         {
 
@@ -26,7 +26,8 @@ namespace LearningPortal.Controllers
 
             ViewBag.count = resumecourse.Count();
             ViewBag.fc = featurecourse.Count();
-
+       
+            num++;
             ViewBag.rc = resumecourse.ToList();
             return View(featurecourse);
 
@@ -77,50 +78,90 @@ namespace LearningPortal.Controllers
         /*End of All Catagory*/
 
         /*View All SubCategory*/
-        public PartialViewResult ViewAllSubCategory(int? id)
+        public PartialViewResult ViewAllSubCategory(string id)
         {
-            string Cat = "";
-            var subcat = Db.SubCategories.Where(i => i.CategoryId == id).ToList();
-
-
-            foreach (var item in subcat)
+            string tempid = id;
+            id = id.Replace('+', 'b');
+            id = id.Replace('%', 'a');
+            var decsc = helpper.Decrypto(id.Replace('$', '/'));
+          
+            if (decsc == "")
             {
-              
-                Cat = item.Categories.CategoryName;
+
+               
+
+                var aaa = Request.Url.ToString();
+
+                return PartialView();
+
             }
+            else
+            {
+                int cid = Convert.ToInt32(decsc);
 
-            ViewBag.BreadCrumbCat = Cat;
+                string Cat = "";
+                var subcat = Db.SubCategories.Where(i => i.CategoryId == cid).ToList();
 
 
+                foreach (var item in subcat)
+                {
+
+                    Cat = item.Categories.CategoryName;
+                }
+
+                ViewBag.BreadCrumbCat = Cat;
 
 
-            return PartialView(subcat);
+                Session["sid"] = tempid;
+
+                return PartialView(subcat);
+            }
+               
         }
 
         /* ENd View All SubCategory*/
 
         /*View All Course*/
-        public PartialViewResult ViewAllCourse(int? id)
+        public PartialViewResult ViewAllCourse(string id)
         {
-           
+            string tempid = id;
+            id = id.Replace('b', '+');
+            id = id.Replace('%', 'a');
+            var decsc = helpper.Decrypto(id.Replace('$', '/'));
 
-            int courseId = 0;
-            var course = Db.Courses.Where(i => i.SubCategoryId == id).ToList();
-            
-            foreach (var item in course)
+            if (decsc == "")
             {
-                courseId = item.CourseId;
+
+               
+
+                return PartialView();
+
+            }
+            else
+            {
+                int sbid = Convert.ToInt32(decsc);
+
+
+                int courseId = 0;
+                var course = Db.Courses.Where(i => i.SubCategoryId == sbid).ToList();
+
+                foreach (var item in course)
+                {
+                    courseId = item.CourseId;
+                }
+
+                var subcat = Db.SubCategories.Find(sbid);
+
+
+                ViewBag.BreadCrumbCatID = subcat.Categories.CategoryId;
+                ViewBag.BreadCrumbCat = subcat.Categories.CategoryName;
+                ViewBag.BreadCrumbSubCat = subcat.SubCategoryName;
+
+                ViewBag.id = courseId;
+                Session["cidall"] = tempid;
+                return PartialView(course);
             }
 
-            var subcat = Db.SubCategories.Find(id);
-
-
-            ViewBag.BreadCrumbCatID = subcat.Categories.CategoryId;
-            ViewBag.BreadCrumbCat = subcat.Categories.CategoryName;
-            ViewBag.BreadCrumbSubCat =subcat.SubCategoryName;
-
-            ViewBag.id = courseId;
-            return PartialView(course);
         }
 
         /* ENd View All Course*/
@@ -152,18 +193,29 @@ namespace LearningPortal.Controllers
 
 
         /* StudentCourse */
-       
-        public ActionResult StudentCourse(int? id,string sid)
+    
+        public ActionResult StudentCourse(string id)
         {
+            string tempid = id;
             // var idd = Convert.ToString(id);
             //var DecryptId = helpper.Decrypt(idd);
-           
-            string userid = User.Identity.GetUserId();
+            id = id.Replace('%', 'a');
+          
+             var decsc= helpper.Decrypto(id.Replace('$','/'));
             
-            var courses = Db.Courses.Find(id);
-            if (courses == null) { return View(); }
+            if (decsc == "") {
+
+                
+             
+                return View();
+            
+            }
             else
             {
+                int cid = Convert.ToInt32(decsc);
+                string userid = User.Identity.GetUserId();
+
+                var courses = Db.Courses.Find(cid);
                 string Section = courses.Sections.Count() + " Sections-";
                 int videocount = 0, totalvideo = 0;
                 foreach (var item in courses.Sections)
@@ -181,92 +233,108 @@ namespace LearningPortal.Controllers
 
                 ViewBag.data = Section + Video;
                 ViewBag.totalduration = totalvideo;
-               
-                var decs = helpper.Decrypto(sid);
-                if (decs=="")
-                {
-                    return View();
+                Session["cid"] = tempid;
+
+                  return View(courses);
                 }
-                
-                // Video Section 
-                int sectionmediaid = Convert.ToInt32(decs);
-                var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
+           
+        
+        }
 
-                var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
-                
-                int index = 0;
-                int countloop = 0;
-                ViewBag.playlist = playlist1;
+        
+        public PartialViewResult videoplayer(string cid,int sid)
+        {
 
-               
-                if (playlist1.Count() == 0)
+            string userid = User.Identity.GetUserId();
+
+            var des = helpper.Decrypto(cid);
+            //var decs = helpper.Decrypto(sid);
+            //if (decs == null)
+            //{
+            //    return PartialView();
+            //}
+
+            // Video Section 
+            int id= Convert.ToInt32(des);
+            int sectionmediaid = Convert.ToInt32(sid);
+            var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
+
+            var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
+
+            int index = 0;
+            int countloop = 0;
+            ViewBag.playlist = playlist1;
+
+
+            if (playlist1.Count() == 0)
+            {
+
+                return PartialView();
+            }
+            else
+            {
+
+                if (sectionmediaid == 0)
                 {
+                    index = 0;
 
-                    return View(courses);
                 }
                 else
                 {
-
-                    if (sectionmediaid == 0)
+                    foreach (var item in playlist1)
                     {
-                        index = 0;
-
-                    }
-                    else
-                    {
-                        foreach (var item in playlist1)
+                        if (item == sectionmediaid)
                         {
-                            if (item == sectionmediaid)
-                            {
 
-                                index = countloop;
+                            index = countloop;
 
-                                break;
-                            }
-                            countloop++;
+                            break;
                         }
+                        countloop++;
                     }
-
-                    int media = playlist1[index];
-                    var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
-                    var startime = 0;
-
-
-
-                    if (check == null)
-                    {
-                        UserMediaHistory obj = new UserMediaHistory();
-                        obj.WatchedTime = startime;
-                        obj.UserId = userid;
-
-                        obj.SectionMediaId = playlist1[index];
-                        Db.UserMediaHistories.Add(obj);
-                        Db.SaveChanges();
-
-                    }
-                    else
-                    {
-                        startime = check.WatchedTime;
-                    }
-
-                    // End Video Section
-
-
-
-                    ViewBag.StartTime = startime;
-                    ViewBag.index = index;
-
-
-                    SectionMedia sm = Db.SectionMedia.Find(media);
-
-                    ViewBag.videotype = sm.Videotype.ToString();
-                    ViewBag.videourl = sm.VideoUrl.ToString();
-                    ViewBag.videotitle = vname;
-                    return View(courses);
                 }
-            }
 
+                int media = playlist1[index];
+                var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
+                var startime = 0;
+
+
+
+                if (check == null)
+                {
+                    UserMediaHistory obj = new UserMediaHistory();
+                    obj.WatchedTime = startime;
+                    obj.UserId = userid;
+
+                    obj.SectionMediaId = playlist1[index];
+                    Db.UserMediaHistories.Add(obj);
+                    Db.SaveChanges();
+
+                }
+                else
+                {
+                    startime = check.WatchedTime;
+                }
+
+                // End Video Section
+
+
+
+                ViewBag.StartTime = startime;
+                ViewBag.index = index;
+
+
+                SectionMedia sm = Db.SectionMedia.Find(media);
+
+                ViewBag.videotype = sm.Videotype.ToString();
+                ViewBag.videourl = sm.VideoUrl.ToString();
+                ViewBag.videotitle = vname;
+
+                return PartialView();
+            }
         }
+
+
         /* End StudentCourse */
 
         /* Foramting Time*/
