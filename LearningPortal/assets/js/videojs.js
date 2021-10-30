@@ -18,10 +18,15 @@ $(document).ready(function () {
     var type = $('#type').val();
     var start = $('#start').val();
     var mediaid = $('#mediaid').val();
+    
+
+
     if (type == "video/mp4") {
         player.currentTime(start);
     }
     videojs('vemvo-player').on('play', function () {
+
+
         if (player.readyState() < 1) {
             // wait for loadedmetdata event
             player.one("readymetadata", Onready);
@@ -31,7 +36,9 @@ $(document).ready(function () {
         }
         function Onready() {
             setInterval(function () {
-               datasend(mediaid, player.currentTime().toString(), player.duration().toString());
+
+                
+              datasend(mediaid, player.currentTime().toString(), player.duration().toString());
             },1000);
         }
     });

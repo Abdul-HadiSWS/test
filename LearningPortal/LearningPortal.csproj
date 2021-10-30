@@ -303,6 +303,7 @@
     <Content Include="assets\js\app-settings.js" />
     <Content Include="assets\js\app.js" />
     <Content Include="assets\js\data.js" />
+    <Content Include="assets\js\data1.js" />
     <Content Include="assets\js\videojs.js" />
     <Content Include="assets\js\carousel.js" />
     <Content Include="assets\js\chartjs-rounded-bar.js" />
@@ -428,8 +429,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
