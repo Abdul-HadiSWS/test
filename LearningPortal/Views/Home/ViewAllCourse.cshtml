@@ -9,15 +9,6 @@
 
 
 
-@{ if (Model == null)
-    {
-        <br />
-        <a class="btn-primary  btn-sm" href="@Url.Action("ViewAllCourse", "Home", new { id = Session["cidall"] })">GoBack</a>
-        <br />
-        <h1 style="color: red; text-align: center; padding-top:100px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  ">Sorry we can't find the page you are looking for!</h1>
-    }
-    else
-    {
         <div class="mdk-drawer-layout__content page mt-5">
 
             @{ if (ViewBag.id != 0)
@@ -123,6 +114,4 @@
 
         </div>
 
-                                                        }
-
-}
+                                                        

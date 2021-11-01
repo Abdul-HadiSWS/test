@@ -70,23 +70,15 @@
                 margin: 0;
             }
 </style>
-@{ if (Model == null)
-    {
-        <br />
-        <a class="btn-primary  btn-sm" href="@Url.Action("StudentCourse", "Home", new { id = Session["cid"]  })">GoBack</a>
-        <br />
-        <h1 style="color: red; text-align: center; padding-top:100px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  ">Sorry we can't find the page you are looking for!</h1>
-    }
-    else
-    {
-        string que3 = helpper.Encrypt("" + Html.DisplayFor(model => model.SubCategories.CategoryId), true);
 
-        que3 = que3.Replace('%', 'a');
-        que3 = que3.Replace('+', 'b');
-        string que4 = helpper.Encrypt("" + Html.DisplayFor(model => model.SubCategoryId), true);
+        @{string que3 = helpper.Encrypt("" + Html.DisplayFor(model => model.SubCategories.CategoryId), true);
 
-        que4 = que4.Replace('%', 'a');
-        que4 = que4.Replace('+', 'b');
+            que3 = que3.Replace('%', 'a');
+            que3 = que3.Replace('+', 'b');
+            string que4 = helpper.Encrypt("" + Html.DisplayFor(model => model.SubCategoryId), true);
+
+            que4 = que4.Replace('%', 'a');
+            que4 = que4.Replace('+', 'b');
         <div class="mdk-drawer-layout__content page mt-5">
 
             <div class="container mt-2">
@@ -249,11 +241,11 @@
                                                     </div>
                                                 </li>
 
-                                            }
+                                                                    }
                                         </ul>
 
                                     </li>
-                                }
+                                                                    }
                             </ul>
                         </div>
                     </div>
@@ -281,10 +273,8 @@
             </div>
 
         </div>
-    }
-}
 
-
+                                                                    }
 
 
 <script src="~/assets/js/data.js"></script>

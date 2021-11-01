@@ -18,6 +18,11 @@ namespace LearningPortal
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+            "404-PageNotFound",
+           "{*url}",
+           new { controller = "Error", action = "Error404" }
+             );
         }
     }
 }

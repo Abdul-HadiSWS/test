@@ -175,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -211,6 +212,7 @@
     <Content Include="assets\css\Course.css" />
     <Content Include="assets\css\dropdown.css" />
     <Content Include="assets\css\dropzone.css" />
+    <Content Include="assets\css\Error404.css" />
     <Content Include="assets\css\fancytree.css" />
     <Content Include="assets\css\flatpickr-airbnb.css" />
     <Content Include="assets\css\flatpickr.css" />
@@ -462,6 +464,7 @@
     <Content Include="Views\Home\ViewAllSubCategory.cshtml" />
     <Content Include="Views\Home\ViewAllCategory.cshtml" />
     <Content Include="Views\Home\videoplayer.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
