@@ -209,10 +209,8 @@ C:\Users\FBC\Desktop\LearnPortal\LearningPortal\bin\Microsoft.Owin.Security.OAut
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.AssemblyReference.cache
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CoreCompileInputs.cache
-C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.pdb
-C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialSeed.resources
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
 C:\Users\FBC\Desktop\New folder\LearningPortal\bin\LearningPortal.dll.config
 C:\Users\FBC\Desktop\New folder\LearningPortal\bin\LearningPortal.dll
@@ -873,3 +871,4 @@ C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal
 C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.pdb
+C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
