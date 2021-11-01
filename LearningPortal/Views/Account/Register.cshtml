@@ -33,7 +33,14 @@
 
 </head>
 
+
 <body>
+
+    @if(Request.IsAuthenticated){
+        <script type="text/javascript">
+            window.location.href = "/Home/StudentDashboard";
+        </script>
+    }
     <div class="d-flex align-items-center"
          style="min-height: 100vh">
         <div class="col-sm-8 col-md-6 col-lg-4 mx-auto"
@@ -68,12 +75,13 @@
                             @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
 
                             <div class="input-group input-group-merge">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control form-control-prepended", placeholder = "Your User Name" })
+                                @Html.TextBox("name", null,new { @class = "form-control form-control-prepended", placeholder = "Your User Name" })
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-user"></span>
                                     </div>
                                 </div>
+                              
                                 @Html.Hidden("UserName")
                             </div>
                         </div>
@@ -95,7 +103,7 @@
                             @Html.LabelFor(m => m.Password, new { @class = "col-md-8 control-label" })
 
                             <div class="input-group input-group-merge">
-                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-control-prepended", placeholder = "Your Password" })
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-prepended", placeholder = "Your Password" })
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-user"></span>
@@ -108,7 +116,7 @@
                             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-8 control-label" })
 
                             <div class="input-group input-group-merge">
-                                @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control form-control-prepended", placeholder = "ConfirmPassword" })
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-prepended", placeholder = "ConfirmPassword" })
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <span class="far fa-user"></span>
@@ -120,7 +128,7 @@
 
                         <div class="form-group ">
                             <button type="submit"
-                                    class="btn btn-primary btn-block">
+                                    class="btn btn-primary btn-block" id="btnRemove">
                                 Register
                             </button>
                         </div>
