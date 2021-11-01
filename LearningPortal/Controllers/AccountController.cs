@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LearningPortal.Models;
+using System.Web.UI;
 
 namespace LearningPortal.Controllers
 {
@@ -55,6 +56,7 @@ namespace LearningPortal.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Location = System.Web.UI.OutputCacheLocation.None)]
         public ActionResult Login(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -408,6 +410,7 @@ namespace LearningPortal.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(NoStore = true, Location = OutputCacheLocation.None)]
         public ActionResult LogOff(string returnUrl)
         {
             // Session["num"] = "ads";
