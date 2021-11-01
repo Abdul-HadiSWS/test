@@ -375,6 +375,9 @@
     <Content Include="assets\vendor\spinkit.css" />
     <Content Include="assets\vendor\sweetalert.min.js" />
     <Content Include="assets\vendor\vue.min.js" />
+    <Content Include="assets\videos\Pexels Videos 4580.mp4" />
+    <Content Include="assets\videos\Pexels Videos 4584.mp4" />
+    <Content Include="assets\videos\Video-20211018_095303-Meeting Recording.mp4" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -468,7 +471,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\videos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
