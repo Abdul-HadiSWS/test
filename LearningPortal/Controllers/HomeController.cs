@@ -81,7 +81,7 @@ namespace LearningPortal.Controllers
         public PartialViewResult ViewAllSubCategory(string id)
         {
             string tempid = id;
-            id = id.Replace('+', 'b');
+            id = id.Replace('b', '+');
             id = id.Replace('%', 'a');
             var decsc = helpper.Decrypto(id.Replace('$', '/'));
           
@@ -199,9 +199,10 @@ namespace LearningPortal.Controllers
             string tempid = id;
             // var idd = Convert.ToString(id);
             //var DecryptId = helpper.Decrypt(idd);
+            id = id.Replace('b', '+');
             id = id.Replace('%', 'a');
-          
-             var decsc= helpper.Decrypto(id.Replace('$','/'));
+
+            var decsc= helpper.Decrypto(id.Replace('$','/'));
             
             if (decsc == "") {
 

@@ -345,6 +345,7 @@
                                                                         {
                                                                             string que = helpper.Encrypt("" + item.CourseId, true);
                                                                             que = que.Replace('%', 'a');
+                                                                            que = que.Replace('+', 'b');
 
                 <div class="carousel-item  col-sm-6 col-md-4 col-lg-3">
                     <a href="@Url.Action("StudentCourse", "Home", new { id =   que.Replace('/', '$') })">

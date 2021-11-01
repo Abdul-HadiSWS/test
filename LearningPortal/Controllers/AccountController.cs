@@ -411,7 +411,7 @@ namespace LearningPortal.Controllers
         public ActionResult LogOff(string returnUrl)
         {
             // Session["num"] = "ads";
-            Session.Clear();
+           
             Session.Abandon();
 
 
