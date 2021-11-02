@@ -14,6 +14,21 @@ function lg() {
 
     $(document).ready(function () {
 
+      
+        videojs('vemvo-player').on('ended', function () {
+           
+            setTimeout(function () {
+             
+                var courseid = $('#CourseId').val();
+                var mediaid = $('#mediaid').val();
+                var nextmediaid = $('#nextmediaid').val();
+                videoget(courseid, nextmediaid, mediaid);
+            }, 2000);
+           
+        });
+
+       
+
         var type = $('#type').val();
         var start = $('#start').val();
         var mediaid = $('#mediaid').val();
@@ -141,18 +156,54 @@ function lg() {
 
 
         $(document).ready(function () {
+          
+
+            //var start = $('#start').text();
+            //var ct = $('#ct').text();
+            //var dr = $('#dr').val();
+            //var mediaid = $('#mediaid').val();
+
+            //$("#" + id2).parent().parent().parent().css("background-color", "white");
+            //$("#" + id2).parent().parent().parent().children().children().children().css("color", "black");
+            //if (dr == null || ct == "" || ct == null) {
+
+                
+            //    console.log("iff");
+            //} else {
+            //    if (start == dr) {
+            //        $("#" + id2).parent().children().children().text('check_circle');
+            //        console.log("if");
+
+            //    } else if (start == 0) {
+            //        $("#" + id2).parent().children().children().text('play_circle_filled');
+            //        console.log("elseif");
+            //    } else {
+            //        $("#" + id2).parent().children().children().text('pause_circle_filled');
+                  
+            //        console.log("else");
+            //    }
+
+            //}
+
+
+
+           
+           
          
-            $('#' + id2).parent().parent().parent().css("background-color", "white");
 
-            $('#' + id1).parent().parent().parent().parent().children().css("background-color", "white");
-            $('#' + id1).parent().parent().parent().css("background-color", "yellow");
+            //$('#' + id1).parent().parent().parent().css("background-color", "#667a8a");
 
-            var id = $('#' + id1).parent().parent().parent().parent().attr('id');
+
+
+
+            //$('#' + id1).parent().parent().parent().children().children().children().css("color", "white");
+
+            //var id = $('#' + id1).parent().parent().parent().parent().attr('id');
           
 
-            $("#" + id).collapse('show');
+            //$("#" + id).collapse('show');
           
-
+            var CouID = $('#CourseId').val();
             $('#video-card').empty();
 
 
@@ -172,7 +223,13 @@ function lg() {
 
                     $('#video-card').append(result);
                     $('#video-card').show();
-                   
+                    $('.sidebar').empty();
+                    dd(CouID, id1);
+
+                    
+                 
+                 
+
                 },
                 error: function () {
                     alert("error");
@@ -190,11 +247,15 @@ function lg() {
     function datasend(id, currentime, tduration) {
 
         $(document).ready(function () {
-
+           
             val1 = id;
             check = parseInt(tduration);
             val2 = parseInt(currentime);
-
+           
+            var a22 = val2;
+            $('#start').text(a22);
+            $('#ct').text(a22);
+           
             if ((check) == (val2 + 1)) {
                 val2 = check;
             } else {
@@ -223,6 +284,42 @@ function lg() {
     //player.getChild('controlBar').addChild('SharingButton', {});
     player.getChild("controlBar").addChild("PrevButton", {}, 0);
     player.getChild("controlBar").addChild("NextButton", {}, 2);
+
+
+
+    function dd(CouID, id) {
+
+
+        $.ajax({
+            //base address/controller/Action
+            url: '/Home/Sectons',
+            type: 'GET',
+            data: {
+                //Passing Input parameter
+                cid: CouID
+
+            },
+            success: function (result) {
+                //write something
+
+                $('.sidebar').append(result);
+                $('.sidebar').show();
+                var id2 = $('#' + id).parent().parent().parent().parent().attr('id');
+                $('#' + id2).collapse('show');
+
+                $('#' + id).parent().parent().parent().css("background-color", "#667a8a");
+
+
+
+
+                $('#' + id).parent().parent().parent().children().children().children().css("color", "white");
+            },
+            error: function () {
+                alert("error");
+            }
+
+        });
+    }
 
 
 

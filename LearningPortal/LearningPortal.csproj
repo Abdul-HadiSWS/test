@@ -468,6 +468,7 @@
     <Content Include="Views\Home\ViewAllCategory.cshtml" />
     <Content Include="Views\Home\videoplayer.cshtml" />
     <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Home\sectons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

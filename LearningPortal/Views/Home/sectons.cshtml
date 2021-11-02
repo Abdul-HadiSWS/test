@@ -1,0 +1,121 @@
+﻿@model LearningPortal.Models.Courses
+@using Microsoft.AspNet.Identity
+
+
+
+
+
+<!-- jQuery -->
+<script src="~/assets/vendor/jquery.min.js"></script>
+
+
+<script src="~/assets/vendor/bootstrap.min.js"></script>
+
+<!-- App JS -->
+<script src="~/assets/js/app.js"></script>
+
+<script src="~/assets/js/data.js"></script>
+<div class="sidebar">
+    <ul class="sidebar-menu">
+        @foreach (var item in Model.Sections)
+        {
+            <li class="sidebar-menu-item1">
+                @{
+                    string str = item.SectionName;
+                    str = str.Replace(" ", "");
+                }
+                <div class="media">
+                    <div class="media-left">
+                        <a class="sidebar-menu-button sidebar-js-collapse"
+                           data-toggle="collapse"
+                           href="#@str">
+
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
+
+                        </a>
+                    </div>
+                    <div class="media-body">
+
+                        @Html.DisplayFor(modelitem => item.SectionName)
+                    </div>
+                    <div class="media-right">
+                        <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
+                    </div>
+                </div>
+                <ul class="sidebar-submenu sm-indent collapse"
+                    id="@str">
+
+
+                    @Html.Hidden("CourseId", helpper.Encrypt("" + item.CourseId, true))
+                    @foreach (var item1 in item.SectionMedia)
+                    {
+                        // string que = helpper.Encrypt("" + item1.SectionMediaId, true);
+                        //  var que = item1.SectionMediaId;
+                        // @Html.Hidden("SectionMediaId", que)
+
+                        <li class="sidebar-menu-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a class="sidebar-menu-button menu-button" id="@item1.SectionMediaId" @*href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sid = que })"*@>
+
+                                        @{
+                                            var aa = item1.UserMediaHistories.Where(x => x.UserId == User.Identity.GetUserId()).ToList();
+
+                                            if (aa.Count == 0)
+                                            {
+                                                <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                            }
+                                            else
+                                            {
+                                                foreach (var item2 in aa)
+                                                {
+                                                    var start = item2.WatchedTime;
+
+                                                    if (item1.VideoDuration == start)
+                                                    {
+                                                        <i class="material-icons text-muted pr-2">check_circle</i>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (start == 0)
+                                                        {
+                                                            <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="material-icons text-muted pr-2">pause_circle_filled</i>
+                                                        }
+                                                    }
+
+
+                                                }
+
+                                            }
+                                        }
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
+
+                                </div>
+                                <div class="media-right">
+                                    <small class="text-muted-light">
+                                        @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
+                                    </small>
+
+                                </div>
+                            </div>
+                        </li>
+
+                    }
+                </ul>
+
+            </li>
+        }
+    </ul>
+
+    </div>
+
+
+
+

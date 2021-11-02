@@ -249,14 +249,24 @@ namespace LearningPortal.Controllers
            
         
         }
+        [HttpGet]
+        public PartialViewResult Sectons(string cid)
+        {
 
-        
+            int coid = Convert.ToInt32(cid);
+            var courses = Db.Courses.Find(coid);
+          
+
+
+
+            return PartialView(courses);
+        }
         public PartialViewResult videoplayer(string cid,int sid)
         {
 
             string userid = User.Identity.GetUserId();
 
-            var des = helpper.Decrypto(cid);
+          
             //var decs = helpper.Decrypto(sid);
             //if (decs == null)
             //{
@@ -264,7 +274,7 @@ namespace LearningPortal.Controllers
             //}
 
             // Video Section 
-            int id= Convert.ToInt32(des);
+            int id= Convert.ToInt32(cid);
             int sectionmediaid = Convert.ToInt32(sid);
             var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
 
@@ -331,10 +341,10 @@ namespace LearningPortal.Controllers
 
                 ViewBag.StartTime = startime;
                 ViewBag.index = index;
-
+              
 
                 SectionMedia sm = Db.SectionMedia.Find(media);
-
+                ViewBag.duration = sm.VideoDuration.ToString();
                 ViewBag.videotype = sm.Videotype.ToString();
                 ViewBag.videourl = sm.VideoUrl.ToString();
                 ViewBag.videotitle = vname;

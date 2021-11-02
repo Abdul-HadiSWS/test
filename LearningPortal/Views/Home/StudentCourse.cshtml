@@ -88,7 +88,7 @@
                     <li class="breadcrumb-item active">@Html.DisplayFor(model => model.CourseName)</li>
                 </ol>
             </div>
-
+           @Html.HiddenFor(x=>x.CourseId)
             <div class="container card border-left-3 border-left-primary card-2by1">
                 <div class="card-body">
                     <div class="media flex-wrap align-items-center">
@@ -207,7 +207,7 @@
 
                                                                             if (item1.VideoDuration == start)
                                                                             {
-                                                                                <i class="material-icons text-muted pr-2" style="color:green !important">check_circle</i>
+                                                                                <i class="material-icons text-muted pr-2">check_circle</i>
                                                                             }
                                                                             else
                                                                             {

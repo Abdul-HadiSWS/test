@@ -104,11 +104,11 @@
 
 @media(min-width: 1900px) {
     .video-js .vjs-big-play-button {
-        font-size: 4em;
+        font-size: 5em;
         line-height: 1.5em;
         height: 1.5em;
-        width: 2em;
-        top: 40%;
+        width: 3em;
+        top: 45%;
         left: 45%;
         border-radius: 0.3em;
     }

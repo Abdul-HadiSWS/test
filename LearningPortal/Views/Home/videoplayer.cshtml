@@ -28,7 +28,7 @@
         //var len = ViewBag.playlist.Count;
         int index = ViewBag.index;
         int mediaid = playlist[index];
-
+        int d = Convert.ToInt32(ViewBag.duration);
 
 
         int nextid = 0;
@@ -97,12 +97,14 @@
         var nextmediaid = nextid;
         var prevmediaid = previd;
 
-
+     
+        @Html.Hidden("dr", d)
         @Html.Hidden("type", type.ToString())
         @Html.Hidden("mediaid", mediaid)
         @Html.Hidden("start", start)
         @Html.Hidden("nextmediaid", nextmediaid)
         @Html.Hidden("prevmediaid", prevmediaid)
+        @Html.Hidden("ct");
     }
 
 
