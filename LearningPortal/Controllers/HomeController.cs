@@ -316,7 +316,7 @@ namespace LearningPortal.Controllers
                 int media = playlist1[index];
                 var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
                 var startime = 0;
-
+               
 
 
                 if (check == null)

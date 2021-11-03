@@ -16,14 +16,21 @@ function lg() {
 
       
         videojs('vemvo-player').on('ended', function () {
-           
-            setTimeout(function () {
-             
-                var courseid = $('#CourseId').val();
-                var mediaid = $('#mediaid').val();
-                var nextmediaid = $('#nextmediaid').val();
-                videoget(courseid, nextmediaid, mediaid);
-            }, 2000);
+
+            var nextmediaid = $('#nextmediaid').val();
+            
+            if (nextmediaid == 0) {
+
+            } else {
+                setTimeout(function () {
+
+                    var courseid = $('#CourseId').val();
+                    var mediaid = $('#mediaid').val();
+                    var nextmediaid = $('#nextmediaid').val();
+                    videoget(courseid, nextmediaid, mediaid);
+                }, 2000);
+            }
+            
            
         });
 
