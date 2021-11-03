@@ -13,5 +13,10 @@ namespace LearningPortal.Controllers
         {
             return View();
         }
+
+        public ActionResult Error404C()
+        {
+            return View();
+        }
     }
 }

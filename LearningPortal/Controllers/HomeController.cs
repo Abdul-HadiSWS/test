@@ -217,7 +217,7 @@ namespace LearningPortal.Controllers
             var decsc= helpper.Decrypto(id.Replace('$','/'));
             
             if (decsc == "") {
-                return RedirectToAction("Error404", "Error");
+                return RedirectToAction("Error404C", "Error");
             }
             else
             {
