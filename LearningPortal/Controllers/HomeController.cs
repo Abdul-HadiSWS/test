@@ -34,6 +34,8 @@ namespace LearningPortal.Controllers
             ViewBag.rc = resumecourse.ToList();
             return View(featurecourse);
 
+           
+
         }
 
 
@@ -378,11 +380,11 @@ namespace LearningPortal.Controllers
                     double seconds = Math.Floor(time - minutes * 60 - hour * 3600);
                     if (seconds < 10)
                     {
-                        ttime = hour + ":" + minutes + ":0" + seconds;
+                        ttime = hour + "h:" + minutes + "m:0" + seconds+"s";
                     }
                     else
                     {
-                        ttime = hour + ":" + minutes + ":" + seconds;
+                        ttime = hour + "h:" + minutes + "m:" + seconds+"s";
                     }
                   
                 }
@@ -394,11 +396,11 @@ namespace LearningPortal.Controllers
                     double seconds = time - temp;
                     if (seconds<10)
                     {
-                        ttime = minutes + ":0" + seconds;
+                        ttime = minutes + "m:0" + seconds+"s";
                     }
                     else
                     {
-                        ttime = minutes + ":" + seconds;
+                        ttime = minutes + "m:" + seconds+"s";
                     }
                     
                 }

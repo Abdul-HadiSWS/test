@@ -37,7 +37,9 @@
 
 .sidebar-menu-item1 .media-left {
     padding-right: 0 !important;
+   /* padding-top: 0.5rem;*/
 }
+
 
     .sidebar-menu-item1 .media-left .sidebar-menu-button {
         padding: 0 0.5rem;
