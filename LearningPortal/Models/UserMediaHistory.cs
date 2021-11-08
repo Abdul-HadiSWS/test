@@ -28,7 +28,7 @@ namespace LearningPortal.Models
 
         [Required(ErrorMessage = "Enter UpdatedTime")]
         [Display(Name = "UpdatedTime")]
-        public double UpdatedTime { get; set; }
+        public Nullable<bool> UpdatedTime { get; set; }
 
         
         public virtual ApplicationUser  AspNetUser { get; set; }

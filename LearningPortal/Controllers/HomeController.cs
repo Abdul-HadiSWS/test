@@ -263,7 +263,7 @@ namespace LearningPortal.Controllers
 
             return PartialView(courses);
         }
-        public PartialViewResult videoplayer(string cid,int sid)
+        public ActionResult videoplayer(string cid ,int sid)
         {
 
             string userid = User.Identity.GetUserId();
@@ -277,11 +277,12 @@ namespace LearningPortal.Controllers
 
             // Video Section 
             int id= Convert.ToInt32(cid);
+
             int sectionmediaid = Convert.ToInt32(sid);
             var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
 
             var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
-
+            var SECNAME = Db.SectionMedia.Find(sectionmediaid).Section.SectionName.ToString();
             int index = 0;
             int countloop = 0;
             ViewBag.playlist = playlist1;
@@ -318,22 +319,53 @@ namespace LearningPortal.Controllers
                 int media = playlist1[index];
                 var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
                 var startime = 0;
-               
 
+                //var updateUh = Db.UserMediaHistories.Where(a => a.SectionMediaId != media).ToList();
+                //foreach(var item in updateUh)
+                //{
+                //    UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == item.SectionMediaId).FirstOrDefault();
+                  
+                //    count.UpdatedTime = false;
+                //    //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
+                //    //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
+                //    if (ModelState.IsValid)
+                //    {
+                //        //count.UpdatedTime = DateTime.Now;
+                //        Db.Entry(count).State = EntityState.Modified;
+                //        Db.SaveChanges();
+                //    }
+                //}
+               
+               
 
                 if (check == null)
                 {
                     UserMediaHistory obj = new UserMediaHistory();
                     obj.WatchedTime = startime;
                     obj.UserId = userid;
-
+                    //obj.UpdatedTime = DateTime.Now;
+                    obj.UpdatedTime = true;
+                  
                     obj.SectionMediaId = playlist1[index];
+                    
                     Db.UserMediaHistories.Add(obj);
                     Db.SaveChanges();
-
+                 
                 }
                 else
                 {
+                    //UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == sectionmediaid).FirstOrDefault();
+
+                    //count.UpdatedTime = true;
+                    ////var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
+                    ////db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
+                    //if (ModelState.IsValid)
+                    //{
+                    //    //count.UpdatedTime = DateTime.Now;
+                    //    Db.Entry(count).State = EntityState.Modified;
+                    //    Db.SaveChanges();
+                    //}
+
                     startime = check.WatchedTime;
                 }
 
@@ -350,13 +382,105 @@ namespace LearningPortal.Controllers
                 ViewBag.videotype = sm.Videotype.ToString();
                 ViewBag.videourl = sm.VideoUrl.ToString();
                 ViewBag.videotitle = vname;
-
+                ViewBag.Secname = SECNAME;
                 return PartialView();
             }
         }
 
 
+
+
+
+
         /* End StudentCourse */
+
+
+        /*Courses*/
+
+        public ActionResult Course(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Error404", "Error");
+            }
+
+            string tempid = id;
+            // var idd = Convert.ToString(id);
+            //var DecryptId = helpper.Decrypt(idd);
+            id = id.Replace('b', '+');
+            id = id.Replace('%', 'a');
+
+            var decsc = helpper.Decrypto(id.Replace('$', '/'));
+
+            if (decsc == "")
+            {
+                return RedirectToAction("Error404C", "Error");
+            }
+            else
+            {
+                int cid = Convert.ToInt32(decsc);
+                string userid = User.Identity.GetUserId();
+
+                var courses = Db.Courses.Find(cid);
+                string Section = courses.Sections.Count() + " Sections-";
+                int videocount = 0, totalvideo = 0;
+                foreach (var item in courses.Sections)
+                {
+                    videocount = videocount + item.SectionMedia.Count();
+                    foreach (var item1 in item.SectionMedia)
+                    {
+                        totalvideo = totalvideo + item1.VideoDuration;
+                    }
+
+
+                }
+
+                string Video = videocount + " Videos";
+
+                ViewBag.data = Section + Video;
+                ViewBag.totalduration = totalvideo;
+                Session["cid"] = tempid;
+
+
+                var check1 = Db.UserMediaHistories.SqlQuery("SELECT * FROM UserMediaHistories join SectionMedias on UserMediaHistories.SectionMediaId = SectionMedias.SectionMediaId join Sections on SectionMedias.SectionId = Sections.SectionId join Courses on Sections.CourseId = Courses.CourseId WHERE UserMediaHistories.UserId = '" + userid + "'  and Sections.CourseId = " + cid + " ").ToList();
+
+                if (check1.Count == 0)
+                {
+                   var lastwatched = Db.SectionMedia.SqlQuery("select * from SectionMedias where SectionMedias.SectionMediaId = (select min(SectionMedias.SectionMediaId) from Courses join Sections on Courses.CourseId = Sections.CourseId join SectionMedias on Sections.SectionId = SectionMedias.SectionId where Courses.CourseId = "+cid+")").ToList();
+
+                   foreach (var item in lastwatched)
+                    {
+                        ViewBag.v = item.SectionMediaId;
+                        return View(courses);
+                    }
+                }
+                else
+                {
+                   var lastwatched = Db.UserMediaHistories.SqlQuery("SELECT * FROM UserMediaHistories join SectionMedias on UserMediaHistories.SectionMediaId = SectionMedias.SectionMediaId join Sections on SectionMedias.SectionId = Sections.SectionId join Courses on Sections.CourseId = Courses.CourseId WHERE UserMediaHistories.UserId = '"+userid+"'  and Sections.CourseId = "+cid+ " and  UserMediaHistories.UpdatedTime=1").ToList();
+                    foreach (var item in lastwatched)
+                    {
+                        ViewBag.v = item.SectionMediaId;
+                        return View(courses);
+                    }
+
+                }
+
+
+
+
+               
+                    
+                  
+
+                //ViewBag.sectionname=co
+                return View(courses);
+            }
+            
+        }
+        /*End Courses*/
+
+
+
 
         /* Foramting Time*/
 
@@ -478,16 +602,48 @@ namespace LearningPortal.Controllers
             return View(sectionMedia);
         }
         [HttpPost]
-        public string UpdateUserMedia(int number1, int number2)
+        public string UpdateUserMedia(int number1, int number2,int cid)
         {
 
             string userid = User.Identity.GetUserId();
+
+
+            var updateUh = Db.UserMediaHistories.SqlQuery("SELECT * FROM UserMediaHistories join SectionMedias on UserMediaHistories.SectionMediaId = SectionMedias.SectionMediaId join Sections on SectionMedias.SectionId = Sections.SectionId join Courses on Sections.CourseId = Courses.CourseId WHERE UserMediaHistories.UserId = '" + userid + "'  and Sections.CourseId = " + cid + " ").ToList();
+
+
+
+
+            foreach (var item in updateUh)
+            {
+                if (item.SectionMediaId == number1)
+                {
+
+                }
+                else
+                {
+                    UserMediaHistory count1 = Db.UserMediaHistories.Where(a => a.SectionMediaId == item.SectionMediaId).FirstOrDefault();
+
+                    count1.UpdatedTime = false;
+                    //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
+                    //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
+                    if (ModelState.IsValid)
+                    {
+                        //count.UpdatedTime = DateTime.Now;
+                        Db.Entry(count1).State = EntityState.Modified;
+                        Db.SaveChanges();
+                    }
+                }
+             
+            }
+
             UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == number1 && a.UserId == userid).FirstOrDefault();
             count.WatchedTime = number2;
-
+            count.UpdatedTime = true;
+            //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
             //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
             if (ModelState.IsValid)
             {
+                //count.UpdatedTime = DateTime.Now;
                 Db.Entry(count).State = EntityState.Modified;
                 Db.SaveChanges();
             }

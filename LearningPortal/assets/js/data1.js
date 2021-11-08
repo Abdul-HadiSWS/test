@@ -39,7 +39,7 @@ function lg() {
         var type = $('#type').val();
         var start = $('#start').val();
         var mediaid = $('#mediaid').val();
-
+        var CouID = $('#CourseId').val();
 
 
         if (type == "video/mp4") {
@@ -59,7 +59,7 @@ function lg() {
                 setInterval(function () {
 
 
-                    datasend(mediaid, player.currentTime().toString(), player.duration().toString());
+                    datasend(mediaid, player.currentTime().toString(), player.duration().toString(), CouID);
                 }, 1000);
             }
         });
@@ -251,7 +251,7 @@ function lg() {
     //}
 
 
-    function datasend(id, currentime, tduration) {
+    function datasend(id, currentime, tduration,coid) {
 
         $(document).ready(function () {
            
@@ -272,7 +272,7 @@ function lg() {
             $.ajax({
                 type: "POST",
                 url: '/Home/UpdateUserMedia',
-                data: { number1: val1, number2: val2 },
+                data: { number1: val1, number2: val2, cid: coid },
 
                 success: function (msg) {
 

@@ -414,13 +414,13 @@ namespace LearningPortal.Controllers
         public ActionResult LogOff(string returnUrl)
         {
             // Session["num"] = "ads";
-           
+
+
+
             Session.Abandon();
 
-
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-            
+           
 
             return RedirectToAction("Login", "Account");
         }

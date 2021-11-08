@@ -97,6 +97,7 @@
                 <li class="breadcrumb-item"><a href="@Url.Action("ViewAllSubCategory", "Home", new { id = que3.Replace('/', '$') })">@Html.DisplayFor(model => model.SubCategories.Categories.CategoryName)</a></li>
                 <li class="breadcrumb-item"><a href="@Url.Action("ViewAllCourse", "Home", new { id = que4.Replace('/', '$') })">@Html.DisplayFor(model => model.SubCategories.SubCategoryName)</a></li>
                 <li class="breadcrumb-item active">@Html.DisplayFor(model => model.CourseName)</li>
+
             </ol>
         </div>
         @Html.HiddenFor(x => x.CourseId)

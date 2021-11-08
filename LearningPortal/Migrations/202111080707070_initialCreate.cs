@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initialCreate : DbMigration
     {
         public override void Up()
         {
@@ -97,7 +97,7 @@ namespace LearningPortal.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                         SectionMediaId = c.Int(nullable: false),
                         WatchedTime = c.Int(nullable: false),
-                        UpdatedTime = c.Double(nullable: false),
+                        UpdatedTime = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.UserVideoHistoryId)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)

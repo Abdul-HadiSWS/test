@@ -650,8 +650,6 @@ C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\Learni
 C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\FBC\Desktop\LearningPortalBAckup(15Oct)\LearningPortal\obj\Debug\LearningPortal.pdb
-C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
-C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
 C:\Users\FBC\source\repos\LearnPortal\LearningPortal\bin\LearningPortal.dll.config
 C:\Users\FBC\source\repos\LearnPortal\LearningPortal\bin\LearningPortal.dll
 C:\Users\FBC\source\repos\LearnPortal\LearningPortal\bin\LearningPortal.pdb
@@ -872,3 +870,5 @@ C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal
 C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.pdb
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
+C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.initialCreate.resources
+C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache

@@ -182,9 +182,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110220619434_InitialCreate.cs" />
-    <Compile Include="Migrations\202110220619434_InitialCreate.Designer.cs">
-      <DependentUpon>202110220619434_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202111080707070_initialCreate.cs" />
+    <Compile Include="Migrations\202111080707070_initialCreate.Designer.cs">
+      <DependentUpon>202111080707070_initialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -470,6 +470,7 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Home\sectons.cshtml" />
     <Content Include="Views\Error\Error404C.cshtml" />
+    <Content Include="Views\Home\Course.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -488,8 +489,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110220619434_InitialCreate.resx">
-      <DependentUpon>202110220619434_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202111080707070_initialCreate.resx">
+      <DependentUpon>202111080707070_initialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
