@@ -74,6 +74,19 @@
                                                     </h5>
                                                     <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year  </small> </h5>
                                                     <h5 class="card-title m-0"> <small class="text-muted">Year: @item.Levels </small> </h5>
+                                                    @{var totalvideo = 0;
+                                                        foreach (var item1 in item.Sections)
+                                                        {
+
+                                                            foreach (var item2 in item1.SectionMedia)
+                                                            {
+                                                                totalvideo = totalvideo + item2.VideoDuration;
+
+                                                            }
+
+                                                        } }
+                                                    <h5 class="card-title m-0"> <small class="text-muted">Duration: @{Html.RenderAction("FormatTime", "Home", new { time = totalvideo });}  </small> </h5>
+
                                                     <div class="row">
                                                         <div class="col-lg-8  col-sm-8 col-md-8 col-xs-md-8">
                                                             <div class="progress" style="margin-left:2px; margin-top:10px;">
@@ -136,6 +149,19 @@
                                                     </h5>
                                                     <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
                                                     <h5 class="card-title m-0"> <small class="text-muted">Year: @item.Levels </small> </h5>
+                                                    @{var totalvideo = 0;
+                                                        foreach (var item1 in item.Sections)
+                                                        {
+
+                                                            foreach (var item2 in item1.SectionMedia)
+                                                            {
+                                                                totalvideo = totalvideo + item2.VideoDuration;
+
+                                                            }
+
+                                                        } }
+                                                    <h5 class="card-title m-0"> <small class="text-muted">Duration: @{Html.RenderAction("FormatTime", "Home", new { time = totalvideo });}  </small> </h5>
+
                                                     <div class="row">
                                                         <div class="col-lg-8  col-sm-8 col-md-8 col-xs-md-8">
                                                             <div class="progress" style="margin-left:2px; margin-top:10px;">
@@ -234,6 +260,19 @@
                                                 </h5>
                                                 <h5 class="card-title m-0"> <small class="text-muted">Year:   @item.Year </small> </h5>
                                                 <h5 class="card-title m-0"> <small class="text-muted">Year: @item.Levels </small> </h5>
+                                                @{var totalvideo = 0;
+                                                    foreach (var item1 in item.Sections)
+                                                    {
+
+                                                        foreach (var item2 in item1.SectionMedia)
+                                                        {
+                                                            totalvideo = totalvideo + item2.VideoDuration;
+
+                                                        }
+
+                                                    } }
+                                                <h5 class="card-title m-0"> <small class="text-muted">Duration: @{Html.RenderAction("FormatTime", "Home", new { time = totalvideo });}  </small> </h5>
+
                                                 <div class="row">
                                                     <div class="col-lg-8  col-sm-8 col-md-8 col-xs-md-8">
                                                         <div class="progress" style="margin-top:10px;">

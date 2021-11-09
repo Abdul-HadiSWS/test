@@ -436,7 +436,12 @@ namespace LearningPortal.Controllers
                 }
 
                 string Video = videocount + " Videos";
+                if (videocount==0)
+                {
+                    ViewBag.check = 0;
+                }
 
+               
                 ViewBag.data = Section + Video;
                 ViewBag.totalduration = totalvideo;
                 Session["cid"] = tempid;
@@ -465,12 +470,12 @@ namespace LearningPortal.Controllers
 
                 }
 
-
-
-
+                
                
-                    
-                  
+
+
+
+
 
                 //ViewBag.sectionname=co
                 return View(courses);

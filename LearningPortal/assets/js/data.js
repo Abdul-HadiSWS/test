@@ -140,7 +140,7 @@ function dd(CouID,id) {
             var id2 = $('#' + id).parent().parent().parent().parent().attr('id');
             $('#' + id2).collapse('show');
 
-            $('#' + id).parent().parent().parent().css("background-color", "#667a8a");
+            $('#' + id).parent().parent().parent().css("background-color", "black");
 
 
 
