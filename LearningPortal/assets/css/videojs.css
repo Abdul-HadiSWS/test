@@ -61,8 +61,8 @@
     line-height: 1.5em;
     height: 1.5em;
     width: 2em;
-    top: 10rem;
-    left: 16rem;
+    top: 40%;
+    left: 45%;
 }
 
 @media(max-width: 1326px) {
@@ -82,9 +82,8 @@
         line-height: 1.5em;
         height: 1.5em;
         width: 2em;
-        top: 9.5rem;
-        left: 16rem;
-        
+        top: 40%;
+        left: 45%;
         border-radius: 0.3em;
     }
 }
