@@ -239,7 +239,7 @@ function lg() {
 
                 },
                 error: function () {
-                    alert("error");
+                    alert("get error");
                 }
             });
 
@@ -311,18 +311,18 @@ function lg() {
 
                 $('.sidebar').append(result);
                 $('.sidebar').show();
-                var id2 = $('#' + id).parent().parent().parent().parent().attr('id');
+
+                var id2 = $('#' + id).parent().parent().parent().attr('id');
+
                 $('#' + id2).collapse('show');
 
-                $('#' + id).parent().parent().parent().css("background-color", "#667a8a");
-
-
+                $('#' + id).parent().parent().css("background-color", "#667a8a");
 
 
                 $('#' + id).parent().parent().parent().children().children().children().css("color", "white");
             },
             error: function () {
-                alert("error");
+                alert(" ddd1 error");
             }
 
         });

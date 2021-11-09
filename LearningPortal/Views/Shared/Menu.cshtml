@@ -13,7 +13,8 @@
                     foreach (LearningPortal.Models.Categories item in Cache["Menu"] as List<LearningPortal.Models.Categories>)
                     {
                         string que1 = helpper.Encrypt("" + item.CategoryId, true);
-                         que1 = que1.Replace('%', 'a');
+                        que1 = que1.Replace('+', 'b');
+                        que1 = que1.Replace('%', 'a');
                                 <li>
                                     
                                     <a href="@Url.Action("ViewAllSubCategory", "Home", new{id=que1.Replace('/', '$')})"> @item.CategoryName <i class="fa fa-caret-right"></i> </a>
