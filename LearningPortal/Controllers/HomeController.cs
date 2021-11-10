@@ -644,6 +644,7 @@ namespace LearningPortal.Controllers
             UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == number1 && a.UserId == userid).FirstOrDefault();
             count.WatchedTime = number2;
             count.UpdatedTime = true;
+            //count.Time = DateTime.Now;
             //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
             //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
             if (ModelState.IsValid)

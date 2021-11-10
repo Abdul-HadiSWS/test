@@ -60,7 +60,7 @@
                     $('#video-card').show();
 
                     $('html').animate({
-                        scrollTop: $("#goup1").offset().top
+                        scrollTop: $("body").offset().top
                     });
 
                    

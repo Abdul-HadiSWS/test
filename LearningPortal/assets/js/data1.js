@@ -235,7 +235,7 @@ function lg() {
 
                     
                     $('html, body').animate({
-                        scrollTop: $("#goup1").offset().top
+                        scrollTop: $("body").offset().top
                     }, 1000);
                  
 

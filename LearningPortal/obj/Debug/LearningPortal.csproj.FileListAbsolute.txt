@@ -872,3 +872,4 @@ C:\Users\SWS\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal
 C:\Users\FBC\Desktop\LearnPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.initialCreate.resources
 C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
+C:\Users\FBC\source\repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.Migrations.intialcreate1.resources
