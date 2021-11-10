@@ -23,7 +23,7 @@ namespace LearningPortal.Controllers
             {
                 return RedirectToAction("Error404","Error");
             }
-            var featurecourse = Db.Courses.SqlQuery("Select * from Courses where Courses.CourseId NOT IN (select Distinct(Courses.CourseId) from  Courses join Sections on Courses.CourseId = Sections.CourseId join SectionMedias on Sections.SectionId = SectionMedias.SectionId join UserMediaHistories on SectionMedias.SectionMediaId = UserMediaHistories.SectionMediaId join AspNetUsers on UserMediaHistories.UserId = AspNetUsers.Id where AspNetUsers.Id = '" + User.Identity.GetUserId() + "')and IsFeatured = 1").ToList();
+            var featurecourse = Db.Courses.SqlQuery("Select * from Courses where IsFeatured = 1").ToList();
             
             var resumecourse = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + User.Identity.GetUserId() + "'").ToList();
 
