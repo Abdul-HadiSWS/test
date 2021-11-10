@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialCreate : DbMigration
+    public partial class intialcreate : DbMigration
     {
         public override void Up()
         {
@@ -43,6 +43,7 @@ namespace LearningPortal.Migrations
                         Year = c.Int(nullable: false),
                         Image = c.String(),
                         SubCategoryId = c.Int(nullable: false),
+                        Time = c.DateTime(nullable: false),
                         IsFeatured = c.Boolean(),
                     })
                 .PrimaryKey(t => t.CourseId)

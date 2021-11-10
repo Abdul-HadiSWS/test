@@ -25,7 +25,9 @@ namespace LearningPortal.Controllers
             }
             var featurecourse = Db.Courses.SqlQuery("Select * from Courses where IsFeatured = 1").ToList();
             
-            var resumecourse = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + User.Identity.GetUserId() + "'").ToList();
+            var resumecourse = Db.Courses.SqlQuery("select  DISTINCT cor.*  from Courses cor inner join Sections sCat on cor.CourseId = sCat.CourseId inner join SectionMedias cat on cat.SectionId = sCat.SectionId inner join UserMediaHistories useMedHis on useMedHis.SectionMediaId = cat.SectionMediaId inner join AspNetUsers netUse on netUse.Id = useMedHis.UserId where netUse.Id = '" + User.Identity.GetUserId() + "'  order by cor.Time desc").ToList();
+
+
 
             ViewBag.count = resumecourse.Count();
             ViewBag.fc = featurecourse.Count();
@@ -644,12 +646,15 @@ namespace LearningPortal.Controllers
             UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == number1 && a.UserId == userid).FirstOrDefault();
             count.WatchedTime = number2;
             count.UpdatedTime = true;
+            Courses cc = Db.Courses.Find(cid);
+            cc.Time = DateTime.Now;
             //count.Time = DateTime.Now;
             //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
             //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
             if (ModelState.IsValid)
             {
                 //count.UpdatedTime = DateTime.Now;
+                Db.Entry(cc).State = EntityState.Modified;
                 Db.Entry(count).State = EntityState.Modified;
                 Db.SaveChanges();
             }

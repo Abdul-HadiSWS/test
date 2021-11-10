@@ -34,8 +34,13 @@ namespace LearningPortal.Models
         [Required(ErrorMessage = "Enter SubCategory Id")]
         [Display(Name = "Sub Category Id")]
         public int SubCategoryId { get; set; }
+
+        [Display(Name = "Time")]
+        public DateTime Time { get; set; }
         public Nullable<bool> IsFeatured { get; set; }
-        [ForeignKey("CourseLearning")]       
+        [ForeignKey("CourseLearning")]
+
+      
         public virtual ICollection<CourseLearning> CourseLearnings { get; set; }
         public virtual SubCategories SubCategories { get; set; }
 

@@ -41,7 +41,8 @@
         @{ foreach (var item in Model)
             {
                 string que = helpper.Encrypt("" + item.CourseId, true);
-                que = que.Replace('+', 'b');
+             
+                que = que.Replace('+', '!');
                 que = que.Replace('%', 'a');
                 <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active">
                     <a href="@Url.Action("Course", "Home", new { id = que })">
