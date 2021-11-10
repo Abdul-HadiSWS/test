@@ -90,7 +90,7 @@ namespace LearningPortal.Controllers
                return RedirectToAction("Error404", "Error");
             }
             string tempid = id;
-            id = id.Replace('b', '+');
+            id = id.Replace('!', '+');
             id = id.Replace('%', 'a');
             var decsc = helpper.Decrypto(id.Replace('$', '/'));
           
@@ -132,13 +132,13 @@ namespace LearningPortal.Controllers
 
         /*View All Course*/
         public ActionResult ViewAllCourse(string id)
-        {
+         {
             if (id == null)
             {
                 return RedirectToAction("Error404", "Error");
             }
             string tempid = id;
-            id = id.Replace('b', '+');
+            id = id.Replace('!', '+');
             id = id.Replace('%', 'a');
             var decsc = helpper.Decrypto(id.Replace('$', '/'));
 
@@ -213,7 +213,7 @@ namespace LearningPortal.Controllers
             string tempid = id;
             // var idd = Convert.ToString(id);
             //var DecryptId = helpper.Decrypt(idd);
-            id = id.Replace('b', '+');
+            id = id.Replace('!', '+');
             id = id.Replace('%', 'a');
 
             var decsc= helpper.Decrypto(id.Replace('$','/'));
@@ -407,7 +407,7 @@ namespace LearningPortal.Controllers
             string tempid = id;
             // var idd = Convert.ToString(id);
             //var DecryptId = helpper.Decrypt(idd);
-            id = id.Replace('b', '+');
+            id = id.Replace('!', '+');
             id = id.Replace('%', 'a');
 
             var decsc = helpper.Decrypto(id.Replace('$', '/'));
@@ -626,7 +626,7 @@ namespace LearningPortal.Controllers
                 }
                 else
                 {
-                    UserMediaHistory count1 = Db.UserMediaHistories.Where(a => a.SectionMediaId == item.SectionMediaId).FirstOrDefault();
+                    UserMediaHistory count1 = Db.UserMediaHistories.Where(a => a.SectionMediaId == item.SectionMediaId && a.UserId == userid).FirstOrDefault();
 
                     count1.UpdatedTime = false;
                     //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
