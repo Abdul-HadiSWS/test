@@ -163,7 +163,7 @@ function lg() {
 
 
         $(document).ready(function () {
-          
+         
 
             //var start = $('#start').text();
             //var ct = $('#ct').text();
@@ -234,7 +234,9 @@ function lg() {
                     dd(CouID, id1);
 
                     
-                 
+                    $('html, body').animate({
+                        scrollTop: $("#goup1").offset().top
+                    }, 1000);
                  
 
                 },
@@ -242,7 +244,6 @@ function lg() {
                     alert("get error");
                 }
             });
-
 
         });
     }
@@ -296,6 +297,7 @@ function lg() {
 
     function dd(CouID, id) {
 
+      
 
         $.ajax({
             //base address/controller/Action

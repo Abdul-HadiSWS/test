@@ -147,122 +147,125 @@
                     </div>
 
                     @*Videowork starts here:*@
+                    <section id="goup">
 
-                    <div class="card" id="video-card">
-                    </div>
-                    @*end of video*@
+                        <div class="card" id="video-card">
+                        </div>
 
-                    <h4 class="fonts">Course Outline</h4>
-                    <p>@ViewBag.data -  @{Html.RenderAction("FormatTime", "Home", new { time = ViewBag.totalduration });} Duration </p>
+                    </section>
+                        @*end of video*@
 
-
-
-                    <div class="sidebar">
-
+                        <h4 class="fonts">Course Outline</h4>
+                        <p>@ViewBag.data -  @{Html.RenderAction("FormatTime", "Home", new { time = ViewBag.totalduration });} Duration </p>
 
 
 
-                        <ul class="sidebar-menu">
-                            @foreach (var item in Model.Sections)
-                            {
-                            <li class="sidebar-menu-item1">
-                                @{
-                                    string str = item.SectionName;
-                                    str = str.Replace(" ", "");
-                                }
-                                <a class="sidebar-menu-button sidebar-js-collapse DROPP"
-                                   data-toggle="collapse"
-                                   href="#@str">
-                                    <div class="media">
-
-                                        <div class="media-left DROP">
-
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
+                        <div class="sidebar">
 
 
-                                        </div>
-
-                                        <div class="media-body">
-
-                                            @Html.DisplayFor(modelitem => item.SectionName)
-                                        </div>
-                                        <div class="media-right">
-                                            <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                    <ul class="sidebar-submenu sm-indent collapse"
-                                        id="@str">
 
 
-                                        @Html.Hidden("CourseId", helpper.Encrypt("" + item.CourseId, true))
-                                        @foreach (var item1 in item.SectionMedia)
-                                        {
-                                            // string que = helpper.Encrypt("" + item1.SectionMediaId, true);
-                                            //  var que = item1.SectionMediaId;
-                                            // @Html.Hidden("SectionMediaId", que)
+                            <ul class="sidebar-menu">
+                                @foreach (var item in Model.Sections)
+                                {
+                                    <li class="sidebar-menu-item1">
+                                        @{
+                                            string str = item.SectionName;
+                                            str = str.Replace(" ", "");
+                                        }
+                                        <a class="sidebar-menu-button sidebar-js-collapse DROPP"
+                                           data-toggle="collapse"
+                                           href="#@str">
+                                            <div class="media">
 
-                                            <li class="sidebar-menu-item">
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <a class="sidebar-menu-button menu-button" id="@item1.SectionMediaId" @*href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sid = que })"*@>
+                                                <div class="media-left DROP">
 
-                                                            @{
-                                                                var aa = item1.UserMediaHistories.Where(x => x.UserId == User.Identity.GetUserId()).ToList();
+                                                    <i class="sidebar-menu-icon sidebar-menu-icon--left fa fa-caret-down"></i>
 
-                                                                if (aa.Count == 0)
-                                                                {
-                                                                    <i class="material-icons text-muted pr-2">play_circle_filled</i>
-                                                                }
-                                                                else
-                                                                {
-                                                                    foreach (var item2 in aa)
+
+                                                </div>
+
+                                                <div class="media-body">
+
+                                                    @Html.DisplayFor(modelitem => item.SectionName)
+                                                </div>
+                                                <div class="media-right">
+                                                    <small class="text-muted-light">@item.SectionMedia.Count() Videos -     @{Html.RenderAction("FormatTime", "Home", new { time = item.SectionMedia.Sum(x => x.VideoDuration) });}   Duration</small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <ul class="sidebar-submenu sm-indent collapse"
+                                            id="@str">
+
+
+                                            @Html.Hidden("CourseId", helpper.Encrypt("" + item.CourseId, true))
+                                            @foreach (var item1 in item.SectionMedia)
+                                            {
+                                                // string que = helpper.Encrypt("" + item1.SectionMediaId, true);
+                                                //  var que = item1.SectionMediaId;
+                                                // @Html.Hidden("SectionMediaId", que)
+
+                                                <li class="sidebar-menu-item">
+                                                    <div class="media">
+                                                        <div class="media-left">
+                                                            <a class="sidebar-menu-button menu-button" id="@item1.SectionMediaId"  @*href="@Url.Action("StudentCourse", "Home", new { id = item.CourseId, sid = que })"*@>
+
+                                                                @{
+                                                                    var aa = item1.UserMediaHistories.Where(x => x.UserId == User.Identity.GetUserId()).ToList();
+
+                                                                    if (aa.Count == 0)
                                                                     {
-                                                                        var start = item2.WatchedTime;
+                                                                        <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        foreach (var item2 in aa)
+                                                                        {
+                                                                            var start = item2.WatchedTime;
 
-                                                                        if (item1.VideoDuration == start)
-                                                                        {
-                                                                            <i class="material-icons text-muted pr-2">check_circle</i>
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            if (start == 0)
+                                                                            if (item1.VideoDuration == start)
                                                                             {
-                                                                                <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                                                                <i class="material-icons text-muted pr-2">check_circle</i>
                                                                             }
                                                                             else
                                                                             {
-                                                                                <i class="material-icons text-muted pr-2">pause_circle_filled</i>
+                                                                                if (start == 0)
+                                                                                {
+                                                                                    <i class="material-icons text-muted pr-2">play_circle_filled</i>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <i class="material-icons text-muted pr-2">pause_circle_filled</i>
+                                                                                }
                                                                             }
+
+
                                                                         }
 
-
                                                                     }
-
                                                                 }
-                                                            }
-                                                        </a>
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
+
+                                                        </div>
+                                                        <div class="media-right">
+                                                            <small class="text-muted-light">
+                                                                @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
+                                                            </small>
+
+                                                        </div>
                                                     </div>
-                                                    <div class="media-body">
-                                                        <p>@Html.DisplayFor(modelitem => item1.VideoTitle)</p>
+                                                </li>
 
-                                                    </div>
-                                                    <div class="media-right">
-                                                        <small class="text-muted-light">
-                                                            @{Html.RenderAction("FormatTime", "Home", new { time = item1.VideoDuration });}
-                                                        </small>
+                                            }
+                                        </ul>
 
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                        }
-                                    </ul>
-
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                 </div>
 
 
@@ -297,7 +300,7 @@
 
 
 <script>
-
+   
     $(document).ready(function () {
         $('#video-card').show();
     });

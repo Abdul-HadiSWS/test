@@ -59,6 +59,11 @@
                     $('#video-card').append(result);
                     $('#video-card').show();
 
+                    $('html').animate({
+                        scrollTop: $("#goup1").offset().top
+                    });
+
+                   
                     //var id = $('#' + id1).parent().parent().parent().parent().attr('id');
                     //var start = $('#start').val();
                    //vd(player);           
@@ -70,6 +75,7 @@
                     alert(" ready error");
                 }              
             });
+           
         });
  });
 
