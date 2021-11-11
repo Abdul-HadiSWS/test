@@ -30,5 +30,18 @@ namespace LearningPortal
             
            
         }
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+
+            //Add some logging here
+
+            if (ex.GetType().IsAssignableFrom(typeof(HttpException)))
+            {
+                //Possibly log that you're redirecting the user
+                Response.Clear();
+                Response.Redirect("~/Error/Error404");
+            }
+        }
     }
 }

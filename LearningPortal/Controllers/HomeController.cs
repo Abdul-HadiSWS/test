@@ -89,7 +89,7 @@ namespace LearningPortal.Controllers
         {
             if (id == null)
             {
-               return RedirectToAction("Error404", "Error");
+               return View("Error404", "Error");
             }
             string tempid = id;
             id = id.Replace('!', '+');
