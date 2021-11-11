@@ -30,13 +30,14 @@
             </div>
             <h2>Page not found</h2>
             <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-           @{
-              
+            @{
 
-            <a href="@Url.Action("Course", "Home", new { id = Session["cid"] })">Course Page</a>
 
-               }
-</div>
+                <a href="@Url.Action("ViewAllCategory", "Home")">Catagory Page</a>
+
+            }
+        </div>
     </div>
 
 </body>
+

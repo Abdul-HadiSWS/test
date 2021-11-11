@@ -471,6 +471,9 @@
     <Content Include="Views\Home\sectons.cshtml" />
     <Content Include="Views\Error\Error404C.cshtml" />
     <Content Include="Views\Home\Course.cshtml" />
+    <Content Include="Views\Error\ErrorSC.cshtml" />
+    <Content Include="Views\Error\ErrorCat.cshtml" />
+    <Content Include="Views\Error\ErrorAllCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,8 +31,7 @@ namespace LearningPortal.Controllers
 
             ViewBag.count = resumecourse.Count();
             ViewBag.fc = featurecourse.Count();
-       
-            num++;
+     
             ViewBag.rc = resumecourse.ToList();
             return View(featurecourse);
 
@@ -79,6 +78,7 @@ namespace LearningPortal.Controllers
         /*View All Catagory*/
         public ActionResult ViewAllCategory()
         {
+
             var cat = Db.Categories.ToList();
             return PartialView(cat);
         }
@@ -95,15 +95,12 @@ namespace LearningPortal.Controllers
             id = id.Replace('!', '+');
             id = id.Replace('%', 'a');
             var decsc = helpper.Decrypto(id.Replace('$', '/'));
-          
+           
             if (decsc == "")
             {
 
-                return RedirectToAction("Error404", "Error");
+                return RedirectToAction("ErrorSC", "Error");
 
-                //var aaa = Request.Url.ToString();
-
-                //return PartialView();
 
             }
             else
@@ -121,9 +118,9 @@ namespace LearningPortal.Controllers
                 }
 
                 ViewBag.BreadCrumbCat = Cat;
-
-
                 Session["sid"] = tempid;
+
+
 
                 return PartialView(subcat);
             }
@@ -146,7 +143,8 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("Error404", "Error");
+                return RedirectToAction("ErrorAllCourse", "Error");
+
             }
             else
             {
@@ -176,9 +174,6 @@ namespace LearningPortal.Controllers
         }
 
         /* ENd View All Course*/
-
-
-       
 
         /*ResumeCourse */
         public PartialViewResult ResumeCourse(string UserId)
@@ -388,17 +383,9 @@ namespace LearningPortal.Controllers
                 return PartialView();
             }
         }
-
-
-
-
-
-
         /* End StudentCourse */
 
-
         /*Courses*/
-
         public ActionResult Course(string id)
         {
             if (id == null)
@@ -644,16 +631,20 @@ namespace LearningPortal.Controllers
             }
 
             UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == number1 && a.UserId == userid).FirstOrDefault();
-            count.WatchedTime = number2;
-            count.UpdatedTime = true;
-            Courses cc = Db.Courses.Find(cid);
-            cc.Time = DateTime.Now;
+              count.WatchedTime = number2;
+              count.UpdatedTime = true;
+                Courses cc = Db.Courses.Find(cid);
+                cc.Time = DateTime.Now;
+
+
             //count.Time = DateTime.Now;
             //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
             //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
             if (ModelState.IsValid)
             {
-                //count.UpdatedTime = DateTime.Now;
+               
+         
+                ////count.UpdatedTime = DateTime.Now;
                 Db.Entry(cc).State = EntityState.Modified;
                 Db.Entry(count).State = EntityState.Modified;
                 Db.SaveChanges();

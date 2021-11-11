@@ -18,5 +18,19 @@ namespace LearningPortal.Controllers
         {
             return View();
         }
+        public ActionResult ErrorSC()
+        {
+            return View();
+        }
+
+        public ActionResult ErrorCat()
+        {
+            return View();
+        }
+
+        public ActionResult ErrorAllCourse()
+        {
+            return View();
+        }
     }
 }
