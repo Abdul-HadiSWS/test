@@ -314,6 +314,7 @@ namespace LearningPortal.Controllers
                 }
 
                 int media = playlist1[index];
+              
                 var check = Db.UserMediaHistories.Where(a => a.SectionMediaId == media && a.UserId == userid).FirstOrDefault();
                 var startime = 0;
 
@@ -337,16 +338,16 @@ namespace LearningPortal.Controllers
 
                 if (check == null)
                 {
-                    UserMediaHistory obj = new UserMediaHistory();
-                    obj.WatchedTime = startime;
-                    obj.UserId = userid;
-                    //obj.UpdatedTime = DateTime.Now;
-                    obj.UpdatedTime = true;
+                    //UserMediaHistory obj = new UserMediaHistory();
+                    //obj.WatchedTime = startime;
+                    //obj.UserId = userid;
+                    ////obj.UpdatedTime = DateTime.Now;
+                    //obj.UpdatedTime = true;
                   
-                    obj.SectionMediaId = playlist1[index];
+                    //obj.SectionMediaId = playlist1[index];
                     
-                    Db.UserMediaHistories.Add(obj);
-                    Db.SaveChanges();
+                    //Db.UserMediaHistories.Add(obj);
+                    //Db.SaveChanges();
                  
                 }
                 else
@@ -631,24 +632,46 @@ namespace LearningPortal.Controllers
             }
 
             UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == number1 && a.UserId == userid).FirstOrDefault();
-              count.WatchedTime = number2;
-              count.UpdatedTime = true;
-                Courses cc = Db.Courses.Find(cid);
-                cc.Time = DateTime.Now;
-
+            Courses cc = Db.Courses.Find(cid);
+            cc.Time = DateTime.Now;
 
             //count.Time = DateTime.Now;
             //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
             //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
-            if (ModelState.IsValid)
+            if (count == null)
             {
-               
-         
-                ////count.UpdatedTime = DateTime.Now;
+                UserMediaHistory obj = new UserMediaHistory();
+                obj.WatchedTime = number2;
+                obj.UserId = userid;
+            
+                obj.UpdatedTime = true;
+
+                obj.SectionMediaId = number1;
+
+             
+
+                Db.UserMediaHistories.Add(obj);
                 Db.Entry(cc).State = EntityState.Modified;
-                Db.Entry(count).State = EntityState.Modified;
                 Db.SaveChanges();
             }
+            else
+            {
+                count.WatchedTime = number2;
+                count.UpdatedTime = true;
+             
+
+                if (ModelState.IsValid)
+                {
+
+
+                    ////count.UpdatedTime = DateTime.Now;
+                    Db.Entry(cc).State = EntityState.Modified;
+                    Db.Entry(count).State = EntityState.Modified;
+                    Db.SaveChanges();
+                }
+            }
+            
+          
             return "Changeiing";
         }
 
