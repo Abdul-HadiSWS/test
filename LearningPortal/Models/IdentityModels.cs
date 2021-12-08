@@ -40,8 +40,9 @@ namespace LearningPortal.Models
         public virtual DbSet<SubCategories> SubCategories { get; set; }
 
         public virtual DbSet<UserMediaHistory> UserMediaHistories { get; set; }
+        public virtual DbSet<CourseTag> CourseTag { get; set; }
+        public virtual DbSet<TagManager> TagManager { get; set; }
 
-        
 
     }
 }

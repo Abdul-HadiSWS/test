@@ -24,8 +24,11 @@ namespace LearningPortal.Models
         [StringLength(55, ErrorMessage = "The {0} must be at least {2} characters long.")]
         [Index("INDEX_Title", IsUnique = true)]
         public string CategoryName { get; set; }
-
+        [Display(Name = "Time")]
+        public DateTime Time { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string Image { get; set; }
+
         public virtual ICollection<SubCategories> SubCategories { get; set; }
     }
 }

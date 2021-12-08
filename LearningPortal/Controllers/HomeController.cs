@@ -16,7 +16,7 @@ namespace LearningPortal.Controllers
         public ApplicationDbContext Db = new ApplicationDbContext();
 
         // GET: Student
-        int num = 0;
+       
         public ActionResult StudentDashboard(string id)
         {
             if (id!=null)
@@ -55,21 +55,21 @@ namespace LearningPortal.Controllers
         /*DropDown*/
         public PartialViewResult Menu()
         {
-            var ls = Db.Categories.ToList(); 
+            var ls = Db.Categories.OrderBy(x => x.Time).ToList(); 
             System.Web.HttpRuntime.Cache["Menu"] = ls;
             return PartialView();
         }
         // Get submenu
         public void get_Submenu(int catid)
         {
-            var subCat = Db.SubCategories.Where(i => i.CategoryId == catid).ToList();
+            var subCat = Db.SubCategories.Where(i => i.CategoryId == catid).OrderBy(x => x.Time).ToList();
             System.Web.HttpRuntime.Cache["submenu"] = subCat;
         }
 
         // Get Subtosubmenu
         public void get_Subtosubmenu(int Subcat_id)
         {
-            var cour = Db.Courses.Where(i => i.SubCategoryId == Subcat_id).ToList();
+            var cour = Db.Courses.Where(i => i.SubCategoryId == Subcat_id).OrderBy(x => x.Time).ToList();
             System.Web.HttpRuntime.Cache["subtosubmenu"] = cour;
         }
 
@@ -79,7 +79,7 @@ namespace LearningPortal.Controllers
         public ActionResult ViewAllCategory()
         {
 
-            var cat = Db.Categories.ToList();
+            var cat = Db.Categories.OrderBy(x => x.Time).ToList();
             return PartialView(cat);
         }
         /*End of All Catagory*/

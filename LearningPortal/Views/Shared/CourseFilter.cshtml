@@ -1,0 +1,116 @@
+﻿@model LearningPortal.Models.CascadingClass
+
+
+
+<div class="navbar bg-light navbar-light navbar-expand-sm d-none2 d-md-flex2 p-0">
+
+
+    <div class="container p-0">
+        <a class="btn btn-secondary mr-1" href="#">Add Course</a>
+        <div class="navbar-collapse px-2 collapse align-content-center"
+             id="navbarsExample033" style="border:1px solid black">
+            <ul class="nav navbar-nav align-items-center w-100">
+                <li><h5 style="margin-right: 5px; margin-top: 12px;">Filter by:</h5></li>
+                <li class="media-body mx-1 d-flex justify-content-center py-1" style="border:1px solid black">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <input type="checkbox" class="mr-1" id="CheckFt">
+                        <label class="m-0">Featured</label>
+                    </div>
+                </li>
+                <li>
+                    @{
+                        if (ViewBag.CateogryList != null)
+                        {
+
+                            @Html.DropDownListFor(m => m.CategoryId, ViewBag.CateogryList as SelectList, "Category", new { @class = "form-control1" })
+
+                        }
+
+                        @Html.DropDownListFor(m => m.SubCategoryId, new SelectList(" "), "SubCategory", new { @class = "form-control1" })
+                    }
+                </li>
+                <li>
+                    <form class="search-form d-none d-md-flex" style="margin-left: 15px;">
+                        <input type="text"
+                               class="form-control"
+                               id="searchText"
+                               placeholder="Search">
+
+                        <i class="material-icons font-size-24pt">search</i>
+
+                    </form>
+                </li>
+                <li class="media-right mt-2 mt-xs-plus-0">
+                    <a class="btn btn-success " style="border-radius: 25px;" id="check"> <i class="material-icons font-weight-bolder">check</i></a>
+                </li>
+
+            </ul>
+        </div>
+
+        <button class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#navbarsExample03"
+                type="button">
+            <span class="material-icons">menu</span>
+        </button>
+
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="card-columns row courseList" id="courBox">
+</div>
+
+
+
+<script src="~/assets/vendor/jquery.min.js"></script>
+
+<script>
+
+
+    $(document).ready(function () {
+
+
+        $("#CategoryId").change(function () {
+            var categoryId = $(this).val();
+            console.log(typeof(categoryId));
+            if (categoryId != "") {
+               
+                $.get("/Admin/GetSubCategoriesList", { CategoryId: categoryId }, function (data) {
+                    $("#SubCategoryId").empty();
+                    $("#SubCategoryId").append("<option value=''>SubCategory</option>");
+                    $.each(data, function (index, row) {
+                        $("#SubCategoryId").append("<option value='" + row.SubCategoryId + "'>" + row.SubCategoryName + "</option>");
+                    });
+                });
+            }
+            else {
+                $("#SubCategoryId").empty();
+                $("#SubCategoryId").append("<option value=''>SubCategory</option>");
+
+
+            }
+
+
+
+            //$.ajax({
+            //    type: "post",
+            //    url: "/Admin/GetSubCategoriesList?CategoryId=" + categoryId,
+            //    contentType: "html",
+            //    success: function (response) {
+
+            //        $("#SubCategoryId").empty();
+
+            //        $("#SubCategoryId").append(response);
+            //    },
+            //    error: function () {
+            //        alert(error);
+            //    }
+            //})
+
+
+        })
+
+    });
+</script>

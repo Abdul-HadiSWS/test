@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LearningPortal.Models.Courses>
+
+@{
+    ViewBag.Title = "AddCourse";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="mdk-drawer-layout__content page">
+
+    <div class="card-body">
+        <div class="media flex-wrap align-items-center">
+
+
+
+            <div class="media-left">
+
+                @Html.Action("CourseFilter", "Admin")
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+
+</div>
+

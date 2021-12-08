@@ -38,9 +38,12 @@ namespace LearningPortal.Models
         [Display(Name = "Time")]
         public DateTime Time { get; set; }
         public Nullable<bool> IsFeatured { get; set; }
-        [ForeignKey("CourseLearning")]
+       
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
+        public DateTime UploadedDate { get; set; }
 
-      
+        public Nullable<bool> IsActive { get; set; }
         public virtual ICollection<CourseLearning> CourseLearnings { get; set; }
         public virtual SubCategories SubCategories { get; set; }
 

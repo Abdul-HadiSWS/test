@@ -24,6 +24,10 @@ namespace LearningPortal.Models
         [Index("INDEX_Title", IsUnique = true)]
         public string SubCategoryName { get; set; }
 
+        [Display(Name = "Time")]
+        public DateTime Time { get; set; }
+
+        public Nullable<bool> IsActive { get; set; }
         public string Image { get; set; }
         public virtual Categories Categories { get; set; }
        
