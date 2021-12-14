@@ -496,11 +496,21 @@
     <Content Include="Views\Admin\CourseEdit.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
     <Content Include="Views\Shared\CategoryList.cshtml" />
-    <Content Include="Views\Shared\EditCat.cshtml" />
+    <Content Include="Views\Shared\EditCategory.cshtml" />
+    <Content Include="Views\Admin\TagManager.cshtml" />
+    <Content Include="Views\Admin\DeleteCategory.cshtml" />
+    <Content Include="Views\Admin\DeleCourse.cshtml" />
+    <Content Include="Views\Admin\EditCat.cshtml" />
+    <Content Include="Views\Admin\AddSubCategory.cshtml" />
+    <Content Include="Views\Admin\SubCategoryList.cshtml" />
+    <Content Include="Views\Admin\DeleteSubCategory.cshtml" />
+    <Content Include="Views\Admin\EditSubCat.cshtml" />
+    <Content Include="Views\Shared\t.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\images\categories\" />
+    <Folder Include="assets\images\Subcategories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

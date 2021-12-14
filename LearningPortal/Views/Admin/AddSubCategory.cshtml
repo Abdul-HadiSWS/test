@@ -1,9 +1,9 @@
-﻿@model IEnumerable<LearningPortal.Models.Courses>
-
+﻿
 @{
-    ViewBag.Title = "AddCourse";
+    ViewBag.Title = "AddSubCategory";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 
 <div class="mdk-drawer-layout__content page">
@@ -13,12 +13,12 @@
 
 
 
-   
+           
+                <h2>@ViewBag.name</h2>
+                @Html.Action("SubCategoryList", "Admin")
+           
 
-                @Html.Action("CourseFilter", "Admin")
-      
-
-        
+       
     </div>
 
 
@@ -26,4 +26,6 @@
 
 
 </div>
+
+
 

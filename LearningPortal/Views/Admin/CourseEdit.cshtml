@@ -4,167 +4,164 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#AddSecBtn').on('click', function () {
 
-<!--<div class="Row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Lessons</h4>
-            </div>
-            <div class="card-body">
-                <p>
-                    <a href="#"
-                       class="btn btn-primary">Add Lesson <i class="material-icons">add</i></a>
-                </p>
-                <div class="nestable"
-                     id="nestable-handles-primary">
-                    <ul class="nestable-list">
-                        <li class="nestable-item nestable-item-handle"
-                            data-id="2">
-                            <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                            <div class="nestable-content">
-                                <div class="media align-items-center">
-                                    <div class="media-left">
-                                        <img src="~/assets/images/vuejs.png"
-                                             alt=""
-                                             width="100"
-                                             class="rounded">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="card-title h6 mb-0">
-                                            <a href="#">Awesome Vue.js with SASS Processing</a>
-                                        </h5>
-                                        <small class="text-muted">updated 1 month ago</small>
-                                    </div>
-                                    <div class="media-right">
-                                        <a href="#"
-                                           class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nestable-item nestable-item-handle"
-                            data-id="1">
-                            <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                            <div class="nestable-content">
-                                <div class="media align-items-center">
-                                    <div class="media-left">
-                                        <img src="~/assets/images/nodejs.png"
-                                             alt=""
-                                             width="100"
-                                             class="rounded">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="card-title h6 mb-0">
-                                            <a href="fixed-instructor-lesson-add.html">Github Webhooks for Beginners</a>
-                                        </h4>
-                                        <small class="text-muted">updated 1 month ago</small>
-                                    </div>
-                                    <div class="media-right">
-                                        <a href="#"
-                                           class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nestable-item nestable-item-handle"
-                            data-id="2">
-                            <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                            <div class="nestable-content">
-                                <div class="media align-items-center">
-                                    <div class="media-left">
-                                        <img src="~/assets/images/gulp.png"
-                                             alt=""
-                                             width="100"
-                                             class="rounded">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4 class="card-title h6 mb-0">
-                                            <a href="fixed-instructor-lesson-add.html">Browserify: Writing Modular JavaScript</a>
-                                        </h4>
-                                        <small class="text-muted">updated 1 month ago</small>
-                                    </div>
-                                    <div class="media-right">
-                                        <a href="fixed-instructor-lesson-add.html"
-                                           class="btn btn-white btn-sm"><i class="material-icons">edit</i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>-->
-<!--Right-->
-<!--<div class="col-md-4">
-        <div class="media align-items-center">
-            <div class="media-left">
-                <img src="assets/images/vuejs.png"
-                     alt=""
-                     width="100"
-                     class="rounded">
-            </div>
-            <div class="media-body">
-                <div class="custom-file"
-                     style="width: auto;">
-                    <input type="file"
-                           id="avatar"
-                           class="custom-file-input">
-                    <label for="avatar"
-                           class="custom-file-label">Choose file</label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
+            var newListItem = document.createElement('li');
+            newListItem.className += "nestable-item nestable-item-handle";
+            //div.setAttribute('data - id', '2');
+
+            var div = document.createElement('div');
+            div.className += "nestable-content";
+            div.setAttribute('id', 'Nested_Card');
+
+            var div2 = document.createElement('div');
+            div2.className += "card-title h6 mb-0";
+            div2.setAttribute('id', "Nested_Card");
+            $(document.getElementById("First_ul")).append(newListItem);
+            $('li').append(div);
+            $('div').append(div2);
+            console.log("+btn")
+        });
+    });
+</script>
+
+
+
+
+
+
+
 
 <div class="row">
     <div class="col-md-8">
-        <!-- <div class="card">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item"
-                        src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0"
-                        allowfullscreen=""></iframe>
-            </div>
-            <div class="card-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta eius enim inventoreus optio ratione veritatis. Beatae deserunt illum ipsam magniima mollitia officiis quia tempora!
-            </div>
-        </div> -->
 
-
-        <div class="card">
-            @Html.Action("CourseUploader", "Admin")
+        <div class="card-header">
+            <h4 class="card-title">Course Outline</h4>
         </div>
+        <div class="card" id="coureditsectionList">
+
+            @if (ViewBag.PData.Count == 0)
+            {
+                @Html.Action("CourseUploader", "Admin")
+
+            }
+
+
+            <ul class="nestable-list">
+                <li class="nestable-item nestable-item-handle"
+                    data-id="2">
+
+                    @{foreach (var h in ViewBag.QData)
+                        {
+
+
+
+                            <!--Headings-->
+                            <hr />
+                            <div class="nestable-content">
+                                <div class="media-body" id="Nested_Card">
+
+                                    <div class="media align-items-center">
+                                        <div class="media-body" id="Nested_Card">
+                                            <h5 class="card-title h6 mb-0">
+                                                <a href="#">@Path.GetFileName(h)</a>
+                                            </h5>
+                                        </div>
+
+                                        <!--Buttons-->
+                                        <div class="media-right">
+                                            <a href="#"
+                                               class="btn btn-white btn-sm">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                            <a href="#"
+                                               class="btn btn-white btn-sm">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                            <a href="#"
+                                               class="btn btn-white btn-sm">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr />
+                            <!--SubList-->
+                            <ul>
+                                <li>
+                                    @foreach (var val in ViewBag.PData)
+                                    {
+                                        <div class="nestable" id="nestable-handles-primary">
+                                            @if (h == Path.GetDirectoryName(val))
+                                            {
+                                                <ul class="nestable-list">
+                                                    <li class="nestable-item nestable-item-handle"
+                                                        data-id="2">
+                                                        <div class="nestable-handle"><i class="material-icons">menu</i></div>
+                                                        <div class="nestable-content">
+                                                            <div class="media align-items-center">
+
+                                                                <div class="media-body" id="Nested_Card">
+                                                                    <h5 class="card-title h6 mb-0">
+                                                                        <a href="#">@val</a>
+
+                                                                    </h5>
+
+                                                                </div>
+
+                                                                <div class="media-right">
+                                                                    <a href="#"
+                                                                       class="btn btn-white btn-sm">
+                                                                        <i class="material-icons">visibility</i>
+                                                                    </a>
+                                                                    <a href="#"
+                                                                       class="btn btn-white btn-sm">
+                                                                        <i class="material-icons">edit</i>
+                                                                    </a>
+                                                                    <a href="#"
+                                                                       class="btn btn-white btn-sm">
+                                                                        <i class="material-icons">delete</i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        </div>
+                                    }
+                                </li>
+                            </ul>
+                        }
+                    }
+
+                    @{ if (ViewBag.PData.Count > 0)
+                        {
+                            <div>
+
+                                <button class="btn btn-primary" type="submit" id="AddSecBtn"><i class="material-icons">control_point</i>Upload Course</button>
+                            </div>
+                        }
+                    }
+                </li>
+            </ul>
+
+
+        </div>
+
         <!--Teg Manager-->
 
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Tags Manager</h4>
-            </div>
-            <div class="card-body">
-                <form class="search-form d-none d-md-flex" style="margin-left: 5px;">
-                    <input type="text"
-                           class="form-control"
-                           id="searchText"
-                           placeholder="Tags">
-                    <a href=""
-                       class="btn">
-                        <i class="material-icons font-size-24pt">search</i>
-</a>
-                </form>
-                
-            </div>
 
-            <div class="col-md-12">
-                <span class="badge rounded-pill bg-primary">
-                    JAVA   <span type="button" class="badge bg-secondary">x</span>
-                </span>
-                <span class="badge rounded-pill bg-primary" style="color: white; width: 10%;height: 20%;">JAVA</span>
-                <span class="badge rounded-pill bg-primary" style="color: white; width: 10%;height: 20%;">Python</span>
-                <span class="badge rounded-pill bg-primary" style="color: white; width: 10%;height: 20%;">C#</span>
 
-            </div>
+            @Html.Action("TagManager", "Admin")
+
+
         </div>
 
 
@@ -179,12 +176,24 @@
         <div class="card">
             <div class="card-body text-center">
                 <div class="media align-items-center">
-                    <div class="media-left">
-                        <img src="~/assets/images/vuejs.png"
-                             alt=""
-                             width="100%"
-                             class="rounded">
-                    </div>
+
+
+                    @if (ViewBag.ImageUrl != null)
+                    {
+                        <img alt="Uploaded Image" src="@ViewBag.ImageUrl" />
+                    }
+                    else
+                    {
+                        <div class="media-left">
+                            <img src="~/assets/images/vuejs.png"
+                                 alt=""
+                                 width="100%"
+                                 class="rounded">
+                        </div>
+                    }
+
+
+
 
                 </div>
                 <div class="page-separator">
@@ -193,12 +202,11 @@
                 <div class="media-body">
                     <div class="custom-file"
                          style="width: auto;">
-                        <input type="file"
-                               id="avatar"
-                               class="custom-file-input">
-                        <label for="avatar"
-                               class="custom-file-label">Choose file</label>
+
+                        @Html.Action("CourseUploader", "Admin")
                     </div>
+
+
                 </div>
             </div>
         </div>

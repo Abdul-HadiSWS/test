@@ -1,0 +1,106 @@
+﻿<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">SubCategory Details</h4>
+                <button type="button" class="close ml-2" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" name="name" id="SubcatId" value="@ViewBag.subCatId" />
+                <input type="hidden" name="name" id="catId" value="@ViewBag.catId" />
+
+                    <div class="form-group row">
+                        <label for="title" class="col-md-3 col-form-label form-label">SubCategory Name</label>
+                        <div class="col-md-6">
+                            <input id="SubcatName" type="text" class="form-control" value="@ViewBag.subname" name="SubCatname" required placeholder="SubCategory Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="title" class="col-md-3 col-form-label form-label">SubCategory Image</label>
+                        <div class="col-md-6">
+                            <input type="file" id="SubcatImage" name="@ViewBag.Image" value="@ViewBag.SubImage" />
+                        </div>
+                    </div>
+                        <div class="flex"></div>
+                        <button class="btn btn-primary editSubCat" type="submit" data-dismiss="modal"><i class="material-icons"></i>Save</button>
+                        <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+             </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function () {
+
+            $(".editSubCat").click(function () {
+                    var formData = new FormData();
+                var file = document.getElementById("SubcatImage").files[0];
+                formData.append("SubcatImage", file);
+
+                var SubName = $('#SubcatName').val()
+                formData.append("SubcatName", SubName);
+
+                var Subcid = $('#SubcatId').val()
+               
+
+                var Cid = $('#catId').val()
+
+                formData.append("SubcatId", Subcid);
+                formData.append("CId", Cid);
+
+                    $.ajax({
+                    type: "POST",
+                        url: "/Admin/EditSubCat",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                        success: function (response) {
+                            //alert("Updated");
+                           // console.log(response);
+                            $("#row_" + Subcid).load(" #row_" + Subcid +" > *");
+                        }
+                    });
+
+
+
+
+                    //var data = {
+                    //     valId : $("#catId").val(),
+                    //     valName : $("#CatName").val()
+                    //};
+                    ////var file = $("#CatImage").files[0];
+                    //var fileUpload = $("#CatImage").get(0);
+                    //var files = fileUpload.files;
+
+
+                    //var formData = new FormData();
+
+                    //formData.append("data", JSON.stringify(data));
+                    //formData.append("httpPostedFileBase", files);
+
+                    ////var valImg = .val();
+                    //alert(file)
+
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: "/Admin/EditCat",
+                    //    data: formData,
+                    //    dataType: 'json',
+
+                    //    success: function (response) {
+
+                    //        alert("Deleted");
+                    //        $("#row_" + valdelete).load();
+
+                    //    },
+                    //    error: function () {
+
+                    //    }
+                    //})
+
+
+                });
+            })
+</script>
+

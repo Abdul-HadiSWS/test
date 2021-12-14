@@ -16,129 +16,85 @@
                 </div>
                 <div class="modal-body">
                     @*<p>Are you sure you want to delete this!</p>*@
-
-                    @using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-                    {
-                        <div class="form-group row">
-                            <label for="title" class="col-md-3 col-form-label form-label">Category Name</label>
-                            <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="Catname" required placeholder="Category Name">
+                    @{
+                        using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+                            <div class="form-group row">
+                                <label for="title" class="col-md-3 col-form-label form-label">Category Name</label>
+                                <div class="col-md-6">
+                                    <input id="title" type="text" class="form-control" name="Catname" required placeholder="Category Name">
+                                </div>
                             </div>
-                        </div>
-
-                        <label for="title" class="col-md-3 col-form-label form-label">Category Image</label>
-                        <input type="file" name="files" required />
-
-                        <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons"></i>Okay</button>
-                        <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+                            <div class="form-group row">
+                                <label for="title" class="col-md-3 col-form-label form-label">Category Image</label>
+                                <div class="col-md-6">
+                                    <input type="file" name="files" required />
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons"></i>Okay</button>
+                            <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+                        }
                     }
 
-
-
                 </div>
-
                 @*<div class="modal-footer">
                         <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-danger addCat" data-dismiss="modal">Okay</button>
                     </div>*@
             </div>
-
         </div>
     </div>
     <a class="btn btn-secondary mr-1" href="#" data-toggle="modal" data-target="#myModalAddCat">Add Category</a>
+</div>
+
+<div id="modalWrapperDelete">
 
 </div>
-<div id="myModaleditcat" style="display:none; width:500px; ">
-    <div class="dialog">
 
-        <!-- Modal content-->
-        <div class="content">
-            <div class="header">
-                <button type="button" class="close  ml-2" id="closeit">&times;</button>
-            </div>
-            <div class="body">
-                <h4 class="modal-title">Edit Category</h4>
-                <p>Are you sure you want to Edit this!</p>
-                <br />
-                <label>Category name:</label>
-                <input type="text" id="catnamebox" name="catname"><br><br>
-                <label>Category Image:</label>
-                <input type="text" id="catImagebox" name="catImage"><br><br>
+<div id="modalWrapperEdit">
 
-                @*<p id="catname"></p>
-                    <p id="catImage"></p>*@
-            </div>
-
-            <div class="footer">
-                <button type="button" class="btn btn-default canclebutton">Cancel</button>
-                <button type="button" class="btn btn-danger editcat" value="">Save</button>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-<div id="modalWrapper">
-  
 </div>
 
 @{
-    if (Model == null)
+    if (ViewBag.count == 0)
     {
         <div class="media align-items-center mb-headings">
             <div class="media-body">
 
-                <h1 class="h2">No Course Available</h1>
+                <h1 class="h2">No Category Available</h1>
             </div>
         </div>
     }
+
     else
     {
+<div class="container-fluid px-0">
+    <div class="card-columns row">
 
-
-        foreach (var item in Model)
+        @foreach (var item in Model)
         {
-
+            string que = helpper.Encrypt("" + item.CategoryId, true);
+            que = que.Replace('%', 'a');
+            que = que.Replace('+', '!');
             <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active" id="row_@item.CategoryId">
 
                 <div class="card">
-                    <div class="modal fade" id="myModaldeletecat" role="dialog">
-                        <div class="modal-dialog">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
 
-                                    <h4 class="modal-title">Delete Category</h4>
-                                    <button type="button" class="close ml-2" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Are you sure you want to delete this!</p>
-
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-danger deleteCat" data-dismiss="modal" value="">Delete</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    @Html.HiddenFor(it =>item.CategoryId )
-                    <a href="student-take-course.html">
+                    <a href="@Url.Action("AddSubCategory", "Admin", new { id =   que.Replace('/', '$') })">
                         <img src="~/assets/images/categories/@item.Image"
                              alt="Card image cap"
                              style="width:100%;">
-                    </a>
-                    <div class="card-header text-center">
-                        <h5 class="card-title m-0" style="text-align:center; font-size:13px;">@item.CategoryName</h5>
-                        <div>
-                            <div class="mt-3"></div>
-                            <small class="text-muted">TotalSubCategory: </small>
-                            @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
+
+                        <div class="card-header text-center">
+                            <h5 class="card-title m-0" style="text-align:center; font-size:13px;">@item.CategoryName</h5>
+                            <div>
+                                <div class="mt-3"></div>
+                                <small class="text-muted">TotalSubCategory: @item.SubCategories.Count</small>
+                                @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     <div class="card-body px-0">
 
                         <div style="display: flex; justify-content: center;">
@@ -147,7 +103,7 @@
                                 <a href="#"
                                    class="btn btn-white w-25" onclick="editCat(@item.CategoryId)"><i class="material-icons">create</i></a>
                                 <a href="#"
-                                   class="btn btn-white w-25 deletecategory" data-toggle="modal" data-target="#myModaldeletecat" data-id="@item.CategoryId"><i class="material-icons">delete</i></a>
+                                   class="btn btn-white w-25" onclick="deleteCat(@item.CategoryId)"><i class="material-icons">delete</i></a>
 
 
 
@@ -158,135 +114,52 @@
                 </div>
             </div>
         }
-        <input type="hidden" id="catName" value="@TempData["CatName"]">
-        <input type="hidden" id="catImg" value="@ViewBag.CatIamge">
-    }
+    </div>
+
+</div>
+    }        
 }
 
+            <script>
+                function deleteCat(CategoryId) {
+
+                    $.ajax({
+                        type: "post",
+                        url: "/Admin/DeleteCategory",
+                        data: {
+                            Catid: CategoryId
+                        },
+
+                        success: function (data) {
+                            $(function () {
+                                $('#deleteModal').modal();
+                            });
+
+                            $('#modalWrapperDelete').html(data);
 
 
-
-
-<script>
-    $(document).ready(function () {
-
-        $(".deletecategory").click(function () {
-            var valdelete = $(this).data('id');
-
-            $(".deleteCat").attr("value", valdelete);
-        });
-
-        $(".deleteCat").click(function () {
-            var valdelete = $(this).val();
-
-
-            $.ajax({
-                type: "POST",
-                url: "/Admin/DeleteCategory",
-
-                data: {
-                    Cid: valdelete
-                },
-                success: function (response) {
-
-
-                    $("#row_" + valdelete).remove();
-
-                },
-                error: function () {
-
+                        }
+                    });
                 }
-            })
 
 
-        });
 
-        //$(".editcategory").click(function () {
-        //    var valedit = $(this).data('id');
-        //    //alert(valedit);
+                function editCat(CategoryId) {
 
-        //    $(".editcat").attr("value", valedit);
-        //    var name = $("#catName").val();
-        //    var img = $("#catImg").val();
-        //    $.ajax({
-        //        type: "get",
-        //        url: "/Admin/EditCategory",
+                    $.ajax({
+                        type: "Get",
+                        url: "/Admin/EditCat",
+                        data: {
+                            Catid: CategoryId
+                        },
 
-        //        data: {
-        //            Catid: valedit
-        //        },
-        //        success: function (response) {
+                        success: function (data) {
 
-        //            alert(name + " " + img);
-        //            $('#catnamebox').val(name);
-        //            $('#catImagebox').val(img);
-        //            $("#myModaleditcat").show();
-
-        //        },
-        //        error: function () {
-
-        //        }
-        //    })
-
-        //});
-
-        $("#closeit").click(function () {
-            $("#myModaleditcat").hide();
-            alert("close");
-
-        })
-
-        $("#canclebutton").click(function () {
-            $("#myModaleditcat").hide();
-            alert("close");
-
-        })
-
-        
-
-      
-
-        $(".editcat").click(function () {
-            var valedit = $(this).val();
-            alert(valedit);
-
-        })
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/Admin/EditCategory",
-
-        //        data: {
-        //            Cid: valedit
-        //        },
-        //        success: function (response) {
-
-
-        //            $("#row_" + valedit).remove();
-
-        //        },
-        //        error: function () {
-
-        //        }
-        //    })
-
-
-        //});
-
-    })
-
-</script>
-<script>
-    
-    function editCat(productId) {
-        alert(productId);
-        $.ajax({
-            url: '/Admin/EditCat/' + productId, // The method name + paramater
-            success: function (data) {
-                console.log(data);
-                //$('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
-
-                $('#editModal').modal();
-            }
-        });
-    }
-</script>
+                            $(function () {
+                                $('#editModal').modal();
+                            });
+                            $('#modalWrapperEdit').html(data);
+                        }
+                    });
+                }
+            </script>
