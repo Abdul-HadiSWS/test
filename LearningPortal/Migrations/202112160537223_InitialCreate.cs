@@ -3,7 +3,7 @@ namespace LearningPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialCreate : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -17,8 +17,7 @@ namespace LearningPortal.Migrations
                         IsActive = c.Boolean(),
                         Image = c.String(),
                     })
-                .PrimaryKey(t => t.CategoryId)
-                .Index(t => t.CategoryName, unique: true, name: "INDEX_Title");
+                .PrimaryKey(t => t.CategoryId);
             
             CreateTable(
                 "dbo.SubCategories",
@@ -33,8 +32,7 @@ namespace LearningPortal.Migrations
                     })
                 .PrimaryKey(t => t.SubCategoryId)
                 .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
-                .Index(t => t.CategoryId)
-                .Index(t => t.SubCategoryName, unique: true, name: "INDEX_Title");
+                .Index(t => t.CategoryId);
             
             CreateTable(
                 "dbo.Courses",
@@ -54,7 +52,6 @@ namespace LearningPortal.Migrations
                     })
                 .PrimaryKey(t => t.CourseId)
                 .ForeignKey("dbo.SubCategories", t => t.SubCategoryId, cascadeDelete: true)
-                .Index(t => t.CourseName, unique: true, name: "INDEX_Title")
                 .Index(t => t.SubCategoryId);
             
             CreateTable(
@@ -191,8 +188,7 @@ namespace LearningPortal.Migrations
                         TagId = c.Int(nullable: false, identity: true),
                         TagName = c.String(nullable: false, maxLength: 55),
                     })
-                .PrimaryKey(t => t.TagId)
-                .Index(t => t.TagName, unique: true, name: "INDEX_Title");
+                .PrimaryKey(t => t.TagId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -222,7 +218,6 @@ namespace LearningPortal.Migrations
             DropForeignKey("dbo.CourseLearnings", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.SubCategories", "CategoryId", "dbo.Categories");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.TagManagers", "INDEX_Title");
             DropIndex("dbo.CourseTags", new[] { "CourseId" });
             DropIndex("dbo.CourseTags", new[] { "TagId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -236,10 +231,7 @@ namespace LearningPortal.Migrations
             DropIndex("dbo.Sections", new[] { "CourseId" });
             DropIndex("dbo.CourseLearnings", new[] { "CourseId" });
             DropIndex("dbo.Courses", new[] { "SubCategoryId" });
-            DropIndex("dbo.Courses", "INDEX_Title");
-            DropIndex("dbo.SubCategories", "INDEX_Title");
             DropIndex("dbo.SubCategories", new[] { "CategoryId" });
-            DropIndex("dbo.Categories", "INDEX_Title");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.TagManagers");
             DropTable("dbo.CourseTags");

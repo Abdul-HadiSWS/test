@@ -185,13 +185,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112021204433_initialCreate.cs" />
-    <Compile Include="Migrations\202112021204433_initialCreate.Designer.cs">
-      <DependentUpon>202112021204433_initialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202112160537223_InitialCreate.cs" />
+    <Compile Include="Migrations\202112160537223_InitialCreate.Designer.cs">
+      <DependentUpon>202112160537223_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AppDbInit.cs" />
     <Compile Include="Models\CascadingClass.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\CourseLearning.cs" />
@@ -199,9 +198,7 @@
     <Compile Include="Models\CourseTag.cs" />
     <Compile Include="Models\helpper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\LearningPortalDBContentSender.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ModelBuilderExtensions.cs" />
     <Compile Include="Models\Section.cs" />
     <Compile Include="Models\SectionMedia.cs" />
     <Compile Include="Models\SubCategories.cs" />
@@ -251,8 +248,18 @@
     <Content Include="assets\images\256_rsz_sharina-mae-agellon-377466-unsplash.jpg" />
     <Content Include="assets\images\265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" />
     <Content Include="assets\images\Bootstrap_logo.svg" />
+    <Content Include="assets\images\categories\256_rsz_90-jiang-640827-unsplash.jpg" />
+    <Content Include="assets\images\categories\256_rsz_clem-onojeghuo-150467-unsplash.jpg" />
+    <Content Include="assets\images\categories\256_rsz_florian-perennes-594195-unsplash.jpg" />
+    <Content Include="assets\images\categories\256_rsz_james-gillespie-714755-unsplash.jpg" />
+    <Content Include="assets\images\categories\256_rsz_karl-s-973833-unsplash.jpg" />
+    <Content Include="assets\images\categories\256_rsz_nicolas-horn-689011-unsplash.jpg" />
+    <Content Include="assets\images\categories\256_rsz_sharina-mae-agellon-377466-unsplash.jpg" />
+    <Content Include="assets\images\categories\265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg" />
+    <Content Include="assets\images\categories\Bvckup_2_-_Application_icon_-_256x256.png" />
     <Content Include="assets\images\github.png" />
     <Content Include="assets\images\gulp.png" />
+    <Content Include="assets\images\Loading-Bar.gif" />
     <Content Include="assets\images\loading-gif-icon-9.jpg" />
     <Content Include="assets\images\logo\bootstrap.svg" />
     <Content Include="assets\images\logo\primary.svg" />
@@ -305,9 +312,16 @@
     <Content Include="assets\images\stories\256_rsz_phil-hearing-769014-unsplash.jpg" />
     <Content Include="assets\images\stories\256_rsz_ross-sneddon-798476-unsplash.jpg" />
     <Content Include="assets\images\stories\256_rsz_thomas-russell-751613-unsplash.jpg" />
+    <Content Include="assets\images\Subcategories\256_rsz_90-jiang-640827-unsplash.jpg" />
+    <Content Include="assets\images\Subcategories\256_rsz_clem-onojeghuo-150467-unsplash.jpg" />
+    <Content Include="assets\images\Subcategories\256_rsz_florian-perennes-594195-unsplash.jpg" />
+    <Content Include="assets\images\Subcategories\256_rsz_james-gillespie-714755-unsplash.jpg" />
+    <Content Include="assets\images\Subcategories\256_rsz_sharina-mae-agellon-377466-unsplash.jpg" />
     <Content Include="assets\images\visa.svg" />
     <Content Include="assets\images\Vue.js_Logo_2.svg" />
     <Content Include="assets\images\vuejs.png" />
+    <Content Include="assets\images\white.png" />
+    <Content Include="assets\images\Youtube_loading_symbol_1_%28wobbly%29.gif" />
     <Content Include="assets\js\admin.js" />
     <Content Include="assets\js\app-icons.js" />
     <Content Include="assets\js\app-settings.js" />
@@ -386,6 +400,11 @@
     <Content Include="assets\vendor\spinkit.css" />
     <Content Include="assets\vendor\sweetalert.min.js" />
     <Content Include="assets\vendor\vue.min.js" />
+    <Content Include="assets\videos\Java\Introduction to java\Resume course.webm" />
+    <Content Include="assets\videos\Java\Introduction to java\Video-20211018_095303-Meeting Recording.mp4" />
+    <Content Include="assets\videos\Java\Oop\Pexels Videos 4580.mp4" />
+    <Content Include="assets\videos\Java\Oop\Pexels Videos 4584.mp4" />
+    <Content Include="assets\videos\Java\Oop\Resume course.webm" />
     <Content Include="assets\videos\Pexels Videos 4580.mp4" />
     <Content Include="assets\videos\Pexels Videos 4584.mp4" />
     <Content Include="assets\videos\Video-20211018_095303-Meeting Recording.mp4" />
@@ -506,11 +525,17 @@
     <Content Include="Views\Admin\DeleteSubCategory.cshtml" />
     <Content Include="Views\Admin\EditSubCat.cshtml" />
     <Content Include="Views\Shared\t.cshtml" />
+    <Content Include="Views\Admin\CourseUpdate.cshtml" />
+    <Content Include="Views\Admin\CourseOutLine.cshtml" />
+    <Content Include="Views\Error\Error404A.cshtml" />
+    <Content Include="Views\Admin\check.cshtml" />
+    <Content Include="Views\Admin\DDCatSub.cshtml" />
+    <Content Include="Views\Admin\WWYLearn.cshtml" />
+    <Content Include="Views\Admin\AddDesc.cshtml" />
+    <Content Include="Views\Admin\VideoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\images\categories\" />
-    <Folder Include="assets\images\Subcategories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -526,8 +551,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112021204433_initialCreate.resx">
-      <DependentUpon>202112021204433_initialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112160537223_InitialCreate.resx">
+      <DependentUpon>202112160537223_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

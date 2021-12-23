@@ -1,83 +1,9 @@
-﻿@model LearningPortal.Models.TagManager
+﻿
 
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Tags Manager</h4>
-    </div>
-    <div class="card-body">
-        <form class="search-form d-none d-md-flex" style="margin-left: 5px;">
-            <input type="text"
-                   class="form-control"
-                   id="searchText"
-                   placeholder="Tags">
-            <a href=""
-               class="btn"
-               id="addtag">
-                <i class="material-icons font-size-24pt">search</i>
-            </a>
-        </form>
+<div class="col-md-12">
+    @foreach (var item in (List<String>)ViewBag.Span)
+    {<button class="badge rounded-pill bg-primary v" type="button" style="color: white; width: 10%;height: 20%;">@item  </button>
 
-    </div>
-
-    <div class="col-md-12">
-        <span class="badge rounded-pill bg-primary">
-            JAVA   <span type="button" class="badge bg-secondary">x</span>
-        </span>
-        <span class="badge rounded-pill bg-primary" style="color: white; width: 10%;height: 20%;">JAVA</span>
-        <span class="badge rounded-pill bg-primary" style="color: white; width: 10%;height: 20%;">Python</span>
-        <span class="badge rounded-pill bg-primary" style="color: white; width: 10%;height: 20%;">C#</span>
-
-    </div>
+}
 </div>
 
-<script>
-    $(document).ready(function () {
-
-
-
-
-        $("#addtag").click(function () {
-
-            var tag = $("#searchText").val();
-
-            alert(tag);
-            $.ajax({
-                type:"POST",
-                url: "/Admin/TagManager",
-                data: {
-                    model: tag
-                },
-
-                success: function (data) {
-
-
-                }
-            });
-
-
-
-        });
-    });
-
-</script>
-
-
-
-
-
-@*@using (Ajax.BeginForm("TagManager", new AjaxOptions() { OnSuccess = "fnSuccess", OnFailure = "fnFailure" }))
-    {
-        @Html.EditorFor(x => x.TagName)
-        <br />
-        <button class="btn">  <i class="material-icons font-size-24pt">search</i>  </button>
-    }
-    <script>
-        function fnSuccess(data) {
-            console.log(data);
-            alert("hello from success");
-        }
-        function fnFailure(err) {
-            console.error(err);
-            alert("hello from Failure");
-        }
-    </script>*@

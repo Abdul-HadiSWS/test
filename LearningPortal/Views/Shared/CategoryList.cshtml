@@ -73,6 +73,7 @@
 
         @foreach (var item in Model)
         {
+            int count = 0;
             string que = helpper.Encrypt("" + item.CategoryId, true);
             que = que.Replace('%', 'a');
             que = que.Replace('+', '!');
@@ -90,7 +91,22 @@
                             <h5 class="card-title m-0" style="text-align:center; font-size:13px;">@item.CategoryName</h5>
                             <div>
                                 <div class="mt-3"></div>
-                                <small class="text-muted">TotalSubCategory: @item.SubCategories.Count</small>
+
+                                <small class="text-muted">
+                                    TotalSubCategory:
+                                    @{foreach (var item1 in ViewBag.Courcount)
+                                        {
+                                            if (item1.CategoryId == item.CategoryId && item1.IsActive==true)
+                                            {
+
+                                                count = count + 1;
+                                            }
+                                            
+                                        }
+                                        @count
+                                    }
+
+                                </small>
                                 @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
                             </div>
                         </div>

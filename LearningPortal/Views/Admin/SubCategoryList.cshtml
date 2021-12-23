@@ -73,43 +73,59 @@
         <div class="card-columns row">
             @foreach (var item in Model)
             {
-                //string quec = helpper.Encrypt("" + item.CategoryId , true);
-                //quec = quec.Replace('%', 'a');
-                //quec = quec.Replace('+', '!');
-                //string ques = helpper.Encrypt("" + item.SubCategoryId, true);
-                //ques = ques.Replace('%', 'a');
-                //ques = ques.Replace('+', '!');
-                @*quec.Replace('/', '$')*@
-                @*ques.Replace('/', '$')*@
+                int count = 0;
                 <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active" id="row_@item.SubCategoryId">
+                    @{
+                        string que = helpper.Encrypt("" + ViewBag.CAtId, true);
+                        que = que.Replace('%', 'a');
+                        que = que.Replace('+', '!');
+
+                        string que1 = helpper.Encrypt("" + item.SubCategoryId, true);
+                        que1 = que1.Replace('%', 'a');
+                        que1 = que1.Replace('+', '!');
+
+                     }
+
 
                     <div class="card w-100">
+                        @*onclick="viewCourses(@item.SubCategoryId,@ViewBag.CAtId)"   href="@Url.Action("Admin","AddCourse")" *@
+                        <a href="@Url.Action("AddCourse","Admin",new {cid=que.Replace('/', '$'), scid=que1.Replace('/', '$')})">
+                            <input type="hidden" name="subcid" value="@ViewBag.CAtId" />
 
-                        @*<a href="#" onclick="viewCourses(@item.SubCategoryId,@ViewBag.CAtId)">*@
-                        <input type="hidden" name="subcid" value="@ViewBag.CAtId" />
+                            <img src="~/assets/images/categories/@item.Image"
+                                 alt="Card image cap"
+                                 style="width:100%;">
 
-                        <img src="~/assets/images/categories/@item.Image"
-                             alt="Card image cap"
-                             style="width:100%;">
+                            <div class="card-header text-center">
+                                <h5 class="card-title m-0" style="text-align:center; font-size:13px;">@item.SubCategoryName</h5>
+                                <div windows.onload="countCourses(@item.SubCategoryId)">
+                                    <div class="mt-3"></div>
+                                    <small class="text-muted">
+                                        Total Courses: @{foreach (var item1 in ViewBag.CourseCount)
+                                            {
+                                                if (item1.SubCategoryId == item.SubCategoryId && item1.IsActive == true)
+                                                {
 
-                        <div class="card-header text-center">
-                            <h5 class="card-title m-0" style="text-align:center; font-size:13px;">@item.SubCategoryName</h5>
-                            <div>
-                                <div class="mt-3"></div>
-                                <small class="text-muted">Total Courses: @item.Courses.Count</small>
-                                @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
+                                                    count = count + 1;
+                                                }
+
+                                            }
+                                            @count
+                                        }
+                                    </small>
+                                    @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
+                                </div>
                             </div>
-                        </div>
-                        @*</a>*@
+                        </a>
                         <div class="card-body px-0">
 
                             <div style="display: flex; justify-content: center;">
 
                                 <div class="d-flex justify-content-around w-75">
-                                    <a href="#"
-                                       class="btn btn-white w-25" onclick="editSubCat(@item.SubCategoryId)"><i class="material-icons">create</i></a>
-                                    <a href="#"
-                                       class="btn btn-white w-25" onclick="deleteSubCat(@item.SubCategoryId)"><i class="material-icons">delete</i></a>
+
+                                    <button class="btn btn-white w-25" onclick="editSubCat(@item.SubCategoryId)"><i class="material-icons">create</i></button>
+
+                                    <button class="btn btn-white w-25" onclick="deleteSubCat(@item.SubCategoryId)"><i class="material-icons">delete</i></button>
 
 
 
@@ -170,27 +186,84 @@
     }
 
     function viewCourses(SubCategoryid, Categoryid) {
-        alert(SubCategoryid + "  " + Categoryid);
+        var categoryId = $("#CategoryId").val();
+        var subcategoryId = $("#SubCategoryId").val();
+        var search = $("#searchText").val();
+        var checkft = $("#CheckFt").is(":checked");
         var cid = Categoryid;
         var scid = SubCategoryid;
         var search = $("#searchText").val();
         var checkft = $("#CheckFt").is(":checked");
-        $.ajax({
-            type: "Post",
-            url: "/Admin/CourseList",
-            data: {
-                catid: cid,
-                subcatid: scid,
-                tag: search,
-                check: checkft
-            },
+       // window.location.replace("/admin/Addcourse");
 
+
+        alert("categoryId " + cid + "subcatid " + scid);
+        $("#simple").empty();
+        $.ajax({
+           type: "Get",
+            url: "/Admin/Addcourse",
+            //data: {
+            //            catid: cid,
+            //                subcatid: scid,
+                            
+            //        },
             success: function (data) {
 
+                console.log(data);
+                $("#simple").append(data);
+                //$(".mainbody").append(data);
+                // $(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
+                //coursefilter(cid, scid);
+                //alert(cid);
+                //$.ajax({
+                //    type: "get",
+                //    url: "/Admin/CourseFilter",
+                //    data: {
+                //        catid: cid,
+                //        //    subcatid: scid,
+                //        //    tag: search,
+                //        //    check: checkft
+                //    },
+
+                //    success: function (data) {
+                //        //$(".mainbody").append(data);
+                //        //.location.replace("/admin/Addcourse");
+                //        //$(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
+                       
+                //    }
+                //});
 
             }
         });
+   
     }
+    function coursefilter(cid, scid) {
+        alert(ci, " ", scid);
+
+
+        var ci = cid;
+        var scid = scid;
+        $.ajax({
+            type: "get",
+            url: "/Admin/CourseFilter",
+            data: {
+                catid: ci,
+                //    subcatid: scid,
+                //    tag: search,
+                //    check: checkft
+            },
+
+            success: function (data) {
+                //$(".mainbody").append(data);
+                //.location.replace("/admin/Addcourse");
+                //$(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
+
+            }
+        });
+
+    }
+
+    
 
 
 </script>

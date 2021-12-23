@@ -1303,8 +1303,8 @@ C:\Users\FBC\source\repos\Learning\LearningPortal\bin\Microsoft.Owin.Security.Mi
 C:\Users\FBC\source\repos\Learning\LearningPortal\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\FBC\source\repos\Learning\LearningPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.csproj.AssemblyReference.cache
-C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.Migrations.initialCreate.resources
-C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache
 C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.csproj.CoreCompileInputs.cache
 C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.pdb
+C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.Migrations.InitialCreate.resources
+C:\Users\FBC\source\repos\Learning\LearningPortal\obj\Debug\LearningPortal.csproj.GenerateResource.cache

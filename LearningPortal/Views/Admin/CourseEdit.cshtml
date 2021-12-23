@@ -4,314 +4,615 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#AddSecBtn').on('click', function () {
-
-            var newListItem = document.createElement('li');
-            newListItem.className += "nestable-item nestable-item-handle";
-            //div.setAttribute('data - id', '2');
-
-            var div = document.createElement('div');
-            div.className += "nestable-content";
-            div.setAttribute('id', 'Nested_Card');
-
-            var div2 = document.createElement('div');
-            div2.className += "card-title h6 mb-0";
-            div2.setAttribute('id', "Nested_Card");
-            $(document.getElementById("First_ul")).append(newListItem);
-            $('li').append(div);
-            $('div').append(div2);
-            console.log("+btn")
-        });
-    });
+       
+    })
 </script>
 
 
 
 
 
-
-
-
-<div class="row">
-    <div class="col-md-8">
-
-        <div class="card-header">
-            <h4 class="card-title">Course Outline</h4>
-        </div>
-        <div class="card" id="coureditsectionList">
-
-            @if (ViewBag.PData.Count == 0)
-            {
-                @Html.Action("CourseUploader", "Admin")
-
-            }
-
-
-            <ul class="nestable-list">
-                <li class="nestable-item nestable-item-handle"
-                    data-id="2">
-
-                    @{foreach (var h in ViewBag.QData)
-                        {
-
-
-
-                            <!--Headings-->
-                            <hr />
-                            <div class="nestable-content">
-                                <div class="media-body" id="Nested_Card">
-
-                                    <div class="media align-items-center">
-                                        <div class="media-body" id="Nested_Card">
-                                            <h5 class="card-title h6 mb-0">
-                                                <a href="#">@Path.GetFileName(h)</a>
-                                            </h5>
-                                        </div>
-
-                                        <!--Buttons-->
-                                        <div class="media-right">
-                                            <a href="#"
-                                               class="btn btn-white btn-sm">
-                                                <i class="material-icons">visibility</i>
-                                            </a>
-                                            <a href="#"
-                                               class="btn btn-white btn-sm">
-                                                <i class="material-icons">edit</i>
-                                            </a>
-                                            <a href="#"
-                                               class="btn btn-white btn-sm">
-                                                <i class="material-icons">delete</i>
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <hr />
-                            <!--SubList-->
-                            <ul>
-                                <li>
-                                    @foreach (var val in ViewBag.PData)
-                                    {
-                                        <div class="nestable" id="nestable-handles-primary">
-                                            @if (h == Path.GetDirectoryName(val))
-                                            {
-                                                <ul class="nestable-list">
-                                                    <li class="nestable-item nestable-item-handle"
-                                                        data-id="2">
-                                                        <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                                                        <div class="nestable-content">
-                                                            <div class="media align-items-center">
-
-                                                                <div class="media-body" id="Nested_Card">
-                                                                    <h5 class="card-title h6 mb-0">
-                                                                        <a href="#">@val</a>
-
-                                                                    </h5>
-
-                                                                </div>
-
-                                                                <div class="media-right">
-                                                                    <a href="#"
-                                                                       class="btn btn-white btn-sm">
-                                                                        <i class="material-icons">visibility</i>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                       class="btn btn-white btn-sm">
-                                                                        <i class="material-icons">edit</i>
-                                                                    </a>
-                                                                    <a href="#"
-                                                                       class="btn btn-white btn-sm">
-                                                                        <i class="material-icons">delete</i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            }
-                                        </div>
-                                    }
-                                </li>
-                            </ul>
-                        }
-                    }
-
-                    @{ if (ViewBag.PData.Count > 0)
-                        {
-                            <div>
-
-                                <button class="btn btn-primary" type="submit" id="AddSecBtn"><i class="material-icons">control_point</i>Upload Course</button>
-                            </div>
-                        }
-                    }
-                </li>
-            </ul>
-
-
-        </div>
-
-        <!--Teg Manager-->
-
-        <div class="card">
-
-
-            @Html.Action("TagManager", "Admin")
-
-
-        </div>
-
-
-
-
-
-
-        <!-- Lessons -->
+<div class="mdk-drawer-layout__content page mr-3 ml-2">
+    <div id="videoModalWrapper">
 
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <div class="media align-items-center">
+    <div class="row">
+        <div class="col-md-8">
+            
+            <div class="card-header">
+                <h4 class="card-title">Course Outline</h4>
+            </div>
+            <div class="card" id="coureditsectionList">
 
 
-                    @if (ViewBag.ImageUrl != null)
-                    {
-                        <img alt="Uploaded Image" src="@ViewBag.ImageUrl" />
-                    }
-                    else
-                    {
-                        <div class="media-left">
-                            <img src="~/assets/images/vuejs.png"
-                                 alt=""
-                                 width="100%"
-                                 class="rounded">
+
+                @{
+                    @Html.Action("CourseOutline", "Admin")
+
+                }
+
+
+
+
+
+            </div>
+
+            <!--Teg Manager-->
+
+
+
+
+
+
+            <div class="TagManager">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Tags Manager</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <input type="text" class="form-control" id="searchText" name="iTag" placeholder="Tags">
+
+                        <button class="btn btn-primary btntag" type="button" id="tagadd"><i class="material-icons">add</i>Tags</button>
+
+                    </div>
+
+                    <div id="CTagManager">
+
+                        <div class="col-md-12">
+                            @foreach (var item in (List<String>)ViewBag.Span)
+                            {
+                                <button class="badge rounded-pill bg-primary v" style="color: white; width: 10%;height: 20%;">@item  </button>
+
+                            }
                         </div>
-                    }
-
-
-
-
-                </div>
-                <div class="page-separator">
-                    <div class="page-separator__text"></div>
-                </div>
-                <div class="media-body">
-                    <div class="custom-file"
-                         style="width: auto;">
-
-                        @Html.Action("CourseUploader", "Admin")
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-
-                <div class="form-group">
-                    <label class="form-label"
-                           for="title">Title</label>
-                    <input type="text"
-                           id="title"
-                           class="form-control"
-                           placeholder="Write a title"
-                           value="Basics of Vue.js">
-                </div>
-
-                <div class="form-group mb-0">
-                    <div class="form-group">
-                        <label for="form-label">Description</label>
-
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write a title"></textarea>
                     </div>
                 </div>
-
             </div>
-        </div>
-        <div class="card">
-            <select id="course_title"
-                    class="custom-select form-control">
-                <option value="#">HTML</option>
-                <option value="#">Angular JS</option>
-                <option value="#"
-                        selected>
-                    Vue.js
-                </option>
-                <option value="#">CSS / LESS</option>
-                <option value="#">Design / Concept</option>
-            </select>
-        </div>
-        <div class="card">
-            <select id="course_title"
-                    class="custom-select form-control">
-                <option value="#">HTML</option>
-                <option value="#">Angular JS</option>
-                <option value="#"
-                        selected>
-                    Vue.js
-                </option>
-                <option value="#">CSS / LESS</option>
-                <option value="#">Design / Concept</option>
-            </select>
-        </div>
-        <div class="card">
-            <select id="course_title"
-                    class="custom-select form-control">
-                <option value="#">HTML</option>
-                <option value="#">Angular JS</option>
-                <option value="#"
-                        selected>
-                    Vue.js
-                </option>
-                <option value="#">CSS / LESS</option>
-                <option value="#">Design / Concept</option>
-            </select>
-        </div>
-        <div class="card">
-
-            <div class="card-body">
-                <div class="card-header">
-                    <h4 class="card-title">Description</h4>
-                </div>
-                <div class="form-group mb-0">
-                    <div class="form-group">
 
 
-                        <textarea class="form-control" id="exampleFormControlTextarea1" cols="50" placeholder="Write a title"></textarea>
+
+
+            <div class="card">
+                <h1>Test WWYL</h1>
+                @foreach (var item in @ViewBag.WWYL)
+                {
+
+                    <h3>@item</h3>
+                }
+                <h2>@ViewBag.CourseTitle</h2>
+                <h3>@ViewBag.CourseDescription</h3>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-4">
+
+            <!-- Image Upload And Preview Start-->
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="media align-items-center">
+
+
+                        @if (ViewBag.ImageUrl != null)
+                        {
+                            <img alt="Uploaded Image" src="@ViewBag.ImageUrl" id="coursepic" />
+                        }
+                        else
+                        {
+                            <div class="media-left">
+                                <img src="~/assets/images/vuejs.png"
+                                     alt=""
+                                     width="100%"
+                                     class="rounded" id="coursepic">
+                            </div>
+                        }
+
+
+
+
+                    </div>
+                    <div class="page-separator">
+                        <div class="page-separator__text"></div>
+                    </div>
+                    <div class="media-body">
+                        <div class="custom-file"
+                             style="width: auto;">
+
+
+                            <form method="Post" class="courseimageupload">
+
+
+                                <input type="file" name="files" id="uplod" accept=".jpg,.png" required />
+
+                                <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons">add</i>Add Logo</button>
+                            </form>
+                        </div>
+
+
                     </div>
                 </div>
+            </div>
+            <!-- Image Upload And Preview End-->
+            <!-- Add Course Title and Logo Start -->
+            <div class="card">
+                <div class="card-body">
+
+                    @Html.Action("AddDesc", "Admin")
+
+                </div>
+            </div>
+            <!-- Add Course Title and Logo End -->
+            <!--DropDowns start-->
+            <div class="card">
+
+                <select id="course_title"
+                        class="custom-select form-control">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+                <br />
+                @Html.Action("DDCatSub", "Admin")
+            </div>
+            <!--DropDowns End-->
+            <!--What I`ll You Learn start-->
+            <div class="card">
+
+                @Html.Action("WWYLearn", "Admin")
 
             </div>
+            <!--What I`ll You Learn End-->
+            <!--Assignment Quiz Links start-->
+            <div class="card">
 
-        </div>
-        <div class="card">
+                <div class="card-header align-items-center">
+                    <i class="material-icons text-muted ml-2">lightbulb </i><a href="#"> Take Quiz</a>
+                </div>
+                <div class="card-header align-items-center">
+                    <i class="material-icons text-muted ml-2">assignment</i><a href="#">  Get Assignment</a>
+                </div>
+                <div class="card-header align-items-center">
+                    <i class="material-icons text-muted ml-2">school</i><a href="#">  Get Certificate</a>
+                </div>
+            </div>
+            <!--Assignment Quiz Links start-->
+            <!--Last Submit Button Start-->
+            <div>
+                <button type="button" class="btn btn-primary">
+                    Cancel <span class="badge bg-secondary">4</span>
+                </button>
+                <button type="button" id="WWYL" class="btn btn-primary">
+                    ok <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
+                </button>
+            </div>
+            <!--Last Submit Button End-->
 
-            <div class="card-header align-items-center">
-                <i class="material-icons text-muted ml-2">lightbulb </i><a href="#"> Take Quiz</a>
-            </div>
-            <div class="card-header align-items-center">
-                <i class="material-icons text-muted ml-2">assignment</i><a href="#">  Get Assignment</a>
-            </div>
-            <div class="card-header align-items-center">
-                <i class="material-icons text-muted ml-2">school</i><a href="#">  Get Certificate</a>
-            </div>
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary">
-                Cancel <span class="badge bg-secondary">4</span>
-            </button>
-            <button type="button" class="btn btn-primary">
-                ok <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
-            </button>
         </div>
     </div>
 </div>
 
 
+
+<script>
+
+    function showModal() {
+
+        $.ajax({
+            type: "Get",
+            url: "/Admin/VideoModal",
+
+
+            success: function (data) {
+
+                $(function () {
+                    $('#videoModal').modal();
+                });
+              $('#videoModalWrapper').html(data);
+            }
+        });
+    }
+    function GETTAG(tag) {
+
+        $.ajax({
+            url: "/Admin/TagManager",
+            type: 'GET',
+            data: {
+                iTag: tag
+            },
+
+            success: function (data) {
+                console.log(data);
+                $('#CTagManager').empty();
+                $('#CTagManager').append(data);
+
+                //$(".v").remove();
+            }
+        });
+    }
+
+    function getoutline() {
+
+        $.ajax({
+            url: "/Admin/CourseOutline",
+            type: 'GET',
+
+
+            success: function (data) {
+                //console.log(data);
+                $('#coureditsectionList').empty();
+                $('#coureditsectionList').append(data);
+
+                //$(".v").remove();
+            }
+        });
+    }
+
+    $("#tagadd").click(function () {
+
+        var tag = $("#searchText").val();
+        if (tag) {
+            GETTAG(tag);
+        }
+    });
+
+
+
+    //var SubDirTitle = $(this).parent().parent().attr('id');
+
+    //var FileName = $(this).parent().parent().children().children().children().attr('id');
+
+
+    //$.ajax({
+    //    type: "Post",
+    //    url: "/Admin/DeleteDir",
+    //    data: {
+    //        DirName: SubDirTitle,
+    //        Filename: FileName,
+    //    },
+
+    //    success: function (data) {
+
+    //        $("#coureditsectionList").empty();
+    //        $("#coureditsectionList").append(data);
+    //    }
+    //});
+   
+
+    $(".zipupload").on("submit", function (event) {
+
+        event.preventDefault();
+        var formData = new FormData($(this)[0]);
+        //var formValues = $(this).serialize();
+        // console.log(formValues);
+        //var fileUpload = $(this).children().val();
+        //var files = fileUpload.files;
+
+        //var fileData = new FormData();
+
+        /// fileData.append(files[0].name, files[0]);
+
+
+        $.ajax({
+            url: '/Admin/CourseUploader',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (result) {
+
+                var imageurl = result;
+
+
+                if (imageurl == "File Uploaded") {
+                    alert(imageurl);
+                    getoutline();
+                } else {
+                    alert("File not uploaded!");
+                  
+
+                }
+
+
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+    $(".courseimageupload").on("submit", function (event) {
+       
+        event.preventDefault();
+        var formData = new FormData($(this)[0]);
+        //var formValues = $(this).serialize();
+       // console.log(formValues);
+        //var fileUpload = $(this).children().val();
+        //var files = fileUpload.files;
+
+        //var fileData = new FormData();
+
+       /// fileData.append(files[0].name, files[0]);
+
+     
+        $.ajax({
+            url: '/Admin/CourseFileUploader',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (result) {
+
+                var imageurl = result;
+              
+
+                if (imageurl == "Invalid Image Size") {
+                    alert(result);
+                } else {
+
+                    $("#coursepic").attr("src", result);
+
+                }
+              
+             
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    });
+   
+    var c = 22;
+    $('#coureditsectionList').on('click', '#btnfileAdd', function () {
+
+
+
+        $('#imgupload').trigger('click');
+        //var file = $('#imgupload')[0].files[0];
+
+        var sectionname = $(this).children().attr('class');
+        c = sectionname;
+    });
+
+
+
+
+    $('#coureditsectionList').on('change', '#imgupload', function () {
+
+
+
+
+            var sectionname = c;
+           
+        var rootfolder = "Java";
+            //var SubDirTitle = $(this).parent().children().last().attr('class');
+            //var sectionname = $(this).parent().parent().parent().children().children().val();
+            //alert(sectionname);
+      
+       // var fileUpload = $("#imgupload");
+       // var files = fileUpload.files;
+//
+        //var fileData = new FormData();
+
+       // fileData.append(files[0].name, files[0]);
+        //fileData.append("sectionname", sectionname);
+      
+
+        var form_data = new FormData();
+        form_data.append("rootfolder", rootfolder);
+        form_data.append('sectionname', sectionname);
+        var totalfiles = document.getElementById('imgupload').files.length;
+        for (var index = 0; index < totalfiles; index++) {
+            form_data.append("files[]", document.getElementById('imgupload').files[index]);
+        }
+        
+
+        $.ajax({
+            url: '/Admin/Uploads',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: form_data,
+            success: function (result) {
+
+
+               
+                alert(result);
+                    getoutline();
+              
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+
+
+        getsectionvideo(fileData);
+       
+
+
+    });
+
+
+
+    $("#coureditsectionList").on('click', ".EditSubDir", function () {
+
+        var SubDirTitle = $(this).parent().parent().children().children().val();
+        var SubDirTitleh = $(this).parent().parent().children().children().attr("id");
+        
+
+        //if (SubDirTitle == SubDirTitleh) {
+        //    SubDirTitleh = SubDirTitle
+        //}
+      
+        $.ajax({
+            type: "Post",
+            url: "/Admin/EditSubName",
+            data: {
+                SubDirName: SubDirTitle,
+                SubDirTitleh: SubDirTitleh,
+                editfile:null,
+            },
+
+            success: function (data) {
+                alert("Successfully Edit SectionName");
+                getoutline();
+            }
+        });
+       
+    });
+
+
+    $("#coureditsectionList").on('click', ".FolderDelete", function () {
+        var SubDirTitle = $(this).parent().parent().attr('id');
+
+        var FileName = $(this).parent().parent().children().children().children().attr('id');
+
+
+        $.ajax({
+            type: "Post",
+            url: "/Admin/DeleteDir",
+            data: {
+                DirName: SubDirTitle,
+                Filename: FileName,
+            },
+
+            success: function (data) {
+                alert("Successfully Delete File");
+                getoutline();
+            }
+        });
+    });
+
+
+    $("#coureditsectionList").on('click', ".DelDir", function () {
+        var SubDirTitle = $(this).parent().siblings().children('.heading').val();
+
+
+
+        $.ajax({
+            type: "Post",
+            url: "/Admin/DeleteDir",
+            data: {
+                DirName: SubDirTitle,
+                Filename: null,
+            },
+
+            success: function (data) {
+                alert("Successfully Delete Folder");
+                getoutline();
+            }
+        });
+    });
+
+
+    $("#CTagManager").on("click", ".v", function () {
+        var tag = this.innerText;
+
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/TagRemover",
+            data: {
+                value: tag
+            },
+
+            success: function (data) {
+                GETTAG("removessws101");
+            }
+        });
+
+
+    });
+
+
+
+
+        $("#coureditsectionList").on('click', ".display-toggle", function () {
+        $(this).nextAll(".ascaq").eq(0).slideToggle("slow");
+        if ($(this).children().text() === "arrow_drop_up") {
+            $(this).children().text("arrow_drop_down");
+        }
+        else
+            $(this).children().text("arrow_drop_up");
+
+        });
+
+
+    $('#coureditsectionList').on('click', '#AddSecBtn', function () {
+      
+
+        /*$('#co').children().parent().prepend("<h1>fasd</h1>");*/
+        $('#apnd_div').prepend(' <hr />' +
+
+            '<div class="nestable-content">' +
+            '<div class="media-body" id="Nested_Card">' +
+
+            '<div class="media align-items-center">' +
+            '<div class="media-body" id="Nested_Card">' +
+            ' <form id="myForm" method="post" enctype="multipart/form-data">' +
+            '<input type="text" id="FolderName" class="form-control t" placeholder="Write File Name"/>' +
+
+            '</div>' +
+
+
+            '<div class="media-right">' +
+            '<label class="btn btn-white btn-sm m-0 btn-sm">' +
+            '<input type="file"   class="d-none" id="createFolder"/>' +
+            '<i class="material-icons">file_upload</i>' +
+            '</label>' +
+
+            '<a href="#" class="btn btn-white">' +
+            '<i class="material-icons">edit</i>' +
+            '</a>' +
+            //'<button class="btn btn-white btn-sm " >' +
+            //'<i class="material-icons">add</i>' +
+            //'</button>' +
+
+            '<a href="#" class="btn btn-white btn-sm">' +
+            '<i class="material-icons">delete</i>' +
+            '</a>' +
+
+            '</div>' +
+            '</form>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '<hr />');
+
+
+        $("#createFolder").click(function () {
+            var FN = $('#FolderName').val();
+
+            alert(FN);
+            $.ajax({
+                type: "Post",
+                url: "/Admin/CreateSection",
+                data: {
+                    SectionName: FN,
+                },
+                success: function (response) {
+
+                    console.log(response)
+
+
+                },
+            });
+        });
+    });
+</script>
 
 

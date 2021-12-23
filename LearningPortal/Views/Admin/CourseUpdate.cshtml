@@ -1,0 +1,301 @@
+﻿@model IEnumerable<LearningPortal.Models.Courses>
+
+
+@{
+    ViewBag.Title = "CourseUpdate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#AddSecBtn').on('click', function () {
+                alert("dsfd");
+
+                /*$('#co').children().parent().prepend("<h1>fasd</h1>");*/
+                $('#apnd_div').prepend(' <hr />' +
+                    '<div class="nestable-content">' +
+                    '<div class="media-body" id="Nested_Card">' +
+
+                    '<div class="media align-items-center">' +
+                    '<div class="media-body" id="Nested_Card">' +
+                    '<input type="text" class="form-control" placeholder="Write File Name"/>' +
+
+                    '</div>' +
+
+
+                    '<div class="media-right">' +
+                    '<label class="btn btn-white btn-sm m-0">' +
+                    '<input type="file" class="d-none"/>' +
+                    '<i class="material-icons">file_upload</i>' +
+                    '</label>' +
+                    '<a href="#" class="btn btn-white btn-sm">' +
+                    '<i class="material-icons">edit</i>' +
+                    '</a>' +
+                    '<a href="#" class="btn btn-white btn-sm">' +
+                    '<i class="material-icons">delete</i>' +
+                    '</a>' +
+                    '</div>' +
+
+                    '</div>' +
+
+                    '</div>' +
+                    '</div>' +
+                    '<hr />');
+                $(".display-toggle").click(function () {
+                    $(this).nextAll(".ascaq").eq(0).slideToggle("slow");
+                    if ($(this).children().text() === "arrow_drop_up") {
+                        $(this).children().text("arrow_drop_down");
+                    }
+                    else
+                        $(this).children().text("arrow_drop_up");
+
+                });
+
+
+            });
+        });
+    </script>*@
+
+
+
+
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="card-header">
+                <h4 class="card-title">Course Outline</h4>
+            </div>
+            <div class="card" id="coureditsectionList">
+
+                @*@if (ViewBag.PData.Count == 0)
+        {
+            @Html.Action("CourseUploader", "Admin")
+
+        }*@
+                <style>
+                    .display-toggle {
+                        position: relative;
+                        top: 40px;
+                        left: 10px;
+                    }
+                </style>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <ul class="nestable-list">
+                            @Html.Action("CourseOutLine", "Admin", new { id = item.CourseId })
+                        </ul>
+                    }
+                }
+
+
+
+            </div>
+
+            <!--Teg Manager-->
+
+
+
+
+
+
+            <div class="TagManager">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Tags Manager</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <input type="text" class="form-control" id="searchText" name="iTag" placeholder="Tags">
+
+                        <button class="btn btn-primary btntag" type="button" id="tagadd"><i class="material-icons">add</i>Tags</button>
+
+                    </div>
+
+                    <div id="CTagManager">
+
+                        <div class="col-md-12">
+                            @*@foreach (var item in (List<String>)ViewBag.Span)
+                                {
+                                    <button class="badge rounded-pill bg-primary v" style="color: white; width: 10%;height: 20%;">@item  </button>
+
+                                }*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="card">
+                <h1>Test WWYL</h1>
+                @*@foreach (var item in @ViewBag.WWYL)
+                    {
+
+                        <h3>@item</h3>
+                    }
+                    <h2>@ViewBag.CourseTitle</h2>
+                    <h3>@ViewBag.CourseDescription</h3>*@
+            </div>
+
+
+
+        </div>
+        <!--<div class="col-md-4">
+
+            <!-- Image Upload And Preview Start-->
+        <!--<div class="card">
+            <div class="card-body text-center">
+                <div class="media align-items-center">-->
+        @*@if (ViewBag.ImageUrl != null)
+            {
+                <img alt="Uploaded Image" src="@ViewBag.ImageUrl" />
+            }
+            else
+            {
+                <div class="media-left">
+                    <img src="~/assets/images/vuejs.png"
+                         alt=""
+                         width="100%"
+                         class="rounded">
+                </div>
+            }*@
+
+
+
+
+        <!--</div>
+        <div class="page-separator">
+            <div class="page-separator__text"></div>
+        </div>
+        <div class="media-body">
+            <div class="custom-file"
+                 style="width: auto;">-->
+        @*@Html.Action("CourseUploader", "Admin")*@
+        <!--</div>
+
+
+                </div>
+            </div>
+        </div>-->
+        <!-- Image Upload And Preview End-->
+        <!-- Add Course Title and Logo Start -->
+        <!--<div class="card">
+            <div class="card-body">-->
+        @*@Html.Action("AddDesc", "Admin")*@
+
+        <!--</div>
+        </div>-->
+        <!-- Add Course Title and Logo End -->
+        <!--DropDowns start-->
+        <!--<div class="card">
+
+            <select id="course_title"
+                    class="custom-select form-control">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+            <br />-->
+        @* @Html.Action("DDCatSub", "Admin")*@
+        <!--</div>-->
+        <!--DropDowns End-->
+        <!--What I`ll You Learn start-->
+        <!--<div class="card">-->
+        @*@Html.Action("WWYLearn", "Admin")*@
+
+    </div>-->
+    <!--What I`ll You Learn End-->
+    <!--Assignment Quiz Links start-->
+    <!--<div class="card">
+
+        <div class="card-header align-items-center">
+            <i class="material-icons text-muted ml-2">lightbulb </i><a href="#"> Take Quiz</a>
+        </div>
+        <div class="card-header align-items-center">
+            <i class="material-icons text-muted ml-2">assignment</i><a href="#">  Get Assignment</a>
+        </div>
+        <div class="card-header align-items-center">
+            <i class="material-icons text-muted ml-2">school</i><a href="#">  Get Certificate</a>
+        </div>
+    </div>-->
+    <!--Assignment Quiz Links start-->
+    <!--Last Submit Button Start-->
+    <!--<div>
+        <button type="button" class="btn btn-primary">
+            Cancel <span class="badge bg-secondary">4</span>
+        </button>
+        <button type="button" id="WWYL" class="btn btn-primary">
+            ok <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
+        </button>
+    </div>-->
+    <!--Last Submit Button End-->
+    <!--</div>-->
+</div>
+</div>
+
+
+
+<script>
+
+    function GETTAG(tag) {
+
+        $.ajax({
+            url: "/Admin/TagManager",
+            type: 'GET',
+            data: {
+                iTag: tag
+            },
+
+            success: function (data) {
+                console.log(data);
+                $('#CTagManager').empty();
+                $('#CTagManager').append(data);
+
+                //$(".v").remove();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+    });
+
+    $("#tagadd").click(function () {
+
+        var tag = $("#searchText").val();
+        if (tag) {
+            GETTAG(tag);
+        }
+    });
+
+
+
+
+    $("#CTagManager").on("click", ".v", function () {
+        var tag = this.innerText;
+
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/TagRemover",
+            data: {
+                value: tag
+            },
+
+            success: function (data) {
+                GETTAG("removessws101");
+            }
+        });
+
+
+    });
+</script>
+

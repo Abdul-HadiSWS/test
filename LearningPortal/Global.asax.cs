@@ -14,7 +14,7 @@ namespace LearningPortal
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new LearningPortalDBContentSender());
+            //Database.SetInitializer();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

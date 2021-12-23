@@ -1,0 +1,59 @@
+﻿<div class="card">
+    <div class="card-body">
+
+        <div class="form-group">
+            <label class="form-label"
+                   for="title">Title</label>
+            <div class="input-group">
+                <input type="text"
+                       class="form-control"
+                       id="CourseTitle"
+                       placeholder="Add Course Name"
+                       value="@ViewBag.Placeholder">
+                <input type="hidden" id="rootName" value="@ViewBag.Placeholder" />
+                <div class="input-group-append">
+                    <button class="input-group-text" id="AddDesc"> <i class="material-icons">add_circle_outline</i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mb-0">
+            <div class="form-group">
+                <label for="form-label">Description</label>
+
+                <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        /*   alert("dcf");*/
+        $('#AddDesc').click(function () {
+            var CourseTitle = $("#CourseTitle").val();
+            var CourseDesc = $("#CourseDescription").val();
+            var rootName = $("#rootName").val();
+            alert(CourseTitle);
+            console.log(CourseDesc);
+
+
+            $.ajax({
+                type: "Post",
+                url: "/Admin/AddDesc",
+                data: {
+                    CourseTitle: CourseTitle,
+                    CourseDescription: CourseDesc,
+
+                },
+
+                success: function (data) {
+
+                }
+            });
+
+        });
+
+    });
+</script>

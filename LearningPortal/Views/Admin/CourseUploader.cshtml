@@ -3,12 +3,14 @@
 <div class="card-body">
 
 
-    @using (Html.BeginForm("CourseUploader", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {
-        <input type="file" name="files" />
+    
+    <form method="Post" class="zipupload">
 
-        <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons"></i>Upload Course</button>
-    }
+
+        <input type="file" name="files" id="uplod" accept=".zip" required />
+
+        <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons">add</i>Upload Course</button>
+    </form>
 
     @ViewBag.success
 

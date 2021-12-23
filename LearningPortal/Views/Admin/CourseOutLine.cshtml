@@ -1,0 +1,171 @@
+﻿
+@if (ViewBag.PData.Count == 0)
+{
+    @Html.Action("CourseUploader", "Admin")
+
+}
+<style>
+    .display-toggle {
+        position: relative;
+        top: 40px;
+        left: 10px;
+    }
+</style>
+
+<ul class="nestable-list">
+    <li class="nestable-item nestable-item-handle a" data-id="2" id="co">
+
+        @{
+            var count = 0;
+            foreach (var h in ViewBag.QData)
+            {
+
+                <!--Headings-->
+                <hr />
+                <span class="display-toggle"><i class="material-icons">arrow_drop_up</i></span>
+                <div class="nestable-content">
+
+                    <div class="media-body" id="Nested_Card">
+
+                        <div class="media align-items-center">
+                            <div class="media-body" id="Nested_Card">
+
+                                @*<a href="#" class="@h">@h</a>*@
+
+                                <input class="heading" type="text" value="@h" id="@h" @h />
+
+
+
+
+                            </div>
+
+                            <!--Buttons-->
+                            <div class="media-right d-flex">
+
+                              
+
+                                <a href="#"
+                                   class="btn btn-white btn-sm" id="btnfileAdd">
+                                    <input type="text" id="dad" style="display:none" class="@h" hidden />
+                                    <i class="material-icons">file_upload</i>
+                                </a>
+                                    <div class="mca">
+                                        <input type="file" id="imgupload" name="files[]"  style="display:none" hidden  multiple accept="video/mp4,video/webm"/>
+                                      
+                                    </div>
+                              
+
+                                <a href="#"
+                                   class="btn btn-white btn-sm EditSubDir" id="AddedSubDirName">
+                                    
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a href="#"
+                                   class="btn btn-white btn-sm DelDir">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+                <!--SubList-->
+
+                <ul class="ascaq">
+                    <li>
+                        @foreach (var val in ViewBag.PData[count])
+                        {
+
+
+                            <div class="nestable" id="nestable-handles-primary">
+                                <ul class="nestable-list">
+                                    <li class="nestable-item nestable-item-handle"
+                                        data-id="2">
+                                        <div class="nestable-handle"><i class="material-icons">menu</i></div>
+                                        <div class="nestable-content">
+                                            <div class="media align-items-center" id="@h">
+
+                                                <div class="media-body" id="Nested_Card">
+                                                    <div class="card-title h6 mb-0">
+                                                        @{
+
+                                                            string filen = @val;
+                                                            int lastindex = filen.IndexOf('.');
+                                                            var val2 = filen.Substring(0, lastindex);
+                                                            
+                                                            <a href="#" class="FileName" id="@val">@val2</a>
+
+                                                        }
+
+
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="media-right">
+                                                    <a href="#"
+                                                       class="btn btn-white btn-sm" onclick="showModal()">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                    <a href="#"
+                                                       class="btn btn-white btn-sm">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                    <a href="#"
+                                                       class="btn btn-white btn-sm FolderDelete">
+                                                        <i class="material-icons ">delete</i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        }
+                    </li>
+                </ul>
+                count++;
+            }
+        }
+
+        @{ if (ViewBag.PData.Count > 0)
+            {
+                <div id="apnd_div">
+
+                    <button class="btn btn-primary" type="submit" id="AddSecBtn"><i class="material-icons">control_point</i>Upload Course</button>
+                </div>
+            }
+        }
+    </li>
+</ul>
+
+
+<script>
+    $(document).ready(function () {
+        /*   alert("dcf");*/
+        $("#AddNewfile").click( function () {
+
+
+
+            // var SubDirTitle = $(this).parent().siblings().children('.heading').val();
+            var SubDirTitle = $(this).parent().siblings().children('.heading').val();
+
+
+            /* var producttypename = $("#Headingsh").val();*/
+            alert(SubDirTitle);
+
+
+
+        });
+
+
+
+
+       
+    });
+</script>

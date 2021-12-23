@@ -55,7 +55,7 @@ namespace LearningPortal.Migrations
                       new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Marketing").CategoryId, SubCategoryName = "HCI", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },
 
                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Bowling Actions", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },
-                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Rope skipping", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },
+                     new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Miscellaneous").CategoryId, SubCategoryName = "Others", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },
 
                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Agile", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },
                      new SubCategories() { CategoryId = context.Categories.Single(i => i.CategoryName == "Project Management").CategoryId, SubCategoryName = "Scurm", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },

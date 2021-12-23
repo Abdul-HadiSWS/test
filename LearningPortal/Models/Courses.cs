@@ -15,7 +15,7 @@ namespace LearningPortal.Models
         [Required(ErrorMessage = "Enter Title")]
         [Display(Name = "Course Title")]
         [StringLength(55, ErrorMessage = "The {0} must be at least {2} characters long.")]
-        [Index("INDEX_Title", IsUnique = true)]
+      
         public string CourseName { get; set; }
 
         [Required(ErrorMessage = "Enter Description")]

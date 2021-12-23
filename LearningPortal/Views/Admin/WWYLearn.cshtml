@@ -1,0 +1,54 @@
+﻿
+
+<div class="card-body">
+    <div class="card-header">
+        <h4 class="card-title">What I`ll You Learn</h4>
+    </div>
+    <div class="form-group mb-0">
+        <div class="form-group">
+            <div style="height: 150px;"
+                 class="TA"
+                 data-toggle="quill"
+                 data-quill-placeholder="Text Should be Comma',' Sparated "
+                 data-quill-modules-toolbar='[["bold", "italic"], ["link", "blockquote", "code", "image"], [{"list": "ordered"}, {"list": "bullet"}]]'>
+                <textarea id="review" name="w3review" rows="4" cols="50"></textarea>
+
+            </div>
+            <button id="fly">Check</button>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+     /*   alert("dcf");*/
+        $('#fly').click(function () {
+            var TA = $(".TA").children().attr("class");
+
+            var a = $('.' + TA + '  p:eq(0)').text();
+            var b = $('.' + TA + '  ol:eq(0)').children().text();
+            var c = $('.' + TA + '  ol:eq(0)').children().text();
+            //alert(a);
+            //console.log(b);
+
+
+            $.ajax({
+                type: "Post",
+                url: "/Admin/WWYLearn",
+                data: {
+                    paragraph: a,
+                    OrderList: b,
+                    UnorderedList:c,
+                },
+
+                success: function (data) {
+
+                }
+            });
+
+        });
+
+    });
+</script>
