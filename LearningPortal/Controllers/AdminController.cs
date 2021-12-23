@@ -1156,12 +1156,12 @@ namespace LearningPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditSubName(string SubDirName, string SubDirTitleh ,string editfile)
+        public ActionResult EditSubName(string newname, string oldname ,string editfile)
         {
             if (editfile == "")
             {
-                string folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", root, SubDirTitleh));
-                string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, SubDirName));
+                string folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", root, oldname));
+                string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, newname));
                 //     Directory.Move(folder,folder1);
 
                 // Ensure the source directory exists
@@ -1174,11 +1174,36 @@ namespace LearningPortal.Controllers
                         Directory.Move(folder, folder1);
                     }
                 }
+                return Json("Successfully Edit SectionName");
             }
             else{
+                string filen = oldname;
+                int lastindex = filen.IndexOf('.');
 
+                int length = filen.Length;
+                string extension = filen.Substring(lastindex);
+                newname = newname + extension;
+
+
+                string folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, editfile));
+              
+                // Ensure the source directory exists
+                if (Directory.Exists(folder))
+                {
+                      folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile,oldname));
+
+                      string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile, newname));
+
+                    // Ensure the destination directory doesn't already exist
+
+                    // Perform the move
+
+                    System.IO.File.Move(folder, folder1);
+                    return Json("Successfully Edit SectionFile");
+
+                }
             }
-           
+
 
             //Temp = SubDirTitleh;
 

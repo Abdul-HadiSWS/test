@@ -66,7 +66,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary v" style="color: white; width: 10%;height: 20%;">@item  </button>
+                                <button class="badge rounded-pill bg-primary  tagremove" style="color: white; width: 10%;height: 20%;">@item  </button>
 
                             }
                         </div>
@@ -253,6 +253,7 @@
         });
     }
 
+    // Tag Add 
     $("#tagadd").click(function () {
 
         var tag = $("#searchText").val();
@@ -262,28 +263,30 @@
     });
 
 
+    //Tag Remove
+    $("#CTagManager").on("click", ".tagremove", function () {
+        var tag = this.innerText;
 
-    //var SubDirTitle = $(this).parent().parent().attr('id');
 
-    //var FileName = $(this).parent().parent().children().children().children().attr('id');
+        $.ajax({
+            type: "GET",
+            url: "/Admin/TagRemover",
+            data: {
+                value: tag
+            },
+
+            success: function (data) {
+                GETTAG("removessws101");
+            }
+        });
 
 
-    //$.ajax({
-    //    type: "Post",
-    //    url: "/Admin/DeleteDir",
-    //    data: {
-    //        DirName: SubDirTitle,
-    //        Filename: FileName,
-    //    },
+    });
 
-    //    success: function (data) {
 
-    //        $("#coureditsectionList").empty();
-    //        $("#coureditsectionList").append(data);
-    //    }
-    //});
+
    
-
+    // Zip Upload
     $(".zipupload").on("submit", function (event) {
 
         event.preventDefault();
@@ -332,7 +335,7 @@
 
 
 
-
+    // Course Image upload
     $(".courseimageupload").on("submit", function (event) {
        
         event.preventDefault();
@@ -373,7 +376,8 @@
             }
         });
     });
-   
+
+    // File Added
     var c = 22;
     $('#coureditsectionList').on('click', '#btnfileAdd', function () {
 
@@ -385,9 +389,6 @@
         var sectionname = $(this).children().attr('class');
         c = sectionname;
     });
-
-
-
 
     $('#coureditsectionList').on('change', '#imgupload', function () {
 
@@ -447,10 +448,12 @@
 
 
 
+
+    // Edit Section Name
     $("#coureditsectionList").on('click', ".EditSubDir", function () {
 
-        var SubDirTitle = $(this).parent().parent().children().children().val();
-        var SubDirTitleh = $(this).parent().parent().children().children().attr("id");
+        var newname = $(this).parent().parent().children().children().val();
+        var oldname = $(this).parent().parent().children().children().attr("id");
         
 
         //if (SubDirTitle == SubDirTitleh) {
@@ -461,8 +464,8 @@
             type: "Post",
             url: "/Admin/EditSubName",
             data: {
-                SubDirName: SubDirTitle,
-                SubDirTitleh: SubDirTitleh,
+                newname: newname,
+                oldname: oldname,
                 editfile:null,
             },
 
@@ -474,8 +477,46 @@
        
     });
 
+    // Edit File Name
+    $("#coureditsectionList").on('click', ".EditFile", function () {
 
-    $("#coureditsectionList").on('click', ".FolderDelete", function () {
+        var SectionName = $(this).parent().attr('class');
+        const myArray = SectionName.split("%");
+        SectionName = myArray[myArray.length - 1];
+
+
+        var Newname = $(this).parent().parent().children().children().children().val();
+        var Oldname = $(this).parent().parent().children().children().children().attr("id");
+
+       
+      
+        //if (SubDirTitle == SubDirTitleh) {
+        //    SubDirTitleh = SubDirTitle
+        //}
+   
+        $.ajax({
+            type: "Post",
+            url: "/Admin/EditSubName",
+            data: {
+                newname: Newname,
+                oldname: Oldname,
+                editfile: SectionName,
+            },
+
+            success: function (data) {
+                alert(data);
+                getoutline();
+            }
+        });
+      
+    });
+
+
+
+
+     // Delete Single File
+
+    $("#coureditsectionList").on('click', ".DeleteFile", function () {
         var SubDirTitle = $(this).parent().parent().attr('id');
 
         var FileName = $(this).parent().parent().children().children().children().attr('id');
@@ -495,6 +536,8 @@
             }
         });
     });
+
+    // Delete Folder
 
 
     $("#coureditsectionList").on('click', ".DelDir", function () {
@@ -518,29 +561,9 @@
     });
 
 
-    $("#CTagManager").on("click", ".v", function () {
-        var tag = this.innerText;
 
-
-        $.ajax({
-            type: "GET",
-            url: "/Admin/TagRemover",
-            data: {
-                value: tag
-            },
-
-            success: function (data) {
-                GETTAG("removessws101");
-            }
-        });
-
-
-    });
-
-
-
-
-        $("#coureditsectionList").on('click', ".display-toggle", function () {
+    // Dropdown working
+   $("#coureditsectionList").on('click', ".display-toggle", function () {
         $(this).nextAll(".ascaq").eq(0).slideToggle("slow");
         if ($(this).children().text() === "arrow_drop_up") {
             $(this).children().text("arrow_drop_down");
@@ -550,7 +573,7 @@
 
         });
 
-
+    // Add Section
     $('#coureditsectionList').on('click', '#AddSecBtn', function () {
       
 

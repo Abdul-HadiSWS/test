@@ -94,8 +94,9 @@
                                                             string filen = @val;
                                                             int lastindex = filen.IndexOf('.');
                                                             var val2 = filen.Substring(0, lastindex);
-                                                            
-                                                            <a href="#" class="FileName" id="@val">@val2</a>
+
+                                                          
+                                                            <input class="w-50" type="text" value="@val2" id="@val"   />
 
                                                         }
 
@@ -105,17 +106,17 @@
 
                                                 </div>
 
-                                                <div class="media-right">
+                                                <div class="media-right %@h">
                                                     <a href="#"
                                                        class="btn btn-white btn-sm" onclick="showModal()">
                                                         <i class="material-icons">visibility</i>
                                                     </a>
                                                     <a href="#"
-                                                       class="btn btn-white btn-sm">
+                                                       class="btn btn-white btn-sm EditFile">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                     <a href="#"
-                                                       class="btn btn-white btn-sm FolderDelete">
+                                                       class="btn btn-white btn-sm DeleteFile">
                                                         <i class="material-icons ">delete</i>
                                                     </a>
                                                 </div>
