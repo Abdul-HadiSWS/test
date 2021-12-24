@@ -440,7 +440,7 @@
         });
 
 
-        getsectionvideo(fileData);
+        //getsectionvideo(fileData);
        
 
 
@@ -573,6 +573,8 @@
 
         });
 
+  
+
     // Add Section
     $('#coureditsectionList').on('click', '#AddSecBtn', function () {
       
@@ -592,21 +594,21 @@
 
 
             '<div class="media-right">' +
-            '<label class="btn btn-white btn-sm m-0 btn-sm">' +
-            '<input type="file"   class="d-none" id="createFolder"/>' +
-            '<i class="material-icons">file_upload</i>' +
-            '</label>' +
+            //'<label class="btn btn-white btn-sm m-0 btn-sm">' +
+            //'<input type="file"   class="d-none" id="createFolder"/>' +
+            //'<i class="material-icons">file_upload</i>' +
+            //'</label>' +
 
-            '<a href="#" class="btn btn-white">' +
-            '<i class="material-icons">edit</i>' +
-            '</a>' +
-            //'<button class="btn btn-white btn-sm " >' +
-            //'<i class="material-icons">add</i>' +
-            //'</button>' +
+            //'<a href="#" class="btn btn-white">' +
+            //'<i class="material-icons">edit</i>' +
+            //'</a>' +
+            '<button class="btn btn-white btn-sm createFolder" id="createFolder" >' +
+            '<i class="material-icons">add</i>' +
+            '</button>' +
 
-            '<a href="#" class="btn btn-white btn-sm">' +
-            '<i class="material-icons">delete</i>' +
-            '</a>' +
+            //'<a href="#" class="btn btn-white btn-sm">' +
+            //'<i class="material-icons">delete</i>' +
+            //'</a>' +
 
             '</div>' +
             '</form>' +
@@ -617,23 +619,25 @@
             '<hr />');
 
 
-        $("#createFolder").click(function () {
-            var FN = $('#FolderName').val();
+      
+    });
+    //Create Folder
+    $("#coureditsectionList").on('click', ".createFolder",function () {
+        //var FN = $('#FolderName').val();
+        var FN = $(this).parent().parent().children().children().children().val();
+        alert(FN);
+        $.ajax({
+            type: "Post",
+            url: "/Admin/CreateSection",
+            data: {
+                SectionName: FN,
+            },
+            success: function (response) {
+                console.log(response);
+                alert(response);
+                getoutline();
 
-            alert(FN);
-            $.ajax({
-                type: "Post",
-                url: "/Admin/CreateSection",
-                data: {
-                    SectionName: FN,
-                },
-                success: function (response) {
-
-                    console.log(response)
-
-
-                },
-            });
+            },
         });
     });
 </script>

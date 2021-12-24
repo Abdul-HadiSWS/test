@@ -106,9 +106,9 @@
 
                                                 </div>
 
-                                                <div class="media-right %@h">
+                                                <div class="media-right">
                                                     <a href="#"
-                                                       class="btn btn-white btn-sm" onclick="showModal()">
+                                                       class="btn btn-white btn-sm video" title="@val">
                                                         <i class="material-icons">visibility</i>
                                                     </a>
                                                     <a href="#"
@@ -164,7 +164,29 @@
 
         });
 
+        $(".video").click(function () {
 
+
+            var subf = $(this).parent().parent().attr('id');
+            var vi = $(this).attr('title');
+            console.log(subf, vi);
+            $.ajax({
+                type: "Get",
+                url: "/Admin/VideoModal",
+
+                data: {
+                    subFoldername: subf,
+                    video: vi
+                },
+                success: function (data) {
+
+                    $(function () {
+                        $('#videoModal').modal();
+                    });
+                    $('#videoModalWrapper').html(data);
+                }
+            });
+        });
 
 
        

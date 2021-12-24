@@ -308,12 +308,12 @@ namespace LearningPortal.Controllers
             //var catt= Db.Categories.SqlQuery("SELECT * FROM Categories where IsActive='true' ORDER BY Time DESC").ToList();
             return PartialView(catt);
         }
-        public JsonResult DeleteCat(int? Cid)
+        public JsonResult DeleteCat(int? Cid, int? DefaultId)
         {
             bool result = false;
-            var defaultCatId = Db.Categories.Where(x => x.CategoryName == "Miscellaneous").SingleOrDefault();
-            int id = defaultCatId.CategoryId;
-            if (Cid==id)
+            //var defaultCatId = Db.Categories.Where(x => x.CategoryName == "Miscellaneous").SingleOrDefault();
+            //int id = defaultCatId.CategoryId;
+            if (Cid== DefaultId)
             {
                 result = false;
             }
@@ -330,7 +330,7 @@ namespace LearningPortal.Controllers
                     {
                         foreach (var item in subcat)
                         {
-                            item.CategoryId = id;
+                            item.CategoryId = (int)DefaultId;
                         }
                         Db.SaveChanges();
                     }
@@ -341,10 +341,10 @@ namespace LearningPortal.Controllers
         public PartialViewResult DeleteCategory(int? Catid)
         {
             var cid = Catid;
-            var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryId = " + cid).SingleOrDefault();
+            //var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryId = " + cid).SingleOrDefault();
             var defaultCatId = Db.Categories.Where(x => x.CategoryName == "Miscellaneous").SingleOrDefault();
             int id = defaultCatId.CategoryId;
-            ViewBag.CatId = check.CategoryId;
+            ViewBag.CatId = cid;
             ViewBag.defaultId = id;
             return PartialView();
 
@@ -490,13 +490,13 @@ namespace LearningPortal.Controllers
                 return PartialView(catt);
             }
         }
-        public JsonResult DeleteSubCat(int? SubCatid)
+        public JsonResult DeleteSubCat(int? SubCatid, int? DefaultId)
         {
             bool result = false;
-            var defaultsubCatId = Db.SubCategories.Where(x => x.SubCategoryName == "Others").SingleOrDefault();
-            int id = defaultsubCatId.SubCategoryId;
+            
+            
            
-            if (SubCatid == id)
+            if (SubCatid == DefaultId)
             {
                 result = false;
             }
@@ -514,7 +514,7 @@ namespace LearningPortal.Controllers
                     {
                         foreach (var item in subcat)
                         {
-                            item.SubCategoryId = id;
+                            item.SubCategoryId = (int)DefaultId;
                         }
                         Db.SaveChanges();
                     }
@@ -526,10 +526,10 @@ namespace LearningPortal.Controllers
         public PartialViewResult DeleteSubCategory(int? Subcatid)
         {
             var cid = Subcatid;
-            var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryId = " + Subcatid).SingleOrDefault();
+            //var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryId = " + Subcatid).SingleOrDefault();
             var defaultCatId = Db.SubCategories.Where(x => x.SubCategoryName == "Others").SingleOrDefault();
             int id = defaultCatId.SubCategoryId;
-            ViewBag.SubCatId = check.SubCategoryId;
+            ViewBag.SubCatId = cid;
             ViewBag.defaultId = id;
             return PartialView();
         }
@@ -1213,7 +1213,7 @@ namespace LearningPortal.Controllers
         }
 
         [HttpPost]
-        public bool CreateSection(string SectionName)
+        public ActionResult CreateSection(string SectionName)
         {
             string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", root));
             if (Directory.Exists(folder))
@@ -1223,22 +1223,33 @@ namespace LearningPortal.Controllers
                 {
                     FileExists = "File is created successfully";
                     Directory.CreateDirectory(folder1);
-                    return true;
+                    return Json("Successfully section Created");
                 }
                 else
                 {
                     FileExists = "File Is Already Exist";
-                    return false;
+                    return Json("Already Exist Section Please Change the Name");
                 }
 
             }
             FileExists = "File Is Already Exist";
-            return false;
+            return Json("Already Exist Section Please Change the Name");
         }
 
 
-        public PartialViewResult VideoModal()
+        public PartialViewResult VideoModal(string subFoldername, string video)
         {
+            string mainFolder = root;
+            string SubFolder = subFoldername;
+            string Video = video;
+            string ext = Path.GetExtension(Video);
+            ext = ext.Replace(".", "");
+            string src = string.Format("{0}/{1}/{2}", mainFolder, SubFolder, Video);
+            
+            var time= Windows.Storage.FileProperties
+            //string src = "{0}/{1}/{2}" + mainFolder+ SubFolder + Video;
+            ViewBag.Src = src;
+            ViewBag.type = ext;
             return PartialView();
         }
 

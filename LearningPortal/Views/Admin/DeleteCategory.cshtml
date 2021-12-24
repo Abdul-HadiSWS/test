@@ -1,5 +1,5 @@
 ﻿<div class="modal fade" id="deleteModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style=" margin-top: 13%;margin-left: 40%;">
         <div class="modal-content">
             <div class="modal-header">
 
@@ -32,7 +32,8 @@
                 url: "/Admin/DeleteCat",
 
                 data: {
-                    Cid: valdelete
+                    Cid: valdelete,
+                    DefaultId:defaultId
                 },
                 success: function (response) {
                     if (response==true) {
@@ -41,7 +42,9 @@
                         $("#row_" + valdelete).remove();
                         $("#row_" + defaultId).load(" #row_" + defaultId + " > *");
                     }
-                    
+                    else {
+                        alert("You Cannot Delete this, sorry!");
+                    }
                    
 
                 },

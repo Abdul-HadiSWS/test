@@ -1,5 +1,5 @@
 ﻿<div class="modal fade" id="editModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style=" margin-top: 13%;margin-left: 40%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">SubCategory Details</h4>
@@ -10,22 +10,24 @@
                 <input type="hidden" name="name" id="SubcatId" value="@ViewBag.subCatId" />
                 <input type="hidden" name="name" id="catId" value="@ViewBag.catId" />
 
-                    <div class="form-group row">
-                        <label for="title" class="col-md-3 col-form-label form-label">SubCategory Name</label>
-                        <div class="col-md-6">
-                            <input id="SubcatName" type="text" class="form-control" value="@ViewBag.subname" name="SubCatname" required placeholder="SubCategory Name">
-                        </div>
+                <div class="form-group row">
+                    <label for="title" class="col-md-4 col-form-label form-label">SubCategory Name</label>
+                    <div class="col-md-6">
+                        <input id="SubcatName" type="text" class="form-control" value="@ViewBag.subname" name="SubCatname" required placeholder="SubCategory Name">
                     </div>
-                    <div class="form-group row">
-                        <label for="title" class="col-md-3 col-form-label form-label">SubCategory Image</label>
-                        <div class="col-md-6">
-                            <input type="file" id="SubcatImage" name="@ViewBag.Image" value="@ViewBag.SubImage" />
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="title" class="col-md-4 col-form-label form-label">SubCategory Image</label>
+                    <div class="col-md-6">
+                        <input type="file" id="SubcatImage" name="@ViewBag.Image" value="@ViewBag.SubImage" />
                     </div>
-                        <div class="flex"></div>
-                        <button class="btn btn-primary editSubCat" type="submit" data-dismiss="modal"><i class="material-icons"></i>Save</button>
-                        <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-             </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary ml-2 editSubCat" type="submit" data-dismiss="modal"><i class="material-icons"></i>Save</button>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

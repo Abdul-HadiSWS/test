@@ -1,5 +1,5 @@
 ﻿<div class="modal fade" id="editModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style=" margin-top: 13%;margin-left: 40%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Category Details</h4>
@@ -9,23 +9,25 @@
             <div class="modal-body">
                 <input type="hidden" name="name" id="catId" value="@ViewBag.CatId" />
                 <div class="form-group row">
-                    <label for="title" class="col-md-3 col-form-label form-label">Category Name</label>
+                    <label for="title" class="col-md-4 col-form-label form-label">Category Name</label>
                     <div class="col-md-6">
                         <input id="catName" type="text" class="form-control" value="@ViewBag.check" name="Catname" required placeholder="Category Name"><br /><br />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="title" class="col-md-3 col-form-label form-label">Category Image</label>
+                    <label for="title" class="col-md-4 col-form-label form-label">Category Image</label>
                     <div class="col-md-6">
                         <input type="file" id="catImage" name="@ViewBag.Image" value="@ViewBag.Image" /><br /><br />
                     </div>
                 </div>
-                    <button class="btn btn-primary editCat" type="submit" data-dismiss="modal"><i class="material-icons"></i>Save</button>
+                <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-               
-            </div>
+                    <button class="btn btn-primary ml-2 editCat" type="submit" data-dismiss="modal"><i class="material-icons"></i>Save</button>
+
+                </div>
             </div>
         </div>
+    </div>
     </div>
 
 <script>

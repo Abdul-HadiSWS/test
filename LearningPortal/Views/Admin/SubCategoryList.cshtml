@@ -22,40 +22,37 @@
                         {
                             <input type="hidden" name="subid" value="@ViewBag.CAtId" />
                             <div class="form-group row">
-                                <label for="title" class="col-md-3 col-form-label form-label">SubCategory Name</label>
+                                <label for="title" class="col-md-4 col-form-label form-label">SubCategory Name</label>
                                 <div class="col-md-6">
                                     <input id="title" type="text" class="form-control" name="SubCatname" required placeholder="SubCategory Name">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="title" class="col-md-3 col-form-label form-label">SubCategory Image</label>
+                                <label for="title" class="col-md-4 col-form-label form-label">SubCategory Image</label>
                                 <div class="col-md-6">
                                     <input type="file" name="files" required />
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons"></i>Okay</button>
-                            <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-                        }
-                    }
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-primary ml-2" type="submit" id="upbtn"><i class="material-icons"></i>Okay</button>
 
-                </div>
-                @*<div class="modal-footer">
-                        <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger addCat" data-dismiss="modal">Okay</button>
-                    </div>*@
-            </div>
+                            </div>
+                         }
+                   }
+
+                            </div>
+                            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger addCat" data-dismiss="modal">Okay</button>
+                </div>*@
+                        </div>
         </div>
     </div>
     <a class="btn btn-secondary mr-1" href="#" data-toggle="modal" data-target="#myModalAddSubCat">Add SubCategory</a>
 </div>
 
-<div id="modalWrapperDelete">
 
-</div>
-
-<div id="modalWrapperEdit">
-
-</div>
 
 @{
     if (ViewBag.count == 0)
@@ -186,82 +183,48 @@
     }
 
     function viewCourses(SubCategoryid, Categoryid) {
-        var categoryId = $("#CategoryId").val();
-        var subcategoryId = $("#SubCategoryId").val();
-        var search = $("#searchText").val();
-        var checkft = $("#CheckFt").is(":checked");
+        
         var cid = Categoryid;
         var scid = SubCategoryid;
-        var search = $("#searchText").val();
-        var checkft = $("#CheckFt").is(":checked");
-       // window.location.replace("/admin/Addcourse");
-
+       
 
         alert("categoryId " + cid + "subcatid " + scid);
         $("#simple").empty();
         $.ajax({
            type: "Get",
             url: "/Admin/Addcourse",
-            //data: {
-            //            catid: cid,
-            //                subcatid: scid,
-                            
-            //        },
+            
             success: function (data) {
 
                 console.log(data);
                 $("#simple").append(data);
-                //$(".mainbody").append(data);
-                // $(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
-                //coursefilter(cid, scid);
-                //alert(cid);
-                //$.ajax({
-                //    type: "get",
-                //    url: "/Admin/CourseFilter",
-                //    data: {
-                //        catid: cid,
-                //        //    subcatid: scid,
-                //        //    tag: search,
-                //        //    check: checkft
-                //    },
-
-                //    success: function (data) {
-                //        //$(".mainbody").append(data);
-                //        //.location.replace("/admin/Addcourse");
-                //        //$(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
-                       
-                //    }
-                //});
+                
 
             }
         });
    
     }
-    function coursefilter(cid, scid) {
-        alert(ci, " ", scid);
+    //function coursefilter(cid, scid) {
+    //    alert(ci, " ", scid);
 
 
-        var ci = cid;
-        var scid = scid;
-        $.ajax({
-            type: "get",
-            url: "/Admin/CourseFilter",
-            data: {
-                catid: ci,
-                //    subcatid: scid,
-                //    tag: search,
-                //    check: checkft
-            },
+    //    var ci = cid;
+    //    var scid = scid;
+    //    $.ajax({
+    //        type: "get",
+    //        url: "/Admin/CourseFilter",
+    //        data: {
+    //            catid: ci,
+                
+    //        },
 
-            success: function (data) {
-                //$(".mainbody").append(data);
-                //.location.replace("/admin/Addcourse");
-                //$(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
+    //        success: function (data) {
+                
 
-            }
-        });
+    //        }
+    //    });
 
-    }
+    //}
 
     
 
