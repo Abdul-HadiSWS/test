@@ -16,9 +16,10 @@
     <li class="nestable-item nestable-item-handle a" data-id="2" id="co">
 
         @{
-            var count = 0;
-            foreach (var h in ViewBag.QData)
-            {
+                var count = 0;
+                var count2 = 1;
+                foreach (var h in ViewBag.QData)
+                {
 
                 <!--Headings-->
                 <hr />
@@ -94,10 +95,17 @@
                                                             string filen = @val;
                                                             int lastindex = filen.IndexOf('.');
                                                             var val2 = filen.Substring(0, lastindex);
+                                                            string extension = filen.Substring(lastindex);
 
-                                                          
-                                                            <input class="w-50" type="text" value="@val2" id="@val"   />
+                                                            <input class="w-50" type="text" value="@val2" id="@val" />
 
+
+
+
+                                                            { Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension }); }
+
+
+                                                            count2++;
                                                         }
 
 
@@ -106,7 +114,7 @@
 
                                                 </div>
 
-                                                <div class="media-right">
+                                                <div class="media-right %@h">
                                                     <a href="#"
                                                        class="btn btn-white btn-sm video" title="@val">
                                                         <i class="material-icons">visibility</i>

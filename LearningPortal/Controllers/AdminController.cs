@@ -1235,22 +1235,35 @@ namespace LearningPortal.Controllers
             FileExists = "File Is Already Exist";
             return Json("Already Exist Section Please Change the Name");
         }
-
-
         public PartialViewResult VideoModal(string subFoldername, string video)
         {
             string mainFolder = root;
             string SubFolder = subFoldername;
             string Video = video;
             string ext = Path.GetExtension(Video);
-            ext = ext.Replace(".", "");
+            ext = "video/" + ext.Replace(".", "");
             string src = string.Format("{0}/{1}/{2}", mainFolder, SubFolder, Video);
             
-            var time= Windows.Storage.FileProperties
-            //string src = "{0}/{1}/{2}" + mainFolder+ SubFolder + Video;
+            
+            
             ViewBag.Src = src;
             ViewBag.type = ext;
             return PartialView();
+        }
+
+        public ActionResult gettime(string video, string section, int count1, string extension)
+        {
+            var videosrc = "/assets/videos/" + root + "/" + section + "/" + video;
+
+            ViewBag.urlvi = videosrc;
+            ViewBag.urlvi1 = "A" + count1;
+
+
+
+            ViewBag.ext = "video/" + extension.Substring(1);
+
+
+            return View();
         }
 
     }

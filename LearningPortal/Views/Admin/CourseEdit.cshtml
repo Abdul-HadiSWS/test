@@ -298,9 +298,9 @@
 
         //var fileData = new FormData();
 
-        /// fileData.append(files[0].name, files[0]);
-
-
+        /// fileData.append(files[0].name, files[0]);.
+        $('#upbtn').prop('disabled', true);
+       
         $.ajax({
             url: '/Admin/CourseUploader',
             type: "POST",
