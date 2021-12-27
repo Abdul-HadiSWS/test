@@ -16,10 +16,11 @@
     <li class="nestable-item nestable-item-handle a" data-id="2" id="co">
 
         @{
-                var count = 0;
-                var count2 = 1;
-                foreach (var h in ViewBag.QData)
-                {
+            <input type="hidden" id="rootTitle" value="@ViewBag.Placeholder" />
+            var count = 0;
+            var count2 = 1;
+            foreach (var h in ViewBag.QData)
+            {
 
                 <!--Headings-->
                 <hr />
@@ -43,22 +44,22 @@
                             <!--Buttons-->
                             <div class="media-right d-flex">
 
-                              
+
 
                                 <a href="#"
                                    class="btn btn-white btn-sm" id="btnfileAdd">
                                     <input type="text" id="dad" style="display:none" class="@h" hidden />
                                     <i class="material-icons">file_upload</i>
                                 </a>
-                                    <div class="mca">
-                                        <input type="file" id="imgupload" name="files[]"  style="display:none" hidden  multiple accept="video/mp4,video/webm"/>
-                                      
-                                    </div>
-                              
+                                <div class="mca">
+                                    <input type="file" id="imgupload" name="files[]" style="display:none" hidden multiple accept="video/mp4,video/webm" />
+
+                                </div>
+
 
                                 <a href="#"
                                    class="btn btn-white btn-sm EditSubDir" id="AddedSubDirName">
-                                    
+
                                     <i class="material-icons">edit</i>
                                 </a>
                                 <a href="#"
@@ -74,7 +75,8 @@
                 <hr />
                 <!--SubList-->
 
-                <ul class="ascaq">
+                var sc = h.Replace(" ", string.Empty) + "sws";
+                <ul class="ascaq @sc" id="@sc">
                     <li>
                         @foreach (var val in ViewBag.PData[count])
                         {
@@ -102,8 +104,10 @@
 
 
 
-                                                            { Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension }); }
+                                                            <div class="ddd">
+                                                                @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension }); }
 
+                                                            </div>
 
                                                             count2++;
                                                         }
@@ -157,6 +161,12 @@
 <script>
     $(document).ready(function () {
         /*   alert("dcf");*/
+
+        var rootTitle = $("#rootTitle").val();
+        $("#CourseTitle").val(rootTitle);
+
+
+
         $("#AddNewfile").click( function () {
 
 

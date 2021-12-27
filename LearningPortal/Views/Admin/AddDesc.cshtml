@@ -9,8 +9,8 @@
                        class="form-control"
                        id="CourseTitle"
                        placeholder="Add Course Name"
-                       value="@ViewBag.Placeholder">
-                <input type="hidden" id="rootName" value="@ViewBag.Placeholder" />
+                       value="">
+                <input type="hidden" id="rootName" value="r" />
                 <div class="input-group-append">
                     <button class="input-group-text" id="AddDesc"> <i class="material-icons">add_circle_outline</i></button>
                 </div>
@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label for="form-label">Description</label>
 
-                <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title"></textarea>
+                <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title" required></textarea>
             </div>
         </div>
     </div>
@@ -30,7 +30,17 @@
 
 <script>
     $(document).ready(function () {
-        /*   alert("dcf");*/
+       
+        $.ajax({
+            type: "Get",
+            url: "/Admin/AddDesc",
+
+            success: function (data) {
+
+            }
+        });
+
+
         $('#AddDesc').click(function () {
             var CourseTitle = $("#CourseTitle").val();
             var CourseDesc = $("#CourseDescription").val();

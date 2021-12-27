@@ -589,7 +589,7 @@ namespace LearningPortal.Controllers
 
 
 
-
+        
         public ActionResult CourseEdit()
         {
 
@@ -600,6 +600,7 @@ namespace LearningPortal.Controllers
             ViewBag.WWYL = WWYL;
             ViewBag.CourseTitle = CrsTitle;
             ViewBag.CourseDescription = CrsDescription;
+            ViewBag.Placeholder = root;
             return View();
         }
 
@@ -651,7 +652,7 @@ namespace LearningPortal.Controllers
                 }
                 // files.SaveAs(filename);
                 //ViewBag.success = "File Uloaded";
-                ViewBag.Placeholder = root;
+             
 
                 return Json("File Uploaded");
             }
@@ -715,8 +716,9 @@ namespace LearningPortal.Controllers
                     {
                         string path = Path.Combine(Server.MapPath("~/assets/images"), Path.GetFileName(files.FileName));
                         files.SaveAs(path);
-                        TBimage = "/assets/images/" + filen;
-                        ViewBag.ImageUrl = TBimage;
+                        //TBimage = "/assets/images/" + filen;
+                        ViewBag.ImageUrl = "/assets/images/"+Path.GetFileName(files.FileName);
+                        ViewBag.SplitImage = Path.GetFileName(files.FileName);
                         return Json(ViewBag.ImageUrl);
                     }
 
@@ -742,7 +744,7 @@ namespace LearningPortal.Controllers
 
         public ActionResult Uploads()
         {
-            string rootfolder = Request.Form[0];
+            string rootfolder = root;
             string sectionfolder = Request.Form[1];
 
             if (Request.Files.Count > 0)
@@ -919,8 +921,9 @@ namespace LearningPortal.Controllers
         [HttpGet]
         public ActionResult CourseOutline()
         {
-
+            
             string rootfoldername = root;
+            ViewBag.Placeholder = rootfoldername;
             string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
 
             List<string> Files = new List<string>();
@@ -983,28 +986,34 @@ namespace LearningPortal.Controllers
         public PartialViewResult TagManager(string iTag)
         {
             //var check = Db.TagManager.SqlQuery("SELECT * FROM TagManagers where TagName=" + model).ToList();
-            //var check = Db.TagManager.Where(x => x.TagName == model).ToList();
+           
+            
+            var check = Db.TagManager.Where(x => x.TagName == iTag).SingleOrDefault();
 
-            //if (check.Count == 0)
-            //{
-            //    TagManager objCat = new TagManager();
-            //    objCat.TagName = model;
-            //    Db.TagManager.Add(objCat);
-            //    Db.SaveChanges();
-            //}
-            //else
-            //{
-            //    Tags.Add(model);
-            //    ViewBag.Span = Tags;
-            //    return PartialView();
-            //}
+            
             if (iTag == "removessws101")
             {
 
             }
             else
             {
-                Tags.Add(iTag);
+                if (check == null)
+                {
+                    TagManager objCat = new TagManager();
+                    objCat.TagName = iTag;
+                    Db.TagManager.Add(objCat);
+                    Db.SaveChanges();
+                    Tags.Add(iTag);
+                    ViewBag.Span = Tags;
+                }
+                else
+                {
+                    Tags.Remove(iTag);
+                    Tags.Add(iTag);
+                    ViewBag.Span = Tags;
+                    return PartialView();
+                }
+                //Tags.Add(iTag);
 
             }
             ViewBag.Span = Tags;
@@ -1080,17 +1089,12 @@ namespace LearningPortal.Controllers
 
             return RedirectToAction("CourseEdit");
         }
-
-
         [HttpGet]
         public PartialViewResult AddDesc()
         {
-            
+            //ViewBag.Placeholder = root;
             return PartialView();
         }
-
-
-
         [HttpPost]
         public ActionResult AddDesc(string CourseTitle, string CourseDescription)
         {
@@ -1109,7 +1113,6 @@ namespace LearningPortal.Controllers
             }
             return RedirectToAction("CourseEdit");
         }
-
         [HttpPost]
         public ActionResult DeleteDir(string DirName, string Filename)
         {
@@ -1154,7 +1157,6 @@ namespace LearningPortal.Controllers
 
             return RedirectToAction("CourseOutline", "Admin");
         }
-
         [HttpPost]
         public ActionResult EditSubName(string newname, string oldname ,string editfile)
         {
@@ -1211,7 +1213,6 @@ namespace LearningPortal.Controllers
 
             return RedirectToAction("CourseEdit");
         }
-
         [HttpPost]
         public ActionResult CreateSection(string SectionName)
         {
@@ -1250,7 +1251,6 @@ namespace LearningPortal.Controllers
             ViewBag.type = ext;
             return PartialView();
         }
-
         public ActionResult gettime(string video, string section, int count1, string extension)
         {
             var videosrc = "/assets/videos/" + root + "/" + section + "/" + video;
@@ -1265,6 +1265,64 @@ namespace LearningPortal.Controllers
 
             return View();
         }
+        
+        public ActionResult InsertCourse(string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic , string[] sectionnamedata)
+        {
+
+            var result = Db.Courses.Where(x=>x.CourseName==CourseName).SingleOrDefault();
+            //coursepic = coursepic.Substring("/assets/image/");
+            Courses obj = new Courses();
+            if (result == null)
+            {
+
+                obj.CourseName=CourseName;
+                obj.Description = CourseDesc;
+                obj.Year = courseYear;
+                obj.Levels = courseLevel;
+                obj.Image = coursepic;
+                obj.IsFeatured = true;
+                obj.IsActive = true;
+                obj.SubCategoryId = (int)subcategoryId;
+                obj.UploadedDate = DateTime.Now;
+                obj.Time = DateTime.Now;
+                Db.Courses.Add(obj);
+                Db.SaveChanges();
+
+                var result1 = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
+
+                foreach (var item in Tags)
+                {
+
+                    var check = Db.TagManager.Where(x => x.TagName == item).SingleOrDefault();
+
+                    CourseTag courseTag = new CourseTag();
+                    courseTag.TagId = check.TagId;
+                    courseTag.CourseId = result1.CourseId;
+
+                    Db.CourseTag.Add(courseTag);
+                    Db.SaveChanges();
+
+                }
+                foreach (var wwul in WWYL)
+                {
+                    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
+                    CourseLearning courLearn = new CourseLearning();
+                    courLearn.CourseId = result1.CourseId;
+                    courLearn.Description = Wwul.Description;
+                    Db.CourseLearnings.Add(Wwul);
+                    Db.SaveChanges();
+
+                }
+
+
+            }
+
+            return RedirectToAction("AddCourse");
+        }
+
+
+
+
 
     }
 }
