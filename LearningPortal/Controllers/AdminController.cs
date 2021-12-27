@@ -1270,7 +1270,7 @@ namespace LearningPortal.Controllers
         {
 
             var result = Db.Courses.Where(x=>x.CourseName==CourseName).SingleOrDefault();
-            //coursepic = coursepic.Substring("/assets/image/");
+            coursepic = coursepic.Substring(15);
             Courses obj = new Courses();
             if (result == null)
             {
