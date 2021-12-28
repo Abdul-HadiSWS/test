@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.IO;
 using System.IO.Compression;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace LearningPortal.Controllers
 {
@@ -25,7 +26,7 @@ namespace LearningPortal.Controllers
                     Image fp = Image.FromStream(files.InputStream);
                     if (fp.Width % fp.Height == 0)
                     {
-                        if (folder=="category")
+                        if (folder == "category")
                         {
                             string path = Path.Combine(Server.MapPath("~/assets/images/categories"), Path.GetFileName(files.FileName));
                             files.SaveAs(path);
@@ -35,7 +36,7 @@ namespace LearningPortal.Controllers
                             string path = Path.Combine(Server.MapPath("~/assets/images/Subcategories"), Path.GetFileName(files.FileName));
                             files.SaveAs(path);
                         }
-                        
+
                     }
                 }
             }
@@ -63,23 +64,23 @@ namespace LearningPortal.Controllers
             return View();
         }
         //course start//
-        
+
         public ActionResult AddCourse(string cid, string scid)
         {
-            if (cid == null || scid==null)
+            if (cid == null || scid == null)
             {
                 return View();
             }
-            
+
             cid = cid.Replace('!', '+');
             cid = cid.Replace('%', 'a');
             var dec = helpper.Decrypto(cid.Replace('$', '/'));
-           
+
             scid = scid.Replace('!', '+');
             scid = scid.Replace('%', 'a');
             var decsc = helpper.Decrypto(scid.Replace('$', '/'));
 
-            if (decsc == "" || dec=="")
+            if (decsc == "" || dec == "")
             {
                 return RedirectToAction("Error404A", "Error");
             }
@@ -88,13 +89,13 @@ namespace LearningPortal.Controllers
                 int caid = Convert.ToInt32(dec);
                 int scaid = Convert.ToInt32(decsc);
                 ViewBag.CategoryId = caid;
-                    ViewBag.SubCategoryId = scaid;
-                    return View();
-                
+                ViewBag.SubCategoryId = scaid;
+                return View();
+
             }
-            
+
         }
-       
+
         [HttpPost]
         public PartialViewResult CourseList(int? catid, int? subcatid, string tag, bool check)
         {
@@ -153,7 +154,7 @@ namespace LearningPortal.Controllers
         {
             List<Categories> categories = Db.Categories.SqlQuery("SELECT * FROM Categories where IsActive='true' ORDER BY Time DESC").ToList();
             ViewBag.CateogryList = new SelectList(categories, "CategoryId", "CategoryName");
-            if (catid!=null && subcatid!=null)
+            if (catid != null && subcatid != null)
             {
                 ViewBag.CategoryId = catid;
                 ViewBag.SubCategoryId = subcatid;
@@ -162,8 +163,8 @@ namespace LearningPortal.Controllers
                 return PartialView();
 
             }
-            else 
-            { 
+            else
+            {
                 //List<Categories> categories = Db.Categories.SqlQuery("SELECT * FROM Categories where IsActive='true' ORDER BY Time DESC").ToList();
                 //ViewBag.CateogryList = new SelectList(categories, "CategoryId", "CategoryName");
                 // Session["Menu"] = ls;
@@ -177,7 +178,7 @@ namespace LearningPortal.Controllers
             ViewBag.SubCatList = new SelectList(subCat, "SubCategoryId", "SubCategoryName");
             return Json(subCat, JsonRequestBehavior.AllowGet);
         }
-        
+
         public PartialViewResult DeleCourse(int? Catid)
         {
             var cid = Catid;
@@ -205,8 +206,8 @@ namespace LearningPortal.Controllers
 
 
         }
-        
-       
+
+
 
         public JsonResult MarkFeatureCourse(int? Cid)
         {
@@ -251,18 +252,19 @@ namespace LearningPortal.Controllers
             {
                 int cid = Convert.ToInt32(decsc);
                 var cour = Db.Courses.Where(x => x.CourseId == cid).ToList();
-               
+
                 return View(cour);
             }
         }
 
-        
+
 
         //course end//
 
         //category start//
         [HttpGet]
-        public ActionResult AddCategory() {
+        public ActionResult AddCategory()
+        {
             return View();
         }
         [HttpPost]
@@ -271,18 +273,18 @@ namespace LearningPortal.Controllers
             //var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryName= '" + SubCatname + "'").SingleOrDefault();
             var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryName= '" + Catname + "'").SingleOrDefault();
 
-                if (check == null)
-                {
-                    Categories objCat = new Categories();
-                    objCat.CategoryName = Catname;
-                    objCat.Image = uploadImage(files,"category");
-                    objCat.Time = DateTime.Now;
-                    objCat.IsActive = true;
+            if (check == null)
+            {
+                Categories objCat = new Categories();
+                objCat.CategoryName = Catname;
+                objCat.Image = uploadImage(files, "category");
+                objCat.Time = DateTime.Now;
+                objCat.IsActive = true;
 
 
-                    Db.Categories.Add(objCat);
-                    Db.SaveChanges();
-                }
+                Db.Categories.Add(objCat);
+                Db.SaveChanges();
+            }
             else
             {
                 check.IsActive = true;
@@ -313,13 +315,13 @@ namespace LearningPortal.Controllers
             bool result = false;
             //var defaultCatId = Db.Categories.Where(x => x.CategoryName == "Miscellaneous").SingleOrDefault();
             //int id = defaultCatId.CategoryId;
-            if (Cid== DefaultId)
+            if (Cid == DefaultId)
             {
                 result = false;
             }
             else
             {
-             var cat = Db.Categories.Where(p => p.CategoryId == Cid).SingleOrDefault();
+                var cat = Db.Categories.Where(p => p.CategoryId == Cid).SingleOrDefault();
                 if (cat != null)
                 {
                     cat.IsActive = false;
@@ -450,7 +452,7 @@ namespace LearningPortal.Controllers
             else
             {
                 check.IsActive = true;
-                check.Image= uploadImage(files, "subcategory");
+                check.Image = uploadImage(files, "subcategory");
                 Db.SaveChanges();
 
             }
@@ -478,7 +480,7 @@ namespace LearningPortal.Controllers
             else
             {
                 int cid = Convert.ToInt32(decsc);
-                var catt = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where   CategoryId ="+ cid+ " and  IsActive='true' ORDER BY Time DESC").ToList();
+                var catt = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where   CategoryId =" + cid + " and  IsActive='true' ORDER BY Time DESC").ToList();
                 ViewBag.CAtId = cid;
                 var countc = Db.Courses.SqlQuery("Select * from courses").ToList();
                 foreach (var item in countc)
@@ -493,9 +495,9 @@ namespace LearningPortal.Controllers
         public JsonResult DeleteSubCat(int? SubCatid, int? DefaultId)
         {
             bool result = false;
-            
-            
-           
+
+
+
             if (SubCatid == DefaultId)
             {
                 result = false;
@@ -506,7 +508,7 @@ namespace LearningPortal.Controllers
                 if (cat != null)
                 {
                     cat.IsActive = false;
-                   
+
                     Db.SaveChanges();
                     result = true;
                     var subcat = Db.Courses.Where(s => s.SubCategoryId == SubCatid).ToList();
@@ -554,17 +556,17 @@ namespace LearningPortal.Controllers
             string subcname = subcatName;
             if (subcatImage != null)
             {
-                            //var result = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubcatagoriesId = " + subcatId+ "").ToList();
-                            var result = Db.SubCategories.SingleOrDefault(b => b.SubCategoryId == subcatId);
-                            if (result.SubCategoryId == subcatId)
-                            {
-                                result.SubCategoryName = subcname;
-                                result.Image = uploadImage(subcatImage, "subcategory"); ;
-                                result.Time = result.Time;
-                                result.IsActive = true;
-                                Db.SaveChanges();
-                            }                    
-                        }
+                //var result = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubcatagoriesId = " + subcatId+ "").ToList();
+                var result = Db.SubCategories.SingleOrDefault(b => b.SubCategoryId == subcatId);
+                if (result.SubCategoryId == subcatId)
+                {
+                    result.SubCategoryName = subcname;
+                    result.Image = uploadImage(subcatImage, "subcategory"); ;
+                    result.Time = result.Time;
+                    result.IsActive = true;
+                    Db.SaveChanges();
+                }
+            }
             else
             {
                 var result = Db.SubCategories.SingleOrDefault(b => b.SubCategoryId == subcatId);
@@ -589,7 +591,7 @@ namespace LearningPortal.Controllers
 
 
 
-        
+
         public ActionResult CourseEdit()
         {
 
@@ -652,7 +654,7 @@ namespace LearningPortal.Controllers
                 }
                 // files.SaveAs(filename);
                 //ViewBag.success = "File Uloaded";
-             
+
 
                 return Json("File Uploaded");
             }
@@ -717,7 +719,7 @@ namespace LearningPortal.Controllers
                         string path = Path.Combine(Server.MapPath("~/assets/images"), Path.GetFileName(files.FileName));
                         files.SaveAs(path);
                         //TBimage = "/assets/images/" + filen;
-                        ViewBag.ImageUrl = "/assets/images/"+Path.GetFileName(files.FileName);
+                        ViewBag.ImageUrl = "/assets/images/" + Path.GetFileName(files.FileName);
                         ViewBag.SplitImage = Path.GetFileName(files.FileName);
                         return Json(ViewBag.ImageUrl);
                     }
@@ -767,30 +769,30 @@ namespace LearningPortal.Controllers
                             {
                                 //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
 
-                                        HttpPostedFileBase file = files[i];
-                                   
-                                         var extension = Path.GetExtension(file.FileName);
-                                        string filename = Path.GetFileName(file.FileName);
-                                        //string Filefoldername = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}/", rootfolder, sectionfolder, filename));
-                                        string _path = Path.Combine(Server.MapPath(string.Format("~/assets/videos/{0}/{1}", rootfolder, sectionfolder)), filename);
+                                HttpPostedFileBase file = files[i];
 
-                                       
-                                     
+                                var extension = Path.GetExtension(file.FileName);
+                                string filename = Path.GetFileName(file.FileName);
+                                //string Filefoldername = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}/", rootfolder, sectionfolder, filename));
+                                string _path = Path.Combine(Server.MapPath(string.Format("~/assets/videos/{0}/{1}", rootfolder, sectionfolder)), filename);
 
-                                         file.SaveAs(_path);
-                                               
-                                   
-                                      
-                               
-                                    //string Filefoldername = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}/", rootfolder, sectionfolder, filename));
-                                  
+
+
+
+                                file.SaveAs(_path);
+
+
+
+
+                                //string Filefoldername = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}/", rootfolder, sectionfolder, filename));
+
 
                             }
 
 
 
                             //Directory.CreateDirectory(Filename);
-                             return Json("File Upload Successfully!"); 
+                            return Json("File Upload Successfully!");
                         }
                         else
                         {
@@ -805,7 +807,7 @@ namespace LearningPortal.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Json("File Upload Failed! "+ex.Message);
+                    return Json("File Upload Failed! " + ex.Message);
                 }
             }
             else
@@ -921,7 +923,7 @@ namespace LearningPortal.Controllers
         [HttpGet]
         public ActionResult CourseOutline()
         {
-            
+
             string rootfoldername = root;
             ViewBag.Placeholder = rootfoldername;
             string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
@@ -986,11 +988,11 @@ namespace LearningPortal.Controllers
         public PartialViewResult TagManager(string iTag)
         {
             //var check = Db.TagManager.SqlQuery("SELECT * FROM TagManagers where TagName=" + model).ToList();
-           
-            
+
+
             var check = Db.TagManager.Where(x => x.TagName == iTag).SingleOrDefault();
 
-            
+
             if (iTag == "removessws101")
             {
 
@@ -1158,7 +1160,7 @@ namespace LearningPortal.Controllers
             return RedirectToAction("CourseOutline", "Admin");
         }
         [HttpPost]
-        public ActionResult EditSubName(string newname, string oldname ,string editfile)
+        public ActionResult EditSubName(string newname, string oldname, string editfile)
         {
             if (editfile == "")
             {
@@ -1178,7 +1180,8 @@ namespace LearningPortal.Controllers
                 }
                 return Json("Successfully Edit SectionName");
             }
-            else{
+            else
+            {
                 string filen = oldname;
                 int lastindex = filen.IndexOf('.');
 
@@ -1188,13 +1191,13 @@ namespace LearningPortal.Controllers
 
 
                 string folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, editfile));
-              
+
                 // Ensure the source directory exists
                 if (Directory.Exists(folder))
                 {
-                      folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile,oldname));
+                    folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile, oldname));
 
-                      string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile, newname));
+                    string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile, newname));
 
                     // Ensure the destination directory doesn't already exist
 
@@ -1244,9 +1247,9 @@ namespace LearningPortal.Controllers
             string ext = Path.GetExtension(Video);
             ext = "video/" + ext.Replace(".", "");
             string src = string.Format("{0}/{1}/{2}", mainFolder, SubFolder, Video);
-            
-            
-            
+
+
+
             ViewBag.Src = src;
             ViewBag.type = ext;
             return PartialView();
@@ -1265,17 +1268,20 @@ namespace LearningPortal.Controllers
 
             return View();
         }
-        
-        public ActionResult InsertCourse(string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic , string[] sectionnamedata)
-        {
 
-            var result = Db.Courses.Where(x=>x.CourseName==CourseName).SingleOrDefault();
+        public ActionResult InsertCourse(string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string sectionnamedata, string sectionfiledata, string sectionfileduration)
+        {
+            string[] sectionName = JsonConvert.DeserializeObject<string[]>(sectionnamedata);
+            string[][] sectionMediaName = JsonConvert.DeserializeObject<string[][]>(sectionfiledata);
+            string[][] sectionMediaTime = JsonConvert.DeserializeObject<string[][]>(sectionfileduration);
+
+            var result = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
             coursepic = coursepic.Substring(15);
             Courses obj = new Courses();
             if (result == null)
             {
 
-                obj.CourseName=CourseName;
+                obj.CourseName = CourseName;
                 obj.Description = CourseDesc;
                 obj.Year = courseYear;
                 obj.Levels = courseLevel;
@@ -1303,26 +1309,89 @@ namespace LearningPortal.Controllers
                     Db.SaveChanges();
 
                 }
-                foreach (var wwul in WWYL)
+                //foreach (var wwul in WWYL)
+                //{
+                //    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
+                //    CourseLearning courLearn = new CourseLearning();
+                //    courLearn.CourseId = result1.CourseId;
+                //    courLearn.Description = Wwul.Description;
+                //    Db.CourseLearnings.Add(Wwul);
+                //    Db.SaveChanges();
+
+                //}
+                int countoutside = 0;
+                foreach (var item in sectionName)
                 {
-                    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
-                    CourseLearning courLearn = new CourseLearning();
-                    courLearn.CourseId = result1.CourseId;
-                    courLearn.Description = Wwul.Description;
-                    Db.CourseLearnings.Add(Wwul);
+                    var name = item;
+                    Section sec = new Section();
+                    sec.SectionName = item;
+                    sec.CourseId = result1.CourseId;
+                    Db.Sections.Add(sec);
                     Db.SaveChanges();
 
+                    var section = Db.Sections.Where(x => x.SectionName == item && x.CourseId == result1.CourseId).SingleOrDefault();
+
+
+                   
+                 
+                   int countinside=0;
+                    foreach (var item1 in sectionMediaName[countoutside])
+                    {
+                      
+
+                        string sectionmedianame = item1;
+                        string duration = sectionMediaTime[countoutside][countinside];
+                        double seconds = TimeSpan.Parse(duration).TotalSeconds;
+
+
+                        SectionMedia sectionMedia = new SectionMedia();
+                        sectionMedia.VideoTitle = sectionmedianame;
+                        sectionMedia.Videotype = "video/mp4";
+                        sectionMedia.VideoUrl = sectionmedianame;
+                        sectionMedia.SectionId = section.SectionId;
+                        sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+
+                        Db.SectionMedia.Add(sectionMedia);
+                        Db.SaveChanges();
+                        countinside++;
+                        /*
+                        countinside = 0;
+                        foreach (var item2 in item1)
+                        {
+                            string sectionmedianame = item2;
+                            string duration = sectionMediaTime[countoutside][countinside];
+                            double seconds = TimeSpan.Parse(duration).TotalSeconds;
+                            
+
+                            SectionMedia sectionMedia = new SectionMedia();
+                            sectionMedia.VideoTitle = sectionmedianame;
+                            sectionMedia.Videotype = "video/mp4";
+                            sectionMedia.VideoUrl = sectionmedianame;
+                            sectionMedia.SectionId = section.SectionId;
+                            sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+
+                            Db.SectionMedia.Add(sectionMedia);
+                            Db.SaveChanges();
+                            countinside++;
+                        }
+                        countoutside++;
+
+                        */
+                    }
+
+
+                    countoutside++;
                 }
 
-
+                return RedirectToAction("AddCourse");
             }
 
+
             return RedirectToAction("AddCourse");
+
         }
-
-
-
-
-
+    
+    
     }
+   
 }

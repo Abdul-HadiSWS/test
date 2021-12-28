@@ -706,9 +706,9 @@
             sectionfileduration.push(sectionfileduration1);
         }
 
-        console.log(sectionnamedata);
-        console.log(sectionfiledata);
-        console.log(sectionfileduration);
+        //console.log(sectionnamedata);
+        //console.log(sectionfiledata);
+        //console.log(sectionfileduration);
 
 
         var CourseName = $("#CourseTitle").val();
@@ -734,14 +734,17 @@
                     subcategoryId: subcategoryId,
                     courseLevel: courseLevel,
                     coursepic: coursepic,
-                    sectionnamedata: sectionnamedata
+                    sectionnamedata: JSON.stringify(sectionnamedata),
+                    sectionfiledata: JSON.stringify(sectionfiledata),
+                    sectionfileduration: JSON.stringify(sectionfileduration)
                
 
                 },
                 success: function (result) {
 
+                   
 
-
+                    window.location.href = '/Admin/AddCourse';
 
                 },
                 error: function (err) {
