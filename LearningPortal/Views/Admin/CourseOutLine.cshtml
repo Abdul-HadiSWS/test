@@ -24,8 +24,10 @@
 
                 <!--Headings-->
                 <hr />
-                <span class="display-toggle"><i class="material-icons">arrow_drop_up</i></span>
-                <div class="nestable-content">
+                <span class="display-toggle">
+                    <i class="material-icons" style="background: #39444d;color: white;border-radius: 50%;">arrow_drop_up</i>
+                </span>
+                <div class="nestable-content bg-light">
 
                     <div class="media-body" id="Nested_Card">
 
@@ -76,7 +78,7 @@
                 <!--SubList-->
 
                 var sc = h.Replace(" ", string.Empty) + "sws";
-                <ul class="ascaq @sc" id="@sc">
+                <ul class="ascaq list-unstyled @sc" id="@sc">
                     <li>
                         @foreach (var val in ViewBag.PData[count])
                         {
@@ -104,7 +106,11 @@
 
 
 
-                                                            <div class="ddd">
+                                                            <div class="ddd" style="
+                                                                position: absolute;
+                                                                top: 15px;
+                                                                right: 140px;
+                                                            ">
                                                                 @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension }); }
 
                                                             </div>
@@ -148,6 +154,7 @@
 
         @{ if (ViewBag.PData.Count > 0)
             {
+                <hr />
                 <div id="apnd_div">
 
                     <button class="btn btn-primary" type="submit" id="AddSecBtn"><i class="material-icons">control_point</i>Upload Course</button>

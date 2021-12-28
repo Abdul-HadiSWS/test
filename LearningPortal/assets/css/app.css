@@ -24930,7 +24930,7 @@ a.text-dark:focus, a.text-dark:hover {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 256px;
+    width: 200px;
     transition: transform .2s ease;
     background-color: #fff;
     left: 0;
@@ -24991,7 +24991,7 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
     .mdk-drawer-layout .mdk-drawer[data-persistent] {
-        width: 256px
+        width: 200px
     }
 
         .mdk-drawer-layout .mdk-drawer[data-persistent][data-position=left] {

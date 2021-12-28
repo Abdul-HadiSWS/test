@@ -55,7 +55,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary  tagremove" style="color: white; width: 10%;height: 20%;">@item  </button>
+                                <button class="badge rounded-pill bg-primary  tagremove" style="color: white; width: auto;height: 20%;">@item  </button>
 
                             }
                         </div>
@@ -63,60 +63,30 @@
                 </div>
             </div>
 
-
-
-
-            <div class="card">
-                <h1>Test WWYL</h1>
-                @foreach (var item in @ViewBag.WWYL)
-                {
-
-                    <h3>@item</h3>
-                }
-                <h2>@ViewBag.CourseTitle</h2>
-                <h3>@ViewBag.CourseDescription</h3>
-            </div>
-
-
-
         </div>
         <div class="col-md-4">
 
             <!-- Image Upload And Preview Start-->
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="media align-items-center">
-
+                    <div class="d-flex justify-content-center" style="height:200px">
                         <input type="hidden" value="@ViewBag.SplitImage" id="coursep" />
                         @if (ViewBag.ImageUrl != null)
                         {
-                            <div class="media-left">
-
-                                <img alt="Uploaded Image" src="~/assets/images/@ViewBag.ImageUrl" />
-                            </div>
+                            <img alt="Uploaded Image" src="~/assets/images/@ViewBag.ImageUrl" />
                         }
                         else
                         {
-                            <div class="media-left">
-                                <input type="hidden" value="@ViewBag.ImageUrl" id="coursepic1" />
-                                <img src="~/assets/images/vuejs.png"
-                                     alt=""
-                                     width="100%"
-                                     class="rounded"
-                                     id="coursepic">
-                            </div>
+                            <input type="hidden" value="@ViewBag.ImageUrl" id="coursepic1" />
+                            <img src="~/assets/images/default.png" id="coursepic">
                         }
-
-
-
-
                     </div>
                             <div class="page-separator">
                                 <div class="page-separator__text"></div>
                             </div>
                             <div class="media-body">
                                 <div class="custom-file"
-                                     style="width: auto;">
+                                     >
 
 
                                     <form method="Post" class="courseimageupload">
@@ -126,6 +96,7 @@
 
                                         <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons">add</i>Add Logo</button>
                                     </form>
+                                    
                                 </div>
 
 
@@ -148,22 +119,22 @@
             <!--DropDowns start-->
             
             <div class="card">
-                <div class="card m-3">
-                    <input type="text" value="" id="courseYear" placeholder=" Add Course Year" required style="border:thin" />
-                </div>
-                <div class="card m-3">
+               <div class="m-3">
+                    <input type="text" class="form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />
+               
                     <select id="courseLevel"
-                            class="custom-select form-control" required>
+                            class="custom-select form-control mb-3" required>
                         <option value="">Add Course Level</option>
                         <option value="Easy">Easy</option>
                         <option value="Medium">Medium</option>
                         <option value="Hard">Hard</option>
                     </select>
-                </div> 
-                <div class="card m-3">
                     @Html.Action("DDCatSub", "Admin")
-                </div>
-                </div>
+                </div> 
+                @*<div class="card mx-3 border-0 my-0">
+                    @Html.Action("DDCatSub", "Admin")
+                </div>*@
+             </div>
                 <!--DropDowns End-->
                 <!--What I`ll You Learn start-->
                 <div class="card">

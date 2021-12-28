@@ -5,13 +5,13 @@
     if (ViewBag.CateogryList != null)
     {
 
-        @Html.DropDownListFor(m => m.CategoryId, ViewBag.CateogryList as SelectList, "Choose Category", new { @class = "form-control1"  })
-        <br />
+        @Html.DropDownListFor(m => m.CategoryId, ViewBag.CateogryList as SelectList, "Choose Category", new { @class = "form-control1 custom-select mb-3" })
+        
     }
 
-    @Html.DropDownListFor(m => m.SubCategoryId, new SelectList(" "), "Choose SubCategory", new { @class = "form-control1" })
+    @Html.DropDownListFor(m => m.SubCategoryId, new SelectList(" "), "Choose SubCategory", new { @class = "form-control1 custom-select" })
 }
-<br />
+
 
 <script src="~/assets/vendor/jquery.min.js"></script>
 

@@ -1300,25 +1300,25 @@ namespace LearningPortal.Controllers
                 {
 
                     var check = Db.TagManager.Where(x => x.TagName == item).SingleOrDefault();
-
+                        
                     CourseTag courseTag = new CourseTag();
                     courseTag.TagId = check.TagId;
                     courseTag.CourseId = result1.CourseId;
 
                     Db.CourseTag.Add(courseTag);
                     Db.SaveChanges();
-
+                    Tags.Clear();
                 }
-                //foreach (var wwul in WWYL)
-                //{
-                //    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
-                //    CourseLearning courLearn = new CourseLearning();
-                //    courLearn.CourseId = result1.CourseId;
-                //    courLearn.Description = Wwul.Description;
-                //    Db.CourseLearnings.Add(Wwul);
-                //    Db.SaveChanges();
-
-                //}
+                foreach (var wwul in WWYL)
+                {
+                    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
+                    CourseLearning courLearn = new CourseLearning();
+                    courLearn.CourseId = result1.CourseId;
+                    courLearn.Description = wwul;
+                    Db.CourseLearnings.Add(courLearn);
+                    Db.SaveChanges();
+                    WWYL.Clear();
+                }
                 int countoutside = 0;
                 foreach (var item in sectionName)
                 {
@@ -1330,68 +1330,35 @@ namespace LearningPortal.Controllers
                     Db.SaveChanges();
 
                     var section = Db.Sections.Where(x => x.SectionName == item && x.CourseId == result1.CourseId).SingleOrDefault();
-
-
-                   
-                 
-                   int countinside=0;
+                    int countinside=0;
                     foreach (var item1 in sectionMediaName[countoutside])
                     {
                       
 
                         string sectionmedianame = item1;
                         string duration = sectionMediaTime[countoutside][countinside];
+                        //string output = Convert.ToDateTime(duration).ToString("yyyy-MM-dd");
                         double seconds = TimeSpan.Parse(duration).TotalSeconds;
-
-
                         SectionMedia sectionMedia = new SectionMedia();
                         sectionMedia.VideoTitle = sectionmedianame;
                         sectionMedia.Videotype = "video/mp4";
                         sectionMedia.VideoUrl = sectionmedianame;
                         sectionMedia.SectionId = section.SectionId;
                         sectionMedia.VideoDuration = Convert.ToInt32(seconds);
-
                         Db.SectionMedia.Add(sectionMedia);
                         Db.SaveChanges();
                         countinside++;
-                        /*
-                        countinside = 0;
-                        foreach (var item2 in item1)
-                        {
-                            string sectionmedianame = item2;
-                            string duration = sectionMediaTime[countoutside][countinside];
-                            double seconds = TimeSpan.Parse(duration).TotalSeconds;
-                            
-
-                            SectionMedia sectionMedia = new SectionMedia();
-                            sectionMedia.VideoTitle = sectionmedianame;
-                            sectionMedia.Videotype = "video/mp4";
-                            sectionMedia.VideoUrl = sectionmedianame;
-                            sectionMedia.SectionId = section.SectionId;
-                            sectionMedia.VideoDuration = Convert.ToInt32(seconds);
-
-                            Db.SectionMedia.Add(sectionMedia);
-                            Db.SaveChanges();
-                            countinside++;
-                        }
-                        countoutside++;
-
-                        */
                     }
-
-
                     countoutside++;
                 }
-
+                root = "";
                 return RedirectToAction("AddCourse");
             }
-
-
             return RedirectToAction("AddCourse");
-
         }
+        
+        
     
     
-    }
-   
+    } 
 }
