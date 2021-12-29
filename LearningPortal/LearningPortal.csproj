@@ -227,6 +227,7 @@
     <Content Include="assets\css\quill.css" />
     <Content Include="assets\css\sweetalert.css" />
     <Content Include="assets\css\videojs.css" />
+    <Content Include="assets\css\yearpicker.css" />
     <Content Include="assets\data\vector-maps\custom\jquery-jvectormap-de-merc-en.js" />
     <Content Include="assets\data\vector-maps\custom\jquery-jvectormap-es-merc-en.js" />
     <Content Include="assets\data\vector-maps\custom\jquery-jvectormap-fr-merc-en.js" />
@@ -367,6 +368,7 @@
     <Content Include="assets\js\toggle-check-all.js" />
     <Content Include="assets\js\touchspin.js" />
     <Content Include="assets\js\vector-maps.js" />
+    <Content Include="assets\js\yearpicker.js" />
     <Content Include="assets\vendor\bootstrap.min.js" />
     <Content Include="assets\vendor\Chart.min.js" />
     <Content Include="assets\vendor\dom-factory.common.js" />
@@ -536,9 +538,11 @@
     <Content Include="Views\Admin\AddDesc.cshtml" />
     <Content Include="Views\Admin\VideoModal.cshtml" />
     <Content Include="Views\Admin\gettime.cshtml" />
+    <Content Include="Views\Admin\CourseOutlineEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

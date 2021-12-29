@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Drawing;
 using Newtonsoft.Json;
+using System.Data.Entity;
 
 namespace LearningPortal.Controllers
 {
@@ -232,31 +233,6 @@ namespace LearningPortal.Controllers
 
 
         }
-
-        public ActionResult CourseUpdate(string id)
-        {
-            if (id == null)
-            {
-                return View("Error404", "Error");
-            }
-            string tempid = id;
-            id = id.Replace('!', '+');
-            id = id.Replace('%', 'a');
-            var decsc = helpper.Decrypto(id.Replace('$', '/'));
-
-            if (decsc == "")
-            {
-                return RedirectToAction("ErrorSC", "Error");
-            }
-            else
-            {
-                int cid = Convert.ToInt32(decsc);
-                var cour = Db.Courses.Where(x => x.CourseId == cid).ToList();
-
-                return View(cour);
-            }
-        }
-
 
 
         //course end//
@@ -607,6 +583,501 @@ namespace LearningPortal.Controllers
         }
 
 
+
+
+        [HttpGet]
+        public ActionResult CourseOutline()
+        {
+            List<string> Files = new List<string>();
+            List<List<string>> data = new List<List<string>>();
+
+            string rootfoldername = root;
+            ViewBag.Placeholder = rootfoldername;
+
+            if (root == null)
+            {
+                data.Clear();
+                Files.Clear();
+            }
+            else
+            {
+                string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
+
+            
+
+                if (Directory.Exists(folder))
+                {
+                    /* Section Name*/
+                    string[] Filespath = Directory.GetDirectories(folder);
+
+
+
+                    foreach (string filePath in Filespath)
+                    {
+                        Files.Add(Path.GetFileName(filePath));
+                    }
+
+
+                    /* Section File*/
+                    for (int i = 0; i < Files.Count; i++)
+                    { // Loop through List with for
+
+                        List<string> data1 = new List<string>();
+
+
+
+                        Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", rootfoldername, Files[i])));
+
+
+
+                        foreach (string filePath in Filespath)
+                        {
+                            string filen = Path.GetFileName(filePath);
+                            int lastindex = filen.IndexOf('.');
+
+                            data1.Add(filen.ToString());
+
+                        }
+                        data.Add(data1);
+
+                    }
+
+                    ViewBag.PData = data;
+                    ViewBag.QData = Files;
+
+                }
+                else
+                {
+
+                }
+            }
+         
+            ViewBag.PData = data;
+            ViewBag.QData = Files;
+            return PartialView();
+        }
+
+
+        public void deletedirectory(string root, string head)
+        {
+
+            string rootfolder = Server.MapPath(string.Format("~/assets/{0}/{1}", head, root));
+
+
+            if (Directory.Exists(rootfolder))
+            {
+                List<string> Files = new List<string>();
+
+                string[] Filespath = Directory.GetDirectories(rootfolder);
+                foreach (string filePath in Filespath)
+                {
+                    Files.Add(Path.GetFileName(filePath));
+
+                }
+
+                for (int i = 0; i < Files.Count; i++)
+                { // Loop through List with for
+
+
+
+
+
+                    string sectiond= Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/", head, root, Files[i]));
+
+
+                    string[] Filenames = Directory.GetFiles(sectiond);
+                    foreach (var item in Filenames)
+                    {
+                        System.IO.File.Delete(item);
+                    }
+
+                    Directory.Delete(sectiond);
+
+
+
+                }
+
+            }
+
+
+
+            Directory.Delete(rootfolder);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        public void copydirectory(string source,string destination,string root)
+        {
+
+            string rootfolder = Server.MapPath(string.Format("~/assets/{0}/{1}",source, root));
+
+
+
+
+
+            if (Directory.Exists(rootfolder))
+            {
+                List<string> Files = new List<string>();
+                string temphead = Server.MapPath(string.Format("~/assets/{0}/",destination));
+
+
+                if (!Directory.Exists(temphead))
+                {
+
+                    Directory.CreateDirectory(temphead);
+
+                }
+
+                string temproot = Server.MapPath(string.Format("~/assets/{0}/{1}/", destination,root));
+
+
+                if (!Directory.Exists(temproot))
+                {
+
+                    Directory.CreateDirectory(temproot);
+
+                }
+                else
+                {
+
+                       deletedirectory(root, destination);
+                       
+                      Directory.CreateDirectory(temproot);
+                    //Directory.Delete(temproot);
+                }
+
+
+
+                string[] Filespath = Directory.GetDirectories(rootfolder);
+                foreach (string filePath in Filespath)
+                {
+                    string tempsection = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}",destination,root, Path.GetFileName(filePath)));
+                   /* if (Directory.Exists(tempsection))
+                    {
+
+                        string[] Filenames = Directory.GetFiles(tempsection);
+                        foreach (var item in Filenames)
+                        {
+                            System.IO.File.Delete(item);
+                        }
+
+                    }
+                    else
+                    {
+                       
+
+                    }*/
+
+                    Directory.CreateDirectory(tempsection);
+                    Files.Add(Path.GetFileName(filePath));
+
+                }
+
+                for (int i = 0; i < Files.Count; i++)
+                { // Loop through List with for
+
+
+
+
+
+
+
+
+                    Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/",source, root, Files[i])));
+
+
+                    foreach (string filePath in Filespath)
+                    {
+
+                        string filen = Path.GetFileName(filePath);
+
+
+                        var destpath = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/{3}",destination, root, Files[i], filen));
+
+                        System.IO.File.Copy(filePath, destpath);
+
+
+
+
+
+                    }
+
+
+
+                }
+            }
+
+        }
+
+        public ActionResult CourseUpdate(string id)
+        {
+            if (id == null)
+            {
+                return View("Error404", "Error");
+            }
+            string tempid = id;
+            id = id.Replace('!', '+');
+            id = id.Replace('%', 'a');
+            var decsc = helpper.Decrypto(id.Replace('$', '/'));
+
+            if (decsc == "")
+            {
+                return RedirectToAction("ErrorSC", "Error");
+            }
+            else
+            {
+                int cid = Convert.ToInt32(decsc);
+                var cour = Db.Courses.Find(cid);
+
+                var Learning = Db.CourseLearnings.Where(x => x.CourseId == cid).ToList();
+                var tg = Db.CourseTag.Where(x => x.CourseId == cid).ToList();
+
+                string WWL = "";
+                foreach (var item in Learning)
+                {
+                    WWL += item.Description + "," + "\n";
+                }
+
+
+
+                Tags.Clear();
+                foreach (var item in tg)
+                {
+                    Tags.Add(item.TagManager.TagName);
+                }
+
+                ViewBag.Span = Tags;
+                ViewBag.WWYLU = WWL;
+                root = cour.CourseName;
+                ViewBag.Placeholder = root;
+
+                copydirectory("videos", "temp",root);
+              
+                return View(cour);
+            }
+        }
+        
+
+        [HttpGet]
+        public ActionResult CourseOutlineEdit()
+        {
+            string rootfoldername = root;
+            string folder = Server.MapPath(string.Format("~/assets/temp/{0}/", rootfoldername));
+
+            List<string> Files = new List<string>();
+            List<List<string>> data = new List<List<string>>();
+
+
+            if (Directory.Exists(folder))
+            {
+                /* Section Name*/
+                string[] Filespath = Directory.GetDirectories(folder);
+
+
+
+                foreach (string filePath in Filespath)
+                {
+                    Files.Add(Path.GetFileName(filePath));
+                }
+
+
+                /* Section File*/
+                for (int i = 0; i < Files.Count; i++)
+                { // Loop through List with for
+
+                    List<string> data1 = new List<string>();
+
+
+
+                    Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/temp/{0}/{1}/", rootfoldername, Files[i])));
+
+
+
+                    foreach (string filePath in Filespath)
+                    {
+                        string filen = Path.GetFileName(filePath);
+                        int lastindex = filen.IndexOf('.');
+
+                        data1.Add(filen.ToString());
+
+                    }
+                    data.Add(data1);
+
+                }
+
+                ViewBag.PData = data;
+                ViewBag.QData = Files;
+
+            }
+            else
+            {
+
+            }
+            ViewBag.PData = data;
+            ViewBag.QData = Files;
+            return PartialView();
+        }
+
+
+
+
+        [HttpPost]
+        public ActionResult CourseUpdate(string courseid, string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string sectionnamedata, string sectionfiledata, string sectionfileduration,string a)
+        {
+
+            string[] sectionName = JsonConvert.DeserializeObject<string[]>(sectionnamedata);
+            string[][] sectionMediaName = JsonConvert.DeserializeObject<string[][]>(sectionfiledata);
+            string[][] sectionMediaTime = JsonConvert.DeserializeObject<string[][]>(sectionfileduration);
+
+
+
+            Courses obj = Db.Courses.Find(Convert.ToInt32(courseid));
+            
+          
+            
+            
+            coursepic = coursepic.Substring(15);
+          
+            if (obj != null)
+            {
+
+                obj.CourseName = CourseName;
+                obj.Description = CourseDesc;
+                obj.Year = courseYear;
+                obj.Levels = courseLevel;
+                obj.Image = coursepic;
+                obj.IsFeatured = true;
+                obj.IsActive = true;
+                obj.SubCategoryId = (int)subcategoryId;
+                obj.UploadedDate = DateTime.Now;
+                obj.Time = DateTime.Now;
+                Db.Entry(obj).State = EntityState.Modified;
+                Db.SaveChanges();
+
+                //var result1 = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
+              
+                var totaltag = Db.CourseTag.Where(x => x.CourseId == obj.CourseId ).ToList();
+                foreach (var item in totaltag)
+                {
+                    CourseTag courseTag1 = Db.CourseTag.Find(item.CourseTagId);
+
+                    Db.CourseTag.Remove(courseTag1);
+                    Db.SaveChanges();
+                }
+           
+
+                foreach (var item in Tags)
+                {
+
+                        var check = Db.TagManager.Where(x => x.TagName == item).SingleOrDefault();
+
+                   
+                        CourseTag courseTag = new CourseTag();
+                        courseTag.TagId = check.TagId;
+                        courseTag.CourseId = Convert.ToInt32(courseid);
+                        Db.CourseTag.Add(courseTag);
+                        Db.SaveChanges();
+                   
+
+                   
+                    //Tags.Clear();
+                }
+
+                var totalwwyl = Db.CourseLearnings.Where(x => x.CourseId == obj.CourseId).ToList();
+                foreach (var item1 in totalwwyl)
+                {
+                    CourseLearning courseLearning1 = Db.CourseLearnings.Find(item1.LearnId);
+
+                    Db.CourseLearnings.Remove(courseLearning1);
+                    Db.SaveChanges();
+                }
+
+                foreach (var wwul in WWYL)
+                {
+                    
+                    CourseLearning courLearn = new CourseLearning();
+                    courLearn.CourseId = Convert.ToInt32(courseid);
+                    courLearn.Description = wwul;
+                    Db.CourseLearnings.Add(courLearn);
+                    Db.SaveChanges();
+                    //WWYL.Clear();
+                }
+
+                var totalsection = Db.Sections.Where(x => x.CourseId == obj.CourseId).ToList();
+                foreach (var item1 in totalsection)
+                {
+                    Section sections1 = Db.Sections.Find(item1.SectionId);
+
+                    Db.Sections.Remove(sections1);
+                    Db.SaveChanges();
+                }
+
+
+                int countoutside = 0;
+                foreach (var item2 in sectionName)
+                {
+                    var name = item2;
+                    Section sec = new Section();
+                    sec.SectionName = item2;
+                    sec.CourseId = Convert.ToInt32(courseid);
+                    Db.Sections.Add(sec);
+                    Db.SaveChanges();
+
+                    var section = Db.Sections.Where(x => x.SectionName == item2 && x.CourseId == obj.CourseId).SingleOrDefault();
+                    int countinside = 0;
+                    foreach (var item3 in sectionMediaName[countoutside])
+                    {
+
+
+                        string sectionmedianame = item3;
+                        string duration = sectionMediaTime[countoutside][countinside];
+                        //string output = Convert.ToDateTime(duration).ToString("yyyy-MM-dd");
+                        double seconds = TimeSpan.Parse(duration).TotalSeconds;
+                        SectionMedia sectionMedia = new SectionMedia();
+                        sectionMedia.VideoTitle = sectionmedianame;
+                        sectionMedia.Videotype = "video/mp4";
+                        sectionMedia.VideoUrl = sectionmedianame;
+                        sectionMedia.SectionId = section.SectionId;
+                        sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+                        Db.SectionMedia.Add(sectionMedia);
+                        Db.SaveChanges();
+                        countinside++;
+                    }
+                    countoutside++;
+                }
+
+                
+                copydirectory("temp", "videos", obj.CourseName);
+                root = "";
+                Tags.Clear();
+                WWYL.Clear();
+                data.Clear();
+                Files.Clear();
+
+                ViewBag.PData = null;
+                ViewBag.QData = null;
+                return RedirectToAction("AddCourse");
+            }
+
+           
+            return RedirectToAction("AddCourse");
+
+            
+
+        }
+
+
+
+        /* Upload  Zip*/
         [HttpGet]
         public PartialViewResult CourseUploader()
         {
@@ -615,6 +1086,8 @@ namespace LearningPortal.Controllers
             return PartialView();
         }
 
+
+       
         [HttpPost]
         public ActionResult CourseUploader(HttpPostedFileBase files)
         {
@@ -631,41 +1104,37 @@ namespace LearningPortal.Controllers
                 string fullpath = Server.MapPath("~/assets/videos/");
                 string CompletePath = Path.Combine(filename, fullpath);
 
-
-                using (ZipArchive archive = new ZipArchive(files.InputStream))
+                try
                 {
-                    archive.ExtractToDirectory(CompletePath);
-                    //archive.Dispose();
-                    //foreach (ZipArchiveEntry entry in archive.Entries)
-                    //{
-                    //    if (entry.Name != "")
-                    //    {
-                    //        //data.Add(entry.FullName);
-                    //        //ViewBag.PData = data;
-                    //        if (!Files.Contains(Path.GetDirectoryName(entry.FullName)))
-                    //        {
-                    //            //Files.Add(Path.GetDirectoryName(entry.FullName));
-                    //            //ViewBag.QData = Files;
-                    //        }
-                    //    }
-                    //    //Files.Add(Path.GetDirectoryName(entry.FullName));
-                    //    //ViewBag.QData = Files;
-                    //}
+                    using (ZipArchive archive = new ZipArchive(files.InputStream))
+                    {
+                        archive.ExtractToDirectory(CompletePath);
+                      
+                    }
+                    return Json("File Uploaded");
                 }
+                catch (Exception)
+                {
+
+                    root = null;
+                    return Json("File NAme is already Exist Please Change the name");
+                }
+              
                 // files.SaveAs(filename);
                 //ViewBag.success = "File Uloaded";
 
 
-                return Json("File Uploaded");
+                
             }
 
             return RedirectToAction("CourseEdit");
 
         }
+        /* End Upload  Zip*/
 
 
 
-
+        /* Upload Image*/
 
         [HttpPost]
         public ActionResult CourseFileUploader(HttpPostedFileBase files)
@@ -740,14 +1209,29 @@ namespace LearningPortal.Controllers
 
         }
 
+        /* End Upload Image*/
 
+
+
+
+        /* Upload Videos in  folder*/
         [HttpPost]
-
-
+       
         public ActionResult Uploads()
         {
             string rootfolder = root;
-            string sectionfolder = Request.Form[1];
+            string sectionfolder = Request.Form[0];
+            string start = Request.Form[1].ToString();
+            if (start == "update")
+            {
+                 start = "temp";
+
+            }
+            else
+            {
+                start = "videos";
+            }
+          
 
             if (Request.Files.Count > 0)
             {
@@ -757,10 +1241,10 @@ namespace LearningPortal.Controllers
                     //  Get all files from Request object  
 
 
-                    string rootfoldername = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfolder));
+                    string rootfoldername = Server.MapPath(string.Format("~/assets/{0}/{1}/",start,rootfolder));
                     if (Directory.Exists(rootfoldername))
                     {
-                        string Sectionfoldername = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", rootfolder, sectionfolder));
+                        string Sectionfoldername = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/",start, rootfolder, sectionfolder));
                         if (Directory.Exists(Sectionfoldername))
                         {
 
@@ -774,7 +1258,7 @@ namespace LearningPortal.Controllers
                                 var extension = Path.GetExtension(file.FileName);
                                 string filename = Path.GetFileName(file.FileName);
                                 //string Filefoldername = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}/", rootfolder, sectionfolder, filename));
-                                string _path = Path.Combine(Server.MapPath(string.Format("~/assets/videos/{0}/{1}", rootfolder, sectionfolder)), filename);
+                                string _path = Path.Combine(Server.MapPath(string.Format("~/assets/{0}/{1}/{2}",start, rootfolder, sectionfolder)), filename);
 
 
 
@@ -820,6 +1304,484 @@ namespace LearningPortal.Controllers
 
 
         }
+
+        /* End Upload Videos in  folder*/
+
+
+        /* Create folder*/
+        public ActionResult CreateSection(string SectionName,string check)
+        {
+
+            if (check != "update")
+            {
+                check = "videos";
+            }
+            else
+            {
+                check = "temp";
+            }
+
+
+            string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, root));
+            if (Directory.Exists(folder))
+            {
+                string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/",check, root, SectionName));
+                if (!Directory.Exists(folder1))
+                {
+                    FileExists = "File is created successfully";
+                    Directory.CreateDirectory(folder1);
+                    return Json("Successfully section Created");
+                }
+                else
+                {
+                    FileExists = "File Is Already Exist";
+                    return Json("Already Exist Section Please Change the Name");
+                }
+
+            }
+            FileExists = "File Is Already Exist";
+            return Json("Already Exist Section Please Change the Name");
+        }
+
+        /* End Create folder*/
+
+
+
+        /* Tag Add And Remove*/
+
+
+        [HttpGet]
+        public PartialViewResult TagManager(string iTag)
+        {
+            //var check = Db.TagManager.SqlQuery("SELECT * FROM TagManagers where TagName=" + model).ToList();
+
+
+            var check = Db.TagManager.Where(x => x.TagName == iTag).SingleOrDefault();
+
+
+            if (iTag == "removessws101")
+            {
+
+            }
+            else
+            {
+                if (check == null)
+                {
+                    TagManager objCat = new TagManager();
+                    objCat.TagName = iTag;
+                    Db.TagManager.Add(objCat);
+                    Db.SaveChanges();
+                    Tags.Add(iTag);
+                    ViewBag.Span = Tags;
+                }
+                else
+                {
+                    Tags.Remove(iTag);
+                    Tags.Add(iTag);
+                    ViewBag.Span = Tags;
+                    return PartialView();
+                }
+                //Tags.Add(iTag);
+
+            }
+            ViewBag.Span = Tags;
+            return PartialView();
+        }
+   
+        [HttpGet]
+        public ActionResult TagRemover(string value)
+        {
+            foreach (var item in Tags)
+            {
+                if (value == item)
+                {
+                    Tags.Remove(item);
+                    ViewBag.Span = Tags;
+                    return RedirectToAction("CourseEdit");
+                }
+
+            }
+            ViewBag.Span = Tags;
+            return RedirectToAction("CourseEdit");
+        }
+
+
+
+        /* End Tag Add And Remove*/
+
+
+
+
+
+        public PartialViewResult DDCatSub()
+        {
+            List<Categories> categories = Db.Categories.SqlQuery("SELECT * FROM Categories where IsActive='true' ORDER BY Time DESC").ToList();
+            ViewBag.CateogryList = new SelectList(categories, "CategoryId", "CategoryName");
+            // Session["Menu"] = ls;
+            return PartialView();
+
+        }
+        [HttpGet]
+        public PartialViewResult WWYLearn()
+        {
+
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult WWYLearn(string paragraph, string OrderList, string UnorderedList)
+        {
+
+
+            if (OrderList != "")
+            {
+                string[] array = OrderList.Split(',');
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    WWYL.Add(array[i].ToString());
+                }
+            }
+            else if (paragraph != "")
+            {
+                string[] array = paragraph.Split(',');
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    WWYL.Add(array[i].ToString());
+                }
+            }
+            else if (UnorderedList != "")
+            {
+                string[] array = UnorderedList.Split(',');
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    WWYL.Add(array[i].ToString());
+                }
+            }
+
+
+            return RedirectToAction("CourseEdit");
+        }
+        [HttpGet]
+        public PartialViewResult AddDesc()
+        {
+            ViewBag.Placeholder = root;
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult AddDesc(string CourseTitle, string CourseDescription,string check)
+        {
+            CrsTitle = CourseTitle;
+            CrsDescription = CourseDescription;
+
+            if (check != "update")
+            {
+                check = "videos";
+            }
+            else
+            {
+                check = "temp";
+            }
+
+            string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, root));
+            string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/", check ,CourseTitle));
+            if (!Directory.Exists(folder1))
+            {
+
+                //Directory.CreateDirectory(folder1);
+                Directory.Move(folder, folder1);
+
+                root = CourseTitle;
+                return RedirectToAction("");
+            }
+            return RedirectToAction("");
+        }
+
+
+        [HttpPost]
+
+
+
+
+
+        public ActionResult DeleteDir(string DirName, string Filename,string check)
+        {
+
+            if (check != "update")
+            {
+                check = "videos";
+            }
+            else
+            {
+                check = "temp";
+            }
+
+            if (root == DirName)
+            {
+                string RootDir = Server.MapPath(string.Format("~/assets/{0}/{1}/",check, root));
+                Directory.Delete(RootDir);
+            }
+            else
+            {
+                if (Filename != "")
+                {
+                    string SUBfile = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/{3}", check, root, DirName, Filename));
+                    if (Directory.Exists(SUBfile))
+                    {
+
+                    }
+
+
+                    System.IO.File.Delete(SUBfile);
+                }
+                else
+                {
+
+                    string SUBfolder = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}", check,root, DirName));
+                    if (Directory.Exists(SUBfolder))
+                    {
+                        string[] Filenames = Directory.GetFiles(SUBfolder);
+                        foreach (var item in Filenames)
+                        {
+                            System.IO.File.Delete(item);
+                        }
+                    }
+                    else
+                    {
+
+
+                    }
+                }
+            }
+
+            return RedirectToAction("");
+        }
+        [HttpPost]
+        public ActionResult EditSubName(string newname, string oldname, string editfile,string check)
+        {
+
+            if (check == "update")
+            {
+               
+                check = "temp";
+            }
+            else
+            {
+                check = "videos";
+
+            }
+
+            if (editfile == "")
+            {
+                string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}", check, root, oldname));
+                string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/", check, root, newname));
+                //     Directory.Move(folder,folder1);
+
+                // Ensure the source directory exists
+                if (Directory.Exists(folder) == true)
+                {
+                    // Ensure the destination directory doesn't already exist
+                    if (Directory.Exists(folder1) == false)
+                    {
+                        // Perform the move
+                        Directory.Move(folder, folder1);
+                    }
+                }
+                return Json("Successfully Edit SectionName");
+            }
+            else
+            {
+                string filen = oldname;
+                int lastindex = filen.IndexOf('.');
+
+                int length = filen.Length;
+                string extension = filen.Substring(lastindex);
+                newname = newname + extension;
+
+
+                string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/",check, root, editfile));
+
+                // Ensure the source directory exists
+                if (Directory.Exists(folder))
+                {
+                    folder = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/{3}", check,root, editfile, oldname));
+
+                    string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/{3}",check ,root, editfile, newname));
+
+                    // Ensure the destination directory doesn't already exist
+
+                    // Perform the move
+
+                    System.IO.File.Move(folder, folder1);
+                    return Json("Successfully Edit SectionFile");
+
+                }
+            }
+
+
+            //Temp = SubDirTitleh;
+
+            //ViewBag.temp = Temp;
+
+            return RedirectToAction("CourseEdit");
+        }
+        
+     
+        
+        
+        public PartialViewResult VideoModal(string subFoldername, string video)
+        {
+
+            string mainFolder = root;
+            string SubFolder = subFoldername;
+            string Video = video;
+            string ext = Path.GetExtension(Video);
+            ext = "video/" + ext.Replace(".", "");
+            string src = string.Format("{0}/{1}/{2}", mainFolder, SubFolder, Video);
+
+
+
+            ViewBag.Src = src;
+            ViewBag.type = ext;
+            return PartialView();
+        }
+
+        public ActionResult gettime(string video, string section, int count1, string extension,string check)
+        {
+
+            if (check == "update")
+            {
+                check = "temp";
+                
+            }
+            else
+            {
+                check = "videos";
+            }
+
+
+            var videosrc = "/assets/"+ check+"/" + root + "/" + section + "/" + video;
+
+            ViewBag.urlvi = videosrc;
+            ViewBag.urlvi1 = "A" + count1;
+
+
+
+            ViewBag.ext = "video/" + extension.Substring(1);
+
+
+            return View();
+        }
+
+
+
+
+
+
+
+        public ActionResult InsertCourse(string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string sectionnamedata, string sectionfiledata, string sectionfileduration)
+        {
+            string[] sectionName = JsonConvert.DeserializeObject<string[]>(sectionnamedata);
+            string[][] sectionMediaName = JsonConvert.DeserializeObject<string[][]>(sectionfiledata);
+            string[][] sectionMediaTime = JsonConvert.DeserializeObject<string[][]>(sectionfileduration);
+
+            var result = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
+            coursepic = coursepic.Substring(15);
+            Courses obj = new Courses();
+            if (result == null)
+            {
+
+                obj.CourseName = CourseName;
+                obj.Description = CourseDesc;
+                obj.Year = courseYear;
+                obj.Levels = courseLevel;
+                obj.Image = coursepic;
+                obj.IsFeatured = true;
+                obj.IsActive = true;
+                obj.SubCategoryId = (int)subcategoryId;
+                obj.UploadedDate = DateTime.Now;
+                obj.Time = DateTime.Now;
+                Db.Courses.Add(obj);
+                Db.SaveChanges();
+
+                var result1 = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
+
+                foreach (var item in Tags)
+                {
+
+                    var check = Db.TagManager.Where(x => x.TagName == item).SingleOrDefault();
+                        
+                    CourseTag courseTag = new CourseTag();
+                    courseTag.TagId = check.TagId;
+                    courseTag.CourseId = result1.CourseId;
+
+                    Db.CourseTag.Add(courseTag);
+                    Db.SaveChanges();
+                    //Tags.Clear();
+                }
+                foreach (var wwul in WWYL)
+                {
+                    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
+                    CourseLearning courLearn = new CourseLearning();
+                    courLearn.CourseId = result1.CourseId;
+                    courLearn.Description = wwul;
+                    Db.CourseLearnings.Add(courLearn);
+                    Db.SaveChanges();
+                    //WWYL.Clear();
+                }
+                int countoutside = 0;
+                foreach (var item in sectionName)
+                {
+                    var name = item;
+                    Section sec = new Section();
+                    sec.SectionName = item;
+                    sec.CourseId = result1.CourseId;
+                    Db.Sections.Add(sec);
+                    Db.SaveChanges();
+
+                    var section = Db.Sections.Where(x => x.SectionName == item && x.CourseId == result1.CourseId).SingleOrDefault();
+                    int countinside=0;
+                    foreach (var item1 in sectionMediaName[countoutside])
+                    {
+                      
+
+                        string sectionmedianame = item1;
+                        string duration = sectionMediaTime[countoutside][countinside];
+                        //string output = Convert.ToDateTime(duration).ToString("yyyy-MM-dd");
+                        double seconds = TimeSpan.Parse(duration).TotalSeconds;
+                        SectionMedia sectionMedia = new SectionMedia();
+                        sectionMedia.VideoTitle = sectionmedianame;
+                        sectionMedia.Videotype = "video/mp4";
+                        sectionMedia.VideoUrl = sectionmedianame;
+                        sectionMedia.SectionId = section.SectionId;
+                        sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+                        Db.SectionMedia.Add(sectionMedia);
+                        Db.SaveChanges();
+                        countinside++;
+                    }
+                    countoutside++;
+                }
+                root = "";
+                Tags.Clear();
+                WWYL.Clear();
+                data.Clear();
+                Files.Clear();
+
+                ViewBag.PData = null;
+                ViewBag.QData = null;
+                return RedirectToAction("AddCourse");
+            }
+            return RedirectToAction("AddCourse");
+        }
+
+
+
+
+
+
+
 
 
 
@@ -893,15 +1855,25 @@ namespace LearningPortal.Controllers
 
 
         [HttpGet]
-        public string AddSection(string sectionname, string foldername)
+        public string AddSection(string sectionname, string foldername, string check)
         {
             /*
            *  create folder
           */
-            string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", foldername));
+
+            if (check == "update")
+            {
+                check = "videos";
+            }
+            else
+            {
+                check = "temp";
+            }
+
+            string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, foldername));
             if (Directory.Exists(folder))
             {
-                string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", foldername, sectionname));
+                string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/", check, foldername, sectionname));
                 if (!Directory.Exists(folder1))
                 {
                     Directory.CreateDirectory(folder1);
@@ -919,446 +1891,5 @@ namespace LearningPortal.Controllers
         }
 
 
-
-        [HttpGet]
-        public ActionResult CourseOutline()
-        {
-
-            string rootfoldername = root;
-            ViewBag.Placeholder = rootfoldername;
-            string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
-
-            List<string> Files = new List<string>();
-            List<List<string>> data = new List<List<string>>();
-
-
-            if (Directory.Exists(folder))
-            {
-                /* Section Name*/
-                string[] Filespath = Directory.GetDirectories(folder);
-
-
-
-                foreach (string filePath in Filespath)
-                {
-                    Files.Add(Path.GetFileName(filePath));
-                }
-
-
-                /* Section File*/
-                for (int i = 0; i < Files.Count; i++)
-                { // Loop through List with for
-
-                    List<string> data1 = new List<string>();
-
-
-
-                    Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", rootfoldername, Files[i])));
-
-
-
-                    foreach (string filePath in Filespath)
-                    {
-                        string filen = Path.GetFileName(filePath);
-                        int lastindex = filen.IndexOf('.');
-
-                        data1.Add(filen.ToString());
-
-                    }
-                    data.Add(data1);
-
-                }
-
-                ViewBag.PData = data;
-                ViewBag.QData = Files;
-
-            }
-            else
-            {
-
-            }
-            ViewBag.PData = data;
-            ViewBag.QData = Files;
-            return PartialView();
-        }
-
-
-
-        [HttpGet]
-        public PartialViewResult TagManager(string iTag)
-        {
-            //var check = Db.TagManager.SqlQuery("SELECT * FROM TagManagers where TagName=" + model).ToList();
-
-
-            var check = Db.TagManager.Where(x => x.TagName == iTag).SingleOrDefault();
-
-
-            if (iTag == "removessws101")
-            {
-
-            }
-            else
-            {
-                if (check == null)
-                {
-                    TagManager objCat = new TagManager();
-                    objCat.TagName = iTag;
-                    Db.TagManager.Add(objCat);
-                    Db.SaveChanges();
-                    Tags.Add(iTag);
-                    ViewBag.Span = Tags;
-                }
-                else
-                {
-                    Tags.Remove(iTag);
-                    Tags.Add(iTag);
-                    ViewBag.Span = Tags;
-                    return PartialView();
-                }
-                //Tags.Add(iTag);
-
-            }
-            ViewBag.Span = Tags;
-            return PartialView();
-        }
-
-
-        [HttpGet]
-        public ActionResult TagRemover(string value)
-        {
-            foreach (var item in Tags)
-            {
-                if (value == item)
-                {
-                    Tags.Remove(item);
-                    ViewBag.Span = Tags;
-                    return RedirectToAction("CourseEdit");
-                }
-
-            }
-            ViewBag.Span = Tags;
-            return RedirectToAction("CourseEdit");
-        }
-
-
-        public PartialViewResult DDCatSub()
-        {
-            List<Categories> categories = Db.Categories.SqlQuery("SELECT * FROM Categories where IsActive='true' ORDER BY Time DESC").ToList();
-            ViewBag.CateogryList = new SelectList(categories, "CategoryId", "CategoryName");
-            // Session["Menu"] = ls;
-            return PartialView();
-
-        }
-        [HttpGet]
-        public PartialViewResult WWYLearn()
-        {
-
-            return PartialView();
-        }
-        [HttpPost]
-        public ActionResult WWYLearn(string paragraph, string OrderList, string UnorderedList)
-        {
-
-
-            if (OrderList != "")
-            {
-                string[] array = OrderList.Split(',');
-
-                for (int i = 0; i < array.Length; i++)
-                {
-                    WWYL.Add(array[i].ToString());
-                }
-            }
-            else if (paragraph != "")
-            {
-                string[] array = paragraph.Split(',');
-
-                for (int i = 0; i < array.Length; i++)
-                {
-                    WWYL.Add(array[i].ToString());
-                }
-            }
-            else if (UnorderedList != "")
-            {
-                string[] array = UnorderedList.Split(',');
-
-                for (int i = 0; i < array.Length; i++)
-                {
-                    WWYL.Add(array[i].ToString());
-                }
-            }
-
-
-            return RedirectToAction("CourseEdit");
-        }
-        [HttpGet]
-        public PartialViewResult AddDesc()
-        {
-            //ViewBag.Placeholder = root;
-            return PartialView();
-        }
-        [HttpPost]
-        public ActionResult AddDesc(string CourseTitle, string CourseDescription)
-        {
-            CrsTitle = CourseTitle;
-            CrsDescription = CourseDescription;
-            string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", root));
-            string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/", CourseTitle));
-            if (!Directory.Exists(folder1))
-            {
-
-                //Directory.CreateDirectory(folder1);
-                Directory.Move(folder, folder1);
-
-                root = CourseTitle;
-                return RedirectToAction("CourseEdit");
-            }
-            return RedirectToAction("CourseEdit");
-        }
-        [HttpPost]
-        public ActionResult DeleteDir(string DirName, string Filename)
-        {
-
-            if (root == DirName)
-            {
-                string RootDir = Server.MapPath(string.Format("~/assets/videos/{0}/", root));
-                Directory.Delete(RootDir);
-            }
-            else
-            {
-                if (Filename != "")
-                {
-                    string SUBfile = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, DirName, Filename));
-                    if (Directory.Exists(SUBfile))
-                    {
-
-                    }
-
-
-                    System.IO.File.Delete(SUBfile);
-                }
-                else
-                {
-
-                    string SUBfolder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", root, DirName));
-                    if (Directory.Exists(SUBfolder))
-                    {
-                        string[] Filenames = Directory.GetFiles(SUBfolder);
-                        foreach (var item in Filenames)
-                        {
-                            System.IO.File.Delete(item);
-                        }
-                    }
-                    else
-                    {
-
-
-                    }
-                }
-            }
-
-            return RedirectToAction("CourseOutline", "Admin");
-        }
-        [HttpPost]
-        public ActionResult EditSubName(string newname, string oldname, string editfile)
-        {
-            if (editfile == "")
-            {
-                string folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", root, oldname));
-                string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, newname));
-                //     Directory.Move(folder,folder1);
-
-                // Ensure the source directory exists
-                if (Directory.Exists(folder) == true)
-                {
-                    // Ensure the destination directory doesn't already exist
-                    if (Directory.Exists(folder1) == false)
-                    {
-                        // Perform the move
-                        Directory.Move(folder, folder1);
-                    }
-                }
-                return Json("Successfully Edit SectionName");
-            }
-            else
-            {
-                string filen = oldname;
-                int lastindex = filen.IndexOf('.');
-
-                int length = filen.Length;
-                string extension = filen.Substring(lastindex);
-                newname = newname + extension;
-
-
-                string folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, editfile));
-
-                // Ensure the source directory exists
-                if (Directory.Exists(folder))
-                {
-                    folder = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile, oldname));
-
-                    string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/{2}", root, editfile, newname));
-
-                    // Ensure the destination directory doesn't already exist
-
-                    // Perform the move
-
-                    System.IO.File.Move(folder, folder1);
-                    return Json("Successfully Edit SectionFile");
-
-                }
-            }
-
-
-            //Temp = SubDirTitleh;
-
-            //ViewBag.temp = Temp;
-
-            return RedirectToAction("CourseEdit");
-        }
-        [HttpPost]
-        public ActionResult CreateSection(string SectionName)
-        {
-            string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", root));
-            if (Directory.Exists(folder))
-            {
-                string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", root, SectionName));
-                if (!Directory.Exists(folder1))
-                {
-                    FileExists = "File is created successfully";
-                    Directory.CreateDirectory(folder1);
-                    return Json("Successfully section Created");
-                }
-                else
-                {
-                    FileExists = "File Is Already Exist";
-                    return Json("Already Exist Section Please Change the Name");
-                }
-
-            }
-            FileExists = "File Is Already Exist";
-            return Json("Already Exist Section Please Change the Name");
-        }
-        public PartialViewResult VideoModal(string subFoldername, string video)
-        {
-            string mainFolder = root;
-            string SubFolder = subFoldername;
-            string Video = video;
-            string ext = Path.GetExtension(Video);
-            ext = "video/" + ext.Replace(".", "");
-            string src = string.Format("{0}/{1}/{2}", mainFolder, SubFolder, Video);
-
-
-
-            ViewBag.Src = src;
-            ViewBag.type = ext;
-            return PartialView();
-        }
-        public ActionResult gettime(string video, string section, int count1, string extension)
-        {
-            var videosrc = "/assets/videos/" + root + "/" + section + "/" + video;
-
-            ViewBag.urlvi = videosrc;
-            ViewBag.urlvi1 = "A" + count1;
-
-
-
-            ViewBag.ext = "video/" + extension.Substring(1);
-
-
-            return View();
-        }
-
-        public ActionResult InsertCourse(string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string sectionnamedata, string sectionfiledata, string sectionfileduration)
-        {
-            string[] sectionName = JsonConvert.DeserializeObject<string[]>(sectionnamedata);
-            string[][] sectionMediaName = JsonConvert.DeserializeObject<string[][]>(sectionfiledata);
-            string[][] sectionMediaTime = JsonConvert.DeserializeObject<string[][]>(sectionfileduration);
-
-            var result = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
-            coursepic = coursepic.Substring(15);
-            Courses obj = new Courses();
-            if (result == null)
-            {
-
-                obj.CourseName = CourseName;
-                obj.Description = CourseDesc;
-                obj.Year = courseYear;
-                obj.Levels = courseLevel;
-                obj.Image = coursepic;
-                obj.IsFeatured = true;
-                obj.IsActive = true;
-                obj.SubCategoryId = (int)subcategoryId;
-                obj.UploadedDate = DateTime.Now;
-                obj.Time = DateTime.Now;
-                Db.Courses.Add(obj);
-                Db.SaveChanges();
-
-                var result1 = Db.Courses.Where(x => x.CourseName == CourseName).SingleOrDefault();
-
-                foreach (var item in Tags)
-                {
-
-                    var check = Db.TagManager.Where(x => x.TagName == item).SingleOrDefault();
-                        
-                    CourseTag courseTag = new CourseTag();
-                    courseTag.TagId = check.TagId;
-                    courseTag.CourseId = result1.CourseId;
-
-                    Db.CourseTag.Add(courseTag);
-                    Db.SaveChanges();
-                    Tags.Clear();
-                }
-                foreach (var wwul in WWYL)
-                {
-                    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
-                    CourseLearning courLearn = new CourseLearning();
-                    courLearn.CourseId = result1.CourseId;
-                    courLearn.Description = wwul;
-                    Db.CourseLearnings.Add(courLearn);
-                    Db.SaveChanges();
-                    WWYL.Clear();
-                }
-                int countoutside = 0;
-                foreach (var item in sectionName)
-                {
-                    var name = item;
-                    Section sec = new Section();
-                    sec.SectionName = item;
-                    sec.CourseId = result1.CourseId;
-                    Db.Sections.Add(sec);
-                    Db.SaveChanges();
-
-                    var section = Db.Sections.Where(x => x.SectionName == item && x.CourseId == result1.CourseId).SingleOrDefault();
-                    int countinside=0;
-                    foreach (var item1 in sectionMediaName[countoutside])
-                    {
-                      
-
-                        string sectionmedianame = item1;
-                        string duration = sectionMediaTime[countoutside][countinside];
-                        //string output = Convert.ToDateTime(duration).ToString("yyyy-MM-dd");
-                        double seconds = TimeSpan.Parse(duration).TotalSeconds;
-                        SectionMedia sectionMedia = new SectionMedia();
-                        sectionMedia.VideoTitle = sectionmedianame;
-                        sectionMedia.Videotype = "video/mp4";
-                        sectionMedia.VideoUrl = sectionmedianame;
-                        sectionMedia.SectionId = section.SectionId;
-                        sectionMedia.VideoDuration = Convert.ToInt32(seconds);
-                        Db.SectionMedia.Add(sectionMedia);
-                        Db.SaveChanges();
-                        countinside++;
-                    }
-                    countoutside++;
-                }
-                root = "";
-                return RedirectToAction("AddCourse");
-            }
-            return RedirectToAction("AddCourse");
-        }
-        
-        
-    
-    
-    } 
+    }
 }

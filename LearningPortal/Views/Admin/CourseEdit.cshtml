@@ -119,9 +119,9 @@
             <!--DropDowns start-->
             
             <div class="card">
-               <div class="m-3">
-                    <input type="text" class="form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />
-               
+                <div class="m-3">
+                   
+                    <input type="text" class="yearpicker form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />
                     <select id="courseLevel"
                             class="custom-select form-control mb-3" required>
                         <option value="">Add Course Level</option>
@@ -176,6 +176,17 @@
 
 <script>
 
+
+    $(document).ready(function () {
+
+
+    $(".yearpicker").yearpicker({
+        year: 2019,
+        startYear: 2019,
+        endYear: 2050,
+    });
+
+    });
     function showModal() {
 
         $.ajax({
@@ -307,7 +318,7 @@
 
                     
                 } else {
-                    alert("File not uploaded!");
+                    alert(result);
                   
 
                 }
@@ -355,7 +366,7 @@
                 if (imageurl == "Invalid Image Size") {
                     alert(result);
                 } else {
-                    alert(result);
+                    
                   
                     $("#coursepic").attr("src", result);
 
@@ -404,8 +415,9 @@
       
 
         var form_data = new FormData();
-        form_data.append("rootfolder", "dwad");
+      
         form_data.append('sectionname', sectionname);
+        form_data.append("rootfolder", "edit");
         var totalfiles = document.getElementById('imgupload').files.length;
         for (var index = 0; index < totalfiles; index++) {
             form_data.append("files[]", document.getElementById('imgupload').files[index]);
@@ -458,7 +470,8 @@
             data: {
                 newname: newname,
                 oldname: oldname,
-                editfile:null,
+                editfile: null,
+                check:"edit"
             },
 
             success: function (data) {
@@ -493,6 +506,7 @@
                 newname: Newname,
                 oldname: Oldname,
                 editfile: SectionName,
+                check: "edit"
             },
 
             success: function (data) {
@@ -520,6 +534,7 @@
             data: {
                 DirName: SubDirTitle,
                 Filename: FileName,
+                check: "edit"
             },
 
             success: function (data) {
@@ -543,6 +558,7 @@
             data: {
                 DirName: SubDirTitle,
                 Filename: null,
+                check: "edit"
             },
 
             success: function (data) {
@@ -617,12 +633,13 @@
     $("#coureditsectionList").on('click', ".createFolder",function () {
         //var FN = $('#FolderName').val();
         var FN = $(this).parent().parent().children().children().children().val();
-        alert(FN);
+      
         $.ajax({
             type: "Post",
             url: "/Admin/CreateSection",
             data: {
                 SectionName: FN,
+                check:"edit"
             },
             success: function (response) {
                 console.log(response);
@@ -712,7 +729,7 @@
 
                 },
                 success: function (result) {
-
+                    alert("Successfully Add Course");
                    
 
                     window.location.href = '/Admin/AddCourse';

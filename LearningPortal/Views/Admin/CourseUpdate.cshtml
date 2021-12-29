@@ -1,24 +1,16 @@
-﻿
+﻿@model LearningPortal.Models.Courses
 @{
     ViewBag.Title = "CourseEdit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-    })
-</script>
-
-
-
-
-
 <div class="mdk-drawer-layout__content page mr-3 ml-2">
     <div id="videoModalWrapper">
 
     </div>
+
+    <input type="text" hidden value="@Model.CourseId" id="CourseID" />
+
     <div class="row">
         <div class="col-md-8">
 
@@ -27,14 +19,14 @@
             </div>
             <div class="card" id="coureditsectionList">
 
+                  <input type="hidden" vaule="" id="rootfoldername" />
+    
+             @{
+                @Html.Action("CourseOutlineEdit", "Admin")
 
+             }
 
-                @*@{
-                    @Html.Action("CourseOutline", "Admin")
-
-                }*@
-
-
+     
 
 
 
@@ -64,21 +56,15 @@
                     <div id="CTagManager">
 
                         <div class="col-md-12">
-                            @*@foreach (var item in (List<String>)ViewBag.Span)
+                            @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary  tagremove" style="color: white; width: 10%;height: 20%;">@item  </button>
+                                <button class="badge rounded-pill bg-primary  tagremove" style="color: white; width: auto;height: 20%;">@item  </button>
 
-                            }*@
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-           
-
 
         </div>
         <div class="col-md-4">
@@ -86,33 +72,23 @@
             <!-- Image Upload And Preview Start-->
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="media align-items-center">
-
-
+                    <div class="d-flex justify-content-center" style="height:200px">
+                       
                         @if (ViewBag.ImageUrl != null)
                         {
-                            <img alt="Uploaded Image" src="@ViewBag.ImageUrl" id="coursepic" />
+                            <img alt="Uploaded Image" src="~/assets/images/@ViewBag.ImageUrl" />
                         }
                         else
                         {
-                            <div class="media-left">
-                                <img src="~/assets/images/vuejs.png"
-                                     alt=""
-                                     width="100%"
-                                     class="rounded" id="coursepic">
-                            </div>
+                           
+                            <img src="~/assets/images/@Model.Image" id="coursepic">
                         }
-
-
-
-
                     </div>
                     <div class="page-separator">
                         <div class="page-separator__text"></div>
                     </div>
                     <div class="media-body">
-                        <div class="custom-file"
-                             style="width: auto;">
+                        <div class="custom-file">
 
 
                             <form method="Post" class="courseimageupload">
@@ -122,6 +98,7 @@
 
                                 <button class="btn btn-primary" type="submit" id="upbtn"><i class="material-icons">add</i>Add Logo</button>
                             </form>
+
                         </div>
 
 
@@ -133,28 +110,85 @@
             <div class="card">
                 <div class="card-body">
 
-                  @*@Html.Action("AddDesc", "Admin")*@
+
+
+                    <div class="form-group">
+                        <label class="form-label"
+                               for="title">Title</label>
+                        <div class="input-group">
+                           
+                            <input type="text"
+                                   class="form-control"
+                                   id="CourseTitle"
+                             
+                                   value="@Model.CourseName">
+                            <input type="hidden" id="rootName" value="@ViewBag.Placeholder" />
+                            <div class="input-group-append">
+                                <button class="input-group-text" id="AddDesc"> <i class="material-icons">add_circle_outline</i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <div class="form-group">
+                            <label for="form-label">Description</label>
+
+                            <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title">@Model.Description</textarea>
+                        </div>
+                    </div>
 
                 </div>
             </div>
             <!-- Add Course Title and Logo End -->
             <!--DropDowns start-->
-            <div class="card">
 
-                <select id="course_title"
-                        class="custom-select form-control">
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
-                <br />
-                @*@Html.Action("DDCatSub", "Admin")*@
+            <div class="card">
+                <div class="m-3">
+                    <input type="text" hidden id="year" value="@Model.Year" />
+
+                    <input type="text" class="yearpicker form-control mb-3" value="@Model.Year" id="courseYear" placeholder=" Add Course Year" required style="" />
+                    <input type="text" hidden id="Levels" value="@Model.Levels" />
+
+                    <select id="courseLevel"
+                            class="custom-select form-control mb-3" required>
+                        <option value="">Add Course Level</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                    <input type="text" hidden id="catid" value="@Model.SubCategories.CategoryId" />
+                    <input type="text" hidden id="subcatid" value="@Model.SubCategoryId" />
+
+                    @Html.Action("DDCatSub", "Admin")
+                </div>
+                @*<div class="card mx-3 border-0 my-0">
+                        @Html.Action("DDCatSub", "Admin")
+                    </div>*@
             </div>
             <!--DropDowns End-->
             <!--What I`ll You Learn start-->
             <div class="card">
 
-                @*@Html.Action("WWYLearn", "Admin")*@
+             
+                <div class="card-body">
+                    <div class="card-header">
+                        <h4 class="card-title">What I`ll You Learn</h4>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div class="form-group">
+                            <div style="height: 150px;"
+                                 class="TA"
+                                 data-toggle="quill"
+                                 data-quill-placeholder="Text Should be Comma',' Sparated "
+                                 data-quill-modules-toolbar='[["bold", "italic"], ["link", "blockquote", "code", "image"], [{"list": "ordered"}, {"list": "bullet"}]]'>
+                                <textarea id="review" name="w3review" rows="4" cols="50">@ViewBag.WWYLU</textarea>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
             <!--What I`ll You Learn End-->
@@ -175,10 +209,10 @@
             <!--Last Submit Button Start-->
             <div>
                 <button type="button" class="btn btn-primary">
-                    Cancel <span class="badge bg-secondary">4</span>
+                    Cancel
                 </button>
-                <button type="button" id="WWYL" class="btn btn-primary">
-                    ok <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
+                <button type="button" class="btn btn-primary" id="courseupdate">
+                    Update <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
                 </button>
             </div>
             <!--Last Submit Button End-->
@@ -190,6 +224,34 @@
 
 
 <script>
+
+
+    function getWhatYouLearn() {
+        var TA = $(".TA").children().attr("class");
+
+        var a = $('.' + TA + '  p:eq(0)').text();
+        var b = $('.' + TA + '  ol:eq(0)').children().text();
+        var c = $('.' + TA + '  ol:eq(0)').children().text();
+        //alert(a);
+        //console.log(b);
+
+
+        $.ajax({
+            type: "Post",
+            url: "/Admin/WWYLearn",
+            data: {
+                paragraph: a,
+                OrderList: b,
+                UnorderedList: c,
+            },
+
+            success: function (data) {
+
+            }
+        });
+
+
+    }
 
     function showModal() {
 
@@ -229,7 +291,7 @@
     function getoutline() {
 
         $.ajax({
-            url: "/Admin/CourseOutline",
+            url: "/Admin/CourseOutlineEdit",
             type: 'GET',
 
 
@@ -237,21 +299,83 @@
                 //console.log(data);
                 $('#coureditsectionList').empty();
                 $('#coureditsectionList').append(data);
+                //var rootTitle = $("#rootTitle").val();
+                //$("#CourseTitle").val(rootTitle);
 
                 //$(".v").remove();
             }
         });
     }
 
-    // Tag Add
+
+
+
+
+    $(document).ready(function () {
+
+     
+        $("#CourseTitle").val($("#rootName").val());
+        $(".yearpicker").yearpicker({
+            year: 2019,
+            startYear: 2019,
+            endYear: 2050,
+        });
+
+        $(".yearpicker").val($("#year").val());
+     
+        
+        $("#courseLevel").val($("#Levels").val());
+
+        
+
+        var cid = $("#catid").val();
+        var scid = $("#subcatid").val();
+        if (cid) {
+            $("#CategoryId").val(cid);
+
+            /*$.get("/Admin/GetSubCategoriesList", { CategoryId: cid }, function (data) {
+                $("#SubCategoryId").empty();
+                $("#SubCategoryId").append("<option value=''>SubCategory</option>");
+                $.each(data, function (index, row) {
+                    $("#SubCategoryId").append("<option value='" + row.SubCategoryId + "'>" + row.SubCategoryName + "</option>");
+                    $("#SubCategoryId").val(scid);
+                    $(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
+                });
+            });
+            */
+            $.get("/Admin/GetSubCategoriesList", { CategoryId: cid }, function (data) {
+                $("#SubCategoryId").empty();
+                $("#SubCategoryId").append("<option value=''>Choose SubCategory</option>");
+                $.each(data, function (index, row) {
+                    $("#SubCategoryId").append("<option value='" + row.SubCategoryId + "'>" + row.SubCategoryName + "</option>");
+
+                    $("#SubCategoryId").val(scid);
+                });
+            });
+
+        }
+
+    });
+
+
+
+    // Tag Add 
     $("#tagadd").click(function () {
 
         var tag = $("#searchText").val();
         if (tag) {
+
             GETTAG(tag);
+            $("#searchText").val("");
         }
     });
-
+    //console.log("coursepic" + coursepic);
+    //console.log("CourseName" + CourseName);
+    //console.log("CourseDesc" + CourseDesc);
+    //console.log("courseYear" + courseYear);
+    //console.log("categoryId" + categoryId);
+    //console.log("subcategoryId" + subcategoryId);
+    //console.log("courseLevel" + courseLevel);
 
     //Tag Remove
     $("#CTagManager").on("click", ".tagremove", function () {
@@ -276,53 +400,8 @@
 
 
 
-    // Zip Upload
-    $(".zipupload").on("submit", function (event) {
 
-        event.preventDefault();
-        var formData = new FormData($(this)[0]);
-        //var formValues = $(this).serialize();
-        // console.log(formValues);
-        //var fileUpload = $(this).children().val();
-        //var files = fileUpload.files;
-
-        //var fileData = new FormData();
-
-        /// fileData.append(files[0].name, files[0]);
-
-
-        $.ajax({
-            url: '/Admin/CourseUploader',
-            type: "POST",
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function (result) {
-
-                var imageurl = result;
-
-
-                if (imageurl == "File Uploaded") {
-                    alert(imageurl);
-                    getoutline();
-                } else {
-                    alert("File not uploaded!");
-
-
-                }
-
-
-            },
-            error: function (err) {
-                alert(err.statusText);
-            }
-        });
-
-
-
-
-    });
-
+   
 
 
     // Course Image upload
@@ -354,6 +433,7 @@
                 if (imageurl == "Invalid Image Size") {
                     alert(result);
                 } else {
+                    alert(result);
 
                     $("#coursepic").attr("src", result);
 
@@ -387,10 +467,10 @@
 
         var sectionname = c;
 
-        var rootfolder = "Java";
+        // var rootfolder = $("#rootfoldername").val();
         //var SubDirTitle = $(this).parent().children().last().attr('class');
         //var sectionname = $(this).parent().parent().parent().children().children().val();
-        //alert(sectionname);
+
 
         // var fileUpload = $("#imgupload");
         // var files = fileUpload.files;
@@ -402,8 +482,9 @@
 
 
         var form_data = new FormData();
-        form_data.append("rootfolder", rootfolder);
+
         form_data.append('sectionname', sectionname);
+        form_data.append("rootfolder", "update");
         var totalfiles = document.getElementById('imgupload').files.length;
         for (var index = 0; index < totalfiles; index++) {
             form_data.append("files[]", document.getElementById('imgupload').files[index]);
@@ -430,7 +511,7 @@
         });
 
 
-        getsectionvideo(fileData);
+        //getsectionvideo(fileData);
 
 
 
@@ -457,6 +538,7 @@
                 newname: newname,
                 oldname: oldname,
                 editfile: null,
+                check: "update"
             },
 
             success: function (data) {
@@ -491,6 +573,7 @@
                 newname: Newname,
                 oldname: Oldname,
                 editfile: SectionName,
+                check: "update"
             },
 
             success: function (data) {
@@ -518,6 +601,7 @@
             data: {
                 DirName: SubDirTitle,
                 Filename: FileName,
+                check: "update"
             },
 
             success: function (data) {
@@ -541,6 +625,7 @@
             data: {
                 DirName: SubDirTitle,
                 Filename: null,
+                check: "update"
             },
 
             success: function (data) {
@@ -615,15 +700,15 @@
     $("#coureditsectionList").on('click', ".createFolder", function () {
         //var FN = $('#FolderName').val();
         var FN = $(this).parent().parent().children().children().children().val();
-        //alert(FN);
+
         $.ajax({
             type: "Post",
             url: "/Admin/CreateSection",
             data: {
                 SectionName: FN,
+                check: "update"
             },
             success: function (response) {
-
                 console.log(response);
                 alert(response);
                 getoutline();
@@ -631,6 +716,150 @@
             },
         });
     });
+
+
+
+
+
+
+
+    $("#courseupdate").click(function () {
+
+        var TA = $(".TA").children().attr("class");
+
+        var a = $('.' + TA + '  p:eq(0)').text();
+        var b = $('.' + TA + '  ol:eq(0)').children().text();
+        var c = $('.' + TA + '  ol:eq(0)').children().text();
+        //alert(a);
+        //console.log(b);
+
+
+        $.ajax({
+            type: "Post",
+            url: "/Admin/WWYLearn",
+            data: {
+                paragraph: a,
+                OrderList: b,
+                UnorderedList: c,
+            },
+
+            success: function (data) {
+
+            }
+        });
+
+
+
+        var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
+            return $(this).attr("id");
+
+
+        }).get();
+
+
+        var sectionfiledata = [];
+        var sectionfileduration = [];
+
+
+        for (var c in sectionnamedata) {
+
+
+            var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
+            var sectionfiledata1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".w-50").map(function () {
+
+                return $(this).attr("id");
+
+
+            }).get();
+
+            sectionfiledata.push(sectionfiledata1);
+        }
+
+
+        for (var c in sectionnamedata) {
+
+
+            var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
+            var sectionfileduration1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".ddd").children().map(function () {
+
+                return $(this).text();
+
+
+            }).get();
+
+            sectionfileduration.push(sectionfileduration1);
+        }
+
+        //console.log(sectionnamedata);
+        //console.log(sectionfiledata);
+        //console.log(sectionfileduration);
+
+        var courseid = $("#CourseID").val();
+
+        var CourseName = $("#CourseTitle").val();
+        var CourseDesc = $("#CourseDescription").val();
+        var courseYear = $("#courseYear").val();
+        var categoryId = $("#CategoryId").val();
+        var subcategoryId = $("#SubCategoryId").val();
+        var courseLevel = $("#courseLevel").val();
+        var coursepic = $("#coursepic").attr("src");
+
+           
+        
+        var TA = $(".TA").children().attr("class");
+        var a = $('.' + TA).text();
+     
+
+        
+        
+        // alert($("#coursep").val());
+
+
+        if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
+          
+                          $.ajax({
+                            type:"POST",
+                            url: '/Admin/CourseUpdate',
+
+                              data: {
+                                  courseid: courseid,
+                                CourseName: CourseName,
+                                CourseDesc: CourseDesc,
+                                courseYear: courseYear,
+                                categoryId: categoryId,
+                                subcategoryId: subcategoryId,
+                                courseLevel: courseLevel,
+                                  coursepic: coursepic,
+                                  a: a ,
+                                sectionnamedata: JSON.stringify(sectionnamedata),
+                                sectionfiledata: JSON.stringify(sectionfiledata),
+                                sectionfileduration: JSON.stringify(sectionfileduration)
+
+
+                            },
+                            success: function (result) {
+
+
+                                alert("Successfully Course Updated");
+                                window.location.href = '/Admin/AddCourse';
+
+                            },
+                            error: function (err) {
+                                alert(err.statusText);
+                            }
+                        });
+        }
+        else {
+            alert("Please fill All Values");
+            console.log("ïn here");
+
+
+        }
+
+
+    });
+
+
 </script>
 
 

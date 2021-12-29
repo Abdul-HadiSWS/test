@@ -6,7 +6,7 @@
 
 <label id="@ViewBag.urlvi1"></label>
 
-<div id="check">
+<div id="check" style="display:none;">
     <input hidden type="text" value="@ViewBag.urlvi1" id="vvv" />
 
     <video controls onloadedmetadata="function_name()" id="videoid">
@@ -23,15 +23,20 @@
 
 
         function function_name() {
-            var video_duration = document.getElementById('videoid').duration;
-
-          
-            var a = $("#vvv").val();
-
-            console.log(a);
-           document.getElementById('check').remove();
+           
             /**/
-            $("#" + a).text(formatTime_hourformat((video_duration)));
+            setTimeout(function () {
+                //your code to be executed after 1 second
+                var video_duration = document.getElementById('videoid').duration;
+
+
+                var a = $("#vvv").val();
+
+                console.log(a);
+                document.getElementById('check').remove();
+                $("#" + a).text(formatTime_hourformat((video_duration)));
+            }, 2000);
+
         /**/
     }
 
