@@ -13,7 +13,7 @@ namespace LearningPortal.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202112160537223_InitialCreate"; }
+            get { return "202112301134444_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

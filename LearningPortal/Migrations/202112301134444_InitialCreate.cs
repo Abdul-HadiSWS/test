@@ -196,9 +196,19 @@ namespace LearningPortal.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false, maxLength: 256),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.RoleViewModels",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
             
         }
         
@@ -232,6 +242,7 @@ namespace LearningPortal.Migrations
             DropIndex("dbo.CourseLearnings", new[] { "CourseId" });
             DropIndex("dbo.Courses", new[] { "SubCategoryId" });
             DropIndex("dbo.SubCategories", new[] { "CategoryId" });
+            DropTable("dbo.RoleViewModels");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.TagManagers");
             DropTable("dbo.CourseTags");

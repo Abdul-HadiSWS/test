@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LearningPortal.Models;
 using System.Web.UI;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LearningPortal.Controllers
 {
@@ -18,15 +20,31 @@ namespace LearningPortal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        static string Admin;
+
         public ApplicationDbContext Db = new ApplicationDbContext();
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
         }
 
         public ApplicationSignInManager SignInManager
@@ -35,9 +53,9 @@ namespace LearningPortal.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -59,9 +77,22 @@ namespace LearningPortal.Controllers
         [OutputCache(NoStore = true, Location = System.Web.UI.OutputCacheLocation.None)]
         public ActionResult Login(string returnUrl)
         {
+            var roleManager = new RoleManager<IdentityRole, string>(new RoleStore<IdentityRole>(new IdentityDbContext()));
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToLocal(returnUrl);
+
+                var rolename="";
+                var result1 = UserManager.FindById(User.Identity.GetUserId());
+
+             
+                foreach (var item1 in result1.Roles)
+                {
+                    var role = roleManager.FindById(item1.RoleId);
+
+                    rolename = role.Name;
+
+                }
+                return RedirectToLocal(returnUrl, rolename);
             }
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -74,6 +105,8 @@ namespace LearningPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            var roleManager = new RoleManager<IdentityRole, string>(new RoleStore<IdentityRole>(new IdentityDbContext()));
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -83,23 +116,45 @@ namespace LearningPortal.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var user = .Users.Where(u => u.Email.Equals(model.Email)).Single(); // where db is ApplicationDbContext instance
 
+            var rolename="";
             string username = "";
-            var context = new ApplicationDbContext();
+            ApplicationDbContext context = new ApplicationDbContext();
+
             var user = context.Users.Where(x => x.Email == model.Email).ToList();
 
             foreach (var item in user)
             {
+
                 username = item.UserName.ToString();
+
+
+                var result1 = UserManager.FindById(item.Id);
+                
+                foreach (var item1 in item.Roles)
+                {
+                    var role = roleManager.FindById(item1.RoleId);
+
+                    rolename = role.Name;
+
+                }
+
+
+
             }
-           Session["num"] = "cdas";
-
-
 
             var result = await SignInManager.PasswordSignInAsync(username, model.Password, true, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (rolename == "Admin")
+                    {
+                        return RedirectToLocal(returnUrl, rolename);
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl,rolename);
+                    }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -140,11 +195,11 @@ namespace LearningPortal.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+                    //return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
@@ -158,7 +213,13 @@ namespace LearningPortal.Controllers
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
-        {
+        {/**
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in RoleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            }
+            ViewBag.Roles = list;*/
             return View();
         }
 
@@ -171,11 +232,14 @@ namespace LearningPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                var roleManager = new RoleManager<IdentityRole, string>(new RoleStore<IdentityRole>(new IdentityDbContext()));
+                var role = roleManager.FindByName("Student");
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                   
+                    result = await UserManager.AddToRoleAsync(user.Id, role.Name);
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -354,7 +418,7 @@ namespace LearningPortal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -396,7 +460,7 @@ namespace LearningPortal.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        //return RedirectToLocal(returnUrl);
                     }
                 }
                 AddErrors(result);
@@ -420,7 +484,7 @@ namespace LearningPortal.Controllers
             Session.Abandon();
 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-           
+
 
             return RedirectToAction("Login", "Account");
         }
@@ -473,13 +537,22 @@ namespace LearningPortal.Controllers
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        private ActionResult RedirectToLocal(string returnUrl,string rolename)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("StudentDashboard", "Home");
+
+            if (rolename == "Admin")
+            {
+                return RedirectToAction("AddCourse", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("StudentDashboard", "Home");
+            }
+       
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

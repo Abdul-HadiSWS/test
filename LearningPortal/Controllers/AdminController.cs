@@ -12,6 +12,7 @@ using System.Data.Entity;
 
 namespace LearningPortal.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         public string uploadImage(HttpPostedFileBase files, string folder)

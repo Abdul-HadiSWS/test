@@ -18,7 +18,12 @@ namespace LearningPortal.Models
             return userIdentity;
         }
     }
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base() { }
+        public ApplicationRole(string roleName) : base(roleName) { }
 
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -43,6 +48,6 @@ namespace LearningPortal.Models
         public virtual DbSet<CourseTag> CourseTag { get; set; }
         public virtual DbSet<TagManager> TagManager { get; set; }
 
-
+        public System.Data.Entity.DbSet<LearningPortal.Models.RoleViewModel> RoleViewModels { get; set; }
     }
 }

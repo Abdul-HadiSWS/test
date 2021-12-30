@@ -1,6 +1,8 @@
 namespace LearningPortal.Migrations
 {
     using LearningPortal.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -20,7 +22,41 @@ namespace LearningPortal.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+            context.Roles.AddOrUpdate(
 
+                new ApplicationRole() { Name = "Admin" },
+                new ApplicationRole() { Name = "Student" }
+                );
+            context.SaveChanges();
+
+         
+            
+            if (!context.Users.Any(u => u.UserName == "LearningPotral"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser()
+                {
+                    Email = "Admin@LearningPortal.com",
+                   
+                    UserName = "LearningPotral"
+
+                };
+
+
+
+
+               manager.Create(user, "Abc@12");
+              
+                 manager.AddToRole(user.Id, "Admin");
+            }
+
+
+         //context.Categories.Single(i => i.CategoryName == "Audio/Video").CategoryId
+
+
+            context.SaveChanges();
+           
             context.Categories.AddOrUpdate(
                          new Categories() { CategoryName = "Audio/Video", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now ,IsActive = true },
                          new Categories() { CategoryName = "Communication", Image = "265_rsz_mubariz-mehdizadeh-364026-unsplash.jpg", Time = DateTime.Now, IsActive = true },
