@@ -664,6 +664,7 @@ namespace LearningPortal.Controllers
             string rootfolder = Server.MapPath(string.Format("~/assets/{0}/{1}", head, root));
 
 
+           
             if (Directory.Exists(rootfolder))
             {
                 List<string> Files = new List<string>();
@@ -688,7 +689,13 @@ namespace LearningPortal.Controllers
                     string[] Filenames = Directory.GetFiles(sectiond);
                     foreach (var item in Filenames)
                     {
-                        System.IO.File.Delete(item);
+                        FileStream s = new FileStream(item, FileMode.Open); //openning stream, them file in use by a process
+                       //Generete a error
+                                                             //problem solved here...
+                        s.Close();
+                        s.Dispose();
+                        System.IO.File.Delete(item); //File deletad sucessfully!
+                     
                     }
 
                     Directory.Delete(sectiond);
@@ -713,7 +720,7 @@ namespace LearningPortal.Controllers
 
 
 
-
+           
 
             if (Directory.Exists(rootfolder))
             {
@@ -1056,6 +1063,8 @@ namespace LearningPortal.Controllers
 
                 
                 copydirectory("temp", "videos", obj.CourseName);
+                
+                deletedirectory(obj.CourseName, "temp");
                 root = "";
                 Tags.Clear();
                 WWYL.Clear();
