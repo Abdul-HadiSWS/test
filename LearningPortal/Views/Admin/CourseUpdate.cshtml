@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<input type="hidden" id="rootName1" value="@ViewBag.Placeholder" />
+
 <div class="mdk-drawer-layout__content page mr-3 ml-2">
     <div id="videoModalWrapper">
 
@@ -19,14 +21,14 @@
             </div>
             <div class="card" id="coureditsectionList">
 
-                  <input type="hidden" vaule="" id="rootfoldername" />
-    
-             @{
-                @Html.Action("CourseOutlineEdit", "Admin")
+                <input type="hidden" vaule="" id="rootfoldername" />
 
-             }
+                @{
+                    @Html.Action("CourseOutlineEdit", "Admin")
 
-     
+                }
+
+
 
 
 
@@ -73,14 +75,14 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="d-flex justify-content-center" style="height:200px">
-                       
+
                         @if (ViewBag.ImageUrl != null)
                         {
                             <img alt="Uploaded Image" src="~/assets/images/@ViewBag.ImageUrl" />
                         }
                         else
                         {
-                           
+
                             <img src="~/assets/images/@Model.Image" id="coursepic">
                         }
                     </div>
@@ -116,16 +118,13 @@
                         <label class="form-label"
                                for="title">Title</label>
                         <div class="input-group">
-                           
+
                             <input type="text"
                                    class="form-control"
                                    id="CourseTitle"
-                             
                                    value="@Model.CourseName">
                             <input type="hidden" id="rootName" value="@ViewBag.Placeholder" />
-                            <div class="input-group-append">
-                                <button class="input-group-text" id="AddDesc"> <i class="material-icons">add_circle_outline</i></button>
-                            </div>
+
                         </div>
                     </div>
 
@@ -169,7 +168,7 @@
             <!--What I`ll You Learn start-->
             <div class="card">
 
-             
+
                 <div class="card-body">
                     <div class="card-header">
                         <h4 class="card-title">What I`ll You Learn</h4>
@@ -223,13 +222,19 @@
 
 
 
+
+
+
+
 <script>
+
+
 
 
     function getWhatYouLearn() {
         var TA = $(".TA").children().attr("class");
 
-        var a = $('.' + TA + '  p:eq(0)').text();
+        var a = $('.' + TA + '  p').text();
         var b = $('.' + TA + '  ol:eq(0)').children().text();
         var c = $('.' + TA + '  ol:eq(0)').children().text();
         //alert(a);
@@ -252,23 +257,7 @@
 
 
     }
-
-    function showModal() {
-
-        $.ajax({
-            type: "Get",
-            url: "/Admin/VideoModal",
-
-
-            success: function (data) {
-
-                $(function () {
-                    $('#videoModal').modal();
-                });
-                $('#videoModalWrapper').html(data);
-            }
-        });
-    }
+   
     function GETTAG(tag) {
 
         $.ajax({
@@ -309,11 +298,15 @@
 
 
 
+  
+
 
 
     $(document).ready(function () {
 
-     
+
+       
+
         $("#CourseTitle").val($("#rootName").val());
         $(".yearpicker").yearpicker({
             year: 2019,
@@ -322,11 +315,11 @@
         });
 
         $(".yearpicker").val($("#year").val());
-     
-        
+
+
         $("#courseLevel").val($("#Levels").val());
 
-        
+
 
         var cid = $("#catid").val();
         var scid = $("#subcatid").val();
@@ -359,7 +352,7 @@
 
 
 
-    // Tag Add 
+    // Tag Add
     $("#tagadd").click(function () {
 
         var tag = $("#searchText").val();
@@ -401,7 +394,7 @@
 
 
 
-   
+
 
 
     // Course Image upload
@@ -720,117 +713,140 @@
 
 
 
+    $('#AddDesc').click(function () {
+        var CourseTitle = $("#CourseTitle").val();
+        var CourseDesc = $("#CourseDescription").val();
+        var rootName = $("#rootName").val();
+
+
+        $.ajax({
+            type: "Post",
+            url: "/Admin/AddDesc",
+            data: {
+                CourseTitle: CourseTitle,
+                CourseDescription: CourseDesc,
+                check: "update"
+            },
+
+            success: function (data) {
+                alert(data);
+            }
+        });
+
+    });
 
 
 
     $("#courseupdate").click(function () {
 
-        var TA = $(".TA").children().attr("class");
 
-        var a = $('.' + TA + '  p:eq(0)').text();
-        var b = $('.' + TA + '  ol:eq(0)').children().text();
-        var c = $('.' + TA + '  ol:eq(0)').children().text();
-        //alert(a);
-        //console.log(b);
+        var check = "";
+        var CourseTitle = $("#CourseTitle").val();
+        var CourseDesc = $("#CourseDescription").val();
+        var rootName = $("#rootName").val();
+
+        console.log(CourseDesc);
 
 
         $.ajax({
             type: "Post",
-            url: "/Admin/WWYLearn",
+            url: "/Admin/AddDesc",
             data: {
-                paragraph: a,
-                OrderList: b,
-                UnorderedList: c,
+                CourseTitle: CourseTitle,
+                CourseDescription: CourseDesc,
+                check: "update"
             },
 
             success: function (data) {
+                var condition = data;
 
-            }
-        });
-
-
-
-        var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
-            return $(this).attr("id");
+                if (condition == "Folder Name Change Successfully") {
 
 
-        }).get();
+                    getWhatYouLearn();
 
 
-        var sectionfiledata = [];
-        var sectionfileduration = [];
+                    var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
+                        return $(this).attr("id");
 
 
-        for (var c in sectionnamedata) {
+                    }).get();
 
 
-            var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
-            var sectionfiledata1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".w-50").map(function () {
-
-                return $(this).attr("id");
+                    var sectionfiledata = [];
+                    var sectionfileduration = [];
 
 
-            }).get();
-
-            sectionfiledata.push(sectionfiledata1);
-        }
+                    for (var c in sectionnamedata) {
 
 
-        for (var c in sectionnamedata) {
+                        var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
+                        var sectionfiledata1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".w-50").map(function () {
+
+                            return $(this).attr("id");
 
 
-            var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
-            var sectionfileduration1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".ddd").children().map(function () {
+                        }).get();
 
-                return $(this).text();
-
-
-            }).get();
-
-            sectionfileduration.push(sectionfileduration1);
-        }
-
-        //console.log(sectionnamedata);
-        //console.log(sectionfiledata);
-        //console.log(sectionfileduration);
-
-        var courseid = $("#CourseID").val();
-
-        var CourseName = $("#CourseTitle").val();
-        var CourseDesc = $("#CourseDescription").val();
-        var courseYear = $("#courseYear").val();
-        var categoryId = $("#CategoryId").val();
-        var subcategoryId = $("#SubCategoryId").val();
-        var courseLevel = $("#courseLevel").val();
-        var coursepic = $("#coursepic").attr("src");
-
-           
-        
-        var TA = $(".TA").children().attr("class");
-        var a = $('.' + TA).text();
-     
-
-        
-        
-        // alert($("#coursep").val());
+                        sectionfiledata.push(sectionfiledata1);
+                    }
 
 
-        if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
-          
-                          $.ajax({
-                            type:"POST",
+                    for (var c in sectionnamedata) {
+
+
+                        var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
+                        var sectionfileduration1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".ddd").children().map(function () {
+
+                            return $(this).text();
+
+
+                        }).get();
+
+                        sectionfileduration.push(sectionfileduration1);
+                    }
+
+                    //console.log(sectionnamedata);
+                    //console.log(sectionfiledata);
+                    //console.log(sectionfileduration);
+
+                    var courseid = $("#CourseID").val();
+
+                    var CourseName = $("#CourseTitle").val();
+                    var CourseDesc = $("#CourseDescription").val();
+                    var courseYear = $("#courseYear").val();
+                    var categoryId = $("#CategoryId").val();
+                    var subcategoryId = $("#SubCategoryId").val();
+                    var courseLevel = $("#courseLevel").val();
+                    var coursepic = $("#coursepic").attr("src");
+
+
+
+                    var TA = $(".TA").children().attr("class");
+                    var whatulearn = $('.' + TA).text();
+
+
+
+
+                    // alert($("#coursep").val());
+
+
+                    if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
+
+                        $.ajax({
+                            type: "POST",
                             url: '/Admin/CourseUpdate',
 
-                              data: {
-                                  courseid: courseid,
+                            data: {
+                                courseid: courseid,
                                 CourseName: CourseName,
                                 CourseDesc: CourseDesc,
                                 courseYear: courseYear,
                                 categoryId: categoryId,
                                 subcategoryId: subcategoryId,
                                 courseLevel: courseLevel,
-                                  coursepic: coursepic,
-                                  a: a ,
+                                coursepic: coursepic,
+                                whatulearn: whatulearn,
                                 sectionnamedata: JSON.stringify(sectionnamedata),
                                 sectionfiledata: JSON.stringify(sectionfiledata),
                                 sectionfileduration: JSON.stringify(sectionfileduration)
@@ -848,13 +864,27 @@
                                 alert(err.statusText);
                             }
                         });
-        }
-        else {
-            alert("Please fill All Values");
-            console.log("ïn here");
+                    }
+                    else {
+                        alert("Please fill All Values");
+                        console.log("ïn here");
 
 
-        }
+                    }
+                } else {
+                    if (condition == "") {
+
+                    } else {
+                        alert(condition);
+                    }
+
+                }
+            }
+        });
+
+
+
+
 
 
     });

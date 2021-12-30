@@ -4,6 +4,7 @@
     @Html.Action("CourseUploader", "Admin")
 
 }
+
 <style>
     .display-toggle {
         position: relative;
@@ -12,6 +13,7 @@
     }
 </style>
 
+<input type="hidden" id="rootName" value="@ViewBag.Placeholder" />
 <ul class="nestable-list">
     <li class="nestable-item nestable-item-handle a" data-id="2" id="co">
 
@@ -89,7 +91,7 @@
                                     <li class="nestable-item nestable-item-handle"
                                         data-id="2">
                                         <div class="nestable-handle"><i class="material-icons">menu</i></div>
-                                        <div class="nestable-content">
+                                        <div class="nestable-content" id="@ViewBag.Placeholde">
                                             <div class="media align-items-center" id="@h">
 
                                                 <div class="media-body" id="Nested_Card">
@@ -111,7 +113,7 @@
                                                                 top: 15px;
                                                                 right: 140px;
                                                             ">
-                                                                @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension , check="edit"}); }
+                                                                @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "edit" }); }
 
                                                             </div>
 
@@ -126,7 +128,8 @@
 
                                                 <div class="media-right %@h">
                                                     <a href="#"
-                                                       class="btn btn-white btn-sm video" title="@val">
+                                                       class="btn btn-white btn-sm video" title="@val" data-toggle="modal"
+                                                       data-target="#exampleModal">
                                                         <i class="material-icons">visibility</i>
                                                     </a>
                                                     <a href="#"
@@ -165,8 +168,55 @@
 </ul>
 
 
+
+
+<div class="modal fade" id="exampleModal">
+    <div class="modal-dialog" style=" margin-top: 13%;margin-left: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close ml-2" data-dismiss="modal" id="close">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <video id="vemvo-player" controls width="100%" height="100%" src="~/assets/">
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
+
+
+
+
+
+
     $(document).ready(function () {
+
+
+        $("#close").click(function () {
+
+            //$("#vemvo-player").c();
+            $('#exampleModal').modal('hide');
+
+        });
+
+
+        $('.video').click(function () {
+
+            var root = $("#rootName").val();
+            var subf = $(this).parent().parent().attr('id');
+            var vi = $(this).attr('title');
+
+
+            var src = "/assets/videos/" + root + "/" + subf + "/" + vi;
+            $('#vemvo-player').attr("src", src);
+
+
+        });
         /*   alert("dcf");*/
 
         var rootTitle = $("#rootTitle").val();
@@ -174,7 +224,7 @@
 
 
 
-        $("#AddNewfile").click( function () {
+        $("#AddNewfile").click(function () {
 
 
 
@@ -189,31 +239,7 @@
 
         });
 
-        $(".video").click(function () {
 
 
-            var subf = $(this).parent().parent().attr('id');
-            var vi = $(this).attr('title');
-            console.log(subf, vi);
-            $.ajax({
-                type: "Get",
-                url: "/Admin/VideoModal",
-
-                data: {
-                    subFoldername: subf,
-                    video: vi
-                },
-                success: function (data) {
-
-                    $(function () {
-                        $('#videoModal').modal();
-                    });
-                    $('#videoModalWrapper').html(data);
-                }
-            });
-        });
-
-
-       
     });
 </script>

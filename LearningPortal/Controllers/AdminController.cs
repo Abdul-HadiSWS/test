@@ -706,15 +706,6 @@ namespace LearningPortal.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
         public void copydirectory(string source,string destination,string root)
         {
 
@@ -931,7 +922,7 @@ namespace LearningPortal.Controllers
 
 
         [HttpPost]
-        public ActionResult CourseUpdate(string courseid, string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string sectionnamedata, string sectionfiledata, string sectionfileduration,string a)
+        public ActionResult CourseUpdate(string courseid, string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string whatulearn,string sectionnamedata, string sectionfiledata, string sectionfileduration)
         {
 
             string[] sectionName = JsonConvert.DeserializeObject<string[]>(sectionnamedata);
@@ -1003,12 +994,20 @@ namespace LearningPortal.Controllers
 
                 foreach (var wwul in WWYL)
                 {
-                    
-                    CourseLearning courLearn = new CourseLearning();
-                    courLearn.CourseId = Convert.ToInt32(courseid);
-                    courLearn.Description = wwul;
-                    Db.CourseLearnings.Add(courLearn);
-                    Db.SaveChanges();
+
+                    if (wwul == "")
+                    {
+
+                    }
+                    else
+                    {
+                        CourseLearning courLearn = new CourseLearning();
+                        courLearn.CourseId = Convert.ToInt32(courseid);
+                        courLearn.Description = wwul;
+                        Db.CourseLearnings.Add(courLearn);
+                        Db.SaveChanges();
+                    }
+                   
                     //WWYL.Clear();
                 }
 
@@ -1487,16 +1486,40 @@ namespace LearningPortal.Controllers
 
             string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, root));
             string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/", check ,CourseTitle));
-            if (!Directory.Exists(folder1))
+
+               var checkname = Db.Courses.Where(x => x.CourseName == CourseTitle).FirstOrDefault();
+
+            if (root == CourseTitle)
             {
 
-                //Directory.CreateDirectory(folder1);
-                Directory.Move(folder, folder1);
-
-                root = CourseTitle;
-                return RedirectToAction("");
+                return Json("Folder Name Change Successfully");
             }
-            return RedirectToAction("");
+            else
+            {
+                if (checkname == null)
+                {
+                    if (!Directory.Exists(folder1))
+                    {
+
+                        //Directory.CreateDirectory(folder1);
+                        Directory.Move(folder, folder1);
+
+                        root = CourseTitle;
+                        return Json("Folder Name Change Successfully");
+                    }
+                }
+                else
+                {
+                    return Json("Course Name Already Exists, Change the Title.");
+                }
+            }
+                
+            
+               
+           
+           
+          
+            return Json("");
         }
 
 
@@ -1630,23 +1653,33 @@ namespace LearningPortal.Controllers
         
      
         
-        
-        public PartialViewResult VideoModal(string subFoldername, string video)
+        [HttpPost]
+        public ActionResult VideoModal1(string subFoldername, string video, string check)
         {
 
+            if (check == "update")
+            {
+
+                check = "temp";
+            }
+            else
+            {
+                check = "videos";
+
+            }
             string mainFolder = root;
             string SubFolder = subFoldername;
             string Video = video;
             string ext = Path.GetExtension(Video);
             ext = "video/" + ext.Replace(".", "");
-            string src = string.Format("{0}/{1}/{2}", mainFolder, SubFolder, Video);
-
+            string src = string.Format("/assets/{0}/{1}/{2}/{3}",check,mainFolder, SubFolder, Video);
 
 
             ViewBag.Src = src;
             ViewBag.type = ext;
-            return PartialView();
+            return Json(""+src);
         }
+
 
         public ActionResult gettime(string video, string section, int count1, string extension,string check)
         {
@@ -1723,12 +1756,21 @@ namespace LearningPortal.Controllers
                 }
                 foreach (var wwul in WWYL)
                 {
-                    var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
-                    CourseLearning courLearn = new CourseLearning();
-                    courLearn.CourseId = result1.CourseId;
-                    courLearn.Description = wwul;
-                    Db.CourseLearnings.Add(courLearn);
-                    Db.SaveChanges();
+                    if (wwul == "")
+                    {
+
+                    }
+                    else
+                    {
+                        var Wwul = Db.CourseLearnings.Where(x => x.Description == wwul).SingleOrDefault();
+                        CourseLearning courLearn = new CourseLearning();
+                        courLearn.CourseId = result1.CourseId;
+                        courLearn.Description = wwul;
+                        Db.CourseLearnings.Add(courLearn);
+                        Db.SaveChanges();
+                    }
+
+                  
                     //WWYL.Clear();
                 }
                 int countoutside = 0;

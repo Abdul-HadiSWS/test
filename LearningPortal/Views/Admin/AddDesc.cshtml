@@ -10,10 +10,8 @@
                        id="CourseTitle"
                        placeholder="Add Course Name"
                        value="">
-                <input type="hidden" id="rootName" value="r" />
-                <div class="input-group-append">
-                    <button class="input-group-text" id="AddDesc"> <i class="material-icons">add_circle_outline</i></button>
-                </div>
+         
+              
             </div>
         </div>
 
@@ -26,44 +24,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function () {
-       
-        $.ajax({
-            type: "Get",
-            url: "/Admin/AddDesc",
-
-            success: function (data) {
-
-            }
-        });
-
-
-        $('#AddDesc').click(function () {
-            var CourseTitle = $("#CourseTitle").val();
-            var CourseDesc = $("#CourseDescription").val();
-            var rootName = $("#rootName").val();
-            alert(CourseTitle);
-            console.log(CourseDesc);
-
-
-            $.ajax({
-                type: "Post",
-                url: "/Admin/AddDesc",
-                data: {
-                    CourseTitle: CourseTitle,
-                    CourseDescription: CourseDesc,
-                    check:"edit"
-                },
-
-                success: function (data) {
-
-                }
-            });
-
-        });
-
-    });
-</script>
