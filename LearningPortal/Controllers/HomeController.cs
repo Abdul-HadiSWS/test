@@ -277,7 +277,7 @@ namespace LearningPortal.Controllers
 
             int sectionmediaid = Convert.ToInt32(sid);
             var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == id).Select(x => x.SectionMediaId).ToList();
-
+            var coursename = Db.Courses.Find(id).CourseName;
             var vname = Db.SectionMedia.Find(sectionmediaid).VideoTitle.ToString();
             var SECNAME = Db.SectionMedia.Find(sectionmediaid).Section.SectionName.ToString();
             int index = 0;
@@ -378,9 +378,10 @@ namespace LearningPortal.Controllers
                 SectionMedia sm = Db.SectionMedia.Find(media);
                 ViewBag.duration = sm.VideoDuration.ToString();
                 ViewBag.videotype = sm.Videotype.ToString();
-                ViewBag.videourl = sm.VideoUrl.ToString();
+                ViewBag.videourl = coursename+"/"+ SECNAME+"/"+sm.VideoUrl.ToString();
                 ViewBag.videotitle = vname;
                 ViewBag.Secname = SECNAME;
+
                 return PartialView();
             }
         }
