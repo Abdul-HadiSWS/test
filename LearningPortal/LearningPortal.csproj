@@ -181,7 +181,6 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -406,6 +405,16 @@
     <Content Include="assets\vendor\spinkit.css" />
     <Content Include="assets\vendor\sweetalert.min.js" />
     <Content Include="assets\vendor\vue.min.js" />
+    <Content Include="assets\videos\Asp.net\Introduction to java\Video-20211018_095303-Meeting Recording.mp4" />
+    <Content Include="assets\videos\Asp.net\Oop\Pexels Videos 4580.mp4" />
+    <Content Include="assets\videos\Asp.net\Oop\Pexels Videos 4584.mp4" />
+    <Content Include="assets\videos\Java1\Introduction to java\Pexels Videos 4584.mp4" />
+    <Content Include="assets\videos\Java1\Introduction to java\Video-20211018_095303-Meeting Recording.mp4" />
+    <Content Include="assets\videos\Java1\Oop\Pexels Videos 4580.mp4" />
+    <Content Include="assets\videos\Java1\Oop\Pexels Videos 4584.mp4" />
+    <Content Include="assets\videos\Java222\Introduction to java\Video-20211018_095303-Meeting Recording.mp4" />
+    <Content Include="assets\videos\Java222\Oop\Pexels Videos 4580.mp4" />
+    <Content Include="assets\videos\Java222\Oop\Pexels Videos 4584.mp4" />
     <Content Include="assets\videos\Java\Introduction to java\Resume course.webm" />
     <Content Include="assets\videos\Java\Introduction to java\Video-20211018_095303-Meeting Recording.mp4" />
     <Content Include="assets\videos\Java\Oop\Pexels Videos 4580.mp4" />
@@ -530,22 +539,14 @@
     <Content Include="Views\Admin\SubCategoryList.cshtml" />
     <Content Include="Views\Admin\DeleteSubCategory.cshtml" />
     <Content Include="Views\Admin\EditSubCat.cshtml" />
-    <Content Include="Views\Shared\t.cshtml" />
     <Content Include="Views\Admin\CourseUpdate.cshtml" />
     <Content Include="Views\Admin\CourseOutLine.cshtml" />
     <Content Include="Views\Error\Error404A.cshtml" />
-    <Content Include="Views\Admin\check.cshtml" />
     <Content Include="Views\Admin\DDCatSub.cshtml" />
     <Content Include="Views\Admin\WWYLearn.cshtml" />
     <Content Include="Views\Admin\AddDesc.cshtml" />
-    <Content Include="Views\Admin\VideoModal.cshtml" />
     <Content Include="Views\Admin\gettime.cshtml" />
     <Content Include="Views\Admin\CourseOutlineEdit.cshtml" />
-    <Content Include="Views\Role\Create.cshtml" />
-    <Content Include="Views\Role\Delete.cshtml" />
-    <Content Include="Views\Role\Details.cshtml" />
-    <Content Include="Views\Role\Edit.cshtml" />
-    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

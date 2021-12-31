@@ -188,20 +188,10 @@
 
 
 <script>
+$(document).ready(function () {
 
-
-
-
-
-
-    $(document).ready(function () {
-
-
-        $("#close").click(function () {
-
-            //$("#vemvo-player").c();
+        $("#close").click(function () {          
             $('#exampleModal').modal('hide');
-
         });
 
 
@@ -210,36 +200,17 @@
             var root = $("#rootName").val();
             var subf = $(this).parent().parent().attr('id');
             var vi = $(this).attr('title');
-
-
             var src = "/assets/videos/" + root + "/" + subf + "/" + vi;
             $('#vemvo-player').attr("src", src);
-
-
         });
-        /*   alert("dcf");*/
+       
 
         var rootTitle = $("#rootTitle").val();
         $("#CourseTitle").val(rootTitle);
-
-
-
         $("#AddNewfile").click(function () {
-
-
-
-            // var SubDirTitle = $(this).parent().siblings().children('.heading').val();
             var SubDirTitle = $(this).parent().siblings().children('.heading').val();
-
-
-            /* var producttypename = $("#Headingsh").val();*/
             alert(SubDirTitle);
-
-
-
         });
-
-
 
     });
 </script>

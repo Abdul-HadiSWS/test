@@ -36,7 +36,7 @@
         $(document).ready(function () {
 
             $(".editSubCat").click(function () {
-                    var formData = new FormData();
+                var formData = new FormData();
                 var file = document.getElementById("SubcatImage").files[0];
                 formData.append("SubcatImage", file);
 
@@ -58,49 +58,10 @@
                     processData: false,
                     contentType: false,
                         success: function (response) {
-                            //alert("Updated");
-                           // console.log(response);
+                           
                             $("#row_" + Subcid).load(" #row_" + Subcid +" > *");
                         }
                     });
-
-
-
-
-                    //var data = {
-                    //     valId : $("#catId").val(),
-                    //     valName : $("#CatName").val()
-                    //};
-                    ////var file = $("#CatImage").files[0];
-                    //var fileUpload = $("#CatImage").get(0);
-                    //var files = fileUpload.files;
-
-
-                    //var formData = new FormData();
-
-                    //formData.append("data", JSON.stringify(data));
-                    //formData.append("httpPostedFileBase", files);
-
-                    ////var valImg = .val();
-                    //alert(file)
-
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: "/Admin/EditCat",
-                    //    data: formData,
-                    //    dataType: 'json',
-
-                    //    success: function (response) {
-
-                    //        alert("Deleted");
-                    //        $("#row_" + valdelete).load();
-
-                    //    },
-                    //    error: function () {
-
-                    //    }
-                    //})
-
 
                 });
             })

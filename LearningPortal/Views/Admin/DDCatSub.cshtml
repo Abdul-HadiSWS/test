@@ -16,16 +16,10 @@
 <script src="~/assets/vendor/jquery.min.js"></script>
 
 <script>
-
-
         $(document).ready(function () {
-
-
             $("#CategoryId").change(function () {
                 var categoryId = $(this).val();
-
                 if (categoryId != "") {
-
                     $.get("/Admin/GetSubCategoriesList", { CategoryId: categoryId }, function (data) {
                         $("#SubCategoryId").empty();
                         $("#SubCategoryId").append("<option value=''>Choose SubCategory</option>");
@@ -37,30 +31,8 @@
                 else {
                     $("#SubCategoryId").empty();
                     $("#SubCategoryId").append("<option value=''>Choose SubCategory</option>");
-
-
                 }
-
-
-
-                //$.ajax({
-                //    type: "post",
-                //    url: "/Admin/GetSubCategoriesList?CategoryId=" + categoryId,
-                //    contentType: "html",
-                //    success: function (response) {
-
-                //        $("#SubCategoryId").empty();
-
-                //        $("#SubCategoryId").append(response);
-                //    },
-                //    error: function () {
-                //        alert(error);
-                //    }
-                //})
-
-
             })
-
         });
 </script>
 

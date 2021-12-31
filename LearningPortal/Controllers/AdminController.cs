@@ -819,6 +819,7 @@ namespace LearningPortal.Controllers
 
         public ActionResult CourseUpdate(string id)
         {
+            ViewBag.CId = id;
             if (id == null)
             {
                 return View("Error404", "Error");
@@ -1663,32 +1664,32 @@ namespace LearningPortal.Controllers
         
      
         
-        [HttpPost]
-        public ActionResult VideoModal1(string subFoldername, string video, string check)
-        {
+        //[HttpPost]
+        //public ActionResult VideoModal1(string subFoldername, string video, string check)
+        //{
 
-            if (check == "update")
-            {
+        //    if (check == "update")
+        //    {
 
-                check = "temp";
-            }
-            else
-            {
-                check = "videos";
+        //        check = "temp";
+        //    }
+        //    else
+        //    {
+        //        check = "videos";
 
-            }
-            string mainFolder = root;
-            string SubFolder = subFoldername;
-            string Video = video;
-            string ext = Path.GetExtension(Video);
-            ext = "video/" + ext.Replace(".", "");
-            string src = string.Format("/assets/{0}/{1}/{2}/{3}",check,mainFolder, SubFolder, Video);
+        //    }
+        //    string mainFolder = root;
+        //    string SubFolder = subFoldername;
+        //    string Video = video;
+        //    string ext = Path.GetExtension(Video);
+        //    ext = "video/" + ext.Replace(".", "");
+        //    string src = string.Format("/assets/{0}/{1}/{2}/{3}",check,mainFolder, SubFolder, Video);
 
 
-            ViewBag.Src = src;
-            ViewBag.type = ext;
-            return Json(""+src);
-        }
+        //    ViewBag.Src = src;
+        //    ViewBag.type = ext;
+        //    return Json(""+src);
+        //}
 
 
         public ActionResult gettime(string video, string section, int count1, string extension,string check)
@@ -1831,116 +1832,109 @@ namespace LearningPortal.Controllers
 
 
 
+        //public ActionResult check()
+        //{
+        //    /*
+        //     *  create folder
+        //     * 
+        //    string foldername = "ad";
+        //    string folder = Server.MapPath(string.Format("~/assets/videos/{0}/",foldername));
+        //    if (Directory.Exists(folder))
+        //    {
+        //        string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", foldername,"ada23"));
+        //        Directory.CreateDirectory(folder1);
+        //        ViewBag.message = "created";
+        //    }
+        //    */
 
-
-
-
-
-
-
-        public ActionResult check()
-        {
-            /*
-             *  create folder
-             * 
-            string foldername = "ad";
-            string folder = Server.MapPath(string.Format("~/assets/videos/{0}/",foldername));
-            if (Directory.Exists(folder))
-            {
-                string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", foldername,"ada23"));
-                Directory.CreateDirectory(folder1);
-                ViewBag.message = "created";
-            }
-            */
-
-            /* Create list from folder
+        //    /* Create list from folder
               
-             */
-            string rootfoldername = "ad";
-            string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
+        //     */
+        //    string rootfoldername = "ad";
+        //    string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
 
-            List<string> Files = new List<string>();
-            List<List<string>> data = new List<List<string>>();
+        //    List<string> Files = new List<string>();
+        //    List<List<string>> data = new List<List<string>>();
 
-            if (Directory.Exists(folder))
-            {
-                /* Section Name*/
-                string[] Filespath = Directory.GetDirectories(folder);
-
-
-
-                foreach (string filePath in Filespath)
-                {
-                    Files.Add(Path.GetFileName(filePath));
-                }
-
-
-                /* Section File*/
-                for (int i = 0; i < Files.Count; i++)
-                { // Loop through List with for
-
-                    List<string> data1 = new List<string>();
-
-                    Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", rootfoldername, Files[i])));
+        //    if (Directory.Exists(folder))
+        //    {
+        //        /* Section Name*/
+        //        string[] Filespath = Directory.GetDirectories(folder);
 
 
 
-                    foreach (string filePath in Filespath)
-                    {
-                        data1.Add(Path.GetFileName(filePath));
-                    }
-                    data.Add(data1);
-                }
-
-                ViewBag.PData = data;
-                ViewBag.QData = Files;
-            }
-            else
-            {
-
-            }
+        //        foreach (string filePath in Filespath)
+        //        {
+        //            Files.Add(Path.GetFileName(filePath));
+        //        }
 
 
-            ViewBag.message = "daw";
-            return View();
-        }
+        //        /* Section File*/
+        //        for (int i = 0; i < Files.Count; i++)
+        //        { // Loop through List with for
+
+        //            List<string> data1 = new List<string>();
+
+        //            Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", rootfoldername, Files[i])));
 
 
-        [HttpGet]
-        public string AddSection(string sectionname, string foldername, string check)
-        {
-            /*
-           *  create folder
-          */
 
-            if (check == "update")
-            {
-                check = "videos";
-            }
-            else
-            {
-                check = "temp";
-            }
+        //            foreach (string filePath in Filespath)
+        //            {
+        //                data1.Add(Path.GetFileName(filePath));
+        //            }
+        //            data.Add(data1);
+        //        }
 
-            string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, foldername));
-            if (Directory.Exists(folder))
-            {
-                string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/", check, foldername, sectionname));
-                if (!Directory.Exists(folder1))
-                {
-                    Directory.CreateDirectory(folder1);
-                    return "true";
-                }
-                else
-                {
+        //        ViewBag.PData = data;
+        //        ViewBag.QData = Files;
+        //    }
+        //    else
+        //    {
 
-                    return "false";
-                }
+        //    }
 
-            }
 
-            return "false";
-        }
+        //    ViewBag.message = "daw";
+        //    return View();
+        //}
+
+
+        //[HttpGet]
+        //public string AddSection(string sectionname, string foldername, string check)
+        //{
+        //    /*
+        //   *  create folder
+        //  */
+
+        //    if (check == "update")
+        //    {
+        //        check = "videos";
+        //    }
+        //    else
+        //    {
+        //        check = "temp";
+        //    }
+
+        //    string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, foldername));
+        //    if (Directory.Exists(folder))
+        //    {
+        //        string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/", check, foldername, sectionname));
+        //        if (!Directory.Exists(folder1))
+        //        {
+        //            Directory.CreateDirectory(folder1);
+        //            return "true";
+        //        }
+        //        else
+        //        {
+
+        //            return "false";
+        //        }
+
+        //    }
+
+        //    return "false";
+        //}
 
 
     }

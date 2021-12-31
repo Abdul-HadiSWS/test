@@ -73,7 +73,7 @@
         var scid = $("#SubcatId").val();
         var search = $("#searchText").val();
         var checkft = $("#CheckFt").is(":checked");
-        console.log(cid+scid);
+       
         if (cid) {
             $("#CategoryId").val(cid);
             $.get("/Admin/GetSubCategoriesList", { CategoryId: cid }, function (data) {

@@ -185,22 +185,12 @@
 
 
 <script>
-
-
-
-
-
-
-
-
-
-
-    $(document).ready(function () {
+  $(document).ready(function () {
 
 
         $("#close").click(function () {
 
-            //$("#vemvo-player").c();
+          
             $('#exampleModal').modal('hide');
 
         });
@@ -215,38 +205,20 @@
           
             var subf = $(this).parent().parent().attr('id');
             var vi = $(this).attr('title');
-
-
-
-
             var src = "/assets/temp/" + root + "/" + subf + "/" + vi;
             $('#vemvo-player').attr("src", src);
 
 
         });
-        /*   alert("dcf");*/
-
         var rootTitle = $("#rootName").val();
         $("#CourseTitle").val(rootTitle);
-
-
-
         $("#AddNewfile").click(function () {
 
-
-
-            // var SubDirTitle = $(this).parent().siblings().children('.heading').val();
             var SubDirTitle = $(this).parent().siblings().children('.heading').val();
 
-
-            /* var producttypename = $("#Headingsh").val();*/
             alert(SubDirTitle);
 
-
-
         });
-
-
 
     });
 </script>

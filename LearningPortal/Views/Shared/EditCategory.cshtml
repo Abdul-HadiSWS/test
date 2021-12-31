@@ -42,7 +42,7 @@
             var valId = $("#catId").val();
             var valName = $("#CatName").val();
             //var valImg = $("#CatImage").val();
-            alert(myformdata)
+           
 
             $.ajax({
                 type: "POST",
@@ -56,7 +56,7 @@
                 success: function (response) {
 
                     alert("Deleted");
-                    //$("#row_" + valdelete).load();
+                   
 
                 },
                 error: function () {

@@ -30,30 +30,22 @@
             $.ajax({
                 type: "POST",
                 url: "/Admin/DeleteCat",
-
                 data: {
                     Cid: valdelete,
                     DefaultId:defaultId
                 },
                 success: function (response) {
-                    if (response==true) {
-
-                       
+                    if (response==true) {      
                         $("#row_" + valdelete).remove();
                         $("#row_" + defaultId).load(" #row_" + defaultId + " > *");
                     }
                     else {
                         alert("You Cannot Delete this, sorry!");
                     }
-                   
-
                 },
                 error: function () {
-
                 }
             })
-
-
         });
     })
 </script>

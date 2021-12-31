@@ -201,9 +201,6 @@
         var a = $('.' + TA + '  p').text();
         var b = $('.' + TA + '  ol:eq(0)').children().text();
         var c = $('.' + TA + '  ol:eq(0)').children().text();
-        //alert(a);
-        //console.log(b);
-
 
         $.ajax({
             type: "Post",
@@ -261,6 +258,14 @@
             }
         });
     }
+    
+    $("#upbtn").click(function () {
+        
+        $('#uplod').trigger('click');
+        
+    });
+
+
 
     // Tag Add
     $("#tagadd").click(function () {
@@ -272,13 +277,7 @@
             $("#searchText").val("");
         }
     });
-    //console.log("coursepic" + coursepic);
-    //console.log("CourseName" + CourseName);
-    //console.log("CourseDesc" + CourseDesc);
-    //console.log("courseYear" + courseYear);
-    //console.log("categoryId" + categoryId);
-    //console.log("subcategoryId" + subcategoryId);
-    //console.log("courseLevel" + courseLevel);
+    
 
     //Tag Remove
     $("#CTagManager").on("click", ".tagremove", function () {
@@ -307,14 +306,7 @@
 
         event.preventDefault();
         var formData = new FormData($(this)[0]);
-        //var formValues = $(this).serialize();
-        // console.log(formValues);
-        //var fileUpload = $(this).children().val();
-        //var files = fileUpload.files;
-
-        //var fileData = new FormData();
-
-        /// fileData.append(files[0].name, files[0]);.
+        
         $('#upbtn').prop('disabled', true);
 
         $.ajax({
@@ -361,16 +353,7 @@
 
         event.preventDefault();
         var formData = new FormData($(this)[0]);
-        //var formValues = $(this).serialize();
-        // console.log(formValues);
-        //var fileUpload = $(this).children().val();
-        //var files = fileUpload.files;
-
-        //var fileData = new FormData();
-
-        /// fileData.append(files[0].name, files[0]);
-
-
+       
         $.ajax({
             url: '/Admin/CourseFileUploader',
             type: "POST",
@@ -399,6 +382,9 @@
         });
     });
 
+
+
+
     // File Added
     var c = 22;
     $('#coureditsectionList').on('click', '#btnfileAdd', function () {
@@ -406,7 +392,7 @@
 
 
         $('#imgupload').trigger('click');
-        //var file = $('#imgupload')[0].files[0];
+      
 
         var sectionname = $(this).children().attr('class');
         c = sectionname;
@@ -414,25 +400,7 @@
 
     $('#coureditsectionList').on('change', '#imgupload', function () {
 
-
-
-
         var sectionname = c;
-
-        // var rootfolder = $("#rootfoldername").val();
-        //var SubDirTitle = $(this).parent().children().last().attr('class');
-        //var sectionname = $(this).parent().parent().parent().children().children().val();
-
-
-        // var fileUpload = $("#imgupload");
-        // var files = fileUpload.files;
-        //
-        //var fileData = new FormData();
-
-        // fileData.append(files[0].name, files[0]);
-        //fileData.append("sectionname", sectionname);
-
-
         var form_data = new FormData();
 
         form_data.append('sectionname', sectionname);
@@ -462,11 +430,6 @@
             }
         });
 
-
-        //getsectionvideo(fileData);
-
-
-
     });
 
 
@@ -477,11 +440,6 @@
 
         var newname = $(this).parent().parent().children().children().val();
         var oldname = $(this).parent().parent().children().children().attr("id");
-
-
-        //if (SubDirTitle == SubDirTitleh) {
-        //    SubDirTitleh = SubDirTitle
-        //}
 
         $.ajax({
             type: "Post",
@@ -511,12 +469,6 @@
 
         var Newname = $(this).parent().parent().children().children().children().val();
         var Oldname = $(this).parent().parent().children().children().children().attr("id");
-
-
-
-        //if (SubDirTitle == SubDirTitleh) {
-        //    SubDirTitleh = SubDirTitle
-        //}
 
         $.ajax({
             type: "Post",
@@ -569,8 +521,6 @@
     $("#coureditsectionList").on('click', ".DelDir", function () {
         var SubDirTitle = $(this).parent().siblings().children('.heading').val();
 
-
-
         $.ajax({
             type: "Post",
             url: "/Admin/DeleteDir",
@@ -621,21 +571,12 @@
 
 
             '<div class="media-right">' +
-            //'<label class="btn btn-white btn-sm m-0 btn-sm">' +
-            //'<input type="file"   class="d-none" id="createFolder"/>' +
-            //'<i class="material-icons">file_upload</i>' +
-            //'</label>' +
-
-            //'<a href="#" class="btn btn-white">' +
-            //'<i class="material-icons">edit</i>' +
-            //'</a>' +
+          
             '<button class="btn btn-white btn-sm createFolder" id="createFolder" >' +
             '<i class="material-icons">add</i>' +
             '</button>' +
 
-            //'<a href="#" class="btn btn-white btn-sm">' +
-            //'<i class="material-icons">delete</i>' +
-            //'</a>' +
+           
 
             '</div>' +
             '</form>' +
@@ -661,7 +602,7 @@
                 check: "edit"
             },
             success: function (response) {
-                console.log(response);
+               
                 alert(response);
                 getoutline();
 
@@ -677,10 +618,7 @@
 
         var CourseTitle = $("#CourseTitle").val();
         var CourseDesc = $("#CourseDescription").val();
-        var rootName = $("#rootName").val();
-
-        console.log(CourseDesc);
-
+       
 
         $.ajax({
             type: "Post",
@@ -738,11 +676,7 @@
                         sectionfileduration.push(sectionfileduration1);
                     }
 
-                    //console.log(sectionnamedata);
-                    //console.log(sectionfiledata);
-                    //console.log(sectionfileduration);
-
-
+                  
                     var CourseName = $("#CourseTitle").val();
                     var CourseDesc = $("#CourseDescription").val();
                     var courseYear = $("#courseYear").val();
@@ -750,9 +684,7 @@
                     var subcategoryId = $("#SubCategoryId").val();
                     var courseLevel = $("#courseLevel").val();
                     var coursepic = $("#coursepic").attr("src");
-                    // alert($("#coursep").val());
-
-
+                   
                     if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
 
                         $.ajax({

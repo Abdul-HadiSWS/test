@@ -27,8 +27,7 @@
 
         $(".deleteCour").click(function () {
             var valdelete = $("#courId").val();
-            alert(valdelete);
-
+           
             $.ajax({
                 type: "POST",
                 url: "/Admin/DeleteCourse",
@@ -43,11 +42,11 @@
 
                 },
                 error: function () {
-                    // alert(error);
+                     alert(error);
                 }
             })
 
-            //$(".deleteCour").attr("value", valdelete);
+          
         });
 
     })

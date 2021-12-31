@@ -5,7 +5,7 @@
 }
 
 <input type="hidden" id="rootName1" value="@ViewBag.Placeholder" />
-
+<input type="hidden" id="zipp" value="@ViewBag.CId"/>
 <div class="mdk-drawer-layout__content page mr-3 ml-2">
     <div id="videoModalWrapper">
 
@@ -220,27 +220,14 @@
     </div>
 </div>
 
-
-
-
-
-
-
 <script>
-
-
-
-
-    function getWhatYouLearn() {
+ function getWhatYouLearn() {
         var TA = $(".TA").children().attr("class");
 
         var a = $('.' + TA + '  p').text();
         var b = $('.' + TA + '  ol:eq(0)').children().text();
         var c = $('.' + TA + '  ol:eq(0)').children().text();
-        //alert(a);
-        //console.log(b);
-
-
+        
         $.ajax({
             type: "Post",
             url: "/Admin/WWYLearn",
@@ -272,7 +259,7 @@
                 $('#CTagManager').empty();
                 $('#CTagManager').append(data);
 
-                //$(".v").remove();
+              
             }
         });
     }
@@ -283,29 +270,33 @@
             url: "/Admin/CourseOutlineEdit",
             type: 'GET',
 
-
             success: function (data) {
-                //console.log(data);
+               
                 $('#coureditsectionList').empty();
                 $('#coureditsectionList').append(data);
-                //var rootTitle = $("#rootTitle").val();
-                //$("#CourseTitle").val(rootTitle);
+                
+            }
+        });
+    }
+    function getcoursezip() {
+        var id = $("#zipp").val();
+       
+        $.ajax({
+            url: "/Admin/CourseUpdate",
+            type: 'GET',
+            data: {
+                id: id
+            },
+            success: function (data) {
+                
+                $('#upperdata').empty();
+                $('#upperdata').append(data);
 
-                //$(".v").remove();
             }
         });
     }
 
-
-
-  
-
-
-
     $(document).ready(function () {
-
-
-       
 
         $("#CourseTitle").val($("#rootName").val());
         $(".yearpicker").yearpicker({
@@ -326,16 +317,7 @@
         if (cid) {
             $("#CategoryId").val(cid);
 
-            /*$.get("/Admin/GetSubCategoriesList", { CategoryId: cid }, function (data) {
-                $("#SubCategoryId").empty();
-                $("#SubCategoryId").append("<option value=''>SubCategory</option>");
-                $.each(data, function (index, row) {
-                    $("#SubCategoryId").append("<option value='" + row.SubCategoryId + "'>" + row.SubCategoryName + "</option>");
-                    $("#SubCategoryId").val(scid);
-                    $(".courseList").load("/Admin/CourseList", { catid: cid, subcatid: scid, tag: search, check: checkft });
-                });
-            });
-            */
+           
             $.get("/Admin/GetSubCategoriesList", { CategoryId: cid }, function (data) {
                 $("#SubCategoryId").empty();
                 $("#SubCategoryId").append("<option value=''>Choose SubCategory</option>");
@@ -362,13 +344,7 @@
             $("#searchText").val("");
         }
     });
-    //console.log("coursepic" + coursepic);
-    //console.log("CourseName" + CourseName);
-    //console.log("CourseDesc" + CourseDesc);
-    //console.log("courseYear" + courseYear);
-    //console.log("categoryId" + categoryId);
-    //console.log("subcategoryId" + subcategoryId);
-    //console.log("courseLevel" + courseLevel);
+   
 
     //Tag Remove
     $("#CTagManager").on("click", ".tagremove", function () {
@@ -391,8 +367,46 @@
     });
 
 
+    $(".zipupload").on("submit", function (event) {
+
+        event.preventDefault();
+
+        var formData = new FormData($(this)[0]);
+
+        $('#upbtn').prop('disabled', true);
+
+        $.ajax({
+            url: '/Admin/CourseUploader',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (result) {
+
+                var imageurl = result;
 
 
+                if (imageurl == "File Uploaded") {
+
+                    alert(imageurl);
+                    getcoursezip();
+                  
+
+
+
+                } else {
+                    alert(result);
+                    $('#upbtn').prop('disabled', false);
+
+                }
+
+
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    });
 
 
 
@@ -402,16 +416,7 @@
 
         event.preventDefault();
         var formData = new FormData($(this)[0]);
-        //var formValues = $(this).serialize();
-        // console.log(formValues);
-        //var fileUpload = $(this).children().val();
-        //var files = fileUpload.files;
-
-        //var fileData = new FormData();
-
-        /// fileData.append(files[0].name, files[0]);
-
-
+      
         $.ajax({
             url: '/Admin/CourseFileUploader',
             type: "POST",
@@ -447,33 +452,15 @@
 
 
         $('#imgupload').trigger('click');
-        //var file = $('#imgupload')[0].files[0];
-
+        
         var sectionname = $(this).children().attr('class');
         c = sectionname;
     });
 
     $('#coureditsectionList').on('change', '#imgupload', function () {
-
-
-
-
         var sectionname = c;
 
-        // var rootfolder = $("#rootfoldername").val();
-        //var SubDirTitle = $(this).parent().children().last().attr('class');
-        //var sectionname = $(this).parent().parent().parent().children().children().val();
-
-
-        // var fileUpload = $("#imgupload");
-        // var files = fileUpload.files;
-        //
-        //var fileData = new FormData();
-
-        // fileData.append(files[0].name, files[0]);
-        //fileData.append("sectionname", sectionname);
-
-
+        
         var form_data = new FormData();
 
         form_data.append('sectionname', sectionname);
@@ -503,11 +490,6 @@
             }
         });
 
-
-        //getsectionvideo(fileData);
-
-
-
     });
 
 
@@ -519,10 +501,6 @@
         var newname = $(this).parent().parent().children().children().val();
         var oldname = $(this).parent().parent().children().children().attr("id");
 
-
-        //if (SubDirTitle == SubDirTitleh) {
-        //    SubDirTitleh = SubDirTitle
-        //}
 
         $.ajax({
             type: "Post",
@@ -552,12 +530,6 @@
 
         var Newname = $(this).parent().parent().children().children().children().val();
         var Oldname = $(this).parent().parent().children().children().children().attr("id");
-
-
-
-        //if (SubDirTitle == SubDirTitleh) {
-        //    SubDirTitleh = SubDirTitle
-        //}
 
         $.ajax({
             type: "Post",
@@ -647,7 +619,7 @@
     $('#coureditsectionList').on('click', '#AddSecBtn', function () {
 
 
-        /*$('#co').children().parent().prepend("<h1>fasd</h1>");*/
+       
         $('#apnd_div').prepend(' <hr />' +
 
             '<div class="nestable-content">' +
@@ -662,21 +634,10 @@
 
 
             '<div class="media-right">' +
-            //'<label class="btn btn-white btn-sm m-0 btn-sm">' +
-            //'<input type="file"   class="d-none" id="createFolder"/>' +
-            //'<i class="material-icons">file_upload</i>' +
-            //'</label>' +
-
-            //'<a href="#" class="btn btn-white">' +
-            //'<i class="material-icons">edit</i>' +
-            //'</a>' +
+            
             '<button class="btn btn-white btn-sm createFolder" id="createFolder" >' +
             '<i class="material-icons">add</i>' +
             '</button>' +
-
-            //'<a href="#" class="btn btn-white btn-sm">' +
-            //'<i class="material-icons">delete</i>' +
-            //'</a>' +
 
             '</div>' +
             '</form>' +
@@ -691,7 +652,7 @@
     });
     //Create Folder
     $("#coureditsectionList").on('click', ".createFolder", function () {
-        //var FN = $('#FolderName').val();
+        
         var FN = $(this).parent().parent().children().children().children().val();
 
         $.ajax({
@@ -716,9 +677,7 @@
     $('#AddDesc').click(function () {
         var CourseTitle = $("#CourseTitle").val();
         var CourseDesc = $("#CourseDescription").val();
-        var rootName = $("#rootName").val();
-
-
+        
         $.ajax({
             type: "Post",
             url: "/Admin/AddDesc",
@@ -738,15 +697,10 @@
 
 
     $("#courseupdate").click(function () {
-
-
-        var check = "";
+ 
         var CourseTitle = $("#CourseTitle").val();
         var CourseDesc = $("#CourseDescription").val();
         var rootName = $("#rootName").val();
-
-        console.log(CourseDesc);
-
 
         $.ajax({
             type: "Post",
@@ -805,10 +759,6 @@
 
                         sectionfileduration.push(sectionfileduration1);
                     }
-
-                    //console.log(sectionnamedata);
-                    //console.log(sectionfiledata);
-                    //console.log(sectionfileduration);
 
                     var courseid = $("#CourseID").val();
 
@@ -877,19 +827,10 @@
                     } else {
                         alert(condition);
                     }
-
                 }
             }
         });
-
-
-
-
-
-
     });
-
-
 </script>
 
 
