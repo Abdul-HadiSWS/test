@@ -18,8 +18,9 @@
                 </div>
                 <div class="form-group row">
                     <label for="title" class="col-md-4 col-form-label form-label">SubCategory Image</label>
-                    <div class="col-md-6">
-                        <input type="file" id="SubcatImage" name="@ViewBag.Image" value="@ViewBag.SubImage" />
+                    <div class="col-md-6 verflow-hidden">
+                        <input type="file" id="SubcatImage" name="@ViewBag.Image" value="@ViewBag.SubImage" class="addimg"/>
+                        <p class='text-muted'>Image size must be 256x256 and File type is png | jpg | jpeg</p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
@@ -34,7 +35,28 @@
 
 <script>
         $(document).ready(function () {
+            $(".addimg").on('change', function () {
+                var imgext = $(this).val().toString().replace(/^.*\./, "").toLowerCase();
+                var imgwidth = $(this).width();
+                var imgheight = $(this).height();
+                console.log(imgext, typeof (imgwidth), imgheight)
 
+                if (imgwidth === 256 && imgheight === 256 && imgext == "png" || imgext == "jpg" || imgext == "jpeg") {
+                    $(".editSubCat").prop('disabled', false);
+                    $(this).siblings().addClass("text-muted");
+                    $(this).siblings().removeClass("text-danger");
+                }
+                else {
+                    $(this).siblings().removeClass("text-muted");
+                    $(this).siblings().addClass("text-danger");
+                    $(".editSubCat").prop('disabled', true);
+                }
+
+
+
+
+
+            });
             $(".editSubCat").click(function () {
                 var formData = new FormData();
                 var file = document.getElementById("SubcatImage").files[0];

@@ -16,8 +16,9 @@
                 </div>
                 <div class="form-group row">
                     <label for="title" class="col-md-4 col-form-label form-label">Category Image</label>
-                    <div class="col-md-6">
-                        <input type="file" id="catImage" name="@ViewBag.Image" value="@ViewBag.Image" /><br /><br />
+                    <div class="col-md-6 verflow-hidden">
+                        <input type="file" class="addimg" id="catImage" name="@ViewBag.Image" value="@ViewBag.Image"  />
+                        <p class='text-mute'>Image size must be 256x256 and File type is png | jpg | jpeg</p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
@@ -31,7 +32,29 @@
     </div>
 
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+        $(".addimg").on('change', function () {
+            var imgext = $(this).val().toString().replace(/^.*\./, "").toLowerCase();
+            var imgwidth = $(this).width();
+            var imgheight = $(this).height();
+            console.log(imgext, typeof (imgwidth), imgheight)
+
+            if (imgwidth === 256 && imgheight === 256 && imgext == "png" || imgext == "jpg" || imgext == "jpeg") {
+                $(".editCat").prop('disabled', false);
+                $(this).siblings().addClass("text-muted");
+                $(this).siblings().removeClass("text-danger");
+            }
+            else {
+                $(this).siblings().removeClass("text-muted");
+                $(this).siblings().addClass("text-danger");
+                $(".editCat").prop('disabled', true);
+            }
+
+
+
+
+
+        });
 
                 $(".editCat").click(function () {
                     var formData = new FormData();

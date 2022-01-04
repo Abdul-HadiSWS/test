@@ -29,13 +29,14 @@
                             </div>
                             <div class="form-group row">
                                 <label for="title" class="col-md-4 col-form-label form-label">SubCategory Image</label>
-                                <div class="col-md-6">
-                                    <input type="file" name="files" required />
+                                <div class="col-md-6 verflow-hidden">
+                                    <input type="file" name="files" required class="addimg" />
+                                    <p class='text-muted'>Image size must be 256x256 and File type is png | jpg | jpeg</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-primary ml-2" type="submit" id="upbtn"><i class="material-icons"></i>Okay</button>
+                                <button class="btn btn-primary ml-2" type="submit" id="upbtn" disabled><i class="material-icons"></i>Okay</button>
 
                             </div>
                          }
@@ -140,6 +141,9 @@
 }
 
 <script type='text/javascript'>
+
+
+
     function deleteSubCat(SubCategoryId) {
 
         $.ajax({

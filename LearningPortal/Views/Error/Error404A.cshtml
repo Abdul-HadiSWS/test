@@ -1,4 +1,9 @@
 ﻿
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,13 +21,11 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
     <title>Error</title>
 </head>
-
 <body>
 
-    <div id="notfound">
+    <div id="notfound" style="width:100vw">
         <div class="notfound">
             <div class="notfound-404">
                 <div></div>
@@ -30,10 +33,17 @@
             </div>
             <h2>Page not found</h2>
             <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-            <a href="@Url.Action("AddCourse", "Admin")">home page</a>
+            @{
+
+
+                <a class="btn btn-dark text-white rounded-pill" onclick="previousPage()">Go To Back</a>
+
+            }
         </div>
     </div>
-
+    <script>
+        function previousPage() {
+            window.history.go(-1);
+        }
+    </script>
 </body>
-
-

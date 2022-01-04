@@ -541,12 +541,12 @@
     <Content Include="Views\Admin\EditSubCat.cshtml" />
     <Content Include="Views\Admin\CourseUpdate.cshtml" />
     <Content Include="Views\Admin\CourseOutLine.cshtml" />
-    <Content Include="Views\Error\Error404A.cshtml" />
     <Content Include="Views\Admin\DDCatSub.cshtml" />
     <Content Include="Views\Admin\WWYLearn.cshtml" />
     <Content Include="Views\Admin\AddDesc.cshtml" />
     <Content Include="Views\Admin\gettime.cshtml" />
     <Content Include="Views\Admin\CourseOutlineEdit.cshtml" />
+    <Content Include="Views\Error\Error404A.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
