@@ -117,8 +117,9 @@
 
             <div class="card">
                 <div class="m-3">
+                    <strong>Year Picker :</strong> <input class="form-control" type="text" placeholder="click to show datepicker" id="example1">
 
-                    <input type="text" class="yearpicker form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />
+                    @*<input type="text" class="yearpicker form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />*@
                     <select id="courseLevel"
                             class="custom-select form-control mb-3" required>
                         <option value="">Add Course Level</option>
@@ -181,14 +182,18 @@
 
 
     $(document).ready(function () {
-
-
-
-        $(".yearpicker").yearpicker({
+        $('#example1').datepicker({
             year: 2019,
             startYear: 2019,
             endYear: 2050,
         });
+
+
+        //$("#courseYear").yearpicker({
+        //    year: 2019,
+        //    startYear: 2019,
+        //    endYear: 2050,
+        //});
 
     });
 
@@ -259,11 +264,11 @@
         });
     }
     
-    $("#upbtn").click(function () {
+    //$("#upbtn").click(function () {
         
-        $('#uplod').trigger('click');
+    //    $('#uplod').trigger('click');
         
-    });
+    //});
 
 
 

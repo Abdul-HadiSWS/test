@@ -67,10 +67,53 @@ namespace LearningPortal.Controllers
         }
         //course start//
 
+
+        public void deleteextrazip()
+        {
+            string rootfolder1 = Server.MapPath(string.Format("~/assets/videos/"));
+
+            if (Directory.Exists(rootfolder1))
+            {
+                Directory.GetDirectories(rootfolder1);
+
+                string[] Filespath1 = Directory.GetDirectories(rootfolder1);
+                foreach (string filePath1 in Filespath1)
+                {
+                    string coursename1 = Path.GetFileName(filePath1);
+
+                    var result1 = Db.Courses.Where(x => x.CourseName == coursename1).SingleOrDefault();
+                    if (result1 == null)
+                    {
+                        deletedirectory(coursename1, "videos");
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+            }
+
+
+
+            Tags.Clear();
+            WWYL.Clear();
+            data.Clear();
+            Files.Clear();
+
+            ViewBag.PData = null;
+            ViewBag.QData = null;
+            root = null;
+
+        }
+
+
         public ActionResult AddCourse(string cid, string scid)
         {
             if (cid == null || scid == null)
             {
+                deleteextrazip();
+
                 return View();
             }
 
@@ -92,6 +135,8 @@ namespace LearningPortal.Controllers
                 int scaid = Convert.ToInt32(decsc);
                 ViewBag.CategoryId = caid;
                 ViewBag.SubCategoryId = scaid;
+                deleteextrazip();
+              
                 return View();
 
             }
@@ -200,7 +245,7 @@ namespace LearningPortal.Controllers
             var cour = Db.Courses.Where(p => p.CourseId == Cid).SingleOrDefault();
             if (cour != null)
             {
-                cour.IsActive = false;
+                Db.Courses.Remove(cour);
                 Db.SaveChanges();
                 result = true;
             }
@@ -595,7 +640,7 @@ namespace LearningPortal.Controllers
             string rootfoldername = root;
             ViewBag.Placeholder = rootfoldername;
 
-            if (root == null)
+            if (root == null )
             {
                 data.Clear();
                 Files.Clear();
@@ -657,6 +702,8 @@ namespace LearningPortal.Controllers
             ViewBag.QData = Files;
             return PartialView();
         }
+
+
 
 
         public void deletedirectory(string root, string head)
