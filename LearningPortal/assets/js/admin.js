@@ -12,26 +12,31 @@ $(document).ready(function () {
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-    $(".addimg").on('change',function () {
-        var imgext = $(this).val().toString().replace(/^.*\./, "").toLowerCase();
-        var imgwidth = $(this).width();
-        var imgheight = $(this).height();
-        console.log(imgext, typeof (imgwidth), imgheight)
+    $(".addimg").on('change', function () {
+        var _URL = window.URL || window.webkitURL;
+        var file = this.files[0],//get file   
+            imgExt = file.name.replace(/^.*\./, ''),//get extension
+            imgheight = 0,
+            imgwidth = 0;
+       
+        var img = new Image();
+        img.src = _URL.createObjectURL(file);
+        img.onload = function () {
+            imgheight = img.height;
+            imgwidth = img.width;
+           
+                if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
+                    $("#upbtn").prop('disabled', false);
+                    $(".addimg").siblings().addClass("text-muted");
+                    $(".addimg").siblings().removeClass("text-danger");
+                }
+                else {
+                    $(".addimg").siblings().removeClass("text-muted");
+                    $(".addimg").siblings().addClass("text-danger");
 
-        if (imgwidth === 256 && imgheight === 256 && imgext == "png" || imgext == "jpg" || imgext == "jpeg") {
-            $("#upbtn").prop('disabled', false);
-            $(this).siblings().addClass("text-muted");
-            $(this).siblings().removeClass("text-danger");
+            }
+
         }
-        else {
-            $(this).siblings().removeClass("text-muted");
-            $(this).siblings().addClass("text-danger");
-        }
-
-
-
-
-
     });
    
     //$("#CategoryId").change(function () {

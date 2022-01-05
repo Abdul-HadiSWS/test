@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\LearningPortal",
-    "\\LearningPortal\\Controllers"
+    "\\LearningPortal\\Views",
+    "\\LearningPortal\\Views\\Shared"
   ],
-  "SelectedNode": "\\LearningPortal\\Controllers\\AccountController.cs",
+  "SelectedNode": "\\LearningPortal\\Views\\Shared\\_AdminLayout.cshtml",
   "PreviewInSolutionExplorer": false
 }
