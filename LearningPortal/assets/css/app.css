@@ -30588,3 +30588,34 @@ code.django .hljs-template-tag {
     border-radius: 0.25rem;
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
 }
+.cont {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+    .cont img1 {
+        width: 100%;
+        height: auto;
+    }
+
+    .cont .btn1 {
+        position: absolute;
+        top: 7%;
+        left: 92%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #080808;
+        color: white;
+        font-size: 16px;
+        padding: 2px 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+        display: none;
+    }
+
+        .cont .btn1:hover {
+            background-color: slategray;
+        }

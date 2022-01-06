@@ -88,7 +88,14 @@
             
 
         }
-        
+        else {
+            $("#SubCategoryId").empty();
+            $("#SubCategoryId").append("<option value=''>SubCategory</option>");
+
+        }
+
+
+
         $("#CategoryId").change(function () {
             var categoryId = $(this).val();
             if (categoryId != "") {
