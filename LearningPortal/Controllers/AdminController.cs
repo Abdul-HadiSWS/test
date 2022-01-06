@@ -1756,33 +1756,7 @@ namespace LearningPortal.Controllers
 
 
 
-        //[HttpPost]
-        //public ActionResult VideoModal1(string subFoldername, string video, string check)
-        //{
-
-        //    if (check == "update")
-        //    {
-
-        //        check = "temp";
-        //    }
-        //    else
-        //    {
-        //        check = "videos";
-
-        //    }
-        //    string mainFolder = root;
-        //    string SubFolder = subFoldername;
-        //    string Video = video;
-        //    string ext = Path.GetExtension(Video);
-        //    ext = "video/" + ext.Replace(".", "");
-        //    string src = string.Format("/assets/{0}/{1}/{2}/{3}",check,mainFolder, SubFolder, Video);
-
-
-        //    ViewBag.Src = src;
-        //    ViewBag.type = ext;
-        //    return Json(""+src);
-        //}
-
+        
 
         public ActionResult gettime(string video, string section, int count1, string extension, string check)
         {

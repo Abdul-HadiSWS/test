@@ -26415,9 +26415,9 @@ html {
     -moz-osx-font-smoothing: grayscale
 }
 
-b, strong {
+/*b, strong {
     font-weight: 500
-}
+}*/
 
 .text-decoration-0:hover {
     text-decoration: none

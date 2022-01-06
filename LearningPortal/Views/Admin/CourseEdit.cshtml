@@ -117,8 +117,9 @@
 
             <div class="card">
                 <div class="m-3">
-                    <strong>Year Picker :</strong> <input class="form-control" type="text" placeholder="click to show datepicker" id="example1">
-
+                    <input class="form-control" id="courseYear" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    placeholder="Add Year from 2000 to 2050"  min="1990" max="2050" maxlength="4" > 
+                    <div class="flex"></div><br />
                     @*<input type="text" class="yearpicker form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />*@
                     <select id="courseLevel"
                             class="custom-select form-control mb-3" required>
@@ -158,10 +159,10 @@
             <!--Last Submit Button Start-->
             <div>
                 <button type="button" class="btn btn-primary">
-                    Cancel <span class="badge bg-secondary">4</span>
+                    Cancel 
                 </button>
                 <button type="button" class="btn btn-primary" id="courseInsert">
-                    ok <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
+                    ok 
                 </button>
 
             </div>
@@ -178,23 +179,11 @@
 
 <script>
 
-
+    
 
 
     $(document).ready(function () {
-        $('#example1').datepicker({
-            year: 2019,
-            startYear: 2019,
-            endYear: 2050,
-        });
-
-
-        //$("#courseYear").yearpicker({
-        //    year: 2019,
-        //    startYear: 2019,
-        //    endYear: 2050,
-        //});
-
+       alert("idhar")
     });
 
 
@@ -639,7 +628,7 @@
 
                 if (condition == "Folder Name Change Successfully") {
 
-
+                   
                     getWhatYouLearn();
                     var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
                         return $(this).attr("id");
@@ -689,49 +678,55 @@
                     var subcategoryId = $("#SubCategoryId").val();
                     var courseLevel = $("#courseLevel").val();
                     var coursepic = $("#coursepic").attr("src");
-                   
-                    if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
 
-                        $.ajax({
-                            url: '/Admin/InsertCourse',
-
-                            data: {
-                                CourseName: CourseName,
-                                CourseDesc: CourseDesc,
-                                courseYear: courseYear,
-                                categoryId: categoryId,
-                                subcategoryId: subcategoryId,
-                                courseLevel: courseLevel,
-                                coursepic: coursepic,
-                                sectionnamedata: JSON.stringify(sectionnamedata),
-                                sectionfiledata: JSON.stringify(sectionfiledata),
-                                sectionfileduration: JSON.stringify(sectionfileduration)
-
-
-                            },
-                            success: function (result) {
-                                alert("Successfully Add Course");
-
-
-                                window.location.href = '/Admin/AddCourse';
-
-                            },
-                            error: function (err) {
-                                alert(err.statusText);
-                            }
-                        });
+                    if (courseYear.length!=4) {
+                        alert("Please Add Correct Year Format YYYY");
                     }
                     else {
-                        alert("Please fill All Values");
-                        console.log("ïn here");
+                        if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") 
+                        {
+                            console.log(courseYear);
+                            $.ajax({
+                                url: '/Admin/InsertCourse',
+
+                                data: {
+                                    CourseName: CourseName,
+                                    CourseDesc: CourseDesc,
+                                    courseYear: courseYear,
+                                    categoryId: categoryId,
+                                    subcategoryId: subcategoryId,
+                                    courseLevel: courseLevel,
+                                    coursepic: coursepic,
+                                    sectionnamedata: JSON.stringify(sectionnamedata),
+                                    sectionfiledata: JSON.stringify(sectionfiledata),
+                                    sectionfileduration: JSON.stringify(sectionfileduration)
 
 
+                                },
+                                success: function (result) {
+                                    alert("Successfully Add Course");
+                              
+                                    window.location.href = '/Admin/AddCourse';
+
+                                },
+                                error: function (err) {
+                                    alert(err.statusText);
+                                }
+                            });
+                        }
+                        else {
+                            alert("Please fill All Values");
+                       
+
+
+                        }
                     }
-
-                } else {
+                }
+                else {
                     if (condition == "") {
 
-                    } else {
+                    }
+                    else {
                         alert(condition);
                     }
                 }

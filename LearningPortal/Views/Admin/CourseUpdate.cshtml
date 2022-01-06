@@ -145,9 +145,10 @@
 
             <div class="card">
                 <div class="m-3">
-                    <input type="text" hidden id="year" value="@Model.Year" />
+                    <input class="form-control" id="courseYear" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           placeholder="Add Year from 2000 to 2050" min="1990" max="2050" maxlength="4"  value="@Model.Year" >
+                  
 
-                    <input type="text" class="yearpicker form-control mb-3" value="@Model.Year" id="courseYear" placeholder=" Add Course Year" required style="" />
                     <input type="text" hidden id="Levels" value="@Model.Levels" />
 
                     <select id="courseLevel"
@@ -173,14 +174,14 @@
 
                 <div class="card-body">
                     <div class="card-header">
-                        <h4 class="card-title">What I`ll You Learn</h4>
+                        <h4 class="card-title">What You`ll  Learn</h4>
                     </div>
                     <div class="form-group mb-0">
                         <div class="form-group">
                             <div style="height: 150px;"
                                  class="TA"
                                  data-toggle="quill"
-                                 data-quill-placeholder="Text Should be Comma',' Sparated "
+                                 data-quill-placeholder="Text Should be Comma',' Separated "
                                  data-quill-modules-toolbar='[["bold", "italic"], ["link", "blockquote", "code", "image"], [{"list": "ordered"}, {"list": "bullet"}]]'>
                                 <textarea id="review" name="w3review" rows="4" cols="50">@ViewBag.WWYLU</textarea>
 
@@ -213,7 +214,7 @@
                     Cancel
                 </button>
                 <button type="button" class="btn btn-primary" id="courseupdate">
-                    Update <span class="badge bg-secondary"> <i class="large material-icons">check</i></span>
+                    Update
                 </button>
             </div>
             <!--Last Submit Button End-->
@@ -774,50 +775,54 @@
                     var whatulearn = $('.' + TA).text();
 
 
-
-
-                    // alert($("#coursep").val());
-
-
-                    if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
-
-                        $.ajax({
-                            type: "POST",
-                            url: '/Admin/CourseUpdate',
-
-                            data: {
-                                courseid: courseid,
-                                CourseName: CourseName,
-                                CourseDesc: CourseDesc,
-                                courseYear: courseYear,
-                                categoryId: categoryId,
-                                subcategoryId: subcategoryId,
-                                courseLevel: courseLevel,
-                                coursepic: coursepic,
-                                whatulearn: whatulearn,
-                                sectionnamedata: JSON.stringify(sectionnamedata),
-                                sectionfiledata: JSON.stringify(sectionfiledata),
-                                sectionfileduration: JSON.stringify(sectionfileduration)
-
-
-                            },
-                            success: function (result) {
-
-
-                                alert("Successfully Course Updated");
-                                window.location.href = '/Admin/AddCourse';
-
-                            },
-                            error: function (err) {
-                                alert(err.statusText);
-                            }
-                        });
+                    if (courseYear.length != 4) {
+                        alert("Please Add Correct Year Format YYYY");
                     }
                     else {
-                        alert("Please fill All Values");
-                        console.log("ïn here");
+
+                        // alert($("#coursep").val());
 
 
+                        if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/Admin/CourseUpdate',
+
+                                data: {
+                                    courseid: courseid,
+                                    CourseName: CourseName,
+                                    CourseDesc: CourseDesc,
+                                    courseYear: courseYear,
+                                    categoryId: categoryId,
+                                    subcategoryId: subcategoryId,
+                                    courseLevel: courseLevel,
+                                    coursepic: coursepic,
+                                    whatulearn: whatulearn,
+                                    sectionnamedata: JSON.stringify(sectionnamedata),
+                                    sectionfiledata: JSON.stringify(sectionfiledata),
+                                    sectionfileduration: JSON.stringify(sectionfileduration)
+
+
+                                },
+                                success: function (result) {
+
+
+                                    alert("Successfully Course Updated");
+                                    window.location.href = '/Admin/AddCourse';
+
+                                },
+                                error: function (err) {
+                                    alert(err.statusText);
+                                }
+                            });
+                        }
+                        else {
+                            alert("Please fill All Values");
+                            console.log("ïn here");
+
+
+                        }
                     }
                 } else {
                     if (condition == "") {
