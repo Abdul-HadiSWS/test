@@ -1533,10 +1533,11 @@ namespace LearningPortal.Controllers
         public ActionResult WWYLearn(string paragraph, string OrderList, string UnorderedList)
         {
 
+            string[] separatingStrings = { ",,"};
 
             if (OrderList != "")
             {
-                string[] array = OrderList.Split(',');
+                string[] array = OrderList.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < array.Length; i++)
                 {
@@ -1545,7 +1546,7 @@ namespace LearningPortal.Controllers
             }
             else if (paragraph != "")
             {
-                string[] array = paragraph.Split(',');
+                string[] array = paragraph.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < array.Length; i++)
                 {
@@ -1554,7 +1555,7 @@ namespace LearningPortal.Controllers
             }
             else if (UnorderedList != "")
             {
-                string[] array = UnorderedList.Split(',');
+                string[] array = UnorderedList.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < array.Length; i++)
                 {
@@ -1625,13 +1626,7 @@ namespace LearningPortal.Controllers
             return Json("");
         }
 
-
         [HttpPost]
-
-
-
-
-
         public ActionResult DeleteDir(string DirName, string Filename, string check)
         {
 
@@ -1753,11 +1748,6 @@ namespace LearningPortal.Controllers
 
             return RedirectToAction("CourseEdit");
         }
-
-
-
-        
-
         public ActionResult gettime(string video, string section, int count1, string extension, string check)
         {
 
@@ -1784,12 +1774,6 @@ namespace LearningPortal.Controllers
 
             return View();
         }
-
-
-
-
-
-
 
         public ActionResult InsertCourse(string CourseName, string CourseDesc, int courseYear, int? subcategoryId, string courseLevel, string coursepic, string sectionnamedata, string sectionfiledata, string sectionfileduration)
         {
@@ -1895,8 +1879,71 @@ namespace LearningPortal.Controllers
             return RedirectToAction("AddCourse");
         }
 
+        public void CancleBtn()
+        {
+            root = "";
+            Tags.Clear();
+            WWYL.Clear();
+            data.Clear();
+            Files.Clear();
+
+            ViewBag.PData = null;
+            ViewBag.QData = null;
 
 
+        }
+        public ActionResult CoursePreView(string id)
+        {
+            ViewBag.CId = id;
+            if (id == null)
+            {
+                return RedirectToAction("Error404A", "Error");
+            }
+            string tempid = id;
+            id = id.Replace('!', '+');
+            id = id.Replace('%', 'a');
+            var decsc = helpper.Decrypto(id.Replace('$', '/'));
+
+            if (decsc == "")
+            {
+                return RedirectToAction("Error404A", "Error");
+            }
+            else
+            {
+                int cid = Convert.ToInt32(decsc);
+                var cour = Db.Courses.Find(cid);
+
+                var Learning = Db.CourseLearnings.Where(x => x.CourseId == cid).ToList();
+                var tg = Db.CourseTag.Where(x => x.CourseId == cid).ToList();
+
+               List <string> WWL= new List<string>();
+                foreach (var item in Learning)
+                {
+                    WWL.Add(item.Description);
+                }
+
+                Tags.Clear();
+                foreach (var item in tg)
+                {
+                    Tags.Add(item.TagManager.TagName);
+                }
+               
+                var secName = Db.Sections.Where(z => z.CourseId == cid).ToList();
+
+                var secMedia = Db.SectionMedia.SqlQuery("select * from SectionMedias secM inner join Sections sec on secM.SectionId = sec.SectionId where sec.CourseId = "+cid).ToList();
+
+                ViewBag.Section = secName;
+                ViewBag.SectionMedia = secMedia;
+                ViewBag.Span = Tags;
+                ViewBag.WWYLU = WWL;
+                root = cour.CourseName;
+                ViewBag.Placeholder = root;
+
+                //copydirectory("videos", "temp", root);
+
+                return View(cour);
+            }
+        }
 
         //public ActionResult check()
         //{

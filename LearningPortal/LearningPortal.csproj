@@ -369,7 +369,6 @@
     <Content Include="assets\js\toggle-check-all.js" />
     <Content Include="assets\js\touchspin.js" />
     <Content Include="assets\js\vector-maps.js" />
-    <Content Include="assets\js\yearpicker.js" />
     <Content Include="assets\vendor\bootstrap.min.js" />
     <Content Include="assets\vendor\Chart.min.js" />
     <Content Include="assets\vendor\dom-factory.common.js" />
@@ -547,6 +546,7 @@
     <Content Include="Views\Admin\gettime.cshtml" />
     <Content Include="Views\Admin\CourseOutlineEdit.cshtml" />
     <Content Include="Views\Error\Error404A.cshtml" />
+    <Content Include="Views\Admin\CoursePreView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

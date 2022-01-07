@@ -53,7 +53,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary  tagremove" style="color: white; width: auto;height: 20%;">@item  </button>
+                                <button class="badge rounded-pill bg-primary tagtext" value="@item" style="color: white; width: auto;height: 30%;">@item <i class="material-icons tagremove" style="font-size: 15px" >clear</i></button>
 
                             }
                         </div>
@@ -158,7 +158,7 @@
             <!--Assignment Quiz Links start-->
             <!--Last Submit Button Start-->
             <div>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" id="Cancel">
                     Cancel 
                 </button>
                 <button type="button" class="btn btn-primary" id="courseInsert">
@@ -183,7 +183,20 @@
 
 
     $(document).ready(function () {
-       alert("idhar")
+        $("#Cancel").click(function () {
+            $.ajax({
+                
+                url: "/Admin/CancleBtn",
+               
+
+                success: function (data) {
+                    window.location.href = '/Admin/AddCourse';
+                }
+            });
+        })
+
+
+
     });
 
 
@@ -252,12 +265,6 @@
             }
         });
     }
-    
-    //$("#upbtn").click(function () {
-        
-    //    $('#uplod').trigger('click');
-        
-    //});
 
 
 
@@ -275,9 +282,8 @@
 
     //Tag Remove
     $("#CTagManager").on("click", ".tagremove", function () {
-        var tag = this.innerText;
 
-
+        var tag = $(".tagtext").val();
         $.ajax({
             type: "GET",
             url: "/Admin/TagRemover",
