@@ -45,7 +45,7 @@ namespace LearningPortal.Controllers
                     }
 
                 }
-                result = false;
+               
             }
             return result;
         }
@@ -324,15 +324,15 @@ namespace LearningPortal.Controllers
         {
             var imgSize = uploadImage(files, "category");
             string filen = Path.GetFileName(files.FileName);
+            string path = "";
             if (imgSize == true)
             {
                 //var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryName= '" + SubCatname + "'").SingleOrDefault();
-                var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryName= '" + Catname + "'").SingleOrDefault();
-
+                var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryName= '" + Catname + "'").ToList();
+               
                 if (check == null)
                 {
-                    string path = Path.Combine(Server.MapPath("~/assets/images"), Path.GetFileName(files.FileName));
-                    files.SaveAs(path);
+               
                     Categories objCat = new Categories();
                     objCat.CategoryName = Catname;
                     objCat.Image = filen;
@@ -341,14 +341,23 @@ namespace LearningPortal.Controllers
 
 
                     Db.Categories.Add(objCat);
-                    Db.SaveChanges();
+                  
                 }
+                foreach (var item in check)
+                {
+                  
+                    item.IsActive = true;
+                    item.Image = filen;
+                    item.Time = DateTime.Now;
+                }
+                Db.SaveChanges();
             }
             else
             {
-
+               
                 ViewBag.Size = "false";
             }
+            ModelState.Clear();
             return PartialView("AddCategory");
         }
         public PartialViewResult CategoryList()
@@ -424,10 +433,11 @@ namespace LearningPortal.Controllers
         [HttpPost]
         public ActionResult EditCat(HttpPostedFileBase catImage, string catName, int? catId)
         {
-            var imgSize = uploadImage(catImage, "category");
-            string filen = Path.GetFileName(catImage.FileName);
+            
             if (catImage != null)
             {
+                var imgSize = uploadImage(catImage, "category");
+                string filen = Path.GetFileName(catImage.FileName);
                 if (imgSize == true)
                 {
                     string cname = catName;
@@ -499,7 +509,7 @@ namespace LearningPortal.Controllers
             string filen = Path.GetFileName(files.FileName);
             if (imgSize == true)
             {
-                var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryName= '" + SubCatname + "'").SingleOrDefault();
+                var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryName= '" + SubCatname + "' and CategoryId="+subid).SingleOrDefault();
 
                 if (check == null)
                 {
@@ -510,20 +520,22 @@ namespace LearningPortal.Controllers
                     objCat.Time = DateTime.Now;
                     objCat.IsActive = true;
                     Db.SubCategories.Add(objCat);
-                    Db.SaveChanges();
+                   
                 }
 
                 else
                 {
                     check.IsActive = true;
                     check.Image = filen;
-                    Db.SaveChanges();
+                    check.Time = DateTime.Now;
 
                 }
+                Db.SaveChanges();
             }
             string cid = helpper.Encrypt("" + subid, true);
             cid = cid.Replace('%', 'a');
             cid = cid.Replace('+', '!');
+            ModelState.Clear();
             return RedirectToAction("AddSubCategory", new { id = cid });
 
         }
@@ -545,7 +557,7 @@ namespace LearningPortal.Controllers
             else
             {
                 int cid = Convert.ToInt32(decsc);
-                var catt = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where   CategoryId =" + cid + " and  IsActive='true' ORDER BY Time DESC").ToList();
+                var catt = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where  CategoryId =" + cid + " and  IsActive='true' ORDER BY Time DESC").ToList();
                 ViewBag.CAtId = cid;
                 var countc = Db.Courses.SqlQuery("Select * from courses").ToList();
                 foreach (var item in countc)
@@ -618,11 +630,12 @@ namespace LearningPortal.Controllers
         [HttpPost]
         public ActionResult EditSubCat(HttpPostedFileBase subcatImage, string subcatName, int? subcatId, int? Cid)
         {
-            var imgSize = uploadImage(subcatImage, "subcategory");
-            string filen = Path.GetFileName(subcatImage.FileName);
             string subcname = subcatName;
             if (subcatImage != null)
             {
+                var imgSize = uploadImage(subcatImage, "subcategory");
+                string filen = Path.GetFileName(subcatImage.FileName);
+               
 
                 if (imgSize == true)
                 {

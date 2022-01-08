@@ -32,7 +32,7 @@
                     <li class="nestable-item nestable-item-handle">
 
                         @{
-                            var count = 0;
+                            
                             var count2 = 1;
                             foreach (var h in ViewBag.Section)
                             {
@@ -82,9 +82,13 @@
                                                                             @{
 
                                                                                 string filen = @val.VideoUrl;
+                                                                                int lastindex = @val.Videotype.IndexOf('/');
 
-                                                                                string extension = "mp4";
+                                                                                string extension = val.Videotype.Substring(lastindex);
 
+
+
+                                                                                string SectionName = h.SectionName;
 
 
                                                                                 <label> @val.VideoTitle </label>
@@ -95,7 +99,7 @@
                                                 top: 15px;
                                                 right: 140px;
                                             ">
-                                                                                    @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "update" }); }
+                                                                                    @{Html.RenderAction("gettime", "Admin", new { video = @filen, section = @SectionName, count1 = count2, extension = extension, check = "Preview" }); }
 
                                                                                 </div>
 
@@ -108,7 +112,7 @@
 
                                                                     </div>
 
-                                                                    <div class="media-right" id=" @h.SectionName">
+                                                                    <div class="media-right" id="@h.SectionName">
                                                                         <a href="#"
                                                                            class="btn btn-white btn-sm video" title="@val.VideoUrl" data-toggle="modal"
                                                                            data-target="#exampleModal">
@@ -310,6 +314,7 @@
         });
         $("#close").click(function () {
             $('#exampleModal').modal('hide');
+            $("#vemvo-player").remove();
         });
         
 

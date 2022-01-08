@@ -39,15 +39,15 @@
                                 <button class="btn btn-primary ml-2" type="submit" id="upbtn" disabled><i class="material-icons"></i>Okay</button>
 
                             </div>
-                         }
-                   }
+                        }
+                    }
 
-                            </div>
-                            @*<div class="modal-footer">
-                    <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger addCat" data-dismiss="modal">Okay</button>
-                </div>*@
-                        </div>
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-default canclebutton" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger addCat" data-dismiss="modal">Okay</button>
+                    </div>*@
+            </div>
         </div>
     </div>
     <a class="btn btn-secondary mr-1" href="#" data-toggle="modal" data-target="#myModalAddSubCat">Add SubCategory</a>
@@ -67,75 +67,102 @@
     }
     else
     {
+        <div class="container-fluid px-0">
+            <div class="card-columns row">
 
-        <div class="card-columns row">
-            @foreach (var item in Model)
-            {
-                int count = 0;
-                <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active" id="row_@item.SubCategoryId">
-                    @{
-                        string que = helpper.Encrypt("" + ViewBag.CAtId, true);
-                        que = que.Replace('%', 'a');
-                        que = que.Replace('+', '!');
+                @foreach (var item in Model)
+                {
+                    int count = 0;
+                    string que = helpper.Encrypt("" + ViewBag.CAtId, true);
+                    que = que.Replace('%', 'a');
+                    que = que.Replace('+', '!');
 
-                        string que1 = helpper.Encrypt("" + item.SubCategoryId, true);
-                        que1 = que1.Replace('%', 'a');
-                        que1 = que1.Replace('+', '!');
+                    string que1 = helpper.Encrypt("" + item.SubCategoryId, true);
+                    que1 = que1.Replace('%', 'a');
+                    que1 = que1.Replace('+', '!');
+                    <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active" id="row_@item.SubCategoryId">
 
-                     }
+                        <div class="card" id="cardID_@item.SubCategoryId">
 
 
-                    <div class="card w-100">
-                        @*onclick="viewCourses(@item.SubCategoryId,@ViewBag.CAtId)"   href="@Url.Action("Admin","AddCourse")" *@
-                        <a href="@Url.Action("AddCourse","Admin",new {cid=que.Replace('/', '$'), scid=que1.Replace('/', '$')})">
-                            <input type="hidden" name="subcid" value="@ViewBag.CAtId" />
 
-                            <img src="~/assets/images/categories/@item.Image"
-                                 alt="Card image cap"
-                                 style="width:100%;">
+                            <div class="cont">
+                                <img class="img1" src="~/assets/images/categories/@item.Image" alt="Card image" style="width:100%;">
+                                <p class="d-none small text-danger text-center">image is not valid</p>
+                                <label class="btn1" id="btn11_@item.SubCategoryId"><input id="upload" type="file" class="d-none position-absolute addcardimg" />+</label>
 
-                            <div class="card-header text-center">
-                                <h5 class="card-title m-0" style="text-align:center; font-size:13px;">@item.SubCategoryName</h5>
-                                <div windows.onload="countCourses(@item.SubCategoryId)">
-                                    <div class="mt-3"></div>
-                                    <small class="text-muted">
-                                        Total Courses: @{foreach (var item1 in ViewBag.CourseCount)
-                                            {
-                                                if (item1.SubCategoryId == item.SubCategoryId && item1.IsActive == true)
+                            </div>
+
+                            <a id="home_@item.SubCategoryId" href="@Url.Action("AddCourse","Admin",new {cid=que.Replace('/', '$'), scid=que1.Replace('/', '$')})">
+
+                                <div class="card-header text-center">
+                                    <h5 class="card-title m-0" style="text-align:center; font-size:13px;" id="hidehead_@item.SubCategoryId">@item.SubCategoryName</h5>
+                                    <input class="w-75" type="text" value="@item.SubCategoryName" id="hideName_@item.SubCategoryId" style="text-align:center; font-size:13px; display:none" required />
+                                    <div>
+                                        <div class="mt-3"></div>
+
+                                        <small class="text-muted">
+                                            Total Courses: @{foreach (var item1 in ViewBag.CourseCount)
                                                 {
+                                                    if (item1.SubCategoryId == item.SubCategoryId && item1.IsActive == true)
+                                                    {
 
-                                                    count = count + 1;
+                                                        count = count + 1;
+                                                    }
+
                                                 }
-
+                                                @count
                                             }
-                                            @count
-                                        }
-                                    </small>
-                                    @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
+                                        </small>
+                                        @*<small class="text-muted"> @item.UploadedDate.Day/@item.UploadedDate.Month/@item.UploadedDate.Year</small>*@
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="card-body px-0">
+
+                                <div class="d-flex justify-content-center">
+
+                                    <div class="d-flex justify-content-around w-75">
+                                        <button class="btn btn-white w-25" onclick="editCat(@item.SubCategoryId)">
+                                            <i class="material-icons">create</i>
+                                        </button>
+                                        <button class="btn btn-white w-25" onclick="deleteSubCat(@item.SubCategoryId)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+
+
+
+                                    </div>
+
+                                </div>
+                                <div class="d-none justify-content-center">
+
+                                    <div class="d-flex justify-content-around w-75">
+                                        <button class="btn btn-outline-danger w-25" onclick="cancelEdit(@item.SubCategoryId, this)">
+                                            <i class="material-icons">cancel</i>
+                                        </button>
+                                        <button class="btn btn-outline-success w-25 " id="editSave_@item.SubCategoryId" onclick="saveEdit(@item.SubCategoryId,@item.CategoryId)">
+                                            <i class="material-icons">done</i>
+                                        </button>
+
+
+
+                                    </div>
+
                                 </div>
                             </div>
-                        </a>
-                        <div class="card-body px-0">
 
-                            <div style="display: flex; justify-content: center;">
-
-                                <div class="d-flex justify-content-around w-75">
-
-                                    <button class="btn btn-white w-25" onclick="editSubCat(@item.SubCategoryId)"><i class="material-icons">create</i></button>
-
-                                    <button class="btn btn-white w-25" onclick="deleteSubCat(@item.SubCategoryId)"><i class="material-icons">delete</i></button>
-
-
-
-                                </div>
-                            </div>
                         </div>
-
                     </div>
-                </div>
-            }
+                }
+            </div>
+
         </div>
-       
+
+
+
+
+
 
     }
 }
@@ -167,46 +194,133 @@
 
 
 
-    function editSubCat(SubCategoryId) {
+    //function for edit card
+    function editCat(CategoryId) {
+        var id = CategoryId;
+
+        $('#home_' + id).css('cursor', 'default');
+
+        $('#btn11_' + id).css('display', 'inline');
+        $('#hidehead_' + id).css('display', 'none');
+        $('#hideName_' + id).css('display', 'inline');
+        //hide edit delete div and show cancel done div
+        $("#cardID_" + id + " .card-body > div:first-child").removeClass("d-flex");
+        $("#cardID_" + id + " .card-body > div:first-child").addClass("d-none");
+        $("#cardID_" + id + " .card-body > div:last-child").removeClass("d-none");
+        $("#cardID_" + id + " .card-body > div:last-child").addClass("d-flex");
+
+        
+        $('#home_' + id).on("click", function (e) {
+            e.preventDefault();
+
+        });
+
+    }
+    //function for image validation
+    $(".addcardimg").on('change', function () {
+
+        var input_tag = $(this);
+        var _URL = window.URL || window.webkitURL;
+        var file = this.files[0];//get file
+        var btnID = "#editSave_" + $(this).parent().attr("id").slice(6);
+        var img = new Image();
+        console.log(file);
+        if (file) {
+            imgExt = file?.name?.replace(/^.*\./, '');//get extension
+            img.src = _URL.createObjectURL(file);
+
+
+            img.onload = function () {
+                console.log(file, imgExt, btnID, img.height, img.width);
+                if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
+                    $(btnID).prop('disabled', false);
+                    input_tag.parent().siblings("p").addClass("d-none");
+                    input_tag.parent().siblings("p").removeClass("d-block");
+                    //$(".addimg").siblings().addClass("text-muted");
+                    //$(".addimg").siblings().removeClass("text-danger");
+                }
+                else {
+                    $(btnID).prop('disabled', true);
+                    input_tag.parent().siblings("p").addClass("d-block");
+                    input_tag.parent().siblings("p").removeClass("d-none");
+                    //$(".addimg").siblings().removeClass("text-muted");
+                    //$(".addimg").siblings().addClass("text-danger");
+
+                }
+            }
+        }
+        else {
+            input_tag.parent().siblings("p").addClass("d-none");
+            input_tag.parent().siblings("p").removeClass("d-block");
+        }
+
+
+    });
+    //Function EditSave
+    function saveEdit(subCategoryId,CategoryId) {
+        var subid = subCategoryId;
+        var cid = CategoryId;
+        var file = document.getElementById('btn11_' + subid).firstChild.files[0];
+        var title = document.getElementById('hideName_' + subid).value;
+
+        console.log(file, title, subid,cid);
+        var formData = new FormData();
+        formData.append("SubcatImage", file);
+        formData.append("SubcatName", title);
+        formData.append("SubcatId", subid);
+        formData.append("CId", cid);
 
         $.ajax({
-            type: "Get",
+            type: "POST",
             url: "/Admin/EditSubCat",
-            data: {
-                Subcatid: SubCategoryId
-            },
-
-            success: function (data) {
-
-                $(function () {
-                    $('#editModal').modal();
-                });
-                $('#modalWrapperEdit').html(data);
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                cancelEdit(subid);
+                $("#row_" + subid).load(" #row_" + subid + " > *");
             }
         });
+      
     }
+    // function To cancel Editing card.
+    function cancelEdit(CategoryId, e) {
+        var id = CategoryId;
+        $('#home_' + id).css('cursor', 'default');
 
+        $(e).siblings().prop('disabled', false);
+        $('#btn11_' + id).css('display', 'none');
+        $('#hidehead_' + id).css('display', 'inline');
+        $('#hideName_' + id).css('display', 'none');
+        $('#hideName_' + id).val($('#hidehead_' + id).text());
+
+        $("#cardID_" + id + " .card-body > div:first-child").removeClass("d-none");
+        $("#cardID_" + id + " .card-body > div:first-child").addClass("d-flex");
+        $("#cardID_" + id + " .card-body > div:last-child").removeClass("d-flex");
+        $("#cardID_" + id + " .card-body > div:last-child").addClass("d-none");
+        $('#btn11_' + id).children().val('').trigger("change");
+    }
     function viewCourses(SubCategoryid, Categoryid) {
-        
+
         var cid = Categoryid;
         var scid = SubCategoryid;
-       
 
-       
+
+
         $("#simple").empty();
         $.ajax({
-           type: "Get",
+            type: "Get",
             url: "/Admin/Addcourse",
-            
+
             success: function (data) {
 
                 console.log(data);
                 $("#simple").append(data);
-                
+
 
             }
         });
-   
+
     }
-    
+
 </script>

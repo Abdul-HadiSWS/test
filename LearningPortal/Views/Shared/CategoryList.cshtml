@@ -1,7 +1,4 @@
-﻿
-@model IEnumerable<LearningPortal.Models.Categories>
-
-
+﻿@model IEnumerable<LearningPortal.Models.Categories>
 
 <div class="container p-0">
     <div class="modal fade" id="myModalAddCat" role="dialog">
@@ -78,13 +75,14 @@
                     que = que.Replace('+', '!');
                     <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active" id="row_@item.CategoryId">
 
-                        <div class="card">
+                        <div class="card" id="cardID_@item.CategoryId">
 
 
 
                             <div class="cont">
                                 <img class="img1" src="~/assets/images/categories/@item.Image" alt="Card image" style="width:100%;">
-                                <label class="btn1" id="btn11_@item.CategoryId"><input id="upload" type="file" style="display:none; position: absolute;" />+</label>
+                                <p class="d-none small text-danger text-center">image is not valid</p>
+                                <label class="btn1" id="btn11_@item.CategoryId"><input id="upload" type="file" class="d-none position-absolute addcardimg" />+</label>
 
                             </div>
 
@@ -117,17 +115,35 @@
                             </a>
                             <div class="card-body px-0">
 
-                                <div style="display: flex; justify-content: center;">
+                                <div class="d-flex justify-content-center">
 
                                     <div class="d-flex justify-content-around w-75">
-                                        <a href="#"
-                                           class="btn btn-white w-25" onclick="editCat(@item.CategoryId)"><i class="material-icons">create</i></a>
-                                        <a href="#"
-                                           class="btn btn-white w-25" onclick="deleteCat(@item.CategoryId)"><i class="material-icons">delete</i></a>
+                                        <button class="btn btn-white w-25" onclick="editCat(@item.CategoryId)">
+                                            <i class="material-icons">create</i>
+                                        </button>
+                                        <button class="btn btn-white w-25" onclick="deleteCat(@item.CategoryId)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
 
 
 
                                     </div>
+
+                                </div>
+                                <div class="d-none justify-content-center">
+
+                                    <div class="d-flex justify-content-around w-75">
+                                        <button class="btn btn-outline-danger w-25" onclick="cancelEdit(@item.CategoryId,this)">
+                                            <i class="material-icons">cancel</i>
+                                        </button>
+                                        <button class="btn btn-outline-success w-25 " id="editSave_@item.CategoryId" onclick="saveEdit(@item.CategoryId)">
+                                            <i class="material-icons">done</i>
+                                        </button>
+
+
+
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -140,11 +156,116 @@
     }
 }
 
-    <script>
+<script>
 
-  
+    //function for edit card
+    function editCat(CategoryId) {
+        var id = CategoryId;
+        $('#home_' + id).css('cursor', 'default');
+
+        $('#btn11_' + id).css('display', 'inline');
+        $('#hidehead_' + id).css('display', 'none');
+        $('#hideName_' + id).css('display', 'inline');
+        //hide edit delete div and show cancel done div
+        $("#cardID_" + id + " .card-body > div:first-child").removeClass("d-flex");
+        $("#cardID_" + id + " .card-body > div:first-child").addClass("d-none");
+        $("#cardID_" + id + " .card-body > div:last-child").removeClass("d-none");
+        $("#cardID_" + id + " .card-body > div:last-child").addClass("d-flex");
 
 
+        $('#home_' + id).on("click", function (e) {
+            e.preventDefault();
+
+        });
+
+    }
+    //function for image validation
+    $(".addcardimg").on('change', function () {
+
+        var input_tag = $(this);
+        var _URL = window.URL || window.webkitURL;
+        var file = this.files[0];//get file
+        var btnID = "#editSave_" + $(this).parent().attr("id").slice(6);
+        var img = new Image();
+        console.log(file);
+        if (file) {
+            imgExt = file?.name?.replace(/^.*\./, '');//get extension
+            img.src = _URL.createObjectURL(file);
+
+
+            img.onload = function () {
+                console.log(file, imgExt, btnID, img.height, img.width);
+                if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
+                    $(btnID).prop('disabled', false);
+                    input_tag.parent().siblings("p").addClass("d-none");
+                    input_tag.parent().siblings("p").removeClass("d-block");
+                    //$(".addimg").siblings().addClass("text-muted");
+                    //$(".addimg").siblings().removeClass("text-danger");
+                }
+                else {
+                    $(btnID).prop('disabled', true);
+                    input_tag.parent().siblings("p").addClass("d-block");
+                    input_tag.parent().siblings("p").removeClass("d-none");
+                    //$(".addimg").siblings().removeClass("text-muted");
+                    //$(".addimg").siblings().addClass("text-danger");
+
+                }
+            }
+        }
+        else {
+            input_tag.parent().siblings("p").addClass("d-none");
+            input_tag.parent().siblings("p").removeClass("d-block");
+        }
+
+
+    });
+    //Function EditSave
+    function saveEdit(CategoryId) {
+        var id = CategoryId;
+        var file = document.getElementById('btn11_' + id).firstChild.files[0];
+        var title = document.getElementById('hideName_' + id).value;
+
+        console.log(file, title, id);
+
+        var formData = new FormData();
+        //var file = document.getElementById("catImage").files[0];
+        formData.append("catImage", file);
+
+        //var Name = $('#catName').val()
+        formData.append("catName", title);
+
+        //var cid = $('#catId').val()
+        formData.append("catId", id);
+        $.ajax({
+            type: "POST",
+            url: "/Admin/EditCat",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                cancelEdit(id);
+                $("#row_" + id).load(" #row_" + id + " > *");
+            }
+        });
+
+    }
+    // function To cancel Editing card.
+    function cancelEdit(CategoryId, e) {
+        var id = CategoryId;
+        $('#home_' + id).css('cursor', 'default');
+
+        $(e).siblings().prop('disabled', false);
+        $('#btn11_' + id).css('display', 'none');
+        $('#hidehead_' + id).css('display', 'inline');
+        $('#hideName_' + id).css('display', 'none');
+        $('#hideName_' + id).val($('#hidehead_' + id).text());
+
+        $("#cardID_" + id + " .card-body > div:first-child").removeClass("d-none");
+        $("#cardID_" + id + " .card-body > div:first-child").addClass("d-flex");
+        $("#cardID_" + id + " .card-body > div:last-child").removeClass("d-flex");
+        $("#cardID_" + id + " .card-body > div:last-child").addClass("d-none");
+        $('#btn11_' + id).children().val('').trigger("change");
+    }
     function deleteCat(CategoryId) {
 
         $.ajax({
@@ -166,44 +287,4 @@
         });
     }
 
-
-
-
-    function editCat(CategoryId) {
-        alert("hello")
-        var id = CategoryId;
-        $('#home_' + id).css('cursor', 'default');
-
-        $('#btn11_' + id).css('display', 'inline');
-        $('#hidehead_' + id).css('display', 'none');
-        $('#hideName_' + id).css('display', 'inline');
-
-
-        $('#home_' + id).on("click", function (e) {
-            e.preventDefault();
-
-        });
-
-        //document.getElementById('btn11').style.display = "inline";
-        //document.getElementById('hideName').style.display = "inline";
-        //document.getElementById('hidehead').style.display = "none";
-
-
-
-        //$.ajax({
-        //    type: "Get",
-        //    url: "/Admin/EditCat",
-        //    data: {
-        //        Catid: CategoryId
-        //    },
-
-        //    success: function (data) {
-
-        //        $(function () {
-        //            $('#editModal').modal();
-        //        });
-        //        $('#modalWrapperEdit').html(data);
-        //    }
-        //});
-    }
 </script>
