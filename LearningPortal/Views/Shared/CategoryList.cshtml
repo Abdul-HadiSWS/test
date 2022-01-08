@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<LearningPortal.Models.Categories>
 
-<div class="container p-0">
+<div class="container-fluid p-0">
     <div class="modal fade" id="myModalAddCat" role="dialog">
         <div class="modal-dialog">
 
@@ -88,7 +88,7 @@
 
                             <a id="home_@item.CategoryId" href="@Url.Action("AddSubCategory", "Admin", new { id =   que.Replace('/', '$') })">
 
-                                <div class="card-header text-center">
+                                <div class="card-header text-center px-0 px-sm-auto">
                                     <h5 class="card-title m-0" style="text-align:center; font-size:13px;" id="hidehead_@item.CategoryId">@item.CategoryName</h5>
                                     <input class="w-75" type="text" value="@item.CategoryName" id="hideName_@item.CategoryId" style="text-align:center; font-size:13px; display:none" required />
                                     <div>

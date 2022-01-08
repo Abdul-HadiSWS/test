@@ -543,60 +543,6 @@ namespace LearningPortal.Controllers
 
 
 
-        /*   StudentCourseVideo  */
-        public ActionResult StudentCourseVideo(int? id)
-        {
-            string userid = User.Identity.GetUserId();
-            var count = Db.UserMediaHistories.Where(a => a.SectionMediaId == id && a.UserId == userid).FirstOrDefault();
-            var startime = 0;
-
-           
-
-
-
-            var SectionMedias1 = Db.SectionMedia.Find(id)
-;
-            int courseID = SectionMedias1.Section.CourseId;
-
-            var playlist1 = Db.SectionMedia.Where(x => x.Section.CourseId == courseID).Select(x => x.SectionMediaId).ToList();
-            int index = 0;
-            int countloop = 0;
-
-
-            foreach (var item in playlist1)
-            {
-                if (item == id)
-                {
-
-                    index = countloop;
-
-                    break;
-                }
-                countloop++;
-            }
-
-            if (count == null)
-            {
-                UserMediaHistory obj = new UserMediaHistory();
-                obj.WatchedTime = startime;
-                obj.UserId = userid;
-
-                obj.SectionMediaId = Convert.ToInt32(id);
-                Db.UserMediaHistories.Add(obj);
-                Db.SaveChanges();
-
-            }
-            else
-            {
-                startime = count.WatchedTime;
-            }
-            ViewBag.StartTime = startime;
-            ViewBag.index = index;
-            ViewBag.playlist = playlist1;
-            var sectionMedia = Db.SectionMedia.Find(playlist1[index]);
-          
-            return View(sectionMedia);
-        }
         [HttpPost]
         public string UpdateUserMedia(int number1, int number2,int cid)
         {
@@ -620,8 +566,6 @@ namespace LearningPortal.Controllers
                     UserMediaHistory count1 = Db.UserMediaHistories.Where(a => a.SectionMediaId == item.SectionMediaId && a.UserId == userid).FirstOrDefault();
 
                     count1.UpdatedTime = false;
-                    //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
-                    //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
                     if (ModelState.IsValid)
                     {
                         //count.UpdatedTime = DateTime.Now;
@@ -635,10 +579,6 @@ namespace LearningPortal.Controllers
             UserMediaHistory count = Db.UserMediaHistories.Where(a => a.SectionMediaId == number1 && a.UserId == userid).FirstOrDefault();
             Courses cc = Db.Courses.Find(cid);
             cc.Time = DateTime.Now;
-
-            //count.Time = DateTime.Now;
-            //var sc = Db.UserMediaHistories.SqlQuery("update UserMediaHistories  set UpdatedTime=0 where UserMediaHistories.SectionMediaId !=" + number1);
-            //db.UserMediaHistory.SqlQuery("update UserMediaHistories set UserMediaHistories.WatchedTime=" + number2 + "where UserMediaHistories.UserVideoHistoryId=" + count.UserVideoHistoryId);
             if (count == null)
             {
                 UserMediaHistory obj = new UserMediaHistory();
@@ -665,7 +605,7 @@ namespace LearningPortal.Controllers
                 {
 
 
-                    ////count.UpdatedTime = DateTime.Now;
+                   
                     Db.Entry(cc).State = EntityState.Modified;
                     Db.Entry(count).State = EntityState.Modified;
                     Db.SaveChanges();

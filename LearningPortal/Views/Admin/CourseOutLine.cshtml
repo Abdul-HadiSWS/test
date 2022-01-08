@@ -109,11 +109,8 @@
 
 
 
-                                                            <div class="ddd" style="
-                                                                position: absolute;
-                                                                top: 15px;
-                                                                right: 140px;
-                                                            ">
+                                                            <div class="ddd vc-time"   
+                                                            >
                                                                 @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "edit" }); }
 
                                                             </div>
@@ -161,7 +158,7 @@
                 <hr />
                 <div id="apnd_div">
 
-                    <button class="btn btn-primary" type="submit" id="AddSecBtn"><i class="material-icons">control_point</i>Upload Course</button>
+                    <button class="btn btn-primary" type="submit" id="AddSecBtn"><i class="material-icons">control_point</i>Add Section</button>
                 </div>
             }
         }
@@ -172,9 +169,9 @@
 
 
 <div class="modal fade" id="exampleModal">
-    <div class="modal-dialog" style=" margin-top: 13%;margin-left: 30%;">
+    <div class="modal-dialog vc-modal m-0">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal-header-vc">
 
                 <button type="button" class="close ml-2" data-dismiss="modal" id="close">&times;</button>
             </div>
@@ -193,7 +190,7 @@ $(document).ready(function () {
 
         $("#close").click(function () {
             $('#exampleModal').modal('hide');
-            $("#vemvo-player").remove();
+            $("#vemvo-player").trigger('pause');
         });
 
 

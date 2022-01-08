@@ -42,7 +42,7 @@
                     </div>
                     <div class="card-body">
 
-                        <input type="text" class="form-control" id="searchText" name="iTag" placeholder="Tags">
+                        <input type="text" class="form-control" id="searchText" name="iTag" placeholder="Tags" maxlength="55" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
 
                         <button class="btn btn-primary btntag" type="button" id="tagadd"><i class="material-icons">add</i>Tags</button>
 
@@ -84,14 +84,13 @@
                     </div>
                     <div class="media-body">
                         <div class="custom-file">
-                            <form method="Post" class="courseimageupload d-flex">
+                            <form method="Post" class="courseimageupload d-flex justify-content-between">
 
 
                                 <input type="file" name="files" id="uplod" accept=".jpg,.png" required />
 
-                                <button class="btn btn-primary" type="submit" id="upbtn" style=" height: 34px; width: 133px;">
-                                    + Add Logo
-                                </button>
+                                <button class="btn btn-primary" type="submit" id="upbtn" style=" height: 34px; width: 50px;">
+                                    <i class="material-icons">file_upload</i>                               </button>
                             </form>
 
                         </div>

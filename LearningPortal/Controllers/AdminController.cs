@@ -230,7 +230,6 @@ namespace LearningPortal.Controllers
             ViewBag.SubCatList = new SelectList(subCat, "SubCategoryId", "SubCategoryName");
             return Json(subCat, JsonRequestBehavior.AllowGet);
         }
-
         public PartialViewResult DeleCourse(int? Catid)
         {
             var cid = Catid;
@@ -250,6 +249,7 @@ namespace LearningPortal.Controllers
             var cour = Db.Courses.Where(p => p.CourseId == Cid).SingleOrDefault();
             if (cour != null)
             {
+                deletedirectory(cour.CourseName, "Videos");
                 Db.Courses.Remove(cour);
                 Db.SaveChanges();
                 result = true;
@@ -258,9 +258,6 @@ namespace LearningPortal.Controllers
 
 
         }
-
-
-
         public JsonResult MarkFeatureCourse(int? Cid)
         {
             bool result = false;
@@ -284,8 +281,6 @@ namespace LearningPortal.Controllers
 
 
         }
-
-
         //course end//
         public bool ImageSize(HttpPostedFileBase files)
         {
@@ -312,7 +307,6 @@ namespace LearningPortal.Controllers
             }
             return result;
         }
-
         //category start//
         [HttpGet]
         public ActionResult AddCategory()
@@ -378,8 +372,6 @@ namespace LearningPortal.Controllers
         public JsonResult DeleteCat(int? Cid, int? DefaultId)
         {
             bool result = false;
-            //var defaultCatId = Db.Categories.Where(x => x.CategoryName == "Miscellaneous").SingleOrDefault();
-            //int id = defaultCatId.CategoryId;
             if (Cid == DefaultId)
             {
                 result = false;
@@ -416,20 +408,7 @@ namespace LearningPortal.Controllers
             return PartialView();
 
         }
-        [HttpGet]
-        public PartialViewResult EditCat(int? Catid)
-        {
-            var cid = Catid;
-            var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryId = " + cid).ToList();
-            foreach (var item in check)
-            {
-                ViewBag.CatId = item.CategoryId;
-                ViewBag.check = item.CategoryName;
-                ViewBag.Image = item.Image;
-            }
-
-            return PartialView();
-        }
+       
         [HttpPost]
         public ActionResult EditCat(HttpPostedFileBase catImage, string catName, int? catId)
         {
@@ -605,28 +584,13 @@ namespace LearningPortal.Controllers
         public PartialViewResult DeleteSubCategory(int? Subcatid)
         {
             var cid = Subcatid;
-            //var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryId = " + Subcatid).SingleOrDefault();
             var defaultCatId = Db.SubCategories.Where(x => x.SubCategoryName == "Others").SingleOrDefault();
             int id = defaultCatId.SubCategoryId;
             ViewBag.SubCatId = cid;
             ViewBag.defaultId = id;
             return PartialView();
         }
-        [HttpGet]
-        public PartialViewResult EditSubCat(int? Subcatid)
-        {
-            var subcid = Subcatid;
-            var check = Db.SubCategories.SqlQuery("SELECT * FROM Subcategories where SubCategoryId = " + subcid).ToList();
-            foreach (var item in check)
-            {
-                ViewBag.catId = item.CategoryId;
-                ViewBag.subCatId = item.SubCategoryId;
-                ViewBag.subName = item.SubCategoryName;
-                ViewBag.subImage = item.Image;
-            }
-
-            return PartialView();
-        }
+       
         [HttpPost]
         public ActionResult EditSubCat(HttpPostedFileBase subcatImage, string subcatName, int? subcatId, int? Cid)
         {
@@ -670,8 +634,6 @@ namespace LearningPortal.Controllers
             return RedirectToAction("AddSubCategory", new { id = cid });
         }
 
-
-
         //subcategory end//
 
 
@@ -690,9 +652,6 @@ namespace LearningPortal.Controllers
             ViewBag.Placeholder = root;
             return View();
         }
-
-
-
 
         [HttpGet]
         public ActionResult CourseOutline()
@@ -1957,111 +1916,6 @@ namespace LearningPortal.Controllers
                 return View(cour);
             }
         }
-
-        //public ActionResult check()
-        //{
-        //    /*
-        //     *  create folder
-        //     * 
-        //    string foldername = "ad";
-        //    string folder = Server.MapPath(string.Format("~/assets/videos/{0}/",foldername));
-        //    if (Directory.Exists(folder))
-        //    {
-        //        string folder1 = Server.MapPath(string.Format("~/assets/videos/{0}/{1}", foldername,"ada23"));
-        //        Directory.CreateDirectory(folder1);
-        //        ViewBag.message = "created";
-        //    }
-        //    */
-
-        //    /* Create list from folder
-
-        //     */
-        //    string rootfoldername = "ad";
-        //    string folder = Server.MapPath(string.Format("~/assets/videos/{0}/", rootfoldername));
-
-        //    List<string> Files = new List<string>();
-        //    List<List<string>> data = new List<List<string>>();
-
-        //    if (Directory.Exists(folder))
-        //    {
-        //        /* Section Name*/
-        //        string[] Filespath = Directory.GetDirectories(folder);
-
-
-
-        //        foreach (string filePath in Filespath)
-        //        {
-        //            Files.Add(Path.GetFileName(filePath));
-        //        }
-
-
-        //        /* Section File*/
-        //        for (int i = 0; i < Files.Count; i++)
-        //        { // Loop through List with for
-
-        //            List<string> data1 = new List<string>();
-
-        //            Filespath = Directory.GetFiles(Server.MapPath(string.Format("~/assets/videos/{0}/{1}/", rootfoldername, Files[i])));
-
-
-
-        //            foreach (string filePath in Filespath)
-        //            {
-        //                data1.Add(Path.GetFileName(filePath));
-        //            }
-        //            data.Add(data1);
-        //        }
-
-        //        ViewBag.PData = data;
-        //        ViewBag.QData = Files;
-        //    }
-        //    else
-        //    {
-
-        //    }
-
-
-        //    ViewBag.message = "daw";
-        //    return View();
-        //}
-
-
-        //[HttpGet]
-        //public string AddSection(string sectionname, string foldername, string check)
-        //{
-        //    /*
-        //   *  create folder
-        //  */
-
-        //    if (check == "update")
-        //    {
-        //        check = "videos";
-        //    }
-        //    else
-        //    {
-        //        check = "temp";
-        //    }
-
-        //    string folder = Server.MapPath(string.Format("~/assets/{0}/{1}/", check, foldername));
-        //    if (Directory.Exists(folder))
-        //    {
-        //        string folder1 = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}/", check, foldername, sectionname));
-        //        if (!Directory.Exists(folder1))
-        //        {
-        //            Directory.CreateDirectory(folder1);
-        //            return "true";
-        //        }
-        //        else
-        //        {
-
-        //            return "false";
-        //        }
-
-        //    }
-
-        //    return "false";
-        //}
-
-
+        
     }
 }

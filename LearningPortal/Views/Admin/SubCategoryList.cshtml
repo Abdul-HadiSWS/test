@@ -4,7 +4,7 @@
 
 
 
-<div class="container p-0">
+<div class="container-fluid p-0">
     <div class="modal fade" id="myModalAddSubCat" role="dialog">
         <div class="modal-dialog">
 
@@ -95,7 +95,7 @@
 
                             <a id="home_@item.SubCategoryId" href="@Url.Action("AddCourse","Admin",new {cid=que.Replace('/', '$'), scid=que1.Replace('/', '$')})">
 
-                                <div class="card-header text-center">
+                                <div class="card-header text-center px-0 px-sm-auto">
                                     <h5 class="card-title m-0" style="text-align:center; font-size:13px;" id="hidehead_@item.SubCategoryId">@item.SubCategoryName</h5>
                                     <input class="w-75" type="text" value="@item.SubCategoryName" id="hideName_@item.SubCategoryId" style="text-align:center; font-size:13px; display:none" required />
                                     <div>
