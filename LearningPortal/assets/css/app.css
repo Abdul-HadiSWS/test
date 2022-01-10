@@ -30591,7 +30591,7 @@ code.django .hljs-template-tag {
 .cont {
     position: relative;
     width: 100%;
-    max-width: 400px;
+    
 }
 
     .cont img1 {
@@ -30644,14 +30644,14 @@ code.django .hljs-template-tag {
         min-width: 300px
     }
 
-@@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 992px) {
     .delete-modal {
         top: 35%;
         left: 23%
     }
 }
 
-@@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
     .delete-modal {
         top: 35%;
         left: 30%;
@@ -30659,7 +30659,7 @@ code.django .hljs-template-tag {
     }
 }
 
-@@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
     .delete-modal {
         top: 35%;
         left: 18%;
@@ -30667,7 +30667,7 @@ code.django .hljs-template-tag {
     }
 }
 
-@@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px) {
     .delete-modal {
         top: 35%;
         left: 10%;
@@ -30709,4 +30709,15 @@ code.django .hljs-template-tag {
 .modal-header-vc {
     justify-content: end !important;
     margin-right: 10px;
+
+}
+.img-err {
+    border-radius: 10px 0px 10px 10px;
+    width: 50%;
+    padding: 10px;
+    position: absolute;
+    left: 35%;
+    top: 45px;
+    
+
 }

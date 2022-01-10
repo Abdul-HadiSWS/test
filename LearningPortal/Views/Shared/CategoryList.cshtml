@@ -73,7 +73,7 @@
                     string que = helpper.Encrypt("" + item.CategoryId, true);
                     que = que.Replace('%', 'a');
                     que = que.Replace('+', '!');
-                    <div class="carousel-item col-sm-6 col-md-4 col-lg-3 active" id="row_@item.CategoryId">
+                    <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active" id="row_@item.CategoryId">
 
                         <div class="card" id="cardID_@item.CategoryId">
 
@@ -81,7 +81,7 @@
 
                             <div class="cont">
                                 <img class="img1" src="~/assets/images/categories/@item.Image" alt="Card image" style="width:100%;">
-                                <p class="d-none small text-danger text-center">image is not valid</p>
+                                <p class="d-none small text-center bg-warning img-err text-capitalize">selected image is invalid. Image size must be <b>256x256</b> and File type is <b>png | jpg | jpeg</b></p>
                                 <label class="btn1" id="btn11_@item.CategoryId"><input id="upload" type="file" class="d-none position-absolute addcardimg" />+</label>
 
                             </div>
@@ -118,10 +118,10 @@
                                 <div class="d-flex justify-content-center">
 
                                     <div class="d-flex justify-content-around w-75">
-                                        <button class="btn btn-white w-25" onclick="editCat(@item.CategoryId)">
+                                        <button title="Edit Category" class="btn btn-white w-25" onclick="editCat(@item.CategoryId)">
                                             <i class="material-icons">create</i>
                                         </button>
-                                        <button class="btn btn-white w-25" onclick="deleteCat(@item.CategoryId)">
+                                        <button title="Delete Category" class="btn btn-white w-25" onclick="deleteCat(@item.CategoryId)">
                                             <i class="material-icons">delete</i>
                                         </button>
 
@@ -194,7 +194,7 @@
 
 
             img.onload = function () {
-                console.log(file, imgExt, btnID, img.height, img.width);
+              
                 if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
                     $(btnID).prop('disabled', false);
                     input_tag.parent().siblings("p").addClass("d-none");

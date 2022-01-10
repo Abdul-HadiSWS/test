@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<LearningPortal.Models.Courses>
-
+<title>Courses</title>
 
 @{
     if (ViewBag.modelCount == 0)
@@ -48,9 +48,9 @@
                         <div style="display: flex; justify-content: center;">
 
                             <div class="d-flex justify-content-around w-75">
-                                <a href="@Url.Action("CourseUpdate", "Admin", new { id =   que.Replace('/', '$') })"
+                                <a title="Edit Course" href="@Url.Action("CourseUpdate", "Admin", new { id =   que.Replace('/', '$') })"
                                    class="btn btn-white w-25"><i class="material-icons">create</i></a>
-                                <button
+                                <button title="Delete Course"
                                    class="btn btn-white w-25" onclick="deleteCourse(@item.CourseId)"><i class="material-icons">delete</i></button>
                                 <button  title="Mark As Featured"
                                    class="btn btn-white w-25 featcheckbox" data-id="@item.CourseId">

@@ -88,7 +88,7 @@
 
                             <div class="cont">
                                 <img class="img1" src="~/assets/images/categories/@item.Image" alt="Card image" style="width:100%;">
-                                <p class="d-none small text-danger text-center">image is not valid</p>
+                                <p class="d-none small text-center bg-warning img-err text-capitalize">selected image is invalid. Image size must be <b>256x256</b> and File type is <b>png | jpg | jpeg</b></p>
                                 <label class="btn1" id="btn11_@item.SubCategoryId"><input id="upload" type="file" class="d-none position-absolute addcardimg" />+</label>
 
                             </div>
@@ -123,10 +123,10 @@
                                 <div class="d-flex justify-content-center">
 
                                     <div class="d-flex justify-content-around w-75">
-                                        <button class="btn btn-white w-25" onclick="editCat(@item.SubCategoryId)">
+                                        <button title="Edit Subcategory" class="btn btn-white w-25" onclick="editCat(@item.SubCategoryId)">
                                             <i class="material-icons">create</i>
                                         </button>
-                                        <button class="btn btn-white w-25" onclick="deleteSubCat(@item.SubCategoryId)">
+                                        <button title="Delete Subcategory" class="btn btn-white w-25" onclick="deleteSubCat(@item.SubCategoryId)">
                                             <i class="material-icons">delete</i>
                                         </button>
 
@@ -224,14 +224,14 @@
         var file = this.files[0];//get file
         var btnID = "#editSave_" + $(this).parent().attr("id").slice(6);
         var img = new Image();
-        console.log(file);
+       
         if (file) {
             imgExt = file?.name?.replace(/^.*\./, '');//get extension
             img.src = _URL.createObjectURL(file);
 
 
             img.onload = function () {
-                console.log(file, imgExt, btnID, img.height, img.width);
+               
                 if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
                     $(btnID).prop('disabled', false);
                     input_tag.parent().siblings("p").addClass("d-none");
@@ -263,7 +263,7 @@
         var file = document.getElementById('btn11_' + subid).firstChild.files[0];
         var title = document.getElementById('hideName_' + subid).value;
 
-        console.log(file, title, subid,cid);
+      
         var formData = new FormData();
         formData.append("SubcatImage", file);
         formData.append("SubcatName", title);
