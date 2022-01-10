@@ -108,6 +108,7 @@ body {
         text-decoration: none;
         -webkit-transition: 0.2s all;
         transition: 0.2s all;
+        cursor:pointer;
     }
 
         .notfound a:hover {

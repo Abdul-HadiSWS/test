@@ -1,9 +1,4 @@
-﻿@{
-  
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-
+﻿
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +6,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
-
+    <title>Error</title>
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/assets/css/Error404.css" />
 
@@ -22,22 +17,33 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-    <title>Error</title>
 </head>
 
-<body>
+
+
 
     <div id="notfound">
         <div class="notfound">
             <div class="notfound-404">
                 <div></div>
+                @*<img class="img1" src="~/assets/images/Error.png" alt="Card image" style="width:100%;">*@
                 <h1>404</h1>
             </div>
             <h2>Page not found</h2>
             <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+            @{
 
+
+                <a class="btn btn-dark text-white rounded-pill" onclick="previousPage()">Go To Back</a>
+
+            }
         </div>
     </div>
+    <script>
+        function previousPage() {
+            window.history.go(-1);
+        }
+    </script>
 
-</body>
+
 

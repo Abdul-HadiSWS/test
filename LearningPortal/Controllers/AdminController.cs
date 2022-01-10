@@ -111,14 +111,29 @@ namespace LearningPortal.Controllers
             root = null;
 
         }
+        public void deleteTempFolder()
+        {
+            string rootfolder1 = Server.MapPath(string.Format("~/assets/temp/"));
+            DirectoryInfo di = new DirectoryInfo(rootfolder1);
+            //FileInfo[] files = di.GetFiles();
+            //foreach (FileInfo file in files)
+            //{
+            //    file.Delete();
+            //}
+            DirectoryInfo[] subDirectories = di.GetDirectories();
+            foreach (DirectoryInfo subDirectory in subDirectories)
+            {
+                subDirectory.Delete(true);
+            }
 
+        }
 
         public ActionResult AddCourse(string cid, string scid)
         {
             if (cid == null || scid == null)
             {
                 deleteextrazip();
-
+                deleteTempFolder();
                 return View();
             }
 
@@ -132,7 +147,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "" || dec == "")
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {
@@ -458,7 +473,7 @@ namespace LearningPortal.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             string tempid = id;
             id = id.Replace('!', '+');
@@ -467,7 +482,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {
@@ -522,7 +537,7 @@ namespace LearningPortal.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             string tempid = id;
             id = id.Replace('!', '+');
@@ -531,7 +546,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {
@@ -891,7 +906,7 @@ namespace LearningPortal.Controllers
             ViewBag.CId = id;
             if (id == null)
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             string tempid = id;
             id = id.Replace('!', '+');
@@ -900,7 +915,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {
@@ -1869,7 +1884,7 @@ namespace LearningPortal.Controllers
             ViewBag.CId = id;
             if (id == null)
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             string tempid = id;
             id = id.Replace('!', '+');
@@ -1878,7 +1893,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("Error404A", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {

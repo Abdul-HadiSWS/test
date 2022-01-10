@@ -21,7 +21,7 @@ namespace LearningPortal.Controllers
         {
             if (id!=null)
             {
-                return RedirectToAction("Error404","Error");
+                return RedirectToAction("Error404", "Error");
             }
             var featurecourse = Db.Courses.SqlQuery("Select * from Courses where IsFeatured = 1").ToList();
             
@@ -99,7 +99,7 @@ namespace LearningPortal.Controllers
             if (decsc == "")
             {
 
-                return RedirectToAction("ErrorSC", "Error");
+                return RedirectToAction("Error404", "Error");
 
 
             }
@@ -143,7 +143,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("ErrorAllCourse", "Error");
+                return RedirectToAction("Error404", "Error");
 
             }
             else
@@ -216,7 +216,7 @@ namespace LearningPortal.Controllers
             var decsc= helpper.Decrypto(id.Replace('$','/'));
             
             if (decsc == "") {
-                return RedirectToAction("Error404C", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {
@@ -405,7 +405,7 @@ namespace LearningPortal.Controllers
 
             if (decsc == "")
             {
-                return RedirectToAction("Error404C", "Error");
+                return RedirectToAction("Error404", "Error");
             }
             else
             {

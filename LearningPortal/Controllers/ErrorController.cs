@@ -14,27 +14,6 @@ namespace LearningPortal.Controllers
             return View();
         }
 
-        public ActionResult Error404C()
-        {
-            return View();
-        }
-        public ActionResult ErrorSC()
-        {
-            return View();
-        }
-
-        public ActionResult ErrorCat()
-        {
-            return View();
-        }
-
-        public ActionResult ErrorAllCourse()
-        {
-            return View();
-        }
-        public ActionResult Error404A()
-        {
-            return View();
-        }
+       
     }
 }
