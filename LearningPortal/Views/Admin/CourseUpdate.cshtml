@@ -3,7 +3,7 @@
     ViewBag.Title = "CourseEdit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<title>CourseUpdate</title>
 <input type="hidden" id="rootName1" value="@ViewBag.Placeholder" />
 <input type="hidden" id="zipp" value="@ViewBag.CId"/>
 <div class="mdk-drawer-layout__content page mr-3 ml-2">
@@ -60,7 +60,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary tagtext" value="@item" style="color: white; width: auto;height: 30%;">@item <i class="material-icons tagremove" style="font-size: 15px">clear</i></button>
+                                <button class="badge rounded-pill bg-primary tagtext py-2 px-3" value="@item" style="color: white;">@item <i class="material-icons tagremove" style="font-size: 15px">clear</i></button>
 
                             }
                         </div>

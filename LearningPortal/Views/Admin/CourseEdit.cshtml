@@ -53,7 +53,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary tagtext" value="@item" style="color: white; width: auto;height: 30%;">@item <i class="material-icons tagremove" style="font-size: 15px" >clear</i></button>
+                                <button class="badge rounded-pill bg-primary tagtext py-2 px-3" value="@item" style="color: white;">@item <i class="material-icons tagremove" style="font-size: 15px" >clear</i></button>
 
                             }
                         </div>
@@ -69,6 +69,7 @@
                 <div class="card-body text-center">
                     <div class="d-flex justify-content-center" style="height:200px">
                         <input type="hidden" value="@ViewBag.SplitImage" id="coursep" />
+
                         @if (ViewBag.ImageUrl != null)
                         {
                             <img alt="Uploaded Image" src="~/assets/images/@ViewBag.ImageUrl" />
@@ -87,10 +88,11 @@
                             <form method="Post" class="courseimageupload d-flex justify-content-between">
 
 
-                                <input type="file" name="files" id="uplod" accept=".jpg,.png" required />
-
-                                <button class="btn btn-primary" type="submit" id="upbtn" style=" height: 34px; width: 50px;">
-                                    <i class="material-icons">file_upload</i>                               </button>
+                                <input type="file" name="files" id="uplod" class="uplod" accept=".jpg,.png" required />
+                                <p class="d-none small text-center bg-warning img-err1 text-capitalize">selected image is invalid. Image size must be <b>256x256</b> and File type is <b>png | jpg | jpeg</b></p>
+                                <button class="btn btn-primary" type="submit" id="upbtn1" style=" height: 34px; width: 50px;">
+                                    <i class="material-icons">file_upload</i>
+                                </button>
                             </form>
 
                         </div>
@@ -117,11 +119,11 @@
             <div class="card">
                 <div class="m-3">
                     <input class="form-control" id="courseYear" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-    placeholder="Add Year from 2000 to 2050"  min="1990" max="2050" maxlength="4" > 
+    placeholder="Add Year from 2000 to 2050"  min="2000" max="2050" maxlength="4" > 
                     <div class="flex"></div><br />
                     @*<input type="text" class="yearpicker form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />*@
                     <select id="courseLevel"
-                            class="custom-select form-control mb-3" required>
+                            class=" form-control mb-3" required>
                         <option value="">Add Course Level</option>
                         <option value="Easy">Easy</option>
                         <option value="Medium">Medium</option>
@@ -254,13 +256,20 @@
 
 
             success: function (data) {
-                //console.log(data);
+                console.log(data);
                 $('#coureditsectionList').empty();
-                $('#coureditsectionList').append(data);
+             /*   $('#coureditsectionList').append(data);*/
+                $("#coureditsectionList").html(data);
                 var rootTitle = $("#rootTitle").val();
                 $("#CourseTitle").val(rootTitle);
-
+                //$(".idpakar").css("background", "yellow");
+                //$(".idpakar").addClass("nestable");
+              
                 //$(".v").remove();
+                //$('.nestable-list').mouseenter(function () {
+                //     $(".nestable-list").load(location.href + " .nestable-list");
+                //});
+               
             }
         });
     }
@@ -322,12 +331,14 @@
                 if (imageurl == "File Uploaded") {
 
                     alert(imageurl);
-
+                    $.getScript("~/assets/js/nestable.js");
                     getoutline();
 
 
 
-                } else {
+                }
+                
+                else {
                     alert(result);
                     $('#upbtn').prop('disabled', false);
 
@@ -345,14 +356,52 @@
 
     });
 
+   
+    $(".uplod").on("change", function (event) {
+     
+           
+            var input_tag = $(this);
+            var _URL = window.URL || window.webkitURL;
+            var file = this.files[0];//get file
+           
+            var img = new Image();
+           
+            if (file) {
+                imgExt = file?.name?.replace(/^.*\./, '');//get extension
+                img.src = _URL.createObjectURL(file);
 
-
+               
+                img.onload = function () {
+                    console.log(img.width, img.height, imgExt);
+                    if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
+                        $("#upbtn1").prop('disabled', false);
+                        input_tag.siblings("p").addClass("d-none");
+                        input_tag.siblings("p").removeClass("d-block");
+                        
+                    }
+                    else {
+                       
+                        $("#upbtn1").prop('disabled', true);
+                        input_tag.siblings("p").addClass("d-block");
+                        input_tag.siblings("p").removeClass("d-none");
+                    }
+                }
+            }
+            else {
+                input_tag.parent().siblings("p").addClass("d-none");
+                input_tag.parent().siblings("p").removeClass("d-block");
+            }
+    });
     // Course Image upload
     $(".courseimageupload").on("submit", function (event) {
 
         event.preventDefault();
         var formData = new FormData($(this)[0]);
-       
+
+
+
+
+
         $.ajax({
             url: '/Admin/CourseFileUploader',
             type: "POST",
@@ -709,7 +758,7 @@
 
                                 },
                                 success: function (result) {
-                                    alert("Successfully Add Course");
+                                    alert("Course Added Successfully");
                               
                                     window.location.href = '/Admin/AddCourse';
 

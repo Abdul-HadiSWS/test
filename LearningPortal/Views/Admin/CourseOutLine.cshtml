@@ -36,14 +36,8 @@
 
                         <div class="media align-items-center">
                             <div class="media-body" id="Nested_Card">
-
                                 @*<a href="#" class="@h">@h</a>*@
-
                                 <input class="heading" type="text" value="@h" id="@h" @h />
-
-
-
-
                             </div>
 
                             <!--Buttons-->
@@ -87,9 +81,9 @@
                         {
 
 
-                            <div class="nestable" id="nestable-handles-primary">
+                            <div class="nestable idpakar" id="nestable-handles-primary">
                                 <ul class="nestable-list">
-                                    <li class="nestable-item nestable-item-handle"
+                                    <li class="nestable-item nestable-item-handle "
                                         data-id="2">
                                         <div class="nestable-handle"><i class="material-icons">menu</i></div>
                                         <div class="nestable-content" id="@ViewBag.Placeholde">
@@ -109,8 +103,7 @@
 
 
 
-                                                            <div class="ddd vc-time"   
-                                                            >
+                                                            <div class="ddd vc-time">
                                                                 @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "edit" }); }
 
                                                             </div>
@@ -168,7 +161,7 @@
 
 
 
-<div class="modal fade" id="exampleModal">
+<div class="modal fade" id="exampleModal" style="height:100vh;width:100vw">
     <div class="modal-dialog vc-modal m-0">
         <div class="modal-content">
             <div class="modal-header modal-header-vc">
@@ -186,7 +179,7 @@
 
 
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
 
         $("#close").click(function () {
             $('#exampleModal').modal('hide');
@@ -202,7 +195,7 @@ $(document).ready(function () {
             var src = "/assets/videos/" + root + "/" + subf + "/" + vi;
             $('#vemvo-player').attr("src", src);
         });
-       
+
 
         var rootTitle = $("#rootTitle").val();
         $("#CourseTitle").val(rootTitle);

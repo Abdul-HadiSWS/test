@@ -162,20 +162,14 @@
                     <div class="card-header">
                         <h4 class="card-title">Tags Manager</h4>
                     </div>
-                    <div class="card-body">
-
-                        <input type="text" class="form-control" id="searchText" name="iTag" placeholder="Tags">
-
-                        <button class="btn btn-primary btntag" type="button" id="tagadd"><i class="material-icons">add</i>Tags</button>
-
-                    </div>
+                    
 
                     <div id="CTagManager">
 
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary tagtext" value="@item" style="color: white; width: auto;height: 30%;">@item <i class="material-icons tagremove" style="font-size: 15px">clear</i></button>
+                                <button class="badge rounded-pill bg-primary tagtext py-2 px-3" value="@item" style="color: white;">@item </button>
 
                             }
                         </div>
@@ -222,7 +216,7 @@
                         <div class="form-group">
                             <label for="form-label">Description</label>
 
-                            <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title">@Model.Description</textarea>
+                            <label style="height:150px;overflow-y:auto" class="form-control" id="CourseDescription" rows="3" placeholder="Write a title">@Model.Description</label>
                         </div>
                     </div>
 

@@ -30721,3 +30721,14 @@ code.django .hljs-template-tag {
     
 
 }
+.img-err1 {
+    border-radius: 10px 10px 10px 0px;
+    /* width: 50%; */
+    max-width: 200px;
+    padding: 10px;
+    position: absolute;
+    left: 20%;
+    top: -95px;
+    z-index: 1000;
+   
+}

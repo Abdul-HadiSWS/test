@@ -22,28 +22,42 @@
 
 
 
-    <div id="notfound">
-        <div class="notfound">
-            <div class="notfound-404">
-                <div></div>
-                @*<img class="img1" src="~/assets/images/Error.png" alt="Card image" style="width:100%;">*@
-                <h1>404</h1>
-            </div>
-            <h2>Page not found</h2>
-            <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-            @{
-
-
-                <a class="btn btn-dark text-white rounded-pill" onclick="previousPage()">Go To Back</a>
-
-            }
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <div></div>
+            @*<img class="img1" src="~/assets/images/Error.png" alt="Card image" style="width:100%;">*@
+            <h1>404</h1>
         </div>
+        <h2>Page not found</h2>
+        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+        
+            @*<input type="number" name="name" value=1 class="error" />*@
+
+            <a class="btn btn-dark text-white rounded-pill" onclick="previousPage()">Go To Back</a>
+
+        
     </div>
-    <script>
-        function previousPage() {
-            window.history.go(-1);
-        }
-    </script>
+</div>
+
+<script src="~/assets/vendor/jquery.min.js"></script>
+<script>
+    
+        //$(document).ready(function () {
+        //    var value = $(".error").val();
+        //    console.log(value);
+        //    var intt = parseInt(value) + 1;
+        //    console.log(intt);
+        //    var str = String(intt);
+        //    console.log(str);
+        //    //$('input[type=hidden].error').val(intt);
+        //    $('.error').val(intt);
+        //})
+    function previousPage() {
+
+        window.history.go(-1);
+    }
+</script>
 
 
 

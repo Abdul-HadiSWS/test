@@ -89,13 +89,19 @@ namespace LearningPortal.Controllers
                     var result1 = Db.Courses.Where(x => x.CourseName == coursename1).SingleOrDefault();
                     if (result1 == null)
                     {
-                        deletedirectory(coursename1, "videos");
+                       
+                        string rootfolder = Server.MapPath(string.Format("~/assets/videos/{0}",coursename1));
+                        DirectoryInfo di = new DirectoryInfo(rootfolder);
+                       
+                        
+                        DirectoryInfo[] subDirectories = di.GetDirectories();
+                        foreach (DirectoryInfo subDirectory in subDirectories)
+                        {
+                            subDirectory.Delete(true);
+                        }
+                        di.Delete();
                     }
-                    else
-                    {
-
-                    }
-
+                   
                 }
             }
 
@@ -114,18 +120,20 @@ namespace LearningPortal.Controllers
         public void deleteTempFolder()
         {
             string rootfolder1 = Server.MapPath(string.Format("~/assets/temp/"));
-            DirectoryInfo di = new DirectoryInfo(rootfolder1);
-            //FileInfo[] files = di.GetFiles();
-            //foreach (FileInfo file in files)
-            //{
-            //    file.Delete();
-            //}
-            DirectoryInfo[] subDirectories = di.GetDirectories();
-            foreach (DirectoryInfo subDirectory in subDirectories)
+            if (!Directory.Exists(rootfolder1))
             {
-                subDirectory.Delete(true);
+                Directory.CreateDirectory(rootfolder1);
             }
-
+            else
+            {
+                DirectoryInfo di = new DirectoryInfo(rootfolder1);
+               
+                DirectoryInfo[] subDirectories = di.GetDirectories();
+                foreach (DirectoryInfo subDirectory in subDirectories)
+                {
+                    subDirectory.Delete(true);
+                }
+            }
         }
 
         public ActionResult AddCourse(string cid, string scid)
@@ -1193,23 +1201,23 @@ namespace LearningPortal.Controllers
 
                 string fullpath = Server.MapPath("~/assets/videos/");
                 string CompletePath = Path.Combine(filename, fullpath);
-
-                try
-                {
-                    using (ZipArchive archive = new ZipArchive(files.InputStream))
+                 
+                    try
                     {
-                        archive.ExtractToDirectory(CompletePath);
+                        using (ZipArchive archive = new ZipArchive(files.InputStream))
+                        {
+                            archive.ExtractToDirectory(CompletePath);
 
+                        }
+                        return Json("File Uploaded");
                     }
-                    return Json("File Uploaded");
-                }
-                catch (Exception)
-                {
+                    catch (Exception)
+                    {
 
-                    root = null;
-                    return Json("File name is already exist please change the name");
-                }
-
+                        root = null;
+                        return Json("File name is already exist please change the name");
+                    }
+              
                 // files.SaveAs(filename);
                 //ViewBag.success = "File Uloaded";
 
@@ -1513,7 +1521,6 @@ namespace LearningPortal.Controllers
         [HttpGet]
         public PartialViewResult WWYLearn()
         {
-
             return PartialView();
         }
         [HttpPost]
@@ -1521,7 +1528,6 @@ namespace LearningPortal.Controllers
         {
 
             string[] separatingStrings = { ",,"};
-
             if (OrderList != "")
             {
                 string[] array = OrderList.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
@@ -1903,7 +1909,7 @@ namespace LearningPortal.Controllers
                 var Learning = Db.CourseLearnings.Where(x => x.CourseId == cid).ToList();
                 var tg = Db.CourseTag.Where(x => x.CourseId == cid).ToList();
 
-               List <string> WWL= new List<string>();
+                List <string> WWL= new List<string>();
                 foreach (var item in Learning)
                 {
                     WWL.Add(item.Description);
