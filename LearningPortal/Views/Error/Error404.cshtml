@@ -43,7 +43,38 @@
 <script src="~/assets/vendor/jquery.min.js"></script>
 <script>
     
-        //$(document).ready(function () {
+    $(document).ready(function () {
+        console.log(' href => ' + window.location.href);
+        console.log(' host => ' + window.location.host);
+        console.log(' hostname => ' + window.location.hostname);
+        console.log(' port => ' + window.location.port);
+        console.log(' protocol => ' + window.location.protocol);
+        console.log(' pathname => ' + window.location.pathname);
+        console.log(' hashpathname => ' + window.location.hash);
+        console.log(' search=> ' + window.location.search);
+       
+        //var i = 0;
+        //if (i === 0) {
+        window.location.href(window.location.href);
+        //    i=i+1;
+        //    alert(i);
+        //}
+       
+
+        //let currentPage = location.href;
+        //alert(currentPage);
+
+        //// listen for changes
+        //setInterval(function () {
+        //    if (currentPage != location.href) {
+        //        // page has changed, set new page as 'current'
+        //        currentPage = location.href;
+
+        //        // do your thing..
+        //    }
+        //}, 500);
+        //alert(currentPage);
+
         //    var value = $(".error").val();
         //    console.log(value);
         //    var intt = parseInt(value) + 1;
@@ -52,7 +83,8 @@
         //    console.log(str);
         //    //$('input[type=hidden].error').val(intt);
         //    $('.error').val(intt);
-        //})
+        })
+   
     function previousPage() {
 
         window.history.go(-1);

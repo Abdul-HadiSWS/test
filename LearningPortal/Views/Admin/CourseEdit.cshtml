@@ -53,7 +53,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary tagtext py-2 px-3" value="@item" style="color: white;">@item <i class="material-icons tagremove" style="font-size: 15px" >clear</i></button>
+                                <button class="badge rounded-pill bg-primary  py-2 px-3" value="@item" id="tagtext_@item.Count()" style="color: white;">@item <i class="material-icons tagremove" id="@item.Count()" style="font-size: 15px" >clear</i></button>
 
                             }
                         </div>
@@ -274,11 +274,17 @@
         });
     }
 
+    $("#searchText").keyup(function (event) {
+        if (event.keyCode === 13) {
+            $("#tagadd").click();
+        }
+    });
 
+   
 
     // Tag Add
     $("#tagadd").click(function () {
-
+       
         var tag = $("#searchText").val();
         if (tag) {
 
@@ -289,9 +295,9 @@
     
 
     //Tag Remove
-    $("#CTagManager").on("click", ".tagremove", function () {
+    $("body").on("click", ".tagtext", function () {
+        var tag = $(this).val();
 
-        var tag = $(".tagtext").val();
         $.ajax({
             type: "GET",
             url: "/Admin/TagRemover",
@@ -303,9 +309,27 @@
                 GETTAG("removessws101");
             }
         });
-
-
     });
+    //$("#CTagManager").on("click", ".tagremove", function () {
+
+    //    var tag = $(".tagtext").val();
+    //    var hh = $(".tagremove").attr("id");
+
+    //    alert(tag,hh);
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/Admin/TagRemover",
+    //        data: {
+    //            value: tag
+    //        },
+
+    //        success: function (data) {
+    //            GETTAG("removessws101");
+    //        }
+    //    });
+
+
+    //});
 
 
 
@@ -484,7 +508,7 @@
 
 
     // Edit Section Name
-    $("#coureditsectionList").on('click', ".EditSubDir", function () {
+    $("#coureditsectionList").on('click', ".EditSubDirA", function () {
 
         var newname = $(this).parent().parent().children().children().val();
         var oldname = $(this).parent().parent().children().children().attr("id");
@@ -507,8 +531,8 @@
 
     });
 
-    // Edit File Name
-    $("#coureditsectionList").on('click', ".EditFile", function () {
+    //Edit File Name
+    $("#coureditsectionList").on('click', ".EditFileA", function () {
 
         var SectionName = $(this).parent().attr('class');
         const myArray = SectionName.split("%");
@@ -603,7 +627,8 @@
     // Add Section
     $('#coureditsectionList').on('click', '#AddSecBtn', function () {
 
-
+       
+        $('#AddSecBtn').prop('disabled', true);
         /*$('#co').children().parent().prepend("<h1>fasd</h1>");*/
         $('#apnd_div').prepend(' <hr />' +
 
@@ -641,7 +666,7 @@
     $("#coureditsectionList").on('click', ".createFolder", function () {
         //var FN = $('#FolderName').val();
         var FN = $(this).parent().parent().children().children().children().val();
-
+       
         $.ajax({
             type: "Post",
             url: "/Admin/CreateSection",

@@ -92,16 +92,17 @@
                     <div class="media-body">
                         <div class="custom-file">
 
-
                             <form method="Post" class="courseimageupload d-flex justify-content-between">
 
 
-                                <input type="file" name="files" id="uplod" accept=".jpg,.png" required />
-
-                                <button class="btn btn-primary" type="submit" id="upbtn" style=" height: 34px; width: 50px;">
+                                <input type="file" name="files" id="uplod" class="uplod" accept=".jpg,.png" required />
+                                <p class="d-none small text-center bg-warning img-err1 text-capitalize">selected image is invalid. Image size must be <b>256x256</b> and File type is <b>png | jpg | jpeg</b></p>
+                                <button class="btn btn-primary" type="submit" id="upbtn1" style=" height: 34px; width: 50px;">
                                     <i class="material-icons">file_upload</i>
                                 </button>
                             </form>
+
+                          
 
                         </div>
 
@@ -134,7 +135,7 @@
                         <div class="form-group">
                             <label for="form-label">Description</label>
 
-                            <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title">@Model.Description</textarea>
+                            <textarea class="form-control" id="CourseDescription" rows="3" placeholder="Write a title"  style="resize:none">@Model.Description</textarea>
                         </div>
                     </div>
 
@@ -346,6 +347,11 @@
     });
 
 
+    $("#searchText").keyup(function (event) {
+        if (event.keyCode === 13) {
+            $("#tagadd").click();
+        }
+    });
 
     // Tag Add
     $("#tagadd").click(function () {
@@ -360,9 +366,9 @@
    
 
     //Tag Remove
-    $("#CTagManager").on("click", ".tagremove", function () {
+    $("body").on("click", ".tagtext", function () {
+        var tag = $(this).val();
 
-        var tag = $(".tagtext").val();
         $.ajax({
             type: "GET",
             url: "/Admin/TagRemover",
@@ -374,9 +380,25 @@
                 GETTAG("removessws101");
             }
         });
-
-
     });
+    //$("#CTagManager").on("click", ".tagremove", function () {
+
+    //    var tag = $(".tagtext").val();
+    //    alert(tag);
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/Admin/TagRemover",
+    //        data: {
+    //            value: tag
+    //        },
+
+    //        success: function (data) {
+    //            GETTAG("removessws101");
+    //        }
+    //    });
+
+
+    //});
 
 
     $(".zipupload").on("submit", function (event) {
@@ -420,6 +442,41 @@
         });
     });
 
+    $(".uplod").on("change", function (event) {
+
+       
+        var input_tag = $(this);
+        var _URL = window.URL || window.webkitURL;
+        var file = this.files[0];//get file
+       
+        var img = new Image();
+
+        if (file) {
+            imgExt = file?.name?.replace(/^.*\./, '');//get extension
+            img.src = _URL.createObjectURL(file);
+
+
+            img.onload = function () {
+                console.log(img.width, img.height, imgExt);
+                if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
+                    $("#upbtn1").prop('disabled', false);
+                    input_tag.siblings("p").addClass("d-none");
+                    input_tag.siblings("p").removeClass("d-block");
+
+                }
+                else {
+
+                    $("#upbtn1").prop('disabled', true);
+                    input_tag.siblings("p").addClass("d-block");
+                    input_tag.siblings("p").removeClass("d-none");
+                }
+            }
+        }
+        else {
+            input_tag.parent().siblings("p").addClass("d-none");
+            input_tag.parent().siblings("p").removeClass("d-block");
+        }
+    });
 
 
 
@@ -443,7 +500,7 @@
                 if (imageurl == "Invalid Image Size") {
                     alert(result);
                 } else {
-                    alert(result);
+                    //alert(result);
 
                     $("#coursepic").attr("src", result);
 

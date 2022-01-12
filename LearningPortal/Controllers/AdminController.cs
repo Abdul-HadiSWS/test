@@ -1249,7 +1249,6 @@ namespace LearningPortal.Controllers
                 string fullpath = Server.MapPath("~/assets/videos/");
                 string CompletePath = Path.Combine(filename, fullpath);
 
-
                 using (ZipArchive archive = new ZipArchive(files.InputStream))
                 {
                     archive.ExtractToDirectory(CompletePath);
@@ -1427,17 +1426,17 @@ namespace LearningPortal.Controllers
                 {
                     FileExists = "File is created successfully";
                     Directory.CreateDirectory(folder1);
-                    return Json("Successfully section Created");
+                    return Json("Section Created Successfully");
                 }
                 else
                 {
                     FileExists = "File Is Already Exist";
-                    return Json("Already Exist Section Please Change the Name");
+                    return Json("Section Already Exist Please Change the Name");
                 }
 
             }
             FileExists = "File Is Already Exist";
-            return Json("Already Exist Section Please Change the Name");
+            return Json("Section Already Exist Please Change the Name");
         }
 
         /* End Create folder*/
@@ -1527,7 +1526,7 @@ namespace LearningPortal.Controllers
         public ActionResult WWYLearn(string paragraph, string OrderList, string UnorderedList)
         {
 
-            string[] separatingStrings = { ",,"};
+            string[] separatingStrings = {",,"};
             if (OrderList != "")
             {
                 string[] array = OrderList.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
@@ -1703,7 +1702,7 @@ namespace LearningPortal.Controllers
                         Directory.Move(folder, folder1);
                     }
                 }
-                return Json("Successfully Edit SectionName");
+                return Json("File name Updated Successfully");
             }
             else
             {
@@ -1729,7 +1728,7 @@ namespace LearningPortal.Controllers
                     // Perform the move
 
                     System.IO.File.Move(folder, folder1);
-                    return Json("Successfully Edit SectionFile");
+                    return Json("File name Updated Successfully");
 
                 }
             }
