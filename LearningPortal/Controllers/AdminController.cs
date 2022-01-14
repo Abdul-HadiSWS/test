@@ -347,7 +347,7 @@ namespace LearningPortal.Controllers
                 //var check = Db.SubCategories.SqlQuery("SELECT * FROM SubCategories where SubCategoryName= '" + SubCatname + "'").SingleOrDefault();
                 var check = Db.Categories.SqlQuery("SELECT * FROM Categories where CategoryName= '" + Catname + "'").ToList();
                
-                if (check == null)
+                if (check.Count == 0)
                 {
                
                     Categories objCat = new Categories();
@@ -1135,8 +1135,8 @@ namespace LearningPortal.Controllers
 
 
                         string sectionmedianame = item3;
-                        string duration = sectionMediaTime[countoutside][countinside];
-                        //string output = Convert.ToDateTime(duration).ToString("yyyy-MM-dd");
+                        string Str_duration = sectionMediaTime[countoutside][countinside];
+                        string duration = Str_duration.Replace("hr", "").Replace("min", "").Replace("sec", "");
                         double seconds = TimeSpan.Parse(duration).TotalSeconds;
                         SectionMedia sectionMedia = new SectionMedia();
                         sectionMedia.VideoTitle = sectionmedianame;
@@ -1826,9 +1826,17 @@ namespace LearningPortal.Controllers
 
                     //WWYL.Clear();
                 }
+
+
+                
                 int countoutside = 0;
                 foreach (var item in sectionName)
                 {
+                    if (item == "heading")
+                    { countoutside++; }
+                    else
+                    {
+
                     var name = item;
                     Section sec = new Section();
                     sec.SectionName = item;
@@ -1842,21 +1850,33 @@ namespace LearningPortal.Controllers
                     {
 
 
-                        string sectionmedianame = item1;
-                        string duration = sectionMediaTime[countoutside][countinside];
-                        //string output = Convert.ToDateTime(duration).ToString("yyyy-MM-dd");
-                        double seconds = TimeSpan.Parse(duration).TotalSeconds;
-                        SectionMedia sectionMedia = new SectionMedia();
-                        sectionMedia.VideoTitle = sectionmedianame;
-                        sectionMedia.Videotype = "video/mp4";
-                        sectionMedia.VideoUrl = sectionmedianame;
-                        sectionMedia.SectionId = section.SectionId;
-                        sectionMedia.VideoDuration = Convert.ToInt32(seconds);
-                        Db.SectionMedia.Add(sectionMedia);
-                        Db.SaveChanges();
+                        if (item1 == "title")
+                        {
+
+                        }
+                        else
+                        {
+
+                              string sectionmedianame = item1;
+                                string Str_duration = sectionMediaTime[countoutside][countinside];
+                                string duration = Str_duration.Replace("hr", "").Replace("min", "").Replace("sec", "");
+                                double seconds = TimeSpan.Parse(duration).TotalSeconds;
+                                SectionMedia sectionMedia = new SectionMedia();
+                                sectionMedia.VideoTitle = sectionmedianame;
+                                sectionMedia.Videotype = "video/mp4";
+                                sectionMedia.VideoUrl = sectionmedianame;
+                                sectionMedia.SectionId = section.SectionId;
+                                sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+                                Db.SectionMedia.Add(sectionMedia);
+                                Db.SaveChanges();
+                        
                         countinside++;
+                        }
                     }
+
                     countoutside++;
+
+                    }
                 }
                 root = "";
                 Tags.Clear();

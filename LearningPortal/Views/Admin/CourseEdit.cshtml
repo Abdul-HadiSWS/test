@@ -740,12 +740,12 @@
 
                         var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
                         var sectionfileduration1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".ddd").children().map(function () {
-
+                          
                             return $(this).text();
 
 
                         }).get();
-
+                       
                         sectionfileduration.push(sectionfileduration1);
                     }
 

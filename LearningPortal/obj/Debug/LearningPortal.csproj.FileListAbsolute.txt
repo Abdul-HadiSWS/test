@@ -1747,3 +1747,4 @@ C:\Users\Streetware PC\Source\Repos\LearningPortal\LearningPortal\obj\Debug\Lear
 C:\Users\Streetware PC\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete
 C:\Users\Streetware PC\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.dll
 C:\Users\Streetware PC\Source\Repos\LearningPortal\LearningPortal\obj\Debug\LearningPortal.pdb
+C:\Users\FBC\source\repos\Learning Portal\LearningPortal\obj\Debug\LearningPortal.csproj.CopyComplete

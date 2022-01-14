@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +23,7 @@
 
 
 <div id="notfound">
+    <p></p>
     <div class="notfound">
         <div class="notfound-404">
             <div></div>
@@ -31,65 +32,25 @@
         </div>
         <h2>Page not found</h2>
         <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-        
-            @*<input type="number" name="name" value=1 class="error" />*@
 
-            <a class="btn btn-dark text-white rounded-pill" onclick="previousPage()">Go To Back</a>
+        @*<input type="number" name="name" value=1 class="error" />*@
 
-        
+
+        @{
+
+            if (User.IsInRole("Admin"))
+
+            {
+                @Html.ActionLink("Go To Back", "AddCourse", "Admin")
+            }
+            else
+            {
+
+           
+            @Html.ActionLink("Go To Back", "StudentDashboard", "Home") }
+        }
+
+
+
     </div>
 </div>
-
-<script src="~/assets/vendor/jquery.min.js"></script>
-<script>
-    
-    $(document).ready(function () {
-        console.log(' href => ' + window.location.href);
-        console.log(' host => ' + window.location.host);
-        console.log(' hostname => ' + window.location.hostname);
-        console.log(' port => ' + window.location.port);
-        console.log(' protocol => ' + window.location.protocol);
-        console.log(' pathname => ' + window.location.pathname);
-        console.log(' hashpathname => ' + window.location.hash);
-        console.log(' search=> ' + window.location.search);
-       
-        //var i = 0;
-        //if (i === 0) {
-        window.location.href(window.location.href);
-        //    i=i+1;
-        //    alert(i);
-        //}
-       
-
-        //let currentPage = location.href;
-        //alert(currentPage);
-
-        //// listen for changes
-        //setInterval(function () {
-        //    if (currentPage != location.href) {
-        //        // page has changed, set new page as 'current'
-        //        currentPage = location.href;
-
-        //        // do your thing..
-        //    }
-        //}, 500);
-        //alert(currentPage);
-
-        //    var value = $(".error").val();
-        //    console.log(value);
-        //    var intt = parseInt(value) + 1;
-        //    console.log(intt);
-        //    var str = String(intt);
-        //    console.log(str);
-        //    //$('input[type=hidden].error').val(intt);
-        //    $('.error').val(intt);
-        })
-   
-    function previousPage() {
-
-        window.history.go(-1);
-    }
-</script>
-
-
-

@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<LearningPortal.Models.Categories>
 
 <div class="container-fluid p-0">
-    <div class="modal fade" id="myModalAddCat" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade" id="myModalAddCat" role="dialog" style=" height: 100%; width:100vw">
+        <div class="modal-dialog m-0 add-modal">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -26,7 +26,7 @@
                                 <label for="title" class="col-md-4 col-form-label form-label">Category Image</label>
                                 <div class="col-md-6 overflow-hidden">
                                     <input type="file" name="files" required class="addimg" />
-                                    <p class='text-muted'>Image size must be 256x256 and File type is png | jpg | jpeg</p>
+                                    <p class='text-muted small'>Image size must be 256x256 and File type is png | jpg | jpeg</p>
                                 </div>
 
                             </div>

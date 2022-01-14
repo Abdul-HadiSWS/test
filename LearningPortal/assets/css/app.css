@@ -30632,8 +30632,42 @@ code.django .hljs-template-tag {
     justify-content: center;
     align-items: center;
 }
-
-
+.add-modal {
+    top: 10%;
+    left: 17%;
+}
+@media only screen and (max-width: 992px) {
+    .add-modal {
+        top: 7%;
+        left: 22%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .add-modal {
+        top: 3%;
+        left: 25%;
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .add-modal {
+        top: 1%;
+        left: 22%;
+        min-width: 300px;
+    }
+}
+@media only screen and (max-width: 475px) {
+    .add-modal {
+        left: 12%;
+        min-width: 80%;
+    }
+}
+@media only screen and (max-width: 372px) {
+    .add-modal {
+        top: 2%;
+        left: 10%;
+    }
+}
 /*delete modal style*/
 .delete-modal {
     top: 35%;

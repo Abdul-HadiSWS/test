@@ -45,24 +45,16 @@
 
 
 
-            var hour = Math.floor(time / 3600),
-                minutes = time - hour * 3600;
-            minutes = Math.floor(minutes / 60),
-                seconds = Math.floor(time - minutes * 60 - hour * 3600);
-
-            // var    minutes =Math.floor(minutes/60),
-            //  seconds = time - minutes * 60;
+            var hour = Math.floor(time / 3600), minutes = time - hour * 3600;
+            hour = hour < 10 ? '0' + hour : hour;
+           
+            minutes = Math.floor(minutes / 60),seconds = Math.floor(time - minutes * 60 - hour * 3600);
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+           
 
             seconds = seconds < 10 ? '0' + seconds : seconds;
-            //if (hour==0) {
-            //    return Number(minutes) + " min " + Number(seconds) + " sec";
-            //}
-            //else if (hour == 0 && minutes == 0) {
-            //    return Number(seconds) + " sec";
-            //}
-            //else {
-                return Number(hour) + ":" + Number(minutes) +":" + Number(seconds);
-            //}
+           
+                return hour + "hr:" + minutes +"min:" + seconds+"sec";
             
         }
     </script>
