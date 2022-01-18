@@ -67,7 +67,6 @@
     <!-- jQuery -->
     <script src="~/assets/vendor/jquery.min.js"></script>
 
-   
 </head>
 <body>
     <div id="loading">
@@ -168,7 +167,14 @@
 
     <script>
 
+
+
         $(document).ready(function () {
+            //$(function () {
+            //    alert("admin");
+            //    $(".idpakar").sortable();
+            //    $(".idpakar").disableSelection();
+            //});
             preloaderFadeOutTime = 500;
             function hidePreloader() {
                 var preloader = $('#loading');
@@ -204,8 +210,8 @@
     <script src="~/assets/vendor/moment.min.js"></script>
     <script src="~/assets/vendor/moment-range.js"></script>
 
-    <script src="~/assets/vendor/jquery.nestable.js"></script>
-    <script src="~/assets/js/nestable.js"></script>
+    @*<script src="~/assets/vendor/jquery.nestable.js"></script>
+        <script src="~/assets/js/nestable.js"></script>*@
 
 
     <script src="~/assets/js/admin.js"></script>
@@ -213,7 +219,8 @@
     <!-- Year Picker Js -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </body>
 </html>

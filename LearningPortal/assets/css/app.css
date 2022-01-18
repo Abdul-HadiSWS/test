@@ -30766,3 +30766,9 @@ code.django .hljs-template-tag {
     z-index: 1000;
    
 }
+.display-toggle {
+    position: relative;
+    top: 40px;
+    left: 10px;
+    cursor: pointer;
+}

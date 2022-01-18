@@ -280,7 +280,15 @@
                
                 $('#coureditsectionList').empty();
                 $('#coureditsectionList').append(data);
-                
+
+
+                $.getScript("https://code.jquery.com/jquery-1.12.4.js", function () {
+                    $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.js", function () {
+                        $(".draggable").sortable();
+                    })
+                });
+
+
             }
         });
     }

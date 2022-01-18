@@ -81,7 +81,7 @@
 
                 var sc = h.Replace(" ", string.Empty) + "sws";
                 <ul class="ascaq list-unstyled @sc" id="@sc">
-                    <li>
+                    <li class="draggable">
                         @foreach (var val in ViewBag.PData[count])
                         {
 
@@ -189,6 +189,11 @@
 
      
 
+      $.getScript("https://code.jquery.com/jquery-1.12.4.js", function () {
+          $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.js", function () {
+              $(".draggable").sortable();
+          })
+      });
 
 
       $("#close").click(function () {

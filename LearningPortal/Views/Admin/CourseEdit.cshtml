@@ -3,6 +3,7 @@
     ViewBag.Title = "CourseEdit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <div class="mdk-drawer-layout__content page mr-3 ml-2">
     <div id="videoModalWrapper">
 
@@ -53,7 +54,7 @@
                         <div class="col-md-12">
                             @foreach (var item in (List<String>)ViewBag.Span)
                             {
-                                <button class="badge rounded-pill bg-primary  py-2 px-3" value="@item" id="tagtext_@item.Count()" style="color: white;">@item <i class="material-icons tagremove" id="@item.Count()" style="font-size: 15px" >clear</i></button>
+                                <button class="badge rounded-pill bg-primary  py-2 px-3" value="@item" id="tagtext_@item.Count()" style="color: white;">@item <i class="material-icons tagremove" id="@item.Count()" style="font-size: 15px">clear</i></button>
 
                             }
                         </div>
@@ -119,7 +120,7 @@
             <div class="card">
                 <div class="m-3">
                     <input class="form-control" id="courseYear" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-    placeholder="Add Year from 2000 to 2050"  min="2000" max="2050" maxlength="4" > 
+                           placeholder="Add Year from 2000 to 2050" min="2000" max="2050" maxlength="4">
                     <div class="flex"></div><br />
                     @*<input type="text" class="yearpicker form-control mb-3" value="" id="courseYear" placeholder=" Add Course Year" required style="" />*@
                     <select id="courseLevel"
@@ -160,10 +161,10 @@
             <!--Last Submit Button Start-->
             <div>
                 <button type="button" class="btn btn-primary" id="Cancel">
-                    Cancel 
+                    Cancel
                 </button>
                 <button type="button" class="btn btn-primary" id="courseInsert">
-                    ok 
+                    ok
                 </button>
 
             </div>
@@ -180,15 +181,15 @@
 
 <script>
 
-    
+
 
 
     $(document).ready(function () {
         $("#Cancel").click(function () {
             $.ajax({
-                
+
                 url: "/Admin/CancleBtn",
-               
+
 
                 success: function (data) {
                     window.location.href = '/Admin/AddCourse';
@@ -256,20 +257,38 @@
 
 
             success: function (data) {
+
+
                 console.log(data);
                 $('#coureditsectionList').empty();
-             /*   $('#coureditsectionList').append(data);*/
-                $("#coureditsectionList").html(data);
+                $('#coureditsectionList').append(data);
+                /* $("#coureditsectionList").html(data);*/
                 var rootTitle = $("#rootTitle").val();
                 $("#CourseTitle").val(rootTitle);
                 //$(".idpakar").css("background", "yellow");
                 //$(".idpakar").addClass("nestable");
-              
+
                 //$(".v").remove();
                 //$('.nestable-list').mouseenter(function () {
                 //     $(".nestable-list").load(location.href + " .nestable-list");
                 //});
                
+                  
+                        $.getScript("https://code.jquery.com/jquery-1.12.4.js", function () {
+                            $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.js", function () {
+                               
+                                $(".draggable").sortable();
+                                $(".draggable").disableSelection();
+                            })
+                        });
+
+
+                
+                //$(function () {
+                //    alert("outline in");
+                //    $(".idpakar").sortable();
+                //    $(".idpakar").disableSelection();
+                //});
             }
         });
     }
@@ -280,11 +299,11 @@
         }
     });
 
-   
+
 
     // Tag Add
     $("#tagadd").click(function () {
-       
+
         var tag = $("#searchText").val();
         if (tag) {
 
@@ -292,7 +311,7 @@
             $("#searchText").val("");
         }
     });
-    
+
 
     //Tag Remove
     $("body").on("click", ".tagtext", function () {
@@ -338,7 +357,7 @@
 
         event.preventDefault();
         var formData = new FormData($(this)[0]);
-        
+
         $('#upbtn').prop('disabled', true);
 
         $.ajax({
@@ -361,7 +380,7 @@
 
 
                 }
-                
+
                 else {
                     alert(result);
                     $('#upbtn').prop('disabled', false);
@@ -380,41 +399,41 @@
 
     });
 
-   
-    $(".uplod").on("change", function (event) {
-     
-           
-            var input_tag = $(this);
-            var _URL = window.URL || window.webkitURL;
-            var file = this.files[0];//get file
-           
-            var img = new Image();
-           
-            if (file) {
-                imgExt = file?.name?.replace(/^.*\./, '');//get extension
-                img.src = _URL.createObjectURL(file);
 
-               
-                img.onload = function () {
-                    console.log(img.width, img.height, imgExt);
-                    if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
-                        $("#upbtn1").prop('disabled', false);
-                        input_tag.siblings("p").addClass("d-none");
-                        input_tag.siblings("p").removeClass("d-block");
-                        
-                    }
-                    else {
-                       
-                        $("#upbtn1").prop('disabled', true);
-                        input_tag.siblings("p").addClass("d-block");
-                        input_tag.siblings("p").removeClass("d-none");
-                    }
+    $(".uplod").on("change", function (event) {
+
+
+        var input_tag = $(this);
+        var _URL = window.URL || window.webkitURL;
+        var file = this.files[0];//get file
+
+        var img = new Image();
+
+        if (file) {
+            imgExt = file?.name?.replace(/^.*\./, '');//get extension
+            img.src = _URL.createObjectURL(file);
+
+
+            img.onload = function () {
+                console.log(img.width, img.height, imgExt);
+                if ((img.width === 256 && img.height === 256) && (imgExt == "png" || imgExt == "jpg")) {
+                    $("#upbtn1").prop('disabled', false);
+                    input_tag.siblings("p").addClass("d-none");
+                    input_tag.siblings("p").removeClass("d-block");
+
+                }
+                else {
+
+                    $("#upbtn1").prop('disabled', true);
+                    input_tag.siblings("p").addClass("d-block");
+                    input_tag.siblings("p").removeClass("d-none");
                 }
             }
-            else {
-                input_tag.parent().siblings("p").addClass("d-none");
-                input_tag.parent().siblings("p").removeClass("d-block");
-            }
+        }
+        else {
+            input_tag.parent().siblings("p").addClass("d-none");
+            input_tag.parent().siblings("p").removeClass("d-block");
+        }
     });
     // Course Image upload
     $(".courseimageupload").on("submit", function (event) {
@@ -464,7 +483,7 @@
 
 
         $('#imgupload').trigger('click');
-      
+
 
         var sectionname = $(this).children().attr('class');
         c = sectionname;
@@ -627,7 +646,7 @@
     // Add Section
     $('#coureditsectionList').on('click', '#AddSecBtn', function () {
 
-       
+
         $('#AddSecBtn').prop('disabled', true);
         /*$('#co').children().parent().prepend("<h1>fasd</h1>");*/
         $('#apnd_div').prepend(' <hr />' +
@@ -644,12 +663,12 @@
 
 
             '<div class="media-right">' +
-          
+
             '<button class="btn btn-white btn-sm createFolder" id="createFolder" >' +
             '<i class="material-icons">add</i>' +
             '</button>' +
 
-           
+
 
             '</div>' +
             '</form>' +
@@ -666,7 +685,7 @@
     $("#coureditsectionList").on('click', ".createFolder", function () {
         //var FN = $('#FolderName').val();
         var FN = $(this).parent().parent().children().children().children().val();
-       
+
         $.ajax({
             type: "Post",
             url: "/Admin/CreateSection",
@@ -675,7 +694,7 @@
                 check: "edit"
             },
             success: function (response) {
-               
+
                 alert(response);
                 getoutline();
 
@@ -691,7 +710,7 @@
 
         var CourseTitle = $("#CourseTitle").val();
         var CourseDesc = $("#CourseDescription").val();
-       
+
 
         $.ajax({
             type: "Post",
@@ -707,7 +726,7 @@
 
                 if (condition == "Folder Name Change Successfully") {
 
-                   
+
                     getWhatYouLearn();
                     var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
                         return $(this).attr("id");
@@ -740,16 +759,16 @@
 
                         var sc = "." + sectionnamedata[c].replace(/\s/g, "") + "sws";
                         var sectionfileduration1 = $(sc).children("li").children(".nestable").children(".nestable-list").children(".nestable-item").children(".nestable-content").children(".media").children(".media-body").children(".card-title").children(".ddd").children().map(function () {
-                          
+
                             return $(this).text();
 
 
                         }).get();
-                       
+
                         sectionfileduration.push(sectionfileduration1);
                     }
 
-                  
+
                     var CourseName = $("#CourseTitle").val();
                     var CourseDesc = $("#CourseDescription").val();
                     var courseYear = $("#courseYear").val();
@@ -758,12 +777,11 @@
                     var courseLevel = $("#courseLevel").val();
                     var coursepic = $("#coursepic").attr("src");
 
-                    if (courseYear.length!=4) {
+                    if (courseYear.length != 4) {
                         alert("Please Add Correct Year Format YYYY");
                     }
                     else {
-                        if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") 
-                        {
+                        if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
                             console.log(courseYear);
                             $.ajax({
                                 url: '/Admin/InsertCourse',
@@ -784,7 +802,7 @@
                                 },
                                 success: function (result) {
                                     alert("Course Added Successfully");
-                              
+
                                     window.location.href = '/Admin/AddCourse';
 
                                 },
@@ -795,7 +813,7 @@
                         }
                         else {
                             alert("Please fill All Values");
-                       
+
 
 
                         }
