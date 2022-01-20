@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html lang="en"
       dir="ltr">
 
@@ -8,7 +9,7 @@
           content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
 
     <!-- Prevent the demo from appearing in search engines (REMOVE THIS) -->
     <meta name="robots"
@@ -57,7 +58,7 @@
           href="~/assets/css/Course.css">
 
 
- 
+
 
     <link rel="stylesheet" href="~/assets/css/carousel.css">
 
@@ -106,17 +107,36 @@
                      class="navbar navbar-expand navbar-dark bg-dark m-0">
                     <div class="container-fluid">
 
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <!-- Brand -->
+                                <a href="@Url.Action("AddCourse", "Admin")"
+                                   class="navbar-brand">
 
-                        <!-- Brand -->
-                        <a href="@Url.Action("StudentDashboard", "Home")"
-                           class="navbar-brand">
+                                    <img src="~/assets/images/logo/white.svg"
+                                         class="mr-2"
+                                         alt="LearnPlus" />
+                                    <span class="d-none d-xs-md-block">LearnPlus</span>
 
-                            <img src="~/assets/images/logo/white.svg"
-                                 class="mr-2"
-                                 alt="LearnPlus" />
-                            <span class="d-none d-xs-md-block">LearnPlus</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <!-- Brand -->
+                                <a href="@Url.Action("StudentDashboard", "Home")"
+                                   class="navbar-brand">
 
-                        </a>
+                                    <img src="~/assets/images/logo/white.svg"
+                                         class="mr-2"
+                                         alt="LearnPlus" />
+                                    <span class="d-none d-xs-md-block">LearnPlus</span>
+
+                                </a>
+
+                            }
+                        }
+
 
                         <!-- Search -->
 
@@ -150,7 +170,7 @@
                             <ul class="nav navbar-nav">
 
                                 <li class="nav-item dropdown">@Html.Action("Menu", "Home")</li>
-                             
+
 
                             </ul>
                         </div>
@@ -202,8 +222,8 @@
     <script src="~/assets/js/carousel.js"></script>
 
 
-   
- 
+
+
 
 
 </body>

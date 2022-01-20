@@ -203,7 +203,7 @@
 
 
 
-
+    //what you will learn
     function getWhatYouLearn() {
         var TA = $(".TA").children().attr("class");
 
@@ -657,7 +657,7 @@
             '<div class="media align-items-center">' +
             '<div class="media-body" id="Nested_Card">' +
             ' <form id="myForm" method="post" enctype="multipart/form-data">' +
-            '<input type="text" id="FolderName" class="form-control t" placeholder="Write File Name"/>' +
+            '<input type="text" id="FolderName" class="form-control t" placeholder="Write File Name" required/>' +
 
             '</div>' +
 
@@ -711,7 +711,7 @@
         var CourseTitle = $("#CourseTitle").val();
         var CourseDesc = $("#CourseDescription").val();
 
-
+        
         $.ajax({
             type: "Post",
             url: "/Admin/AddDesc",
@@ -783,33 +783,37 @@
                     else {
                         if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
                             console.log(courseYear);
-                            $.ajax({
-                                url: '/Admin/InsertCourse',
+                            if (courseYear >= 2000 && courseYear <= 2050) {
+                                $.ajax({
+                                    url: '/Admin/InsertCourse',
 
-                                data: {
-                                    CourseName: CourseName,
-                                    CourseDesc: CourseDesc,
-                                    courseYear: courseYear,
-                                    categoryId: categoryId,
-                                    subcategoryId: subcategoryId,
-                                    courseLevel: courseLevel,
-                                    coursepic: coursepic,
-                                    sectionnamedata: JSON.stringify(sectionnamedata),
-                                    sectionfiledata: JSON.stringify(sectionfiledata),
-                                    sectionfileduration: JSON.stringify(sectionfileduration)
+                                    data: {
+                                        CourseName: CourseName,
+                                        CourseDesc: CourseDesc,
+                                        courseYear: courseYear,
+                                        categoryId: categoryId,
+                                        subcategoryId: subcategoryId,
+                                        courseLevel: courseLevel,
+                                        coursepic: coursepic,
+                                        sectionnamedata: JSON.stringify(sectionnamedata),
+                                        sectionfiledata: JSON.stringify(sectionfiledata),
+                                        sectionfileduration: JSON.stringify(sectionfileduration)
 
 
-                                },
-                                success: function (result) {
-                                    alert("Course Added Successfully");
+                                    },
+                                    success: function (result) {
+                                        alert("Course Added Successfully");
 
-                                    window.location.href = '/Admin/AddCourse';
+                                        window.location.href = '/Admin/AddCourse';
 
-                                },
-                                error: function (err) {
-                                    alert(err.statusText);
-                                }
-                            });
+                                    },
+                                    error: function (err) {
+                                        alert(err.statusText);
+                                    }
+                                });
+                            } else {
+                                alert("year shoulb be < 2000");
+                            }
                         }
                         else {
                             alert("Please fill All Values");

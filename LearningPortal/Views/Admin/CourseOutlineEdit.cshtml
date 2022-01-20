@@ -37,9 +37,9 @@
 
                                 @*<a href="#" class="@h">@h</a>*@
 
-                                <input class="heading" type="text" value="@h" id="@h" @h />
-
-
+                                <input class="heading" type="text" value="@h" id="@h" style="display:none"/>
+                                @*Lable none edit field*@
+                                <label class="heading" id="heading">@h</label>
 
 
                             </div>
@@ -61,11 +61,18 @@
 
 
                                 <a href="#"
-                                   class="btn btn-white btn-sm EditSubDir" id="AddedSubDirName">
+                                   class="btn btn-white btn-sm EditSubDirC" id="AddedSubDirName">
 
                                     <i class="material-icons">edit</i>
                                 </a>
-                                
+                                @*Hidding text field btn*@
+                                <a href="#" style="display: none; background: #6eb9ff"
+                                   class="btn btn-white btn-sm EditSubDirD" id="AddedSubDirName">
+                                    <i class="material-icons">edit</i>
+                                </a>
+
+
+
                                 <a href="#"
                                    class="btn btn-white btn-sm DelDir">
                                     <i class="material-icons">delete</i>
@@ -98,18 +105,18 @@
                                                     <div class="card-title h6 mb-0">
                                                         @{
 
-                                                            string filen = @val;
-                                                            int lastindex = filen.IndexOf('.');
-                                                            var val2 = filen.Substring(0, lastindex);
-                                                            string extension = filen.Substring(lastindex);
+                                                                string filen = @val;
+                                                                int lastindex = filen.IndexOf('.');
+                                                                var val2 = filen.Substring(0, lastindex);
+                                                                string extension = filen.Substring(lastindex);
 
-                                                            <input class="w-50" type="text" value="@val2" id="@val" />
+                                                          //  <input class="w-50" type="text" value="@val2" id="@val"  />
+
+                                                            <input class="w-50" type="text" value="@val2" id="@val" style="display:none;" />
+                                                            <label class="w-50" id="title">@val2</label>
 
 
-
-
-                                                            <div class="ddd vc-time"    
-                                                            >
+                                                            <div class="ddd vc-time">
                                                                 @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "update" }); }
 
                                                             </div>
@@ -124,20 +131,23 @@
                                                 </div>
 
                                                 <div class="media-right %@h">
-                                                    <a href="#"
+                                                    <button href="#"
                                                        class="btn btn-white btn-sm video" title="@val" data-toggle="modal"
                                                        data-target="#exampleModal">
                                                         <i class="material-icons">visibility</i>
-                                                    </a>
-                                                    <a href="#"
-                                                       class="btn btn-white btn-sm EditFile">
+                                                    </button>
+                                                    <button href="#"
+                                                       class="btn btn-white btn-sm EditFileC">
                                                         <i class="material-icons">edit</i>
-                                                    </a>
-                                                   
-                                                    <a href="#"
+                                                    </button>
+                                                    <button href="#" style="display: none; background: #6eb9ff"
+                                                            class="btn btn-white btn-sm EditFileD">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button href="#"
                                                        class="btn btn-white btn-sm DeleteFile">
                                                         <i class="material-icons ">delete</i>
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -201,7 +211,14 @@
           $("#vemvo-player").trigger('pause');
       });
 
+      //$(".EditFile").click(function () {
+      //    var root = $(this).parent().siblings().children().children().css("display", "inline-block");
+      //    var root1 = $(this).parent().siblings().children().children("label").css("display", "none");
+      //    $(this).css("display", "none");
+      //    $(this).siblings(".EditFileA").css("display", "inline-block");
+      //    //$(".EditFileA").css("display", "inline");
 
+      //});
 
         $('.video').click(function () {
 
@@ -225,6 +242,23 @@
             alert(SubDirTitle);
 
         });
+      //Edit textbox
+      $(".EditFileC").click(function () {
+          var root = $(this).parent().siblings().children().children().css("display", "inline-block");
+          var root1 = $(this).parent().siblings().children().children("label").css("display", "none");
+          $(this).css("display", "none");
+          $(this).siblings(".EditFileD").css("display", "inline-block");
+          //$(".EditFileA").css("display", "inline");
 
+      });
+
+      $(".EditSubDirC").click(function () {
+          $(this).parent().siblings().children().css("display", "inline-block");
+          $(this).parent().siblings().children("label").css("display", "none");
+          $(this).css("display", "none");
+          $(this).siblings(".EditSubDirD").css("display", "inline-block");
+
+
+      });
     });
 </script>

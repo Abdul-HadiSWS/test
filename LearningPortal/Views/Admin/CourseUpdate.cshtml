@@ -573,7 +573,7 @@
 
 
     // Edit Section Name
-    $("#coureditsectionList").on('click', ".EditSubDir", function () {
+    $("#coureditsectionList").on('click', ".EditSubDirD", function () {
 
         var newname = $(this).parent().parent().children().children().val();
         var oldname = $(this).parent().parent().children().children().attr("id");
@@ -598,7 +598,7 @@
     });
 
     // Edit File Name
-    $("#coureditsectionList").on('click', ".EditFile", function () {
+    $("#coureditsectionList").on('click', ".EditFileD", function () {
 
         var SectionName = $(this).parent().attr('class');
         const myArray = SectionName.split("%");
@@ -705,7 +705,7 @@
             '<div class="media align-items-center">' +
             '<div class="media-body" id="Nested_Card">' +
             ' <form id="myForm" method="post" enctype="multipart/form-data">' +
-            '<input type="text" id="FolderName" class="form-control t" placeholder="Write File Name"/>' +
+            '<input type="text" id="FolderName" class="form-control t" required placeholder="Write File Name"/>' +
 
             '</div>' +
 
@@ -862,38 +862,42 @@
 
 
                         if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
+                            alert(courseYear);
+                            if (courseYear >= 2000 && courseYear <=2050) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Admin/CourseUpdate',
 
-                            $.ajax({
-                                type: "POST",
-                                url: '/Admin/CourseUpdate',
-
-                                data: {
-                                    courseid: courseid,
-                                    CourseName: CourseName,
-                                    CourseDesc: CourseDesc,
-                                    courseYear: courseYear,
-                                    categoryId: categoryId,
-                                    subcategoryId: subcategoryId,
-                                    courseLevel: courseLevel,
-                                    coursepic: coursepic,
-                                    whatulearn: whatulearn,
-                                    sectionnamedata: JSON.stringify(sectionnamedata),
-                                    sectionfiledata: JSON.stringify(sectionfiledata),
-                                    sectionfileduration: JSON.stringify(sectionfileduration)
-
-
-                                },
-                                success: function (result) {
+                                    data: {
+                                        courseid: courseid,
+                                        CourseName: CourseName,
+                                        CourseDesc: CourseDesc,
+                                        courseYear: courseYear,
+                                        categoryId: categoryId,
+                                        subcategoryId: subcategoryId,
+                                        courseLevel: courseLevel,
+                                        coursepic: coursepic,
+                                        whatulearn: whatulearn,
+                                        sectionnamedata: JSON.stringify(sectionnamedata),
+                                        sectionfiledata: JSON.stringify(sectionfiledata),
+                                        sectionfileduration: JSON.stringify(sectionfileduration)
 
 
-                                    alert("Successfully Course Updated");
-                                    window.location.href = '/Admin/AddCourse';
+                                    },
+                                    success: function (result) {
 
-                                },
-                                error: function (err) {
-                                    alert(err.statusText);
-                                }
-                            });
+
+                                        alert("Successfully Course Updated");
+                                        window.location.href = '/Admin/AddCourse';
+
+                                    },
+                                    error: function (err) {
+                                        alert(err.statusText);
+                                    }
+                                });
+                            } else {
+                                alert("year shoulb be < 2000");
+                            }
                         }
                         else {
                             alert("Please fill All Values");

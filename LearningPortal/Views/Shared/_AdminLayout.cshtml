@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -93,7 +94,7 @@
                         <button class="navbar-toggler d-block" data-toggle="sidebar" type="button">
                             <span class="material-icons">menu</span>
                         </button>
-
+                       
                         <!-- Brand -->
                         <a href="@Url.Action("AddCourse", "Admin")"
                            class="navbar-brand">
@@ -219,7 +220,7 @@
     <!-- Year Picker Js -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </body>
