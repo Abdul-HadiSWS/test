@@ -78,9 +78,30 @@
 
             <script>
                 $(document).ready(function () {
+                    //check box click on button selection
+                    $(".featcheckbox").click(function (e) {
+                        
+
+                        var check = $(this).children().attr("checked");
+                        console.log(e);
+                        console.log($(this).children());
+                        console.log(check);
+                        
+                        if (check === "checked") {
+                            alert("if")
+                            $(this).children().attr("checked", false);
+                         
+                        }
+                        else {
+                            alert("else")
+                            $(this).children().attr('checked', true);
+                        
+                        }
+                    });
+                    //-----------------//
 
                     $(".featcheckbox").click(function () {
-
+               
                         var serialNumber = $(this).data('id');
 
                         $.ajax({
