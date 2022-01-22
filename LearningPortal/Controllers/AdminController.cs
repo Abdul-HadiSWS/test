@@ -799,12 +799,12 @@ namespace LearningPortal.Controllers
 
 
                 }
-
+                Directory.Delete(rootfolder);
             }
 
 
 
-            Directory.Delete(rootfolder);
+            
 
         }
 
@@ -1121,6 +1121,7 @@ namespace LearningPortal.Controllers
                     Db.SaveChanges();
                 }
 
+<<<<<<< HEAD
 
                 //int countoutside = 0;
                 //foreach (var item2 in sectionName)
@@ -1154,6 +1155,10 @@ namespace LearningPortal.Controllers
                 //    }
                 //    countoutside++;
                 //}
+||||||| 18972dd
+
+=======
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
                 int countoutside = 0;
                 foreach (var item in sectionName)
                 {
@@ -1168,6 +1173,7 @@ namespace LearningPortal.Controllers
                         sec.CourseId = Convert.ToInt32(courseid);
                         Db.Sections.Add(sec);
                         Db.SaveChanges();
+<<<<<<< HEAD
 
                         var section = Db.Sections.Where(x => x.SectionName == item && x.CourseId == obj.CourseId).SingleOrDefault();
                         int countinside = 0;
@@ -1203,10 +1209,111 @@ namespace LearningPortal.Controllers
 
                     }
                 }
+||||||| 18972dd
+                        countinside++;
+                    }
+                    countoutside++;
+                }
+=======
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
+
+<<<<<<< HEAD
+                copydirectory("temp", "videos", obj.CourseName);
+||||||| 18972dd
 
                 copydirectory("temp", "videos", obj.CourseName);
+=======
+                        var section = Db.Sections.Where(x => x.SectionName == item && x.CourseId == obj.CourseId).SingleOrDefault();
+                        int countinside = 0;
+                        foreach (var item1 in sectionMediaName[countoutside])
+                        {
 
-                deletedirectory(obj.CourseName, "temp");
+
+                            if (item1 == "title")
+                            {
+
+                            }
+                            else
+                            {
+
+                                string sectionmedianame = item1;
+                                string Str_duration = sectionMediaTime[countoutside][countinside];
+                                string duration = Str_duration.Replace("hr", "").Replace("min", "").Replace("sec", "");
+                                double seconds = TimeSpan.Parse(duration).TotalSeconds;
+                                SectionMedia sectionMedia = new SectionMedia();
+                                sectionMedia.VideoTitle = sectionmedianame;
+                                sectionMedia.Videotype = "video/mp4";
+                                sectionMedia.VideoUrl = sectionmedianame;
+                                sectionMedia.SectionId = section.SectionId;
+                                sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+                                Db.SectionMedia.Add(sectionMedia);
+                                Db.SaveChanges();
+
+                                countinside++;
+                            }
+                        }
+
+                        countoutside++;
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
+
+                    }
+                    copydirectory("temp", "videos", obj.CourseName);
+                    deletedirectory(obj.CourseName, "temp");
+                }
+
+                //int countoutside = 0;
+                //foreach (var item2 in sectionName)
+                //{
+                //    if (item2 == "heading")
+                //    { countoutside++; }
+                //    else
+                //    {
+                //        var name = item2;
+                //        Section sec = new Section();
+                //        sec.SectionName = item2;
+                //        sec.CourseId = Convert.ToInt32(courseid);
+                //        Db.Sections.Add(sec);
+                //        Db.SaveChanges();
+
+                //        var section = Db.Sections.Where(x => x.SectionName == item2 && x.CourseId == obj.CourseId).SingleOrDefault();
+                //        int countinside = 0;
+
+                //        foreach (var item1 in sectionMediaName[countoutside])
+                //        {
+
+
+                //            if (item1 == "title")
+                //            {
+
+                //            }
+                //            else
+                //            {
+
+                //                string sectionmedianame = item1;
+                //                string Str_duration = sectionMediaTime[countoutside][countinside];
+                //                string duration = Str_duration.Replace("hr", "").Replace("min", "").Replace("sec", "");
+                //                double seconds = TimeSpan.Parse(duration).TotalSeconds;
+                //                SectionMedia sectionMedia = new SectionMedia();
+                //                sectionMedia.VideoTitle = sectionmedianame;
+                //                sectionMedia.Videotype = "video/mp4";
+                //                sectionMedia.VideoUrl = sectionmedianame;
+                //                sectionMedia.SectionId = section.SectionId;
+                //                sectionMedia.VideoDuration = Convert.ToInt32(seconds);
+                //                Db.SectionMedia.Add(sectionMedia);
+                //                Db.SaveChanges();
+
+                //                countinside++;
+                //            }
+                //        }
+
+                //        countoutside++;
+
+                //    }
+
+                //    copydirectory("temp", "videos", obj.CourseName);
+
+                //    deletedirectory(obj.CourseName, "temp");
+                //}
                 root = "";
                 Tags.Clear();
                 WWYL.Clear();

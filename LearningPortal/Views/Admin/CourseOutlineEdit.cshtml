@@ -32,6 +32,7 @@
 
             <div class="media-body" id="Nested_Card">
 
+<<<<<<< HEAD
                 <div class="media align-items-center">
                     <div class="media-body" id="Nested_Card">
 
@@ -40,6 +41,19 @@
                         <input class="heading" type="text" value="@h" id="@h" style="display:none" />
                         @*Lable none edit field*@
                         <label class="heading" id="heading">@h</label>
+||||||| 18972dd
+                                @*<a href="#" class="@h">@h</a>*@
+
+                                <input class="heading" type="text" value="@h" id="@h" @h />
+
+
+=======
+                                @*<a href="#" class="@h">@h</a>*@
+
+                                <input class="heading" type="text" value="@h" id="@h" style="display:none"/>
+                                @*Lable none edit field*@
+                                <label class="heading" id="heading">@h</label>
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
 
                     </div>
@@ -60,11 +74,46 @@
                         </div>
 
 
+<<<<<<< HEAD
                         <a href="#"
                            class="btn btn-white btn-sm EditSubDirC" id="AddedSubDirName">
+||||||| 18972dd
+                                <a href="#"
+                                   class="btn btn-white btn-sm EditSubDir" id="AddedSubDirName">
+=======
+                                <a href="#"
+                                   class="btn btn-white btn-sm EditSubDirC" id="AddedSubDirName">
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
+<<<<<<< HEAD
                             <i class="material-icons">edit</i>
                         </a>
+||||||| 18972dd
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                
+                                <a href="#"
+                                   class="btn btn-white btn-sm DelDir">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
+=======
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                @*Hidding text field btn*@
+                                <a href="#" style="display: none; background: #6eb9ff"
+                                   class="btn btn-white btn-sm EditSubDirD" id="AddedSubDirName">
+                                    <i class="material-icons">edit</i>
+                                </a>
+
+
+
+                                <a href="#"
+                                   class="btn btn-white btn-sm DelDir">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
                         <a href="#" style="display: none; background: #6eb9ff"
                            class="btn btn-white btn-sm EditSubDirD" id="AddedSubDirName">
@@ -90,7 +139,20 @@
                     @foreach (var val in ViewBag.PData[count])
                     {
 
+<<<<<<< HEAD
+||||||| 18972dd
+                                                            string filen = @val;
+                                                            int lastindex = filen.IndexOf('.');
+                                                            var val2 = filen.Substring(0, lastindex);
+                                                            string extension = filen.Substring(lastindex);
+=======
+                                                                string filen = @val;
+                                                                int lastindex = filen.IndexOf('.');
+                                                                var val2 = filen.Substring(0, lastindex);
+                                                                string extension = filen.Substring(lastindex);
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
+<<<<<<< HEAD
                         <div class="nestable" id="nestable-handles-primary">
                             <ul class="nestable-list">
                                 <li class="nestable-item nestable-item-handle"
@@ -98,21 +160,42 @@
                                     <div class="nestable-handle"><i class="material-icons">menu</i></div>
                                     <div class="nestable-content">
                                         <div class="media align-items-center" id="@h">
+||||||| 18972dd
+                                                            <input class="w-50" type="text" value="@val2" id="@val" />
+=======
+                                                          //  <input class="w-50" type="text" value="@val2" id="@val"  />
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
+<<<<<<< HEAD
                                             <div class="media-body" id="Nested_Card">
                                                 <div class="card-title h6 mb-0">
                                                     @{
+||||||| 18972dd
+=======
+                                                            <input class="w-50" type="text" value="@val2" id="@val" style="display:none;" />
+                                                            <label class="w-50" id="title">@val2</label>
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
                                                         string filen = @val;
                                                         int lastindex = filen.IndexOf('.');
                                                         var val2 = filen.Substring(0, lastindex);
                                                         string extension = filen.Substring(lastindex);
 
+<<<<<<< HEAD
                                                         <input class="w-50" type="text" value="@val2" id="@val" style="display:none;" />
                                                         <label class="w-50" id="title">@val2</label>
 
                                                         <div class="ddd vc-time">
                                                             @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "update" }); }
+||||||| 18972dd
+
+                                                            <div class="ddd vc-time"    
+                                                            >
+                                                                @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "update" }); }
+=======
+                                                            <div class="ddd vc-time">
+                                                                @{Html.RenderAction("gettime", "Admin", new { video = @val, section = @h, count1 = count2, extension = extension, check = "update" }); }
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
 
                                                         </div>
 
@@ -125,6 +208,7 @@
 
                                             </div>
 
+<<<<<<< HEAD
                                             <div class="media-right %@h">
                                                 <a href="#"
                                                    class="btn btn-white btn-sm video" title="@val" data-toggle="modal"
@@ -145,6 +229,44 @@
                                                    class="btn btn-white btn-sm DeleteFile">
                                                     <i class="material-icons ">delete</i>
                                                 </a>
+||||||| 18972dd
+                                                <div class="media-right %@h">
+                                                    <a href="#"
+                                                       class="btn btn-white btn-sm video" title="@val" data-toggle="modal"
+                                                       data-target="#exampleModal">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                    <a href="#"
+                                                       class="btn btn-white btn-sm EditFile">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                   
+                                                    <a href="#"
+                                                       class="btn btn-white btn-sm DeleteFile">
+                                                        <i class="material-icons ">delete</i>
+                                                    </a>
+                                                </div>
+=======
+                                                <div class="media-right %@h">
+                                                    <button href="#"
+                                                       class="btn btn-white btn-sm video" title="@val" data-toggle="modal"
+                                                       data-target="#exampleModal">
+                                                        <i class="material-icons">visibility</i>
+                                                    </button>
+                                                    <button href="#"
+                                                       class="btn btn-white btn-sm EditFileC">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button href="#" style="display: none; background: #6eb9ff"
+                                                            class="btn btn-white btn-sm EditFileD">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                    <button href="#"
+                                                       class="btn btn-white btn-sm DeleteFile">
+                                                        <i class="material-icons ">delete</i>
+                                                    </button>
+                                                </div>
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +332,14 @@
           $("#vemvo-player").trigger('pause');
       });
 
+      //$(".EditFile").click(function () {
+      //    var root = $(this).parent().siblings().children().children().css("display", "inline-block");
+      //    var root1 = $(this).parent().siblings().children().children("label").css("display", "none");
+      //    $(this).css("display", "none");
+      //    $(this).siblings(".EditFileA").css("display", "inline-block");
+      //    //$(".EditFileA").css("display", "inline");
 
+      //});
 
         $('.video').click(function () {
 
@@ -234,7 +363,17 @@
             alert(SubDirTitle);
 
         });
+      //Edit textbox
+      $(".EditFileC").click(function () {
+          var root = $(this).parent().siblings().children().children().css("display", "inline-block");
+          var root1 = $(this).parent().siblings().children().children("label").css("display", "none");
+          $(this).css("display", "none");
+          $(this).siblings(".EditFileD").css("display", "inline-block");
+          //$(".EditFileA").css("display", "inline");
 
+      });
+
+<<<<<<< HEAD
       //Edit textbox
       $(".EditFileC").click(function () {
           var root = $(this).parent().siblings().children().children().css("display", "inline-block");
@@ -255,5 +394,16 @@
       });
 
 
+||||||| 18972dd
+=======
+      $(".EditSubDirC").click(function () {
+          $(this).parent().siblings().children().css("display", "inline-block");
+          $(this).parent().siblings().children("label").css("display", "none");
+          $(this).css("display", "none");
+          $(this).siblings(".EditSubDirD").css("display", "inline-block");
+
+
+      });
+>>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
     });
 </script>
