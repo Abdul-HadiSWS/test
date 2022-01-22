@@ -165,7 +165,7 @@
 
 
 
-<div class="modal fade" id="exampleModal" style="height:100vh;width:100vw">
+@*<div class="modal fade" id="exampleModal" style="height:100vh;width:100vw">
     <div class="modal-dialog vc-modal m-0">
         <div class="modal-content">
             <div class="modal-header modal-header-vc">
@@ -179,17 +179,17 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 <script>
     $(document).ready(function () {
 
-        $.getScript("https://code.jquery.com/jquery-1.12.4.js", function () {
+       
             $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.js", function () {
                 $(".draggable").sortable();
             })
-        });
+      
 
 
         $(".EditSubDir").click(function () {
@@ -212,10 +212,7 @@
         });
 
 
-        $("#close").click(function () {
-            $('#exampleModal').modal('hide');
-            $("#vemvo-player").trigger('pause');
-        });
+       
 
 
         $('.video').click(function () {

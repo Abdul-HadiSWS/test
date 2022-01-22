@@ -274,13 +274,13 @@
                 //});
                
                   
-                        $.getScript("https://code.jquery.com/jquery-1.12.4.js", function () {
+                      
                             $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.js", function () {
                                
                                 $(".draggable").sortable();
                                 $(".draggable").disableSelection();
                             })
-                        });
+                      
 
 
                 
@@ -728,7 +728,7 @@
 
 
                     getWhatYouLearn();
-                    var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
+                    var sectionnamedata = $("#coureditsectionList").children("ul").children("li").children('div').children(".nestable-content").children(".media-body").children(".media").children(".media-body").children(".heading").map(function () {
                         return $(this).attr("id");
 
 

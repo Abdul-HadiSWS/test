@@ -51,17 +51,20 @@
                                 <a title="Edit Course" href="@Url.Action("CourseUpdate", "Admin", new { id =   que.Replace('/', '$') })"
                                    class="btn btn-white w-25"><i class="material-icons">create</i></a>
                                 <button title="Delete Course"
-                                   class="btn btn-white w-25" onclick="deleteCourse(@item.CourseId)"><i class="material-icons">delete</i></button>
-                                <button  title="Mark As Featured"
-                                   class="btn btn-white w-25 featcheckbox" data-id="@item.CourseId">
+                                        class="btn btn-white w-25" onclick="deleteCourse(@item.CourseId)">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                                <button title="Mark As Featured"
+                                        class="btn btn-white w-25 featcheckbox" data-id="@item.CourseId">
                                     @{ if (item.IsFeatured == true)
                                         {
-                                            <input id="check" type="checkbox" checked />
 
+                                            <i class="material-icons text-primary">check_box</i>
                                         }
                                         else
                                         {
-                                            <input id="check" type="checkbox" />}
+                                            <i class="material-icons">check_box_outline_blank</i>
+                                        }
                                     }
                                 </button>
                             </div>
@@ -78,32 +81,12 @@
 
             <script>
                 $(document).ready(function () {
-                    //check box click on button selection
-                    $(".featcheckbox").click(function (e) {
-                        
-
-                        var check = $(this).children().attr("checked");
-                        console.log(e);
-                        console.log($(this).children());
-                        console.log(check);
-                        
-                        if (check === "checked") {
-                            alert("if")
-                            $(this).children().attr("checked", false);
-                         
-                        }
-                        else {
-                            alert("else")
-                            $(this).children().attr('checked', true);
-                        
-                        }
-                    });
-                    //-----------------//
+                 
 
                     $(".featcheckbox").click(function () {
                
                         var serialNumber = $(this).data('id');
-
+                        var element = $(this);
                         $.ajax({
                             type: "POST",
                             url: "/Admin/MarkFeatureCourse",
@@ -112,7 +95,15 @@
                                 Cid: serialNumber
                             },
                             success: function (response) {
-
+                                var txt = $(element).children().text();
+                                if (txt === "check_box") {
+                                    $(element).children().text("check_box_outline_blank").removeClass("text-primary");
+                                }
+                                else {
+                                    {
+                                        $(element).children().text("check_box").addClass("text-primary");
+                                    }
+                                }
                             },
                             error: function () {
                                 alert(error);

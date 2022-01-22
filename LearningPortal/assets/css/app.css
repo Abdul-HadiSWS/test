@@ -30710,8 +30710,8 @@ code.django .hljs-template-tag {
 }
 /*video modal*/
 .vc-modal {
-    top: 22%;
-    left: 22%;
+    top: 30%;
+    left: 30%;
 }
 
 @media only screen and (max-width: 800px) {

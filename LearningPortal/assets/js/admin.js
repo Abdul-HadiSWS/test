@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(function () {
-
+    
     var categoryId = $("#CategoryId").val();
     var subcategoryId = $("#SubCategoryId").val();
     var search = $("#searchText").val();

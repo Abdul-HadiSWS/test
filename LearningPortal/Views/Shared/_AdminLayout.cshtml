@@ -94,7 +94,7 @@
                         <button class="navbar-toggler d-block" data-toggle="sidebar" type="button">
                             <span class="material-icons">menu</span>
                         </button>
-                       
+
                         <!-- Brand -->
                         <a href="@Url.Action("AddCourse", "Admin")"
                            class="navbar-brand">
@@ -127,7 +127,21 @@
         <div id="modalWrapperDelete"> </div>
         <div id="modalWrapperEdit"></div>
         <div id="modalWrapperDeleteCourse"></div>
+        <div class="modal fade" id="exampleModal" style="height:100vh;width:100vw">
+            <div class="modal-dialog vc-modal m-0">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-vc">
 
+                        <button type="button" class="close ml-2" data-dismiss="modal" id="close">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <video id="vemvo-player" controls width="100%" height="100%" src="~/assets/">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- Header Layout Content -->
@@ -182,6 +196,11 @@
                 preloader.fadeOut(preloaderFadeOutTime);
             }
             hidePreloader();
+            $("#close").click(function () {
+        $('#exampleModal').modal('hide');
+        $("#vemvo-player").trigger('pause');
+       
+    });
         })
     </script>
     <!-- Bootstrap -->

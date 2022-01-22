@@ -1678,13 +1678,16 @@ namespace LearningPortal.Controllers
         public ActionResult DeleteDir(string DirName, string Filename, string check)
         {
 
+            string delRootFile;
             if (check != "update")
             {
                 check = "videos";
+                delRootFile = Server.MapPath(string.Format("~/assets/{0}/{1}", check, root));
             }
             else
             {
                 check = "temp";
+                delRootFile = Server.MapPath(string.Format("~/assets/{0}/{1}", check, root));
             }
 
             if (root == DirName)
@@ -1709,6 +1712,7 @@ namespace LearningPortal.Controllers
                 {
 
                     string SUBfolder = Server.MapPath(string.Format("~/assets/{0}/{1}/{2}", check, root, DirName));
+
                     if (Directory.Exists(SUBfolder))
                     {
                         string[] Filenames = Directory.GetFiles(SUBfolder);
@@ -1717,6 +1721,7 @@ namespace LearningPortal.Controllers
                             System.IO.File.Delete(item);
                         }
                         Directory.Delete(SUBfolder);
+
                     }
                     else
                     {
@@ -1725,8 +1730,13 @@ namespace LearningPortal.Controllers
                     }
                 }
             }
+            if (Directory.GetDirectories(delRootFile).Length == 0)
+            {
 
-            return RedirectToAction("");
+                Directory.Delete(delRootFile);
+
+            }
+            return RedirectToAction("CourseEdit");
         }
         [HttpPost]
         public ActionResult EditSubName(string newname, string oldname, string editfile, string check)
