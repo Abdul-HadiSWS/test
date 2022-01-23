@@ -203,7 +203,7 @@
 
 
 
-    //what you will learn
+
     function getWhatYouLearn() {
         var TA = $(".TA").children().attr("class");
 
@@ -711,7 +711,7 @@
         var CourseTitle = $("#CourseTitle").val();
         var CourseDesc = $("#CourseDescription").val();
 
-        
+
         $.ajax({
             type: "Post",
             url: "/Admin/AddDesc",
@@ -782,7 +782,6 @@
                     }
                     else {
                         if (CourseName != "" && CourseDesc != "" && courseYear != "" && categoryId != "" && subcategoryId != "" && courseLevel != "" && coursepic != "") {
-<<<<<<< HEAD
                             if (courseYear >= 2000 && courseYear <= 2050) {
                                 $.ajax({
                                     url: '/Admin/InsertCourse',
@@ -814,69 +813,6 @@
                             } else {
                                 alert("Year Should be Greater then 2000 and Less then 2050");
                             }
-||||||| 18972dd
-                            console.log(courseYear);
-                            $.ajax({
-                                url: '/Admin/InsertCourse',
-
-                                data: {
-                                    CourseName: CourseName,
-                                    CourseDesc: CourseDesc,
-                                    courseYear: courseYear,
-                                    categoryId: categoryId,
-                                    subcategoryId: subcategoryId,
-                                    courseLevel: courseLevel,
-                                    coursepic: coursepic,
-                                    sectionnamedata: JSON.stringify(sectionnamedata),
-                                    sectionfiledata: JSON.stringify(sectionfiledata),
-                                    sectionfileduration: JSON.stringify(sectionfileduration)
-
-
-                                },
-                                success: function (result) {
-                                    alert("Course Added Successfully");
-
-                                    window.location.href = '/Admin/AddCourse';
-
-                                },
-                                error: function (err) {
-                                    alert(err.statusText);
-                                }
-                            });
-=======
-                            console.log(courseYear);
-                            if (courseYear >= 2000 && courseYear <= 2050) {
-                                $.ajax({
-                                    url: '/Admin/InsertCourse',
-
-                                    data: {
-                                        CourseName: CourseName,
-                                        CourseDesc: CourseDesc,
-                                        courseYear: courseYear,
-                                        categoryId: categoryId,
-                                        subcategoryId: subcategoryId,
-                                        courseLevel: courseLevel,
-                                        coursepic: coursepic,
-                                        sectionnamedata: JSON.stringify(sectionnamedata),
-                                        sectionfiledata: JSON.stringify(sectionfiledata),
-                                        sectionfileduration: JSON.stringify(sectionfileduration)
-
-
-                                    },
-                                    success: function (result) {
-                                        alert("Course Added Successfully");
-
-                                        window.location.href = '/Admin/AddCourse';
-
-                                    },
-                                    error: function (err) {
-                                        alert(err.statusText);
-                                    }
-                                });
-                            } else {
-                                alert("year shoulb be < 2000");
-                            }
->>>>>>> af5fb50bfc4ea5433855c9bf1154fb7f39706b03
                         }
                         else {
                             alert("Please fill All Values");
